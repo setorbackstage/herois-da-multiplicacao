@@ -1,0 +1,1584 @@
+/* book_styles.css - High-End Printable & Interactive A4 Layout */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #64748B;
+  color: #1E293B;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  margin: 0;
+}
+
+.page {
+  width: 210mm;
+  height: 297mm;
+  min-height: 297mm;
+  max-height: 297mm;
+  background: #FFFFFF;
+  position: relative;
+  page-break-after: always;
+  break-after: page;
+  padding: 11mm 13mm 10mm 13mm;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
+  margin-bottom: 25px;
+}
+
+@media print {
+  body {
+    background: transparent;
+    padding: 0;
+  }
+  .page {
+    box-shadow: none;
+    margin: 0;
+    width: 210mm;
+    height: 297mm;
+    max-height: 297mm;
+  }
+}
+
+/* ---------------- TOP BAR & CRONÔMETRO ---------------- */
+.page-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 6px;
+  border-bottom: 2.5px solid #E2E8F0;
+  margin-bottom: 7px;
+}
+
+.top-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-mini-logo {
+  height: 44px;
+  object-fit: contain;
+}
+
+.top-book-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-vol {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #64748B;
+}
+
+.meta-num {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.hero-timer-box {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #0284C7;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #F8FAFC;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.timer-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: #FFFFFF;
+  padding: 3px 12px;
+  text-align: center;
+}
+
+.timer-fields {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px;
+}
+
+.t-field {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.t-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #475569;
+}
+
+.t-line {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #334155;
+  background: #FFFFFF;
+  padding: 2px 6px;
+  border-radius: 5px;
+  border: 1.5px dashed #CBD5E1;
+}
+
+.t-line.highlight {
+  color: #DC2626;
+  border-color: #F87171;
+  background: #FEF2F2;
+}
+
+/* ---------------- PAGE BANNER ---------------- */
+.page-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #F8FAFC;
+  border-left: 7px solid #0284C7;
+  padding: 7px 12px;
+  border-radius: 0 10px 10px 0;
+  margin-bottom: 9px;
+}
+
+.page-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  line-height: 1.15;
+}
+
+.page-subtitle {
+  font-size: 11.5px;
+  color: #64748B;
+  font-weight: 600;
+  margin-top: 1px;
+}
+
+.banner-badge {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #FFFFFF;
+  padding: 4px 14px;
+  border-radius: 20px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+  white-space: nowrap;
+}
+
+.worksheet-instruction {
+  background: #EFF6FF;
+  border: 1.5px solid #BFDBFE;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: #1E3A8A;
+  margin-bottom: 10px;
+}
+
+/* ---------------- MICRO-STEPS GRID (PÁGINAS A e B) ---------------- */
+.micro-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+  flex: 1;
+  min-height: 0;
+}
+
+.micro-step-card {
+  border: 2px solid #E2E8F0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+}
+
+.step-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  color: #FFFFFF;
+}
+
+.step-badge {
+  background: #FFFFFF;
+  color: #0F172A;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.step-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.equations-col {
+  padding: 8px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 1;
+  gap: 5px;
+}
+
+.equation-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 8px;
+  background: #F8FAFC;
+  border-radius: 8px;
+  border: 1.5px solid #EDF2F7;
+}
+
+.eq-num {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0F172A;
+  width: 24px;
+  text-align: center;
+}
+
+.eq-op {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: #EA580C;
+}
+
+.eq-eq {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #64748B;
+}
+
+.eq-box {
+  width: 46px;
+  height: 36px;
+  background: #FFFFFF;
+  border: 2px solid #94A3B8;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0284C7;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
+}
+
+/* ---------------- INVASÃO SURPRESA ---------------- */
+.invasion-box {
+  border: 2px solid #0284C7;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 9px;
+  background: #F8FAFC;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+.invasion-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  color: #FFFFFF;
+}
+
+.inv-icon {
+  font-size: 15px;
+}
+
+.inv-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+}
+
+.inv-desc {
+  font-size: 10.5px;
+  opacity: 0.95;
+  margin-left: auto;
+}
+
+.invasion-items-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 12px;
+  background: #FFFFFF;
+  gap: 10px;
+}
+
+.invasion-eq-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #FEF3C7;
+  border: 2px solid #F59E0B;
+  border-radius: 8px;
+  padding: 5px 10px;
+}
+
+.inv-num {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #92400E;
+}
+
+.inv-box {
+  width: 42px;
+  height: 32px;
+  background: #FFFFFF;
+  border: 2px solid #F59E0B;
+  border-radius: 6px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* ---------------- BOTTOM META ---------------- */
+.worksheet-bottom-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 7px;
+  margin-top: 6px;
+  border-top: 1.5px solid #E2E8F0;
+  font-size: 10px;
+  color: #64748B;
+}
+
+.mascot-tip {
+  font-weight: 600;
+  color: #334155;
+}
+
+.pg-id {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+/* ---------------- PÁGINA C: O CHEFÃO DO NÚMERO ---------------- */
+.boss-showdown-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.boss-monster-card {
+  flex: 1.7;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #FAF5FF;
+  border: 2.5px solid #C084FC;
+  border-radius: 12px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 10px rgba(192, 132, 252, 0.15);
+}
+
+.boss-monster-img {
+  height: 85px;
+  object-fit: contain;
+}
+
+.boss-speech-bubble {
+  flex: 1;
+  background: #FFFFFF;
+  border: 2px solid #E9D5FF;
+  border-radius: 10px;
+  padding: 7px 11px;
+  position: relative;
+}
+
+.speech-who {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #7E22CE;
+  margin-bottom: 2px;
+}
+
+.boss-speech-bubble p {
+  font-size: 11px;
+  font-style: italic;
+  color: #4A044E;
+  line-height: 1.3;
+}
+
+.boss-stats-card {
+  flex: 1;
+  border: 2px solid #0284C7;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #F8FAFC;
+  display: flex;
+  flex-direction: column;
+}
+
+.stats-badge {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #FFFFFF;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+.stats-rules {
+  padding: 7px 10px;
+  font-size: 10.5px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: #334155;
+  justify-content: space-around;
+  flex: 1;
+}
+
+.boss-equations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+
+.boss-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 4px;
+}
+
+.boss-equation-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4.5px 9px;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 8px;
+}
+
+.b-index {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #94A3B8;
+  width: 18px;
+}
+
+.b-num {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  color: #0F172A;
+  width: 24px;
+  text-align: center;
+}
+
+.b-op {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #EA580C;
+}
+
+.b-eq {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: #64748B;
+}
+
+.boss-box {
+  width: 46px;
+  height: 34px;
+  background: #FFFFFF;
+  border: 2px solid #94A3B8;
+  border-radius: 7px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
+}
+
+.boss-victory-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 2px solid #16A34A;
+  border-radius: 10px;
+  padding: 7px 12px;
+  background: #F0FDF4;
+  margin-top: 8px;
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.12);
+}
+
+.victory-trophy {
+  font-size: 28px;
+}
+
+.victory-text {
+  flex: 1;
+}
+
+.victory-text strong {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.victory-text p {
+  font-size: 10.5px;
+  color: #166534;
+  margin-top: 1px;
+}
+
+.victory-stamp {
+  border: 2px dashed #16A34A;
+  border-radius: 7px;
+  padding: 4px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #DCFCE7;
+}
+
+.victory-stamp span {
+  font-size: 8.5px;
+  font-weight: 800;
+  color: #166534;
+}
+
+.victory-stamp strong {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #15803D;
+}
+
+/* ---------------- MEGA BATALHAS ---------------- */
+.mega-hero-callout {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 2px solid #D97706;
+  border-radius: 12px;
+  padding: 7px 12px;
+  background: #FFFBEB;
+  margin-bottom: 9px;
+}
+
+.mega-mascot-img {
+  height: 75px;
+  object-fit: contain;
+}
+
+.mega-callout-text {
+  flex: 1;
+}
+
+.mega-badge {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: #FFFFFF;
+  padding: 3px 9px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
+.mega-callout-text p {
+  font-size: 10.5px;
+  color: #92400E;
+  line-height: 1.3;
+}
+
+.mega-target-box {
+  border: 2px solid #D97706;
+  border-radius: 8px;
+  background: #FFFFFF;
+  padding: 5px 12px;
+  text-align: center;
+}
+
+.m-t-title {
+  font-size: 9px;
+  font-weight: 800;
+  color: #D97706;
+  display: block;
+}
+
+.m-t-score {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.battle-grid-3cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  flex: 1;
+  min-height: 0;
+}
+
+.battle-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 3px;
+}
+
+.battle-eq-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3.5px 7px;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 6px;
+}
+
+.bat-idx {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #94A3B8;
+  width: 18px;
+}
+
+.bat-eq {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.bat-box {
+  width: 42px;
+  height: 28px;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 5px;
+}
+
+.mega-footer-banner {
+  color: #FFFFFF;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  text-align: center;
+  padding: 5px;
+  border-radius: 7px;
+  margin-top: 6px;
+}
+
+/* ---------------- BATALHA ÉPICA ---------------- */
+.epic-hero-callout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 2px solid #7C3AED;
+  border-radius: 12px;
+  padding: 7px 11px;
+  background: #FAF5FF;
+  margin-bottom: 9px;
+}
+
+.epic-pencil-img {
+  height: 80px;
+  object-fit: contain;
+}
+
+.epic-monster-img {
+  height: 70px;
+  object-fit: contain;
+}
+
+.epic-callout-text {
+  flex: 1;
+}
+
+.epic-badge {
+  background: #7C3AED;
+  color: #FFFFFF;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
+.epic-callout-text p {
+  font-size: 10.5px;
+  color: #581C87;
+  line-height: 1.3;
+}
+
+.epic-victory-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 2px solid #7C3AED;
+  border-radius: 9px;
+  padding: 7px 12px;
+  background: #F3E8FF;
+  margin-top: 6px;
+}
+
+.epic-trophy-gold {
+  font-size: 28px;
+}
+
+.epic-victory-text strong {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #6B21A8;
+  display: block;
+}
+
+.epic-victory-text p {
+  font-size: 10px;
+  color: #4C1D95;
+}
+
+/* ---------------- PÁGINA 1: CAPA OFICIAL ---------------- */
+.page-cover {
+  padding: 0;
+  background: #000;
+  position: relative;
+}
+
+.cover-image-wrap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.cover-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cover-overlay-box {
+  position: absolute;
+  bottom: 23mm;
+  left: 14mm;
+  right: 14mm;
+  z-index: 10;
+}
+
+.cover-info-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 3px solid #F59E0B;
+  border-radius: 12px;
+  padding: 10px 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-hero-row {
+  display: flex;
+  gap: 12px;
+}
+
+.card-hero-row.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.input-group label {
+  display: block;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #1E3A8A;
+  margin-bottom: 2px;
+}
+
+.fill-line {
+  border-bottom: 2px dashed #94A3B8;
+  height: 22px;
+  background: #F8FAFC;
+  border-radius: 5px;
+}
+
+/* ---------------- PÁGINA 2: MANUAL DO GUARDIÃO ---------------- */
+.page-guide {
+  gap: 8px;
+}
+
+.guide-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-bottom: 2.5px solid #E2E8F0;
+  padding-bottom: 6px;
+}
+
+.guide-logo {
+  height: 52px;
+  object-fit: contain;
+  margin-bottom: 3px;
+}
+
+.guide-main-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #0284C7;
+  letter-spacing: 0.5px;
+}
+
+.guide-intro {
+  font-size: 12px;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.guide-mascots-intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: #EFF6FF;
+  border: 2px solid #93C5FD;
+  border-radius: 12px;
+  padding: 8px 14px;
+}
+
+.guide-mascot-img {
+  height: 80px;
+  object-fit: contain;
+}
+
+.guide-welcome-bubble {
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: #1E40AF;
+  flex: 1;
+}
+
+.guide-rules-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.guide-card {
+  border: 1.5px solid #CBD5E1;
+  border-left: 5px solid #0284C7;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #F8FAFC;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.guide-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.guide-card-badge {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.guide-card-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.guide-card-desc {
+  font-size: 10.5px;
+  color: #475569;
+  line-height: 1.35;
+}
+
+.guide-footer-banner {
+  background: #FEF3C7;
+  border: 2px solid #F59E0B;
+  border-radius: 9px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-badge {
+  background: #D97706;
+  color: #FFFFFF;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.guide-footer-banner p {
+  font-size: 10.5px;
+  color: #78350F;
+  font-weight: 600;
+}
+
+/* ---------------- PÁGINA 3: MAPA DE CONQUISTAS ---------------- */
+.page-tracker {
+  gap: 7px;
+}
+
+.tracker-header {
+  border-bottom: 2.5px solid #E2E8F0;
+  padding-bottom: 6px;
+}
+
+.tracker-header .top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tracker-logo {
+  height: 46px;
+  object-fit: contain;
+}
+
+.tracker-badge-vol {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #0284C7;
+  background: #E0F2FE;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.tracker-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-top: 3px;
+}
+
+.tracker-subtitle {
+  font-size: 11.5px;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.tracker-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+  flex: 1;
+  padding: 6px 0;
+}
+
+.tracker-shield-card {
+  border: 2px solid var(--badge-color);
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #FFFFFF;
+  text-align: center;
+  justify-content: space-between;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+}
+
+.shield-badge-top {
+  width: 95%;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  color: #FFFFFF;
+  padding: 2px 4px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.shield-icon-wrap {
+  position: relative;
+  width: 95px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2px 0;
+}
+
+.shield-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.shield-star-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  font-size: 16px;
+}
+
+.shield-bottom-info {
+  width: 100%;
+}
+
+.shield-boss-name {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.shield-action-hint {
+  font-size: 8px;
+  font-weight: 700;
+  color: #D97706;
+  margin-bottom: 2px;
+}
+
+.shield-stamp-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background: #F8FAFC;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 8px;
+  border: 1px solid #E2E8F0;
+}
+
+.shield-stamp-row span {
+  color: #64748B;
+}
+
+.shield-stamp-row b {
+  color: #0F172A;
+}
+
+.tracker-footer-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #EFF6FF;
+  border: 2px solid #93C5FD;
+  border-radius: 10px;
+  padding: 6px 12px;
+}
+
+.tracker-mascot-img {
+  height: 60px;
+  object-fit: contain;
+}
+
+.tracker-pencil-img {
+  height: 70px;
+  object-fit: contain;
+}
+
+.tracker-footer-text strong {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #1E40AF;
+  display: block;
+}
+
+.tracker-footer-text p {
+  font-size: 10px;
+  color: #1E3A8A;
+  line-height: 1.3;
+}
+
+/* ---------------- GABARITO SECRETO ---------------- */
+.page-gabarito {
+  gap: 7px;
+}
+
+.gabarito-header {
+  border-bottom: 2.5px solid #E2E8F0;
+  padding-bottom: 5px;
+}
+
+.gabarito-brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gabarito-logo {
+  height: 38px;
+  object-fit: contain;
+}
+
+.gabarito-confidential-stamp {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 9.5px;
+  font-weight: 800;
+  background: #FEE2E2;
+  color: #DC2626;
+  border: 1.5px dashed #DC2626;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+
+.gabarito-main-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-top: 2px;
+}
+
+.gabarito-desc {
+  font-size: 10px;
+  color: #64748B;
+}
+
+.gabarito-sections-container {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.gabarito-tabuada-card {
+  border: 2px solid #CBD5E1;
+  border-top-width: 5px;
+  border-radius: 9px;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+
+.gabarito-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3.5px 10px;
+  color: #FFFFFF;
+}
+
+.g-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+}
+
+.g-pages {
+  font-size: 9.5px;
+  font-weight: 700;
+  opacity: 0.95;
+}
+
+.gabarito-subsections {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.25fr;
+  gap: 7px;
+  padding: 7px;
+  background: #F8FAFC;
+}
+
+.g-sub {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 7px;
+  padding: 5px;
+}
+
+.g-sub-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #0284C7;
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 2px;
+  margin-bottom: 3px;
+}
+
+.g-answers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5px;
+  font-size: 9px;
+}
+
+.g-pill {
+  padding: 1.5px 3.5px;
+  background: #F1F5F9;
+  border-radius: 3px;
+}
+
+.g-pill b {
+  color: #0284C7;
+}
+
+.g-inv-title {
+  font-size: 8.5px;
+  font-weight: 800;
+  color: #D97706;
+  margin-top: 3px;
+}
+
+.g-inv-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5px;
+  font-size: 8.5px;
+}
+
+.g-pill-inv {
+  padding: 1.5px 3.5px;
+  background: #FEF3C7;
+  border-radius: 3px;
+}
+
+.g-pill-inv b {
+  color: #B45309;
+}
+
+.g-boss-answers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5px;
+  font-size: 9px;
+}
+
+.g-pill-boss {
+  padding: 1.5px 3.5px;
+  background: #FAF5FF;
+  border-radius: 3px;
+}
+
+.g-pill-boss b {
+  color: #7E22CE;
+}
+
+/* Gabarito Batalhas */
+.battle-gabarito-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.battle-gabarito-card {
+  border: 2px solid #CBD5E1;
+  border-radius: 9px;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+
+.battle-g-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #FFFFFF;
+  background: #0F172A;
+  padding: 3.5px 9px;
+}
+
+.battle-g-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3.5px;
+  padding: 5px;
+  background: #F8FAFC;
+}
+
+.b-g-pill {
+  font-size: 9px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 4px;
+  padding: 2.5px 4.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.b-g-idx {
+  color: #94A3B8;
+  font-weight: 700;
+}
+
+.b-g-calc strong {
+  color: #0284C7;
+}
+
+/* ---------------- PÁGINA 43: CERTIFICADO OFICIAL ---------------- */
+.page-certificate {
+  padding: 9mm;
+  background: #FCFBF7;
+}
+
+.cert-outer-border {
+  border: 6px solid #D97706;
+  border-radius: 14px;
+  height: 100%;
+  padding: 4px;
+  background: #FFFFFF;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(217, 119, 6, 0.15);
+}
+
+.cert-inner-border {
+  border: 2px solid #FDE68A;
+  border-radius: 10px;
+  height: 100%;
+  padding: 9mm 12mm 7mm 12mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  background: radial-gradient(circle at center, #FFFFFF 65%, #FFFBEB 100%);
+}
+
+.cert-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cert-logo {
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 3px;
+}
+
+.cert-order-label {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #92400E;
+  margin-bottom: 2px;
+}
+
+.cert-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 25px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.cert-vol-badge {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: #B45309;
+  background: #FEF3C7;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-top: 3px;
+  border: 1px solid #FDE68A;
+}
+
+.cert-body {
+  margin: 6px 0;
+  width: 100%;
+}
+
+.cert-text {
+  font-size: 13px;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.cert-name-field {
+  width: 85%;
+  margin: 0 auto 10px auto;
+}
+
+.cert-name-line {
+  border-bottom: 3px solid #0F172A;
+  height: 36px;
+  margin-bottom: 3px;
+}
+
+.cert-name-sub {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #D97706;
+}
+
+.cert-desc {
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #334155;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.cert-proclamation {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #1E40AF;
+  background: #EFF6FF;
+  border: 2px dashed #93C5FD;
+  border-radius: 10px;
+  padding: 6px 14px;
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.cert-mascots-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+  margin: 6px 0;
+}
+
+.cert-mascot {
+  height: 80px;
+  object-fit: contain;
+}
+
+.cert-mascot.center {
+  height: 95px;
+}
+
+.gold-seal {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F59E0B, #D97706, #B45309);
+  padding: 4px;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.4);
+}
+
+.seal-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1.5px dashed #FEF3C7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+.seal-star {
+  font-size: 12px;
+  color: #FEF3C7;
+}
+
+.seal-txt {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.seal-sub {
+  font-size: 7.5px;
+  font-weight: 700;
+}
+
+.seal-year {
+  font-size: 7.5px;
+  color: #FEF3C7;
+}
+
+.cert-footer-signatures {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: 14px;
+  width: 90%;
+  margin-top: 6px;
+}
+
+.sig-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sig-line {
+  width: 100%;
+  border-bottom: 2px solid #0F172A;
+  height: 22px;
+  margin-bottom: 3px;
+}
+
+.sig-label {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 8px;
+  font-weight: 800;
+  color: #64748B;
+  letter-spacing: 0.5px;
+}

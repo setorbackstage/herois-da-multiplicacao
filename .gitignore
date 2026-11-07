@@ -1,0 +1,13 @@
+node_modules/
+*.log
+temp_*
+test_*
+snap_*
+preview_*
+crop_*
+make_*
+encode_assets.js
+autocrop_assets.js
+capture_clean_previews.js
+curriculum.json
+package-lock.json
