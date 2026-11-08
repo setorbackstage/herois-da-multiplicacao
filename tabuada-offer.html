@@ -46,6 +46,18 @@
     --white: #FFFFFF;
     
     /* Textos & Bordas */
+  
+  /* Proteção Anti-Cópia & Anti-Clonagem */
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  img {
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
     --ink-title: #1B2A4A;
     --ink-body: #334155;
     --ink-muted: #64748B;
@@ -2896,7 +2908,7 @@
       <!-- Card 6: Mãe e Filho Estudando Sem Estresse -->
       <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
         <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 0; text-align: center; height: 288px; overflow: hidden;">
-          <img src="tabuada-assets/mother_and_child_doing_math_51028b1d_2k.jpg" alt="Mãe e filho felizes estudando matemática" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="tabuada-assets/mae_brasileira_filtro_barro_2.jpg" alt="Mãe e filho felizes estudando matemática" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
         <div class="gallery-card-body" style="padding: 20px;">
           <span style="font-size: 11px; font-weight: 800; background: #E0E7FF; color: #3730A3; padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">Paz na Rotina</span>
@@ -3261,8 +3273,8 @@
   // Cole abaixo as URLs geradas no seu painel ggCheckout:
   // Exemplo: "https://app.ggcheckout.com/c/tabuada-10"
   // ====================================================================
-  const CHECKOUT_BASIC_URL = "https://ggcheckout.app/checkout/X7MW1ajXduVAyxH95jw6lT";
-  const CHECKOUT_PREMIUM_URL = "https://ggcheckout.app/checkout/buJIuO7Th5tjHRGQB8dIQ8";
+  const CHECKOUT_BASIC_URL = "https://ggcheckout.com/checkout/X7MW1ajXduVAyxH95jw6lT";
+  const CHECKOUT_PREMIUM_URL = "https://ggcheckout.com/checkout/buJIuO7Th5tjHRGQB8dIQ8";
 
   /**
    * Preserva automaticamente parâmetros de rastreamento (UTMs, SRC, fbclid)
@@ -3587,6 +3599,55 @@
       box.appendChild(btn);
     });
   }
+
+  // =========================================================================
+  // SISTEMA DE PROTEÇÃO ANTI-CLONAGEM & ANTI-SCRAPING (HERÓIS DA MULTIPLICAÇÃO)
+  // =========================================================================
+  (function() {
+    // 1. Desabilita menu de contexto (botão direito) em imagens e na página
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+      }
+    }, false);
+
+    // 2. Bloqueia atalhos de desenvolvedor e visualização de código-fonte
+    document.addEventListener('keydown', function(e) {
+      // F12
+      if (e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+I (Inspecionar), Ctrl+Shift+J (Console), Ctrl+Shift+C (Elemento)
+      if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+U (Ver código-fonte)
+      if (e.ctrlKey && e.keyCode === 85) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+S (Salvar página)
+      if (e.ctrlKey && e.keyCode === 83) {
+        e.preventDefault();
+        return false;
+      }
+    }, false);
+
+    // 3. Impede arrastar imagens para a área de trabalho
+    document.addEventListener('dragstart', function(e) {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+      }
+    }, false);
+
+    // 4. Aviso de copyright nos logs do console
+    try {
+      console.log("%c⚡ HERÓIS DA MULTIPLICAÇÃO® — MATERIAL REGISTRADO", "color: #713D9D; font-size: 20px; font-weight: 800; padding: 10px;");
+      console.log("%cAVISO LEGAL: Todo o conteúdo desta página, metodologias pedagógicas, marca e aplicação interativa estão registrados e protegidos pela Lei de Direitos Autorais (Lei nº 9.610/1998). A clonagem, cópia ou distribuição não autorizada é passível de medidas judiciais imediatas.", "color: #bd2b24; font-size: 13px; font-weight: 600;");
+    } catch(err) {}
+  })();
 </script>
 
 </body>

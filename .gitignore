@@ -11,4 +11,7 @@ test_*.png
 
 .agents/
 mcp_config.json
+midias/
+*.mp4
+duolingo_tabuada.html
 
