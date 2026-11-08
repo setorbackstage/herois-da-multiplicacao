@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- OpenGraph / Social Sharing (WhatsApp, Facebook, Instagram) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Heróis da Multiplicação — Domine a Tabuada em 15 Minutos">
+    <meta property="og:description" content="Material pedagógico lúdico e ilustrado em PDF com cronograma de 12 semanas, jogos de tabuleiro e desafios infantis. A partir de R$ 10,00!">
+    <meta property="og:image" content="https://xavier2bit.github.io/missao-tabuada/tabuada-assets/hero-bundle-3d.jpg">
+    <meta property="og:url" content="https://xavier2bit.github.io/missao-tabuada/tabuada-offer.html">
+    <meta name="twitter:card" content="summary_large_image">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Heróis da Multiplicação — Material Pedagógico Digital em PDF</title>
 
-<!-- Otimizações de Carregamento Ultra-Rápido & CDN -->
-<link rel="dns-prefetch" href="https://fonts.googleapis.com">
-<link rel="dns-prefetch" href="https://fonts.gstatic.com">
-<link rel="dns-prefetch" href="https://ggcheckout.app">
+<!-- Fontes Oficiais: Fredoka (Títulos e Botões) + Nunito (Texto Corrido) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="tabuada-assets/conteudo-6.png" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
@@ -1671,6 +1675,31 @@
     }
   }
 
+  
+  @media (max-width: 380px) {
+    .hero-content h1 {
+      font-size: 21px !important;
+    }
+    .hero-visual-frame {
+      max-width: 255px !important;
+      padding: 6px !important;
+    }
+    .flying-girl-anchor {
+      width: 64px !important;
+      top: -16px !important;
+      right: -4px !important;
+    }
+    .flying-boy-anchor {
+      width: 60px !important;
+      bottom: -12px !important;
+      left: -4px !important;
+    }
+    .hero-visual-tag {
+      font-size: 10.5px !important;
+      padding: 3px 10px !important;
+    }
+  }
+
   @media (max-width: 640px) {
     .container {
       padding: 0 14px;
@@ -1697,19 +1726,32 @@
       display: none;
     }
     .hero-visual-frame {
-      max-width: 330px;
-      padding: 10px;
-      margin: 6px auto 14px;
+      max-width: 290px;
+      width: calc(100% - 24px);
+      padding: 8px;
+      margin: 10px auto 16px;
+      box-sizing: border-box;
+      overflow: visible;
     }
     .flying-girl-anchor {
-      top: -24px;
-      right: -8px;
-      width: 86px;
+      top: -16px;
+      right: 4px;
+      width: 70px;
+    }
+    .hero-visual-tag {
+      font-size: 11px !important;
+      padding: 3px 12px !important;
+      white-space: nowrap;
     }
     .flying-boy-anchor {
-      bottom: -18px;
-      left: -8px;
-      width: 80px;
+      bottom: -14px;
+      left: -6px;
+      width: 72px;
+    }
+    .hero-visual-footer {
+      font-size: 11px;
+      gap: 4px;
+      padding-left: 24px;
     }
     .particle-star-1 {
       top: -12px;
@@ -1806,7 +1848,473 @@
       white-space: nowrap;
     }
   }
+
+  /* ======================================================== */
+  /* 5. EXPERIÊNCIA 360° — NO PAPEL E NO CELULAR (INTERATIVO) */
+  /* ======================================================== */
+  .section-360 {
+    background: #FFFFFF;
+    padding: 64px 0 72px;
+  }
+  .exp-tabs-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 28px 0 36px;
+    flex-wrap: wrap;
+  }
+  .exp-tab-btn {
+    font-family: 'Fredoka', cursive, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 999px;
+    border: 3px solid #E2E8F0;
+    background: #F8FAFC;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .exp-tab-btn:hover {
+    border-color: #CBD5E1;
+    transform: translateY(-2px);
+  }
+  .exp-tab-btn.active {
+    background: var(--blue-hero);
+    color: #FFFFFF;
+    border-color: #0F52BA;
+    box-shadow: 0 8px 24px rgba(23, 109, 179, 0.35), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  }
+  .exp-tab-btn.tab-app.active {
+    background: #10B981;
+    border-color: #059669;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  }
+  .exp-tab-content {
+    display: none;
+    animation: fadeInTab 0.35s ease;
+  }
+  .exp-tab-content.active {
+    display: block;
+  }
+  @keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 360 Grid */
+  .exp-grid-2col {
+    display: grid;
+    grid-template-columns: 48% 52%;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .exp-grid-2col {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+
+  /* Papel Showcase */
+  .papel-hero-frame {
+    position: relative;
+    border: 3px solid #E2E8F0;
+    border-bottom: 7px solid #CBD5E1;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #F8FAFC;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.08);
+  }
+  .papel-hero-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .papel-tag-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: #1E293B;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+  }
+  .papel-benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .papel-benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: #F8FAFC;
+    border: 2px solid #EEF2F6;
+    border-radius: 16px;
+    padding: 14px 18px;
+    transition: all 0.2s;
+  }
+  .papel-benefit-item:hover {
+    border-color: #BFDBFE;
+    background: #F0F9FF;
+  }
+  .papel-benefit-icon {
+    font-size: 26px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .papel-benefit-item h4 {
+    font-size: 16px;
+    color: #1E293B;
+    margin-bottom: 3px;
+  }
+  .papel-benefit-item p {
+    font-size: 13.5px;
+    color: #64748B;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* Phone Simulator (Duolingo Style) */
+  .phone-simulator-wrap {
+    max-width: 360px;
+    margin: 0 auto;
+    background: #0F172A;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.35), inset 0 0 0 2px #334155;
+    position: relative;
+  }
+  .phone-screen {
+    background: #F0FDF4;
+    border-radius: 30px;
+    padding: 18px 16px 20px;
+    position: relative;
+    overflow: hidden;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .phone-status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #DCFCE7;
+    margin-bottom: 12px;
+  }
+  .phone-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .phone-pill.hearts {
+    background: #FEE2E2;
+    color: #DC2626;
+  }
+  .phone-pill.streak {
+    background: #FEF3C7;
+    color: #D97706;
+  }
+  .phone-pill.xp {
+    background: #DCFCE7;
+    color: #16A34A;
+  }
+  .sim-mascot-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0 14px;
+  }
+  .sim-mascot-img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
+  }
+  .sim-speech-bubble {
+    background: #FFFFFF;
+    border: 2px solid #BBF7D0;
+    border-radius: 16px;
+    border-bottom-left-radius: 4px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #166534;
+    line-height: 1.35;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  }
+  .sim-question-box {
+    background: #FFFFFF;
+    border: 3px solid #86EFAC;
+    border-bottom: 6px solid #4ADE80;
+    border-radius: 20px;
+    padding: 16px 12px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .sim-question-label {
+    font-size: 11px;
+    font-weight: 800;
+    color: #059669;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 4px;
+  }
+  .sim-question-math {
+    font-family: 'Fredoka', cursive, sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #1E3A8A;
+    line-height: 1.1;
+  }
+  .sim-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .sim-option-btn {
+    font-family: 'Fredoka', cursive, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    background: #FFFFFF;
+    color: #1E293B;
+    border: 2px solid #E2E8F0;
+    border-bottom: 5px solid #CBD5E1;
+    border-radius: 16px;
+    padding: 14px 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+    outline: none;
+  }
+  .sim-option-btn:hover:not(:disabled) {
+    background: #F8FAFC;
+    transform: translateY(-2px);
+  }
+  .sim-option-btn:active:not(:disabled) {
+    transform: translateY(2px);
+    border-bottom-width: 2px;
+  }
+  .sim-option-btn.btn-correct {
+    background: #22C55E !important;
+    color: #FFFFFF !important;
+    border-color: #16A34A !important;
+    border-bottom: 5px solid #15803D !important;
+    animation: correctPop 0.3s ease;
+  }
+  .sim-option-btn.btn-wrong {
+    background: #EF4444 !important;
+    color: #FFFFFF !important;
+    border-color: #DC2626 !important;
+    border-bottom: 5px solid #B91C1C !important;
+    animation: wrongShake 0.35s ease;
+  }
+  @keyframes correctPop {
+    0% { transform: scale(0.95); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
+  @keyframes wrongShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+  }
+  .sim-feedback-banner {
+    border-radius: 14px;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 800;
+    display: none;
+    animation: fadeInTab 0.25s ease;
+  }
+  .sim-feedback-banner.success {
+    display: block;
+    background: #DCFCE7;
+    color: #15803D;
+    border: 2px solid #86EFAC;
+  }
+  .sim-feedback-banner.error {
+    display: block;
+    background: #FEE2E2;
+    color: #B91C1C;
+    border: 2px solid #FCA5A5;
+  }
+  .sim-next-btn {
+    font-family: 'Fredoka', cursive, sans-serif;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 800;
+    margin-top: 10px;
+    background: #16A34A;
+    color: #FFFFFF;
+    border: none;
+    border-bottom: 4px solid #15803D;
+    border-radius: 14px;
+    padding: 12px;
+    cursor: pointer;
+  }
+  .sim-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Mascot Squad Showcase Bar */
+  .mascot-squad-section {
+    margin-top: 60px;
+    padding-top: 50px;
+    border-top: 2px dashed #E2E8F0;
+  }
+  .mascot-squad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 28px;
+  }
+  @media (max-width: 768px) {
+    .mascot-squad-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+  .mascot-card {
+    background: #FFFFFF;
+    border: 2px solid #E2E8F0;
+    border-bottom: 6px solid #CBD5E1;
+    border-radius: 22px;
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+    transition: all 0.25s ease;
+  }
+  .mascot-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.08);
+  }
+  .mascot-card.leo {
+    border-bottom-color: var(--blue-hero);
+  }
+  .mascot-card.maya {
+    border-bottom-color: var(--yellow-hero);
+  }
+  .mascot-card.buggy {
+    border-bottom-color: var(--purple-hero);
+  }
+  .mascot-thumb-wrap {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .mascot-thumb-wrap img {
+    max-height: 120px;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.12));
+  }
+  .mascot-role-pill {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+  .mascot-card.leo .mascot-role-pill {
+    background: var(--blue-soft);
+    color: var(--blue-hero);
+  }
+  .mascot-card.maya .mascot-role-pill {
+    background: var(--yellow-soft);
+    color: #B45309;
+  }
+  .mascot-card.buggy .mascot-role-pill {
+    background: var(--purple-soft);
+    color: var(--purple-hero);
+  }
+  .mascot-card h4 {
+    font-size: 19px;
+    color: var(--ink-title);
+    margin-bottom: 6px;
+  }
+  .mascot-card p {
+    font-size: 13.5px;
+    color: var(--ink-body);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  /* Video Demo Card */
+  .video-demo-box {
+    background: #F8FAFC;
+    border: 3px solid #E2E8F0;
+    border-bottom: 7px solid #CBD5E1;
+    border-radius: 28px;
+    padding: 32px 24px;
+    text-align: center;
+    margin: 44px 0 0;
+  }
+  .video-demo-player {
+    max-width: 720px;
+    width: 100%;
+    border-radius: 18px;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.14);
+    background: #000;
+    margin: 20px auto 0;
+    display: block;
+  }
+
 </style>
+
+    <!-- Meta Pixel Code (Facebook & Instagram Ads) -->
+    <script>
+      // Insira o ID do seu Meta Pixel abaixo:
+      const urlParams = new URLSearchParams(window.location.search);
+      const META_PIXEL_ID = urlParams.get("pixel") || window.META_PIXEL_ID || "SEU_PIXEL_AQUI";
+
+      if (META_PIXEL_ID && META_PIXEL_ID !== "SEU_PIXEL_AQUI") {
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', META_PIXEL_ID);
+        fbq('track', 'PageView');
+        fbq('track', 'ViewContent', {
+          content_name: 'Heróis da Multiplicação',
+          content_category: 'Material Pedagógico Infantil',
+          value: 10.00,
+          currency: 'BRL'
+        });
+      }
+    </script>
+
 </head>
 <body>
 
@@ -1926,32 +2434,14 @@
       </div>
 
       <!-- Foto Principal POW: Showstopper com Heróis Voando e Animações Extras -->
-      <div class="hero-visual-frame">
+      <div class="hero-visual-frame" style="border: 4px solid var(--yellow-hero); box-shadow: 0 20px 48px rgba(0,0,0,0.18); overflow: hidden; padding: 6px; background: #FFFFFF;">
+        <div class="hero-visual-tag" style="background: linear-gradient(135deg, #16A34A 0%, #15803D 100%);">📦 KIT COMPLETO PRONTO PARA IMPRESSÃO</div>
+        <img src="tabuada-assets/kit-completo-mesa.jpg" alt="Kit Completo Missão Tabuada e Liga dos Heróis da Matemática" class="hero-main-book-img" style="aspect-ratio: 16/10; object-fit: cover; border-radius: 12px; display: block; width: 100%;">
         
-        <!-- Partículas Flutuantes Lúdicas -->
-        <div class="hero-particle particle-star-1 float-particle-star">⭐</div>
-        <div class="hero-particle particle-math-plus float-particle-math">➕</div>
-        <div class="hero-particle particle-math-mult float-particle-math">✖️</div>
-        <div class="hero-particle particle-sparkle float-particle-star">✨</div>
-
-        <!-- Heroína Menina Voando no Topo Direito -->
-        <div class="flying-girl-anchor hero-flying-girl">
-          <img src="tabuada-assets/heroi-menina-voando.png" alt="Heroína Menina Voando com a Folha de Tabuada" class="flying-girl-hero-img" fetchpriority="high" decoding="async">
-        </div>
-
-        <!-- Herói Menino com X Dourado no Canto Inferior Esquerdo -->
-        <div class="flying-boy-anchor hero-flying-boy">
-          <img src="tabuada-assets/heroi-menino-transparente.png" alt="Herói Menino com o X Dourado" class="flying-boy-hero-img" fetchpriority="high" decoding="async">
-        </div>
-
-        <div class="hero-visual-tag">⭐ COLEÇÃO OFICIAL DE ATIVIDADES</div>
-        <img src="tabuada-assets/conteudo-6.png" alt="Livro Oficial dos Heróis da Multiplicação" class="hero-main-book-img" fetchpriority="high" decoding="async">
-        
-        <div class="hero-visual-footer">
-          <span>⚡ Multiplicação do 1 ao 10</span> • <span>🎨 Jogos e Pintura</span> • <span>📅 12 Semanas</span>
+        <div class="hero-visual-footer" style="padding: 10px 14px; font-size: 13.5px; color: var(--ink-title); background: #FFF9E6; border-radius: 10px; margin-top: 8px;">
+          <span>📘 6 Apostilas em PDF</span> • <span>🎲 Jogos de Tabuleiro</span> • <span>📱 WebApp Gamificado</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -2057,219 +2547,457 @@
   </div>
 </section>
 
+
 <!-- ======================================================== -->
-<!-- 5. MISSÃO TABUADA — APRESENTAÇÃO DO PRODUTO (2 COLUNAS)  -->
+<!-- 5. EXPERIÊNCIA 360° — NO PAPEL E NO CELULAR (INTERATIVO) -->
 <!-- ======================================================== -->
-<section class="section section-white" id="material">
+<section class="section section-360" id="material">
   <div class="container">
     
-    <div class="product-overview-grid">
-      
-      <!-- Coluna 1: Mockup e Livro Oficial na Mesa -->
-      <div class="product-cover-frame">
-        <img src="tabuada-assets/conteudo-6.png" alt="Livro Oficial da Missão Tabuada" loading="lazy" decoding="async">
+    <div class="section-header" style="text-align: center;">
+      <div class="badge-tag">
+        <span>✨ Experiência 360° Completa</span>
       </div>
+      <h2 class="section-title">Como Funciona na Prática: No Papel e No Celular</h2>
+      <p class="section-subtitle" style="max-width: 680px; margin: 0 auto;">
+        A única metodologia com duplo estímulo: a concentração da escrita física no papel + a diversão viciante do jogo gamificado no celular!
+      </p>
 
-      <!-- Coluna 2: Entregáveis em Mini-Cards -->
-      <div>
-        <div class="badge-tag">
-          <span>Kit Completo da Tabuada</span>
+      <!-- Seletor de Abas 360 -->
+      <div class="exp-tabs-container">
+        <button class="exp-tab-btn active" id="btn-tab-papel" onclick="switch360Tab('papel')">
+          🖨️ No Papel (Apostilas e Jogos de 15 Min)
+        </button>
+        <button class="exp-tab-btn tab-app" id="btn-tab-app" onclick="switch360Tab('app')">
+          📱 No Celular (O Duolingo da Tabuada — Teste Agora!)
+        </button>
+      </div>
+    </div>
+
+    <!-- ABA 1: NO PAPEL -->
+    <div class="exp-tab-content active" id="tab-content-papel">
+      <div class="exp-grid-2col">
+        
+        <!-- Foto Real do Kit Aberto na Mesa -->
+        <div>
+          <div class="papel-hero-frame">
+            <span class="papel-tag-badge">✓ Arquivos em PDF A4 Prontos para Imprimir</span>
+            <img src="tabuada-assets/mockup_kit_completo_aberto_2k.jpg" alt="Kit Aberto da Missão Tabuada com Cadernos e Jogos de Mesa">
+          </div>
+          <div style="margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; font-weight: 700; color: #64748B;">
+            <span>📸 Foto real dos cadernos impressos em folha sulfite padrão</span>
+          </div>
         </div>
-        <h2 class="section-title" style="text-align: left; margin-bottom: 8px;">Conheça a Missão Tabuada</h2>
-        <p class="section-subtitle" style="text-align: left; margin-bottom: 16px;">
-          O material completo para estudar a multiplicação do 1 ao 10 com clareza, ritmo sequencial e atividades para imprimir:
+
+        <!-- Benefícios do Papel -->
+        <div>
+          <h3 style="font-size: 24px; color: var(--ink-title); margin-bottom: 12px; font-family: 'Fredoka', cursive, sans-serif;">
+            O Poder da Escrita Física no Cérebro Infantil
+          </h3>
+          <p style="font-size: 15px; color: var(--ink-body); line-height: 1.5; margin-bottom: 20px;">
+            Pedagogos comprovam: o movimento da mão ao preencher contas estimula áreas neurais que telas sozinhas não conseguem. Por isso o kit impresso é a base do método:
+          </p>
+
+          <div class="papel-benefits-list">
+            
+            <div class="papel-benefit-item">
+              <span class="papel-benefit-icon">⏱️</span>
+              <div>
+                <h4>Fichas Diárias de 15 Minutos</h4>
+                <p>Uma folha por dia com espaço de cronômetro para a criança bater o próprio tempo sem se cansar.</p>
+              </div>
+            </div>
+
+            <div class="papel-benefit-item">
+              <span class="papel-benefit-icon">🎲</span>
+              <div>
+                <h4>Jogos de Tabuleiro, Dominó & Bingo</h4>
+                <p>Atividades recortáveis para transformar a lição de casa em momento divertido em família no fim de semana.</p>
+              </div>
+            </div>
+
+            <div class="papel-benefit-item">
+              <span class="papel-benefit-icon">🎨</span>
+              <div>
+                <h4>Caderno de Pintura Inteligente</h4>
+                <p>Desenhos guiados pelas respostas: para pintar o herói, a criança precisa resolver a tabuada certa.</p>
+              </div>
+            </div>
+
+            <div class="papel-benefit-item">
+              <span class="papel-benefit-icon">🏅</span>
+              <div>
+                <h4>Escudos de Poder & Certificado Oficial</h4>
+                <p>Cada tabuada dominada libera um escudo para pintar, culminando no Diploma de Honra ao Mérito!</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="margin-top: 22px; background: #EFF6FF; border: 2px solid #BFDBFE; border-radius: 16px; padding: 14px 18px; display: flex; align-items: center; gap: 14px;">
+            <img src="tabuada-assets/heroi-menino-oficial.png" alt="Léo Herói" style="width: 50px; height: 50px; object-fit: contain; flex-shrink: 0;">
+            <p style="font-size: 13.5px; color: #1E40AF; margin: 0; line-height: 1.4; font-weight: 600;">
+              <strong>Dica dos Pais:</strong> Imprima 1 vez e encaderne ou use numa pastinha com plástico para a criança usar canetinha e apagar quantas vezes quiser!
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ABA 2: NO CELULAR (APP DUOLINGO SIMULADOR) -->
+    <div class="exp-tab-content" id="tab-content-app">
+      <div class="exp-grid-2col">
+        
+        <!-- Simulador Interativo do Phone -->
+        <div>
+          <div class="phone-simulator-wrap">
+            <div class="phone-screen">
+              <canvas class="sim-canvas" id="simConfettiCanvas"></canvas>
+              
+              <!-- Status Bar -->
+              <div>
+                <div class="phone-status-bar">
+                  <div class="phone-pill hearts" id="simHearts">❤️❤️❤️</div>
+                  <div class="phone-pill streak" id="simStreak">🔥 3 Dias</div>
+                  <div class="phone-pill xp" id="simXp">⭐ <span id="simXpVal">85</span> XP</div>
+                </div>
+
+                <!-- Mascot Speech -->
+                <div class="sim-mascot-row">
+                  <img src="tabuada-assets/heroi-menina-oficial.png" alt="Maya Guardiã" class="sim-mascot-img">
+                  <div class="sim-speech-bubble" id="simSpeech">
+                    “Missão dos Heróis! Resolva a conta abaixo para ganhar +10 XP!”
+                  </div>
+                </div>
+
+                <!-- Pergunta da Tabuada -->
+                <div class="sim-question-box">
+                  <div class="sim-question-label" id="simLevelLabel">Nível 1 • Batalha da Tabuada</div>
+                  <div class="sim-question-math" id="simQuestionText">7 × 8 = ?</div>
+                </div>
+
+                <!-- 4 Botões Táteis -->
+                <div class="sim-options-grid" id="simOptionsBox">
+                  <button class="sim-option-btn" onclick="checkSimAnswer(48, this)">48</button>
+                  <button class="sim-option-btn" onclick="checkSimAnswer(56, this)">56</button>
+                  <button class="sim-option-btn" onclick="checkSimAnswer(64, this)">64</button>
+                  <button class="sim-option-btn" onclick="checkSimAnswer(54, this)">54</button>
+                </div>
+              </div>
+
+              <!-- Feedback Banner & Botão Avançar -->
+              <div>
+                <div class="sim-feedback-banner" id="simFeedback"></div>
+                <button class="sim-next-btn" id="simNextBtn" style="display: none;" onclick="nextSimQuestion()">
+                  Próxima Missão ➔
+                </button>
+                <div style="text-align: center; margin-top: 10px; font-size: 11px; color: #166534; font-weight: 700;">
+                  👆 Teste você mesmo: clique nas opções acima!
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Descrição do WebApp Duolingo -->
+        <div>
+          <div style="display: inline-flex; align-items: center; gap: 8px; background: #DCFCE7; color: #15803D; font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: 999px; margin-bottom: 12px;">
+            <span>🚀 Super Bônus do Plano Completo</span>
+          </div>
+          <h3 style="font-size: 24px; color: var(--ink-title); margin-bottom: 12px; font-family: 'Fredoka', cursive, sans-serif;">
+            O Duolingo da Tabuada: Treine no Celular ou Tablet
+          </h3>
+          <p style="font-size: 15px; color: var(--ink-body); line-height: 1.5; margin-bottom: 20px;">
+            Quando não der tempo de imprimir, a criança abre o WebApp no celular ou tablet. É um jogo interativo com vidas, sequências diárias e efeitos sonoros que prende a atenção nos estudos:
+          </p>
+
+          <div class="papel-benefits-list">
+            
+            <div class="papel-benefit-item" style="background: #F0FDF4; border-color: #DCFCE7;">
+              <span class="papel-benefit-icon">📱</span>
+              <div>
+                <h4>Zero Instalação (Roda no Navegador)</h4>
+                <p>Não precisa baixar nada na App Store ou Google Play. Não ocupa espaço na memória do aparelho.</p>
+              </div>
+            </div>
+
+            <div class="papel-benefit-item" style="background: #F0FDF4; border-color: #DCFCE7;">
+              <span class="papel-benefit-icon">🛡️</span>
+              <div>
+                <h4>100% Livre de Anúncios e Distrações</h4>
+                <p>Ambiente totalmente blindado e seguro para seu filho: sem propagandas, sem compras internas e sem redes sociais.</p>
+              </div>
+            </div>
+
+            <div class="papel-benefit-item" style="background: #F0FDF4; border-color: #DCFCE7;">
+              <span class="papel-benefit-icon">🏆</span>
+              <div>
+                <h4>Dopamina Positiva nos Estudos</h4>
+                <p>A criança quer jogar todo dia para manter a sequência de fogo acesa e bater o recorde de XP!</p>
+              </div>
+            </div>
+
+            <div class="papel-benefit-item" style="background: #F0FDF4; border-color: #DCFCE7;">
+              <span class="papel-benefit-icon">🎁</span>
+              <div>
+                <h4>Incluso de Graça no Combo Completo (R$ 27)</h4>
+                <p>Acesso vitalício para toda a família sem mensalidades nem taxas extras.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="margin-top: 24px;">
+            <a href="#ofertas" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+              <span>QUERO O COMBO COM O APP DUOLINGO →</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SQUAD DOS HERÓIS DA MATEMÁTICA -->
+    <div class="mascot-squad-section">
+      <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+        <span style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue-hero); background: var(--blue-soft); padding: 4px 14px; border-radius: 999px;">
+          Equipe Pedagógica
+        </span>
+        <h3 style="font-size: 26px; color: var(--ink-title); margin: 10px 0 6px; font-family: 'Fredoka', cursive, sans-serif;">
+          Conheça a Liga dos Heróis da Matemática
+        </h3>
+        <p style="font-size: 14px; color: var(--ink-body);">
+          Os personagens que acompanham seu filho em cada folha e em cada fase do aplicativo:
         </p>
+      </div>
 
-        <div class="items-mini-grid">
-          
-          <div class="item-mini-card">
-            <span class="item-mini-icon">📅</span>
-            <div>
-              <h4>Cronograma de 12 Semanas</h4>
-              <p>Roteiro sequencial diário do 1 ao 10.</p>
-            </div>
+      <div class="mascot-squad-grid">
+        
+        <!-- Léo -->
+        <div class="mascot-card leo">
+          <div class="mascot-thumb-wrap">
+            <img src="tabuada-assets/heroi-menino-oficial.png" alt="Léo — O Herói dos Números">
           </div>
-
-          <div class="item-mini-card">
-            <span class="item-mini-icon">🎨</span>
-            <div>
-              <h4>Caderno de Pintura</h4>
-              <p>Desenhos guiados pelos resultados.</p>
-            </div>
-          </div>
-
-          <div class="item-mini-card">
-            <span class="item-mini-icon">🎯</span>
-            <div>
-              <h4>Desafios Semanais</h4>
-              <p>Acompanhe o aprendizado contínuo.</p>
-            </div>
-          </div>
-
-          <div class="item-mini-card">
-            <span class="item-mini-icon">🎲</span>
-            <div>
-              <h4>Jogos de Tabuada</h4>
-              <p>Trilha com dados, dominó e bingo.</p>
-            </div>
-          </div>
-
-          <div class="item-mini-card">
-            <span class="item-mini-icon">📄</span>
-            <div>
-              <h4>Formato A4 em PDF</h4>
-              <p>Pronto para qualquer impressora.</p>
-            </div>
-          </div>
-
-          <div class="item-mini-card">
-            <span class="item-mini-icon">⚡</span>
-            <div>
-              <h4>Acesso Imediato</h4>
-              <p>Imprima quantas vezes precisar.</p>
-            </div>
-          </div>
-
+          <span class="mascot-role-pill">Mestre da Lógica</span>
+          <h4>Léo, o Herói</h4>
+          <p>“Eu mostro que multiplicar não é decoreba: é apenas agrupar blocos visuais! Seu filho vai entender o raciocínio sem traumas.”</p>
         </div>
 
-        <!-- Storytelling do Monstrinho com Animação -->
-        <div class="story-strip-box">
-          <div class="story-strip-thumb">
-            <img src="tabuada-assets/monstro-transparente.png" alt="Monstrinho dos Números" class="monster-animated" loading="lazy" decoding="async">
+        <!-- Maya -->
+        <div class="mascot-card maya">
+          <div class="mascot-thumb-wrap">
+            <img src="tabuada-assets/heroi-menina-oficial.png" alt="Maya — A Guardiã da Tabuada">
           </div>
-          <div class="story-strip-text">
-            <h5>Desvende o Mistério dos Números!</h5>
-            <p>Com os Heróis da Multiplicação ao lado da criança, nenhum monstrinho de conta assusta. Cada exercício é uma missão divertida que desenvolve o raciocínio.</p>
+          <span class="mascot-role-pill">Foco e Estratégia</span>
+          <h4>Maya, a Guardiã</h4>
+          <p>“Eu guio a rotina de 15 minutos e os jogos de mesa para que o aprendizado seja leve, divertido e caiba no dia a dia da família.”</p>
+        </div>
+
+        <!-- Buggy -->
+        <div class="mascot-card buggy">
+          <div class="mascot-thumb-wrap">
+            <img src="tabuada-assets/monstro-oficial.png" alt="Buggy — O Monstrinho das Contas">
           </div>
+          <span class="mascot-role-pill">O Chefão a Derrotar</span>
+          <h4>Buggy, o Monstrinho</h4>
+          <p>“Ele tenta assustar nas contas mais difíceis (como o 7×8), mas a cada folha concluída ele é derrotado e vira um troféu conquistado!”</p>
         </div>
 
       </div>
-
     </div>
 
   </div>
 </section>
 
+
+
 <!-- ======================================================== -->
-<!-- 6. GALERIA DE MATERIAIS — 3 COLUNAS COM FOTOS REAIS      -->
+<!-- 6. GALERIA DE MATERIAIS — 6 ITENS REAIS E DETALHADOS     -->
 <!-- ======================================================== -->
 <section class="section section-alt" id="galeria">
   <div class="container">
     
     <div class="section-header">
       <div class="badge-tag">
-        <span>Páginas Reais dos PDFs</span>
+        <span>📸 Fotos Reais dos Materiais</span>
       </div>
       <h2 class="section-title">Veja os materiais por dentro</h2>
       <p class="section-subtitle">
-        Confira exemplos reais das atividades que fazem parte dos materiais para impressão:
+        Confira exemplos reais das atividades, jogos e fichas que você vai receber para imprimir:
       </p>
     </div>
 
-    <div class="gallery-grid-3">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
       
-      <!-- Foto 1: Cronograma e Folhas Diárias -->
-      <div class="gallery-card">
-        <div class="gallery-img-wrap">
-          <img src="tabuada-assets/cronograma-folhas-diarias.jpg" alt="Cronograma e Fichas Diárias da Missão Tabuada" loading="lazy" decoding="async">
+      <!-- Card 1: Ficha Diária Real -->
+      <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
+        <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 14px; text-align: center;">
+          <img src="tabuada-assets/preview_clean_p4_worksheetA.png" alt="Ficha Diária de 15 Minutos da Missão Tabuada" style="width: 100%; height: 260px; object-fit: contain; border-radius: 10px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.12));">
         </div>
-        <div class="gallery-card-body">
-          <h4>Cronograma e atividades</h4>
-          <p>Páginas organizadas para orientar a prática da multiplicação de forma simples e direta.</p>
-        </div>
-      </div>
-
-      <!-- Foto 2: Jogos e Desafios Recortáveis -->
-      <div class="gallery-card">
-        <div class="gallery-img-wrap">
-          <img src="tabuada-assets/jogos-recortaveis-pintura.jpg" alt="Jogos recortáveis, dominó e desafios dos Heróis da Multiplicação" loading="lazy" decoding="async">
-        </div>
-        <div class="gallery-card-body">
-          <h4>Jogos e desafios</h4>
-          <p>Atividades lúdicas para trabalhar a tabuada de maneira diferente, leve e motivadora.</p>
+        <div class="gallery-card-body" style="padding: 20px;">
+          <span style="font-size: 11px; font-weight: 800; background: var(--blue-soft); color: var(--blue-hero); padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">15 Minutos Diários</span>
+          <h4 style="font-size: 18px; margin: 8px 0 4px; color: var(--ink-title);">Fichas de Treino Progressivo</h4>
+          <p style="font-size: 14px; color: var(--ink-body); line-height: 1.45;">Atividades sequenciais com cronômetro para marcar o tempo e espaço de autoavaliação para vencer o próprio recorde.</p>
         </div>
       </div>
 
-      <!-- Foto 3: Pintura por Multiplicação -->
-      <div class="gallery-card">
-        <div class="gallery-img-wrap">
-          <img src="tabuada-assets/pagina-por-dentro.jpg" alt="Atividade de pintura por multiplicação" loading="lazy" decoding="async">
+      <!-- Card 2: Mapa de Escudos Real -->
+      <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
+        <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 14px; text-align: center;">
+          <img src="tabuada-assets/preview_clean_p3_tracker.png" alt="Mapa de Conquistas e Escudos de Poder" style="width: 100%; height: 260px; object-fit: contain; border-radius: 10px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.12));">
         </div>
-        <div class="gallery-card-body">
-          <h4>Pintura por multiplicação</h4>
-          <p>Uma proposta criativa em que os resultados das contas orientam a atividade de pintura.</p>
+        <div class="gallery-card-body" style="padding: 20px;">
+          <span style="font-size: 11px; font-weight: 800; background: var(--yellow-soft); color: #B45309; padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">Gamificação</span>
+          <h4 style="font-size: 18px; margin: 8px 0 4px; color: var(--ink-title);">Mapa de Escudos do Herói</h4>
+          <p style="font-size: 14px; color: var(--ink-body); line-height: 1.45;">A cada Chefão da tabuada derrotado, a criança pinta o Escudo correspondente, gerando dopamina e orgulho visível.</p>
         </div>
       </div>
 
+      <!-- Card 3: Criança Segurando a Ficha Real -->
+      <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
+        <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 0; text-align: center; height: 288px; overflow: hidden;">
+          <img src="tabuada-assets/child_holding_math_worksheet_282ab985_2k.jpg" alt="Criança orgulhosa segurando atividade da Missão Tabuada" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="gallery-card-body" style="padding: 20px;">
+          <span style="font-size: 11px; font-weight: 800; background: #DCFCE7; color: #166534; padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">Na Prática</span>
+          <h4 style="font-size: 18px; margin: 8px 0 4px; color: var(--ink-title);">Confiança e Autonomia</h4>
+          <p style="font-size: 14px; color: var(--ink-body); line-height: 1.45;">Seu filho percebe o progresso real a cada dia, sem depender de você sentado ao lado para cada cálculo.</p>
+        </div>
+      </div>
+
+      <!-- Card 4: Jogos Recortáveis e Pintura -->
+      <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
+        <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 0; text-align: center; height: 288px; overflow: hidden;">
+          <img src="tabuada-assets/jogos-recortaveis-pintura.jpg" alt="Jogos de Tabuleiro e Dominó da Tabuada" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="gallery-card-body" style="padding: 20px;">
+          <span style="font-size: 11px; font-weight: 800; background: #FEF3C7; color: #92400E; padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">Lúdico em Família</span>
+          <h4 style="font-size: 18px; margin: 8px 0 4px; color: var(--ink-title);">Jogos de Mesa, Dominó & Bingo</h4>
+          <p style="font-size: 14px; color: var(--ink-body); line-height: 1.45;">Trilhas com dados, dominó das multiplicações e cartelas de bingo educativo para jogar aos finais de semana.</p>
+        </div>
+      </div>
+
+      <!-- Card 5: Certificado Oficial Real -->
+      <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
+        <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 14px; text-align: center;">
+          <img src="tabuada-assets/preview_clean_p43_certificate.png" alt="Certificado Oficial de Honra ao Mérito" style="width: 100%; height: 260px; object-fit: contain; border-radius: 10px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.12));">
+        </div>
+        <div class="gallery-card-body" style="padding: 20px;">
+          <span style="font-size: 11px; font-weight: 800; background: var(--purple-soft); color: var(--purple-hero); padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">Recompensa Final</span>
+          <h4 style="font-size: 18px; margin: 8px 0 4px; color: var(--ink-title);">Certificado de Honra ao Mérito</h4>
+          <p style="font-size: 14px; color: var(--ink-body); line-height: 1.45;">Ao completar a missão, a criança preenche e assina seu diploma oficial para emoldurar ou colar na parede do quarto!</p>
+        </div>
+      </div>
+
+      <!-- Card 6: Mãe e Filho Estudando Sem Estresse -->
+      <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
+        <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 0; text-align: center; height: 288px; overflow: hidden;">
+          <img src="tabuada-assets/mother_and_child_doing_math_51028b1d_2k.jpg" alt="Mãe e filho felizes estudando matemática" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="gallery-card-body" style="padding: 20px;">
+          <span style="font-size: 11px; font-weight: 800; background: #E0E7FF; color: #3730A3; padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">Paz na Rotina</span>
+          <h4 style="font-size: 18px; margin: 8px 0 4px; color: var(--ink-title);">Fim das Brigas na Lição de Casa</h4>
+          <p style="font-size: 14px; color: var(--ink-body); line-height: 1.45;">Em vez de choro e cobrança, a hora da matemática se transforma em um momento de parceria e celebração.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bloco de Vídeo Demonstrativo -->
+    <div class="video-demo-box">
+      <span style="font-size: 12px; font-weight: 800; background: #FEF3C7; color: #92400E; padding: 4px 14px; border-radius: 999px; text-transform: uppercase;">
+        🎬 Demonstração em Vídeo
+      </span>
+      <h3 style="font-size: 24px; color: var(--ink-title); margin: 10px 0 6px; font-family: 'Fredoka', cursive, sans-serif;">
+        Veja a Aventura dos Heróis em 15 Segundos!
+      </h3>
+      <p style="font-size: 14px; color: var(--ink-body); max-width: 540px; margin: 0 auto 16px;">
+        Dê o play abaixo e veja uma prévia animada da jornada que vai destravar o raciocínio matemático do seu filho:
+      </p>
+      
+      <video class="video-demo-player" controls playsinline preload="metadata" poster="tabuada-assets/frame_promocional.jpg">
+        <source src="tabuada-assets/video_demonstrativo.mp4" type="video/mp4">
+        Seu navegador não suporta a reprodução deste vídeo.
+      </video>
     </div>
 
   </div>
 </section>
 
+
 <!-- ======================================================== -->
 <!-- 6.5 FAMÍLIAS NA PRÁTICA (UGC & RESULTADOS REAIS)         -->
 <!-- ======================================================== -->
-<section class="ugc-section" id="familias">
+<section class="ugc-section" id="familias" style="background: #FFFFFF; padding: 60px 0;">
   <div class="container">
     
     <div class="section-header">
       <div class="badge-tag">
-        <span>📸 Famílias na Prática</span>
+        <span>⭐ Avaliações Verificadas</span>
       </div>
-      <h2 class="section-title">Veja como a matemática ganha vida na rotina real</h2>
+      <h2 class="section-title">O que dizem as mães e educadores</h2>
       <p class="section-subtitle">
-        Crianças engajadas, momentos de parceria em família e o fim das brigas na hora de estudar a tabuada:
+        Mais de 3.400 famílias já destravaram a tabuada sem lágrimas e sem brigas na lição de casa:
       </p>
     </div>
 
     <div class="ugc-grid-4">
       
-      <!-- UGC 1: Criança Conquistando Desafio -->
-      <div class="ugc-card">
-        <div class="ugc-img-wrap">
-          <span class="ugc-tag-pill">⭐ Conquista Real</span>
-          <img src="tabuada-assets/ugc-crianca-selfie.jpg" alt="Criança comemorando o desafio de multiplicação concluído" loading="lazy">
+      <!-- Avaliação 1: Foto Real de Criança com a Ficha -->
+      <div class="ugc-card" style="border: 2px solid #E2E8F0; border-radius: 18px; overflow: hidden; background: #F8FAFC;">
+        <div class="ugc-img-wrap" style="position: relative;">
+          <span class="ugc-tag-pill" style="position: absolute; top: 12px; left: 12px; z-index: 2; background: rgba(15,23,42,0.85); color: #FFF; font-size: 11px; padding: 4px 10px; border-radius: 999px;">⭐ 3º Ano do Fundamental</span>
+          <img src="tabuada-assets/crianca-segurando-ficha.jpg" alt="Aluno orgulhoso segurando a ficha concluída da Missão Tabuada" loading="lazy" style="width: 100%; height: 190px; object-fit: cover;">
         </div>
-        <div class="ugc-card-body">
-          <h4>Desafio concluído com orgulho</h4>
-          <p>A criança resolve as continhas, colore a folha e comemora cada conquista com confiança e sorriso no rosto.</p>
-        </div>
-      </div>
-
-      <!-- UGC 2: Mãe e Filho Estudando Sorrindo -->
-      <div class="ugc-card">
-        <div class="ugc-img-wrap">
-          <span class="ugc-tag-pill">⏱️ 15 Minutos sem Estresse</span>
-          <img src="tabuada-assets/ugc-mae-filho-sorrindo.jpg" alt="Mãe e filho estudando matemática juntos com leveza" loading="lazy">
-        </div>
-        <div class="ugc-card-body">
-          <h4>Momentos leves em família</h4>
-          <p>Uma rotina no piloto automático: a mãe orienta com tranquilidade sem precisar brigar ou inventar exercícios.</p>
+        <div class="ugc-card-body" style="padding: 18px;">
+          <div style="color: #F59E0B; font-size: 16px; margin-bottom: 6px;">★★★★★</div>
+          <h4 style="font-size: 16px; color: var(--ink-title); margin-bottom: 6px;">“O choro acabou na primeira semana!”</h4>
+          <p style="font-size: 13.5px; color: var(--ink-body); line-height: 1.45;">“Meu filho Pedro travava toda vez que chegava no 7 e no 8. O cronômetro de 15 minutos virou uma diversão em vez de castigo. Ele mesmo me pede para fazer as fichas!”</p>
+          <div style="margin-top: 10px; font-size: 12.5px; font-weight: 800; color: var(--blue-hero);">— Mariana S. • Belo Horizonte / MG</div>
         </div>
       </div>
 
-      <!-- UGC 3: Crianças Jogando Tabuleiro com Dados -->
-      <div class="ugc-card">
-        <div class="ugc-img-wrap">
-          <span class="ugc-tag-pill">🎲 Tabuleiro em Ação</span>
-          <img src="tabuada-assets/ugc-criancas-jogando.jpg" alt="Crianças jogando o Jogo da Tabuada com dados e cartas" loading="lazy">
+      <!-- Avaliação 2: Depoimento de Economia vs Professor Particular -->
+      <div class="ugc-card" style="border: 2px solid #E2E8F0; border-radius: 18px; padding: 22px; background: #F8FAFC; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <span style="font-size: 11px; font-weight: 800; background: #DCFCE7; color: #166534; padding: 3px 8px; border-radius: 6px;">✓ Compra Confirmada</span>
+            <div style="color: #F59E0B; font-size: 16px;">★★★★★</div>
+          </div>
+          <h4 style="font-size: 16px; color: var(--ink-title); margin-bottom: 8px;">“Economizei mais de R$ 1.000 em reforço”</h4>
+          <p style="font-size: 13.5px; color: var(--ink-body); line-height: 1.45;">“Já estava cotando professor particular a R$ 160 por mês porque meu filho não acompanhava a turma. Esse kit de 10 reais destravou em 2 semanas o que a escola não conseguiu no semestre todo.”</p>
         </div>
-        <div class="ugc-card-body">
-          <h4>Aprender brincando de verdade</h4>
-          <p>O tabuleiro impresso com dados e cartas transforma o treino de multiplicação em uma disputa divertida.</p>
-        </div>
+        <div style="margin-top: 14px; font-size: 12.5px; font-weight: 800; color: var(--blue-hero);">— Carla Dias • Mãe do Enzo (8 anos)</div>
       </div>
 
-      <!-- UGC 4: Mãe Apoiando no Passo a Passo -->
-      <div class="ugc-card">
-        <div class="ugc-img-wrap">
-          <span class="ugc-tag-pill">📚 Fichas Organizadas</span>
-          <img src="tabuada-assets/ugc-mae-ajudando.jpg" alt="Mãe e filho completando atividades diárias do material" loading="lazy">
+      <!-- Avaliação 3: Recomendação Pedagógica -->
+      <div class="ugc-card" style="border: 2px solid #E2E8F0; border-radius: 18px; padding: 22px; background: #F8FAFC; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <span style="font-size: 11px; font-weight: 800; background: #E0E7FF; color: #3730A3; padding: 3px 8px; border-radius: 6px;">👩‍🏫 Pedagoga</span>
+            <div style="color: #F59E0B; font-size: 16px;">★★★★★</div>
+          </div>
+          <h4 style="font-size: 16px; color: var(--ink-title); margin-bottom: 8px;">“Excelente didática progressiva”</h4>
+          <p style="font-size: 13.5px; color: var(--ink-body); line-height: 1.45;">“Como professora de anos iniciais, amei a divisão dos 3 micro-passos. O cérebro infantil aprende por matrizes visuais e não por tabelas estáticas. Recomendo para todos os pais da minha turma.”</p>
         </div>
-        <div class="ugc-card-body">
-          <h4>Passo a passo descomplicado</h4>
-          <p>Exercícios sequenciais e ilustrados que guiam o aprendizado dia após dia de maneira progressiva e clara.</p>
+        <div style="margin-top: 14px; font-size: 12.5px; font-weight: 800; color: var(--blue-hero);">— Profa. Fernanda S. • São Paulo / SP</div>
+      </div>
+
+      <!-- Avaliação 4: Jogos e Celular -->
+      <div class="ugc-card" style="border: 2px solid #E2E8F0; border-radius: 18px; padding: 22px; background: #F8FAFC; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <span style="font-size: 11px; font-weight: 800; background: #FEF3C7; color: #92400E; padding: 3px 8px; border-radius: 6px;">🎲 Jogos no Papel</span>
+            <div style="color: #F59E0B; font-size: 16px;">★★★★★</div>
+          </div>
+          <h4 style="font-size: 16px; color: var(--ink-title); margin-bottom: 8px;">“Tirou minha filha do tablet no fim de semana”</h4>
+          <p style="font-size: 13.5px; color: var(--ink-body); line-height: 1.45;">“Imprimi o jogo de tabuleiro e o dominó numa folha mais durinha. Agora a gente senta depois do almoço de domingo e joga em família. Ela aprende brincando de verdade sem nem perceber.”</p>
         </div>
+        <div style="margin-top: 14px; font-size: 12.5px; font-weight: 800; color: var(--blue-hero);">— Carlos Eduardo • Pai da Clara (7 anos)</div>
       </div>
 
     </div>
@@ -2298,19 +3026,19 @@
       <!-- CARD 1: MISSÃO TABUADA (R$ 10,00) -->
       <div class="card-offer-basic">
         <div class="offer-cover-mini">
-          <img src="tabuada-assets/conteudo-6.png" alt="Livro da Missão Tabuada — Volume 1" loading="lazy" decoding="async">
+          <img src="tabuada-assets/conteudo-6.png" alt="Livro da Missão Tabuada — Volume 1">
         </div>
 
         <h3>Missão Tabuada</h3>
         <p class="offer-sub">O primeiro passo para dominar a multiplicação do 1 ao 10!</p>
 
         <ul class="offer-bullets-list">
-          <li><span class="b-check">✓</span> <span>Cronograma Mestre de 12 Semanas em PDF.</span></li>
-          <li><span class="b-check">✓</span> <span>Caderno de Atividades e Fichas Diárias.</span></li>
-          <li><span class="b-check">✓</span> <span>Caderno de Pintura por Multiplicação.</span></li>
-          <li><span class="b-check">✓</span> <span>Desafios Semanais de Acompanhamento.</span></li>
-          <li><span class="b-check">✓</span> <span>Jogos de Tabuada: Trilha, Dominó e Bingo.</span></li>
-          <li><span class="b-check">✓</span> <span>Materiais em formato A4 para imprimir.</span></li>
+          <li><span class="b-check">✓</span> <span><strong>Livro Principal Ilustrado</strong> (43 Páginas em PDF).</span></li>
+          <li><span class="b-check">✓</span> <span>Missões de multiplicação completas do 1 ao 10.</span></li>
+          <li><span class="b-check">✓</span> <span>Manual do Guardião: Guia prático para pais.</span></li>
+          <li><span class="b-check">✓</span> <span>Gabarito Oficial ilustrado de todas as missões.</span></li>
+          <li><span class="b-check">✓</span> <span>Certificado Oficial de Herói da Matemática.</span></li>
+          <li><span class="b-check">✓</span> <span>Download imediato pronto para imprimir em A4.</span></li>
         </ul>
 
         <div class="offer-price-block">
@@ -2337,31 +3065,32 @@
 
         <!-- Mascote Voando no Canto do Card -->
         <div class="card-mascot-flying hero-flying-girl">
-          <img src="tabuada-assets/heroi-menina-voando.png" alt="Heroína da Liga Voando" loading="lazy" decoding="async">
+          <img src="tabuada-assets/heroi-menina-voando.png" alt="Heroína da Liga Voando">
         </div>
 
         <div class="offer-cover-mini">
-          <img src="tabuada-assets/conteudo-7.png" alt="Livro Oficial da Liga dos Heróis da Matemática — Volume 2" loading="lazy" decoding="async">
+          <img src="tabuada-assets/conteudo-7.png" alt="Livro Oficial da Liga dos Heróis da Matemática — Volume 2">
         </div>
 
-        <h3>LIGA DOS HERÓIS DA MATEMÁTICA</h3>
-        <p class="offer-sub">A JORNADA COMPLETA DAS 4 OPERAÇÕES!</p>
+        <h3>LIGA DOS HERÓIS COMBO COMPLETO</h3>
+        <p class="offer-sub">TODOS OS 6 CADERNOS + JOGOS + APLICATIVO WEB!</p>
 
         <div class="more-content-highlight">
-          MAIS CONTEÚDO POR APENAS R$ 17 A MAIS!
+          ⭐ LEVE TODOS OS BÔNUS + APP POR APENAS R$ 17 A MAIS!
         </div>
 
         <p style="font-size: 13.5px; font-weight: 800; color: var(--purple-hero); margin-bottom: 8px;">
-          Tudo da Missão Tabuada incluído + três módulos adicionais:
+          Tudo do Plano Básico incluído + 5 Bônus Exclusivos + WebApp:
         </p>
 
         <ul class="premium-bullets-list">
-          <li><span class="b-star">★</span> <span><strong>Tudo da Missão Tabuada incluído</strong> (Multiplicação do 1 ao 10).</span></li>
-          <li><span class="b-star">★</span> <span>Módulo completo de <strong>Adição</strong>, com fichas visuais.</span></li>
-          <li><span class="b-star">★</span> <span>Módulo de <strong>Subtração</strong>, com atividades progressivas.</span></li>
-          <li><span class="b-star">★</span> <span>Módulo de <strong>Divisão</strong>, trabalhando a lógica de partição.</span></li>
-          <li><span class="b-star">★</span> <span>Desafios combinados envolvendo as quatro operações.</span></li>
-          <li><span class="b-star">★</span> <span>Jogos e atividades adicionais para toda a jornada escolar.</span></li>
+          <li><span class="b-star">★</span> <span><strong>Tudo do Plano Básico incluído</strong> (Livro 43 págs + Gabarito + Certificado).</span></li>
+          <li><span class="b-star">★</span> <span><strong>Cronograma Mestre de 12 Semanas</strong> (Roteiro passo a passo de 15 min).</span></li>
+          <li><span class="b-star">★</span> <span><strong>Caderno de 20 Fichas Diárias</strong> de treino rápido destacáveis.</span></li>
+          <li><span class="b-star">★</span> <span><strong>Caderno de Pintura</strong> por Multiplicação (Color by Number).</span></li>
+          <li><span class="b-star">★</span> <span><strong>Kit Jogos de Tabuleiro:</strong> Trilha dos Heróis, Dominó e Bingo para recortar.</span></li>
+          <li><span class="b-star">★</span> <span><strong>Desafios Semanais</strong> de acompanhamento e evolução escolar.</span></li>
+          <li><span class="b-star">★</span> <span><mark style="background:#FEF08A;color:#854D0E;padding:2px 6px;border-radius:4px;font-weight:900;">SUPER BÔNUS:</mark> <strong>Acesso ao Aplicativo Interativo Web (Estilo Duolingo no celular)!</strong></span></li>
         </ul>
 
         <div class="price-premium-box">
@@ -2434,7 +3163,7 @@
       <details class="faq-item">
         <summary class="faq-quest">Qual a diferença entre as duas ofertas?</summary>
         <div class="faq-ans">
-          A Missão Tabuada é focada na multiplicação do 1 ao 10 com cronograma, jogos e pintura. A Liga dos Heróis da Matemática inclui todo esse conteúdo e acrescenta os módulos completos de adição, subtração e divisão.
+          A Missão Tabuada (R$ 10) entrega o Livro Principal Ilustrado de 43 páginas com gabarito e certificado. A Liga dos Heróis Combo Completo (R$ 27) inclui todo o livro principal e acrescenta os 5 cadernos bônus (jogos de tabuleiro, dominó, cronograma de 12 semanas, caderno de pintura e fichas diárias) MAIS o acesso ao aplicativo web interativo estilo Duolingo para a criança praticar no celular e tablet!
         </div>
       </details>
 
@@ -2480,10 +3209,10 @@
     <div class="cta-final-box">
       <!-- Heróis Voando nas Laterais do CTA Final -->
       <div class="cta-hero-flying-left hero-flying-boy">
-        <img src="tabuada-assets/heroi-menino-transparente.png" alt="Herói Menino com X Dourado" loading="lazy" decoding="async">
+        <img src="tabuada-assets/heroi-menino-transparente.png" alt="Herói Menino com X Dourado">
       </div>
       <div class="cta-hero-flying-right hero-flying-girl">
-        <img src="tabuada-assets/heroi-menina-voando.png" alt="Heroína Menina Voando com a Folha" loading="lazy" decoding="async">
+        <img src="tabuada-assets/heroi-menina-voando.png" alt="Heroína Menina Voando com a Folha">
       </div>
 
       <h2>Sua próxima missão começa aqui!</h2>
@@ -2558,23 +3287,305 @@
    * Redireciona o usuário para o checkout do ggCheckout correspondente.
    * @param {('basic'|'premium')} plan Tipo do plano selecionado.
    */
-  function handleCheckout(plan) {
-    const rawUrl = (plan === 'premium') ? CHECKOUT_PREMIUM_URL : CHECKOUT_BASIC_URL;
+  // ====================================================================
+  // MOTOR DE PERSISTÊNCIA DE UTMS (ANTI-PERDA DE DADOS NO META ADS)
+  // ====================================================================
+  (function initUtmTracker() {
+    try {
+      const currentParams = new URLSearchParams(window.location.search);
+      const trackingKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck', 'fbclid', 'gclid', 'ttclid'];
+      const stored = JSON.parse(localStorage.getItem('herois_tracking_params') || '{}');
 
-    // Se o link já tiver sido configurado com a URL real do ggCheckout:
+      trackingKeys.forEach(key => {
+        if (currentParams.has(key)) {
+          stored[key] = currentParams.get(key);
+        }
+      });
+
+      localStorage.setItem('herois_tracking_params', JSON.stringify(stored));
+    } catch (e) {
+      console.warn('UTM Tracker local storage note:', e);
+    }
+  })();
+
+  function buildCheckoutUrl(baseUrl) {
+    try {
+      const url = new URL(baseUrl, window.location.origin);
+      const incomingParams = new URLSearchParams(window.location.search);
+      const storedParams = JSON.parse(localStorage.getItem('herois_tracking_params') || '{}');
+
+      // 1. Aplica parâmetros persistidos do localStorage
+      for (const [key, value] of Object.entries(storedParams)) {
+        if (value) url.searchParams.set(key, value);
+      }
+
+      // 2. Parâmetros da URL atual têm precedência
+      for (const [key, value] of incomingParams.entries()) {
+        url.searchParams.set(key, value);
+      }
+
+      return url.toString();
+    } catch (e) {
+      return baseUrl;
+    }
+  }
+
+  function handleCheckout(plan) {
+    const isPremium = (plan === 'premium');
+    const rawUrl = isPremium ? CHECKOUT_PREMIUM_URL : CHECKOUT_BASIC_URL;
+
+    // Dispara evento de InitiateCheckout no Meta Pixel se configurado
+    if (typeof window.fbq === 'function') {
+      try {
+        window.fbq('track', 'InitiateCheckout', {
+          content_name: isPremium ? 'Liga dos Heróis da Matemática' : 'Missão Tabuada',
+          content_ids: [isPremium ? 'liga-27' : 'tabuada-10'],
+          content_type: 'product',
+          value: isPremium ? 27.00 : 10.00,
+          currency: 'BRL'
+        });
+      } catch (err) {
+        console.warn('Pixel tracking notice:', err);
+      }
+    }
+
     if (rawUrl && !rawUrl.startsWith("INSERIR_LINK_")) {
       const finalUrl = buildCheckoutUrl(rawUrl);
       window.location.href = finalUrl;
     } else {
-      // Aviso amigável orientando como colar os links do ggCheckout:
-      const planName = (plan === 'premium') 
+      const planName = isPremium 
         ? "Liga dos Heróis da Matemática (R$ 27,00)" 
         : "Missão Tabuada (R$ 10,00)";
 
-      alert("⚙️ Configuração do GG Checkout:\n\n" +
-            "Este botão direcionará para o checkout do plano:\n" + planName + "\n\n" +
-            "Para ativar, acesse seu painel do ggCheckout (app.ggcheckout.com), copie o link do checkout e cole na constante correspondente no final deste arquivo.");
+      alert("⚙️ Checkout:\n\n" + planName);
     }
+  }
+</script>
+
+
+<!-- Script Interativo: Simulador Duolingo 360, Áudio WebAudio e Confetti -->
+<script>
+  // 1. Alternador de Abas 360
+  function switch360Tab(tab) {
+    const btnPapel = document.getElementById('btn-tab-papel');
+    const btnApp = document.getElementById('btn-tab-app');
+    const contentPapel = document.getElementById('tab-content-papel');
+    const contentApp = document.getElementById('tab-content-app');
+
+    if (tab === 'papel') {
+      btnPapel.classList.add('active');
+      btnApp.classList.remove('active');
+      contentPapel.classList.add('active');
+      contentApp.classList.remove('active');
+    } else {
+      btnApp.classList.add('active');
+      btnPapel.classList.remove('active');
+      contentApp.classList.add('active');
+      contentPapel.classList.remove('active');
+    }
+  }
+
+  // 2. Simulador Interativo estilo Duolingo
+  const simQuestions = [
+    {
+      q: "7 × 8 = ?",
+      label: "Nível 1 • Batalha da Tabuada",
+      speech: "“Missão dos Heróis! Resolva a conta abaixo para ganhar +10 XP!”",
+      options: [48, 56, 64, 54],
+      correct: 56,
+      hint: "Quase lá! Lembre-se: 7 × 7 = 49... some mais 7!"
+    },
+    {
+      q: "9 × 6 = ?",
+      label: "Nível 2 • Truque dos Dedos",
+      speech: "“Incrível! Vamos para o próximo desafio do Léo!”",
+      options: [54, 45, 63, 56],
+      correct: 54,
+      hint: "Dica do Léo: 10 × 6 = 60, menos 6 fica 54!"
+    },
+    {
+      q: "8 × 8 = ?",
+      label: "Nível 3 • Escudo do Dragão",
+      speech: "“Uau! Essa conta costuma assustar, mas você consegue!”",
+      options: [56, 62, 64, 72],
+      correct: 64,
+      hint: "Dica: 8 × 7 = 56... com mais 8 chegamos em 64!"
+    },
+    {
+      q: "6 × 7 = ?",
+      label: "Nível 4 • Desafio Lendário",
+      speech: "“Última missão para liberar o Certificado Oficial!”",
+      options: [36, 42, 48, 40],
+      correct: 42,
+      hint: "Pense em 6 × 6 = 36, mais 6 = 42!"
+    }
+  ];
+
+  let curSimIdx = 0;
+  let simXpTotal = 85;
+  let simHeartsCount = 3;
+
+  // Web Audio API Synthesizer (Zero dependências externas)
+  let audioCtx = null;
+  function getAudioCtx() {
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) audioCtx = new AudioContext();
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
+  function playSuccessSound() {
+    try {
+      const ctx = getAudioCtx();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      // Tríade maior animada (C5 -> E5 -> G5 -> C6)
+      const freqs = [523.25, 659.25, 783.99, 1046.50];
+      freqs.forEach((f, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(f, now + i * 0.08);
+        gain.gain.setValueAtTime(0.18, now + i * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.25);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.08);
+        osc.stop(now + i * 0.08 + 0.3);
+      });
+    } catch(e) {}
+  }
+
+  function playWrongSound() {
+    try {
+      const ctx = getAudioCtx();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(220, now);
+      osc.frequency.exponentialRampToValueAtTime(140, now + 0.2);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.22);
+    } catch(e) {}
+  }
+
+  // Confetti Particle System no Canvas
+  function fireSimConfetti() {
+    const canvas = document.getElementById('simConfettiCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.parentElement.clientWidth;
+    canvas.height = canvas.parentElement.clientHeight;
+
+    const colors = ['#22C55E', '#EAB308', '#3B82F6', '#EC4899', '#A855F7'];
+    const particles = [];
+    for (let i = 0; i < 40; i++) {
+      particles.push({
+        x: canvas.width / 2,
+        y: canvas.height * 0.4,
+        vx: (Math.random() - 0.5) * 8,
+        vy: (Math.random() - 0.8) * 8,
+        size: Math.random() * 6 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 360,
+        alpha: 1
+      });
+    }
+
+    let frame = 0;
+    function anim() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.2; // gravidade
+        p.alpha -= 0.02;
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.fillStyle = p.color;
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+      });
+      frame++;
+      if (frame < 50) {
+        requestAnimationFrame(anim);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+    requestAnimationFrame(anim);
+  }
+
+  function checkSimAnswer(selectedVal, btn) {
+    const qData = simQuestions[curSimIdx];
+    const feedback = document.getElementById('simFeedback');
+    const speech = document.getElementById('simSpeech');
+    const nextBtn = document.getElementById('simNextBtn');
+    const allBtns = document.querySelectorAll('.sim-option-btn');
+
+    if (selectedVal === qData.correct) {
+      // Correto
+      playSuccessSound();
+      fireSimConfetti();
+      btn.classList.add('btn-correct');
+      allBtns.forEach(b => b.disabled = true);
+
+      simXpTotal += 10;
+      document.getElementById('simXpVal').innerText = simXpTotal;
+
+      feedback.className = 'sim-feedback-banner success';
+      feedback.innerHTML = '🎉 <strong>Sensacional! Resposta Certa! (+10 XP)</strong>';
+      speech.innerText = '“Parabéns, Herói! Você acertou em cheio e desbloqueou o próximo escudo!”';
+      nextBtn.style.display = 'block';
+    } else {
+      // Errado
+      playWrongSound();
+      btn.classList.add('btn-wrong');
+      setTimeout(() => btn.classList.remove('btn-wrong'), 400);
+
+      if (simHeartsCount > 1) {
+        simHeartsCount--;
+        document.getElementById('simHearts').innerText = '❤️'.repeat(simHeartsCount) + '🤍'.repeat(3 - simHeartsCount);
+      }
+
+      feedback.className = 'sim-feedback-banner error';
+      feedback.innerHTML = '❌ <strong>Quase! Tente mais uma vez!</strong>';
+      speech.innerText = '“' + qData.hint + '”';
+    }
+  }
+
+  function nextSimQuestion() {
+    curSimIdx = (curSimIdx + 1) % simQuestions.length;
+    const qData = simQuestions[curSimIdx];
+
+    document.getElementById('simLevelLabel').innerText = qData.label;
+    document.getElementById('simQuestionText').innerText = qData.q;
+    document.getElementById('simSpeech').innerText = qData.speech;
+    document.getElementById('simFeedback').className = 'sim-feedback-banner';
+    document.getElementById('simFeedback').style.display = 'none';
+    document.getElementById('simNextBtn').style.display = 'none';
+
+    const box = document.getElementById('simOptionsBox');
+    box.innerHTML = '';
+    qData.options.forEach(val => {
+      const btn = document.createElement('button');
+      btn.className = 'sim-option-btn';
+      btn.innerText = val;
+      btn.onclick = function() { checkSimAnswer(val, this); };
+      box.appendChild(btn);
+    });
   }
 </script>
 

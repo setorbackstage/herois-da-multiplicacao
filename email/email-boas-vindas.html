@@ -5,147 +5,175 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Acesso Liberado: Liga dos Heróis da Matemática! 🚀</title>
   <style type="text/css">
-    /* Reset & Base Styles */
     body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
     table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
     img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; }
     body { margin: 0; padding: 0; width: 100% !important; background-color: #FFF8E9; font-family: 'Segoe UI', Arial, sans-serif; }
 
-    /* Responsive */
     @media only screen and (max-width: 600px) {
-      .email-container { width: 100% !important; padding: 12px !important; }
+      .email-container { width: 100% !important; border-radius: 0 !important; }
+      .mobile-padding { padding: 20px 16px !important; }
       .hero-title { font-size: 22px !important; }
-      .btn-primary { width: 100% !important; display: block !important; }
+      .btn-primary { width: 100% !important; display: block !important; box-sizing: border-box !important; text-align: center !important; }
+      .hero-mascot-img { width: 90px !important; height: auto !important; }
     }
   </style>
 </head>
 <body style="margin: 0; padding: 0; background-color: #FFF8E9;">
 
-  <!-- Tabela Externa (Centrada) -->
-  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #FFF8E9; padding: 24px 0;">
+  <!-- Tabela de Alinhamento Central -->
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #FFF8E9; padding: 20px 0;">
     <tr>
       <td align="center">
         
-        <!-- Container Principal (Max 600px) -->
-        <table border="0" cellpadding="0" cellspacing="0" width="600" class="email-container" style="background-color: #FFFFFF; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 2px solid #F1E5D1;">
+        <!-- Container do Email (Max 600px) -->
+        <table border="0" cellpadding="0" cellspacing="0" width="600" class="email-container" style="background-color: #FFFFFF; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(113, 61, 157, 0.12); border: 2px solid #F1E5D1;">
           
-          <!-- Top Header com Logo -->
+          <!-- Top Bar com Logo e Mascotes -->
           <tr>
-            <td align="center" style="background-color: #FFFFFF; padding: 28px 20px 20px; border-bottom: 2px solid #FFF8E9;">
-              <span style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 24px; font-weight: 800; color: #713D9D; letter-spacing: -0.5px;">
-                ⚡ HERÓIS DA MULTIPLICAÇÃO
-              </span>
-            </td>
-          </tr>
-
-          <!-- Banner Roxo de Comemoração -->
-          <tr>
-            <td align="center" style="background: linear-gradient(135deg, #713D9D 0%, #522675 100%); padding: 36px 30px; text-align: center;">
-              <div style="background-color: #16A34A; color: #FFFFFF; display: inline-block; padding: 6px 14px; border-radius: 50px; font-size: 13px; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">
-                ✓ PAGAMENTO CONFIRMADO
-              </div>
-              <h1 class="hero-title" style="margin: 0 0 10px; color: #FFFFFF; font-size: 26px; font-weight: 800; line-height: 1.3;">
-                Parabéns! Seja bem-vindo(a) à <span style="color: #FFC928;">Liga dos Heróis</span>! 🚀
-              </h1>
-              <p style="margin: 0; color: #F5EEFB; font-size: 15px; font-weight: 500; line-height: 1.5;">
-                Olá, <strong>{{nome}}</strong>! O acesso do seu filho ao método lúdico de 15 minutos diários foi liberado com sucesso.
-              </p>
-            </td>
-          </tr>
-
-          <!-- Conteúdo & Botões de Acesso -->
-          <tr>
-            <td style="padding: 32px 30px;">
-              
-              <p style="margin: 0 0 20px; color: #2D3748; font-size: 16px; line-height: 1.6;">
-                A partir de agora, a tabuada deixa de ser motivo de choro ou bloqueio escolar para se transformar em um jogo leve e recompensador.
-              </p>
-
-              <!-- Box Destaque: Livro em PDF -->
-              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #F8FAFC; border: 2px solid #E2E8F0; border-radius: 16px; margin-bottom: 20px;">
+            <td align="center" style="background-color: #FFFFFF; padding: 24px 20px 18px; border-bottom: 2px solid #FFF8E9;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  <td style="padding: 22px;">
-                    <div style="color: #16A34A; font-size: 12px; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">
-                      📖 ENTREGÁVEL PRINCIPAL
-                    </div>
-                    <h3 style="margin: 0 0 8px; color: #1E293B; font-size: 18px; font-weight: 800;">
-                      Livro Digital Completo (Volume 1)
-                    </h3>
-                    <p style="margin: 0 0 16px; color: #64748B; font-size: 14px; line-height: 1.5;">
-                      43 páginas em alta definição no formato A4 com 944 campos digitais preenchíveis e pronto para impressão.
-                    </p>
-                    
-                    <!-- Botão Verde Baixar -->
-                    <table border="0" cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td align="center" style="background-color: #16A34A; border-radius: 10px;">
-                          <a href="{{link_download_pdf}}" class="btn-primary" target="_blank" style="display: inline-block; padding: 14px 28px; font-size: 15px; font-weight: 800; color: #FFFFFF; text-decoration: none; border-radius: 10px;">
-                            📥 BAIXAR LIVRO EM PDF AGORA
-                          </a>
-                        </td>
-                      </tr>
-                    </table>
+                  <td align="center">
+                    <img src="tabuada-assets/logo-oficial.png" alt="Heróis da Multiplicação" width="180" style="display: block; max-width: 100%; height: auto;" onerror="this.src='tabuada-assets/logo-transparente.png';" />
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
 
+          <!-- Banner POW! Roxo Temático com Mascote e Confirmação -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #713D9D 0%, #522675 100%); padding: 36px 30px; text-align: center;" class="mobile-padding">
+              
+              <!-- Selo Verde de Aprovação -->
+              <table border="0" cellpadding="0" cellspacing="0" align="center" style="margin-bottom: 14px;">
+                <tr>
+                  <td style="background-color: #16A34A; color: #FFFFFF; padding: 6px 16px; border-radius: 50px; font-size: 13px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">
+                    ✓ COMPRA CONFIRMADA
                   </td>
                 </tr>
               </table>
 
-              <!-- Box Secundário: Webapp Interativo -->
-              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #F0F9FF; border: 2px solid #BAE6FD; border-radius: 16px; margin-bottom: 28px;">
+              <h1 class="hero-title" style="margin: 0 0 12px; color: #FFFFFF; font-size: 26px; font-weight: 800; line-height: 1.3;">
+                Seja bem-vindo(a) à <span style="color: #FFC928;">Liga dos Heróis</span>! 🚀
+              </h1>
+              
+              <p style="margin: 0; color: #F5EEFB; font-size: 16px; font-weight: 600; line-height: 1.5;">
+                Olá, <strong>{{nome}}</strong>! O material oficial da <em>Missão Tabuada</em> já está disponível para o seu filho começar a rotina de 15 minutos diários hoje mesmo!
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- Conteúdo Principal com Mockup & Botões -->
+          <tr>
+            <td style="padding: 32px 30px;" class="mobile-padding">
+              
+              <p style="margin: 0 0 24px; color: #2D3748; font-size: 16px; line-height: 1.6;">
+                A partir de hoje, aprender a tabuada do 1 ao 10 deixa de ser uma batalha escolar com choro e vira uma missão com escudos, estrelas e muita conquista.
+              </p>
+
+              <!-- Card 1: Livro Completo em PDF -->
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #FFFFFF; border: 2px solid #86EFAC; border-radius: 18px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(22, 163, 74, 0.08);">
                 <tr>
-                  <td style="padding: 22px;">
-                    <div style="color: #0284C7; font-size: 12px; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">
-                      🎮 EXPERIÊNCIA GAMIFICADA
-                    </div>
-                    <h3 style="margin: 0 0 8px; color: #0C4A6E; font-size: 18px; font-weight: 800;">
+                  <td style="padding: 24px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td>
+                          <span style="background-color: #DCFCE7; color: #15803D; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;">
+                            📖 MATERIAL PRINCIPAL (43 PÁGINAS)
+                          </span>
+                          <h3 style="margin: 10px 0 8px; color: #1E293B; font-size: 19px; font-weight: 800;">
+                            Livro Digital Oficial (Volume 1)
+                          </h3>
+                          <p style="margin: 0 0 16px; color: #64748B; font-size: 14px; line-height: 1.5;">
+                            Formato A4 pronto para imprimir ou preencher direto pelo tablet ou celular com campos interativos (AcroForms).
+                          </p>
+                          
+                          <!-- Botão Baixar PDF -->
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                              <td align="center" style="background-color: #16A34A; border-radius: 12px; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);">
+                                <a href="{{link_download_pdf}}" target="_blank" class="btn-primary" style="display: block; padding: 15px 24px; font-size: 15px; font-weight: 800; color: #FFFFFF; text-decoration: none; border-radius: 12px; letter-spacing: 0.3px;">
+                                  📥 BAIXAR LIVRO EM PDF AGORA
+                                </a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Card 2: Webapp Gamificado -->
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #FFFFFF; border: 2px solid #BAE6FD; border-radius: 18px; margin-bottom: 26px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.08);">
+                <tr>
+                  <td style="padding: 24px;">
+                    <span style="background-color: #E0F2FE; color: #0369A1; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;">
+                      🎮 EXPERIÊNCIA INTERATIVA
+                    </span>
+                    <h3 style="margin: 10px 0 8px; color: #0C4A6E; font-size: 19px; font-weight: 800;">
                       Webapp de Desafios & Cronômetro
                     </h3>
                     <p style="margin: 0 0 16px; color: #0369A1; font-size: 14px; line-height: 1.5;">
-                      Pratique no celular, tablet ou computador com validação sonora, cronômetro de 15 minutos e efeitos de confetes.
+                      Pratique no computador ou celular com efeitos sonoros, confetes e cronômetro em tempo real de 15 minutos.
                     </p>
                     
-                    <!-- Botão Azul Acessar -->
-                    <table border="0" cellpadding="0" cellspacing="0">
+                    <!-- Botão Webapp -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
-                        <td align="center" style="background-color: #176DB3; border-radius: 10px;">
-                          <a href="{{link_webapp}}" class="btn-primary" target="_blank" style="display: inline-block; padding: 14px 28px; font-size: 15px; font-weight: 800; color: #FFFFFF; text-decoration: none; border-radius: 10px;">
+                        <td align="center" style="background-color: #176DB3; border-radius: 12px; box-shadow: 0 4px 12px rgba(23, 109, 179, 0.3);">
+                          <a href="{{link_webapp}}" target="_blank" class="btn-primary" style="display: block; padding: 15px 24px; font-size: 15px; font-weight: 800; color: #FFFFFF; text-decoration: none; border-radius: 12px; letter-spacing: 0.3px;">
                             ⚡ ABRIR WEBAPP INTERATIVO
                           </a>
                         </td>
                       </tr>
                     </table>
-
                   </td>
                 </tr>
               </table>
 
-              <!-- Dica de ouro de 15 min -->
-              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #FFFBEB; border-left: 4px solid #F59E0B; padding: 16px 20px; border-radius: 8px; margin-bottom: 24px;">
+              <!-- 3 Passos de Aplicação Rápida -->
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #FFF9E6; border: 2px solid #FDE68A; border-radius: 16px; padding: 20px; margin-bottom: 28px;">
                 <tr>
                   <td>
-                    <p style="margin: 0; color: #92400E; font-size: 14px; line-height: 1.5;">
-                      💡 <strong>Dica dos Professores:</strong> Imprima o <em>Rastreador de Conquistas</em> (Página 3 do PDF) e cole na geladeira. Deixe a criança pintar cada missão finalizada!
-                    </p>
+                    <h4 style="margin: 0 0 10px; color: #854D0E; font-size: 16px; font-weight: 800;">
+                      💡 Como começar hoje com seu filho:
+                    </h4>
+                    <ul style="margin: 0; padding-left: 20px; color: #92400E; font-size: 14px; line-height: 1.6;">
+                      <li><strong>Passo 1:</strong> Abra o PDF e imprima o <em>Rastreador de Conquistas</em> (Página 3). Cole na geladeira!</li>
+                      <li><strong>Passo 2:</strong> Separe apenas 15 minutinhos leves antes do jantar.</li>
+                      <li><strong>Passo 3:</strong> Deixe a criança pintar a estrela da missão cumprida. A constância faz a mágica!</li>
+                    </ul>
                   </td>
                 </tr>
               </table>
 
-              <!-- Suporte pelo WhatsApp -->
-              <p style="margin: 0 0 8px; color: #475569; font-size: 14px;">
-                Ficou com alguma dúvida sobre download ou impressão?
-              </p>
-              <p style="margin: 0; font-size: 14px;">
-                👉 Fale com nosso suporte humanizado no WhatsApp: <a href="https://wa.me/5521993923582?text=Ol%C3%A1%2C%20preciso%20de%20ajuda%20com%20meu%20acesso%20dos%20Her%C3%B3is%20da%20Multiplica%C3%A7%C3%A3o" style="color: #16A34A; font-weight: 800; text-decoration: underline;">(21) 99392-3582</a>
-              </p>
+              <!-- Caixa de Suporte Humanizado -->
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #F8FAFC; border-radius: 14px; padding: 18px 20px; text-align: center;">
+                <tr>
+                  <td>
+                    <p style="margin: 0 0 8px; color: #475569; font-size: 14px; font-weight: 600;">
+                      Precisa de ajuda com o download ou impressão?
+                    </p>
+                    <a href="https://wa.me/5521993923582?text=Ol%C3%A1%2C%20acabei%20de%20adquirir%20o%20material%20Her%C3%B3is%20da%20Multiplica%C3%A7%C3%A3o%20e%20preciso%20de%20suporte." target="_blank" style="color: #16A34A; font-weight: 800; font-size: 15px; text-decoration: none;">
+                      💬 Falar no WhatsApp do Suporte: (21) 99392-3582 →
+                    </a>
+                  </td>
+                </tr>
+              </table>
 
             </td>
           </tr>
 
-          <!-- Rodapé Anti-Spam & Legal -->
+          <!-- Rodapé de Autenticidade & Legal -->
           <tr>
             <td align="center" style="background-color: #F8FAFC; padding: 24px 20px; border-top: 1px solid #E2E8F0; color: #94A3B8; font-size: 12px; line-height: 1.6;">
               <p style="margin: 0 0 4px;">
-                Você recebeu este e-mail transacional porque adquiriu a <strong>Missão Tabuada & Heróis da Multiplicação</strong>.
+                Este e-mail transacional foi enviado referente ao seu pedido na <strong>Liga dos Heróis da Matemática</strong>.
               </p>
               <p style="margin: 0;">
                 © 2026 Heróis da Multiplicação • Todos os direitos reservados.

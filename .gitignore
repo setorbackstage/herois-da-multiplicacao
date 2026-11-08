@@ -4,3 +4,11 @@ temp_*
 *.zip
 package-lock.json
 midias_brutas/
+
+test_*.png
+*.log
+
+
+.agents/
+mcp_config.json
+
