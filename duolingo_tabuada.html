@@ -1142,6 +1142,165 @@
       border-radius: 5px;
       text-transform: uppercase;
     }
+  
+    /* === UX/UI DUOLINGO MASTER & TUTOR INTELIGENTE === */
+    .btn-voice-toggle {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      color: #1D4ED8;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .btn-voice-toggle:active { transform: scale(0.95); }
+    .btn-voice-toggle.off {
+      background: #F1F5F9;
+      border-color: #CBD5E1;
+      color: #64748B;
+    }
+
+    .tutor-speech-bubble {
+      background: #FFFFFF;
+      border: 3px solid #E2E8F0;
+      border-radius: 20px;
+      padding: 14px 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      position: relative;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .tutor-speech-bubble::after {
+      content: '';
+      position: absolute;
+      left: 35px;
+      bottom: -12px;
+      border-width: 12px 10px 0 10px;
+      border-style: solid;
+      border-color: #FFFFFF transparent transparent transparent;
+      z-index: 2;
+    }
+    .tutor-speech-bubble::before {
+      content: '';
+      position: absolute;
+      left: 33px;
+      bottom: -16px;
+      border-width: 14px 12px 0 12px;
+      border-style: solid;
+      border-color: #E2E8F0 transparent transparent transparent;
+      z-index: 1;
+    }
+
+    .mascot-avatar-circle {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #EFF6FF;
+      border: 3px solid #3B82F6;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mascot-avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .speech-content {
+      flex: 1;
+    }
+    .speech-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #3B82F6;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .speech-text {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1E293B;
+      line-height: 1.35;
+    }
+
+    .btn-read-aloud {
+      background: #F8FAFC;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      color: #3B82F6;
+      padding: 6px 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-read-aloud:hover { background: #EFF6FF; border-color: #93C5FD; }
+    .btn-read-aloud:active { transform: scale(0.92); }
+
+    /* EFEITO TÁTIL 3D NOS CARDS DE OPÇÃO */
+    .option-card {
+      position: relative;
+      background: #FFFFFF;
+      border: 3px solid #E2E8F0;
+      border-radius: 18px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #1E293B;
+      padding: 16px 20px;
+      box-shadow: 0 5px 0 #CBD5E1;
+      cursor: pointer;
+      transition: all 0.1s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+    .option-card:hover {
+      background: #F8FAFC;
+      border-color: #94A3B8;
+    }
+    .option-card:active, .option-card.pressed {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 #CBD5E1;
+    }
+    .option-card.selected {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1D4ED8;
+      box-shadow: 0 5px 0 #2563EB;
+    }
+
+    /* REVISÃO DE ERROS ADAPTATIVA */
+    .mastery-retry-banner {
+      background: #FEF3C7;
+      border: 2px solid #F59E0B;
+      border-radius: 16px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: pulseBanner 1.5s infinite alternate;
+    }
+    @keyframes pulseBanner {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.02); }
+    }
+    .mastery-retry-icon { font-size: 28px; }
+    .mastery-retry-text h4 { font-family: 'Fredoka', sans-serif; font-size: 16px; color: #B45309; }
+    .mastery-retry-text p { font-size: 13px; color: #78350F; font-weight: 600; }
+
   </style>
 </head>
 <body>
@@ -1524,8 +1683,12 @@
         <div class="prompt-bubble-row">
           <img src="tabuada-assets/heroi-menino-oficial.png" class="mascot-avatar-small" id="lesson-mascot-img" alt="Mascote">
           <div class="speech-bubble">
-            <div class="speech-title" id="speech-category">Missão dos Heróis</div>
-            <div class="speech-question" id="question-text">Quanto é 2 × 3?</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div class="speech-title" id="speech-category">Missão dos Heróis</div>
+              <button class="btn-voice-toggle" id="btn-voice-toggle" onclick="toggleVoice()" style="font-size:11px;padding:3px 8px;">🔊 Voz Ativa</button>
+            </div>
+            <div class="speech-question" id="question-text" onclick="readCurrentQuestion()" style="cursor:pointer;" title="Clique para ouvir">Quanto é 2 × 3? 🔊</div>
+            <div class="speech-tip" id="speech-tip" style="font-size:13px;color:#2563EB;margin-top:6px;font-weight:700;">💡 Dica do Herói: Pense rápido e calcule com superpoder!</div>
           </div>
         </div>
 
@@ -1876,9 +2039,11 @@
         return;
       }
 
-      currentLesson = lessonsData[level] || lessonsData[1];
+      currentLesson = JSON.parse(JSON.stringify(lessonsData[level] || lessonsData[1]));
       currentQIndex = 0;
       selectedOption = null;
+      mistakeQueue = [];
+      isRetryMode = false;
 
       document.getElementById('map-screen').style.display = 'none';
       document.getElementById('shop-screen').style.display = 'none';
@@ -1889,7 +2054,6 @@
       document.getElementById('speech-category').innerText = currentLesson.title;
       renderQuestion();
     }
-
     function exitLesson() {
       if (confirm("Deseja sair da lição? Seu progresso nesta fase será reiniciado.")) {
         closeLessonView();
@@ -1907,9 +2071,17 @@
     }
 
     function renderQuestion() {
+      questionStartTime = Date.now();
       const q = currentLesson.questions[currentQIndex];
       const progressPercent = (currentQIndex / currentLesson.questions.length) * 100;
       document.getElementById('lesson-progress').style.width = progressPercent + '%';
+
+      // Atualiza dica ou categoria
+      const heroName = (heroProfile && heroProfile.mascot === 'maya') ? 'Maya' : 'Léo';
+      const tipText = isRetryMode ? '🎯 Foco de Reforço: ' + (q.tip || 'Preste bastante atenção!') : (q.tip || 'Você consegue!');
+      
+      const tipEl = document.getElementById('speech-tip');
+      if (tipEl) tipEl.innerText = isRetryMode ? '🎯 Foco de Reforço: ' + (q.tip || 'Preste atenção!') : '💡 Dica do ' + heroName + ': ' + (q.tip || 'Você consegue!');
 
       document.getElementById('question-text').innerText = q.q;
       const optsCont = document.getElementById('options-container');
@@ -1920,7 +2092,9 @@
       document.getElementById('feedback-drawer').style.display = 'none';
       document.getElementById('footer-verify').style.display = 'block';
 
-      q.options.forEach((opt, idx) => {
+      // Embaralha opções levemente para dinamismo
+      const options = [...q.options];
+      options.forEach((opt, idx) => {
         const btn = document.createElement('button');
         btn.className = 'option-card';
         btn.innerText = opt;
@@ -1928,6 +2102,57 @@
         btn.onclick = () => selectOption(btn, opt);
         optsCont.appendChild(btn);
       });
+
+      // Se voz estiver ativada, lê a pergunta automaticamente
+      setTimeout(() => {
+        speakText(q.q);
+      }, 250);
+    }
+
+    
+    // === MOTOR DE INTELIGÊNCIA PEDAGÓGICA & VOZ DO HERÓI ===
+    let voiceEnabled = true;
+    let mistakeQueue = [];
+    let isRetryMode = false;
+    let questionStartTime = 0;
+
+    function toggleVoice() {
+      voiceEnabled = !voiceEnabled;
+      const btn = document.getElementById('btn-voice-toggle');
+      if (btn) {
+        btn.classList.toggle('off', !voiceEnabled);
+        btn.innerHTML = voiceEnabled ? '🔊 Voz Ativa' : '🔈 Voz Muda';
+      }
+      if (voiceEnabled) {
+        speakText('Voz do tutor herói ativada!');
+      } else {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      }
+    }
+
+    function speakText(text) {
+      if (!voiceEnabled || !('speechSynthesis' in window)) return;
+      try {
+        window.speechSynthesis.cancel();
+        const cleanText = text.replace(/×/g, 'vezes').replace(/=/g, 'igual a').replace(/[⭐🎉💎❤️🔥⚡]/g, '');
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'pt-BR';
+        utterance.rate = 1.05;
+        utterance.pitch = 1.1; // Tom vibrante e amigável
+        
+        // Procura voz em português do Brasil
+        const voices = window.speechSynthesis.getVoices();
+        const ptVoice = voices.find(v => v.lang === 'pt-BR' || v.lang.startsWith('pt'));
+        if (ptVoice) utterance.voice = ptVoice;
+
+        window.speechSynthesis.speak(utterance);
+      } catch(e) {}
+    }
+
+    // Leitura sob demanda ao clicar no botão da pergunta
+    function readCurrentQuestion() {
+      const q = currentLesson.questions[currentQIndex];
+      if (q) speakText(q.q);
     }
 
     function selectOption(btn, val) {
@@ -1942,6 +2167,7 @@
       if (selectedOption === null) return;
       const q = currentLesson.questions[currentQIndex];
       const isCorrect = (selectedOption === q.correct);
+      const answerDurationSec = (Date.now() - questionStartTime) / 1000;
 
       document.getElementById('footer-verify').style.display = 'none';
       const drawer = document.getElementById('feedback-drawer');
@@ -1955,17 +2181,36 @@
 
       if (isCorrect) {
         playSuccessSound();
-        confetti({ particleCount: 40, spread: 60, origin: { y: 0.85 } });
-        title.innerHTML = '🎉 Resposta Certa!';
-        msg.innerText = 'Sensacional! Você calculou como um verdadeiro Herói!';
+        confetti({ particleCount: 50, spread: 70, origin: { y: 0.85 } });
+
+        // Bônus de resposta rápida
+        const isFast = (answerDurationSec <= 5);
+        if (isFast) {
+          playerState.xp += 15;
+          title.innerHTML = '⚡ RESPOSTA RELÂMPAGO! +15 XP';
+          msg.innerText = 'Impressionante! Você calculou em menos de 5 segundos!';
+          speakText('Resposta relâmpago! Excelente cálculo!');
+        } else {
+          playerState.xp += 10;
+          title.innerHTML = '🎉 Resposta Certa!';
+          msg.innerText = 'Sensacional! Você calculou como um verdadeiro Herói!';
+          speakText('Muito bem, herói! Resposta certa!');
+        }
+        saveState();
       } else {
         playErrorSound();
         playerState.hearts = Math.max(0, playerState.hearts - 1);
         document.getElementById('lesson-hearts').innerText = playerState.hearts;
         saveState();
 
+        // Adiciona à fila de reforço pedagógico adaptativo
+        if (!isRetryMode && !mistakeQueue.some(item => item.q === q.q)) {
+          mistakeQueue.push(q);
+        }
+
         title.innerHTML = '❌ Quase lá!';
         msg.innerText = q.tip || 'Tente novamente! Todo herói aprende errando.';
+        speakText('Quase lá! ' + (q.tip || 'Vamos tentar de novo!'));
 
         if (playerState.hearts <= 0) {
           setTimeout(showGameOver, 1200);
@@ -1978,8 +2223,26 @@
       if (currentQIndex < currentLesson.questions.length) {
         renderQuestion();
       } else {
-        finishLesson();
+        // Se houver questões que a criança errou, entra no Modo de Reforço Adaptativo!
+        if (mistakeQueue.length > 0 && !isRetryMode) {
+          startMistakeRetryMode();
+        } else {
+          finishLesson();
+        }
       }
+    }
+
+    function startMistakeRetryMode() {
+      isRetryMode = true;
+      currentLesson = {
+        title: '🎯 Reforço de Maestria',
+        questions: [...mistakeQueue]
+      };
+      mistakeQueue = [];
+      currentQIndex = 0;
+      alert('🌟 HORA DO REFORÇO DE OURO! Vamos dominar as questões que você teve dúvida para garantir sua medalha!');
+      speakText('Hora do reforço de ouro! Vamos dominar todas as dúvidas!');
+      renderQuestion();
     }
 
     function finishLesson() {
