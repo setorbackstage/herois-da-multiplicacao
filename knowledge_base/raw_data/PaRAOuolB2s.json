@@ -1,0 +1,1519 @@
+{
+  "id": "PaRAOuolB2s",
+  "url": "https://www.youtube.com/watch?v=PaRAOuolB2s",
+  "title": "copie e cole minha estratégia para criar um lowticket validado (qualquer um consegue)",
+  "description": "💬 Me mande uma mensagem no Instagram: https://www.instagram.com/franklim.gui/\n\n💻 Entre no meu servidor do Discord: https://discord.gg/franklimgui",
+  "duration": 602,
+  "channel": "Guilherme Franklim",
+  "upload_date": "20260731",
+  "view_count": 7354,
+  "chapters": null,
+  "transcript": [
+    {
+      "timestamp": "00:00",
+      "seconds": 0.0,
+      "text": "Hoje, enquanto eu metia aquele treinão"
+    },
+    {
+      "timestamp": "00:01",
+      "seconds": 1.76,
+      "text": "pesado, eu passei por uma dor. Vou te"
+    },
+    {
+      "timestamp": "00:03",
+      "seconds": 3.84,
+      "text": "explicar, a consultoria que eu comprei é"
+    },
+    {
+      "timestamp": "00:05",
+      "seconds": 5.84,
+      "text": "baseada em a cada treino eu bater o meu"
+    },
+    {
+      "timestamp": "00:08",
+      "seconds": 8.36,
+      "text": "PR. Para isso, eu preciso decorar o peso"
+    },
+    {
+      "timestamp": "00:11",
+      "seconds": 11.12,
+      "text": "exato cada vez, de cada exercício que eu"
+    },
+    {
+      "timestamp": "00:14",
+      "seconds": 14.48,
+      "text": "fizer. E aí, o amigo que me ajuda falou"
+    },
+    {
+      "timestamp": "00:16",
+      "seconds": 16.6,
+      "text": "para eu fazer igual os old school e"
+    },
+    {
+      "timestamp": "00:18",
+      "seconds": 18.32,
+      "text": "anotar em um caderninho o peso que eu tô"
+    },
+    {
+      "timestamp": "00:20",
+      "seconds": 20.32,
+      "text": "batendo. Mas, pelo amor de Deus, né,"
+    },
+    {
+      "timestamp": "00:22",
+      "seconds": 22.6,
+      "text": "rapaziada? Logo em 2026, a era das IAs."
+    },
+    {
+      "timestamp": "00:25",
+      "seconds": 25.6,
+      "text": "Então, em três horinhas eu desenvolvi um"
+    },
+    {
+      "timestamp": "00:28",
+      "seconds": 28.16,
+      "text": "aplicativo que faz exatamente o que eu"
+    },
+    {
+      "timestamp": "00:31",
+      "seconds": 31.0,
+      "text": "quero e acabou virando um micro SaaS. Tô"
+    },
+    {
+      "timestamp": "00:33",
+      "seconds": 33.52,
+      "text": "extremamente ansioso para te mostrar,"
+    },
+    {
+      "timestamp": "00:35",
+      "seconds": 35.64,
+      "text": "então, bora para a tela do meu notebook"
+    },
+    {
+      "timestamp": "00:37",
+      "seconds": 37.48,
+      "text": "aqui. Tô de volta aqui, pessoal. É um"
+    },
+    {
+      "timestamp": "00:39",
+      "seconds": 39.2,
+      "text": "novo dia, teve uns imprevistinhos aí,"
+    },
+    {
+      "timestamp": "00:41",
+      "seconds": 41.04,
+      "text": "mas acontece. A primeira coisa que eu"
+    },
+    {
+      "timestamp": "00:42",
+      "seconds": 42.6,
+      "text": "queria mostrar para vocês, cara, é que"
+    },
+    {
+      "timestamp": "00:44",
+      "seconds": 44.88,
+      "text": "eu não criei essa narrativa, tá? É que"
+    },
+    {
+      "timestamp": "00:46",
+      "seconds": 46.44,
+      "text": "eu demorei três horas para fazer, tá"
+    },
+    {
+      "timestamp": "00:48",
+      "seconds": 48.2,
+      "text": "tudo comprovado, porque eu fiz ao vivo"
+    },
+    {
+      "timestamp": "00:50",
+      "seconds": 50.32,
+      "text": "com a galera aqui no Meet, tá? Então, a"
+    },
+    {
+      "timestamp": "00:52",
+      "seconds": 52.24,
+      "text": "gente estava em call e eu fui fazendo"
+    },
+    {
+      "timestamp": "00:53",
+      "seconds": 53.92,
+      "text": "todo o aplicativo, desde escolher o"
+    },
+    {
+      "timestamp": "00:56",
+      "seconds": 56.68,
+      "text": "nome, tá vendo a galera aqui? Refinando"
+    },
+    {
+      "timestamp": "00:58",
+      "seconds": 58.8,
+      "text": "aí o app, né? Tudo através do Cloud"
+    },
+    {
+      "timestamp": "01:01",
+      "seconds": 61.88,
+      "text": "Code, tá, rapaziada? Vou mostrar agora o"
+    },
+    {
+      "timestamp": "01:03",
+      "seconds": 63.76,
+      "text": "aplicativo para vocês, de fato. Tá aqui"
+    },
+    {
+      "timestamp": "01:05",
+      "seconds": 65.92,
+      "text": "ele. Cara, por que que eu escolhi esse"
+    },
+    {
+      "timestamp": "01:07",
+      "seconds": 67.32,
+      "text": "nome Poucas e Boas? Esse treino que eu"
+    },
+    {
+      "timestamp": "01:09",
+      "seconds": 69.48,
+      "text": "faço é o famoso low volume, tá,"
+    },
+    {
+      "timestamp": "01:11",
+      "seconds": 71.24,
+      "text": "rapaziada? Então, tu faz poucas séries,"
+    },
+    {
+      "timestamp": "01:14",
+      "seconds": 74.12,
+      "text": "poucas repetições, só que com muita"
+    },
+    {
+      "timestamp": "01:16",
+      "seconds": 76.04,
+      "text": "intensidade, tá? Então, toda série tem"
+    },
+    {
+      "timestamp": "01:17",
+      "seconds": 77.96,
+      "text": "um alvo, o app calcula exatamente o que"
+    },
+    {
+      "timestamp": "01:19",
+      "seconds": 79.72,
+      "text": "você precisa fazer hoje para bater o"
+    },
+    {
+      "timestamp": "01:21",
+      "seconds": 81.56,
+      "text": "recorde de cada exercício, beleza? Nada"
+    },
+    {
+      "timestamp": "01:24",
+      "seconds": 84.0,
+      "text": "mais de caderninho, exatamente o ponto"
+    },
+    {
+      "timestamp": "01:26",
+      "seconds": 86.2,
+      "text": "que eu vi a dor, eu coloquei no app, tá,"
+    },
+    {
+      "timestamp": "01:28",
+      "seconds": 88.64,
+      "text": "cara? Para já criar uma ideia validada."
+    },
+    {
+      "timestamp": "01:30",
+      "seconds": 90.36,
+      "text": "Carga, repetições, RR, isso aqui eu nem"
+    },
+    {
+      "timestamp": "01:32",
+      "seconds": 92.8,
+      "text": "sei o que que é. De todos os exercícios,"
+    },
+    {
+      "timestamp": "01:34",
+      "seconds": 94.6,
+      "text": "de todos os grupos, sempre à mão e"
+    },
+    {
+      "timestamp": "01:36",
+      "seconds": 96.96,
+      "text": "comparáveis entre si. Low volume exige"
+    },
+    {
+      "timestamp": "01:39",
+      "seconds": 99.28,
+      "text": "precisão, poucas séries, todas valendo."
+    },
+    {
+      "timestamp": "01:41",
+      "seconds": 101.32,
+      "text": "Se você não sabe o número anterior, não"
+    },
+    {
+      "timestamp": "01:42",
+      "seconds": 102.92,
+      "text": "existe progressão. Exatamente o ponto"
+    },
+    {
+      "timestamp": "01:44",
+      "seconds": 104.96,
+      "text": "que eu queria bater, rapaziada. Então, o"
+    },
+    {
+      "timestamp": "01:46",
+      "seconds": 106.4,
+      "text": "cara vai colocar o nome dele, tá,"
+    },
+    {
+      "timestamp": "01:48",
+      "seconds": 108.2,
+      "text": "rapaziada? Vou mostrar o app, depois eu"
+    },
+    {
+      "timestamp": "01:50",
+      "seconds": 110.08,
+      "text": "explico um pouco da arquitetura para"
+    },
+    {
+      "timestamp": "01:51",
+      "seconds": 111.76,
+      "text": "vocês. Cara, então, essa é a primeira"
+    },
+    {
+      "timestamp": "01:53",
+      "seconds": 113.52,
+      "text": "tela aqui, obviamente, a A ainda não fez"
+    },
+    {
+      "timestamp": "01:56",
+      "seconds": 116.0,
+      "text": "nenhum treino, nenhum exercício, então"
+    },
+    {
+      "timestamp": "01:58",
+      "seconds": 118.04,
+      "text": "não tem nada, mas mostra a sequência de"
+    },
+    {
+      "timestamp": "02:00",
+      "seconds": 120.4,
+      "text": "dias que o cara tá fazendo e vai"
+    },
+    {
+      "timestamp": "02:02",
+      "seconds": 122.36,
+      "text": "mostrando os PRs na semana, os recordes"
+    },
+    {
+      "timestamp": "02:04",
+      "seconds": 124.92,
+      "text": "que ele tá batendo, que neste tipo de"
+    },
+    {
+      "timestamp": "02:06",
+      "seconds": 126.479,
+      "text": "exercício, como eu falei, é muito"
+    },
+    {
+      "timestamp": "02:07",
+      "seconds": 127.88,
+      "text": "importante, tá pessoal? E futuramente,"
+    },
+    {
+      "timestamp": "02:09",
+      "seconds": 129.96,
+      "text": "quando o cara tiver treinando, vai"
+    },
+    {
+      "timestamp": "02:11",
+      "seconds": 131.2,
+      "text": "mostrar alvos do próximo treino para ele"
+    },
+    {
+      "timestamp": "02:13",
+      "seconds": 133.72,
+      "text": "bater. Enfim, tudo aqui indica, ó, ao"
+    },
+    {
+      "timestamp": "02:16",
+      "seconds": 136.04,
+      "text": "cara começar a fazer um treino logo, tá,"
+    },
+    {
+      "timestamp": "02:18",
+      "seconds": 138.08,
+      "text": "rapaziada? Que é nesse botãozinho aqui."
+    },
+    {
+      "timestamp": "02:19",
+      "seconds": 139.84,
+      "text": "E lembrando, eu vou mostrar tanto aqui"
+    },
+    {
+      "timestamp": "02:21",
+      "seconds": 141.48,
+      "text": "no PC, porque ele funciona nativamente"
+    },
+    {
+      "timestamp": "02:24",
+      "seconds": 144.0,
+      "text": "nos dois, mas o foco é o celular, tanto"
+    },
+    {
+      "timestamp": "02:26",
+      "seconds": 146.08,
+      "text": "é que a gente já tá com o aplicativo"
+    },
+    {
+      "timestamp": "02:27",
+      "seconds": 147.4,
+      "text": "pronto instalado no celular, logo eu"
+    },
+    {
+      "timestamp": "02:29",
+      "seconds": 149.16,
+      "text": "mostro para vocês. Falo mais sobre a"
+    },
+    {
+      "timestamp": "02:31",
+      "seconds": 151.08,
+      "text": "oferta também, fica até o final desse"
+    },
+    {
+      "timestamp": "02:32",
+      "seconds": 152.44,
+      "text": "vídeo que vocês vão entender tudo. Aqui"
+    },
+    {
+      "timestamp": "02:34",
+      "seconds": 154.04,
+      "text": "tem todos os tipos de exercício,"
+    },
+    {
+      "timestamp": "02:35",
+      "seconds": 155.959,
+      "text": "rapaziada. Tem 70 exercícios que são os"
+    },
+    {
+      "timestamp": "02:38",
+      "seconds": 158.48,
+      "text": "mais comum. Então, para ombro, uma"
+    },
+    {
+      "timestamp": "02:40",
+      "seconds": 160.24,
+      "text": "elevação lateral, tá aqui. Ah, um"
+    },
+    {
+      "timestamp": "02:42",
+      "seconds": 162.8,
+      "text": "supino, supino fechado, supino"
+    },
+    {
+      "timestamp": "02:44",
+      "seconds": 164.92,
+      "text": "inclinado. E aí tem exercícios na polia,"
+    },
+    {
+      "timestamp": "02:47",
+      "seconds": 167.56,
+      "text": "como o tríceps corda e vários outros,"
+    },
+    {
+      "timestamp": "02:49",
+      "seconds": 169.84,
+      "text": "tá? Cara, bem completinho aqui, depois"
+    },
+    {
+      "timestamp": "02:51",
+      "seconds": 171.6,
+      "text": "eu posso ver de aumentar esse catálogo"
+    },
+    {
+      "timestamp": "02:53",
+      "seconds": 173.28,
+      "text": "para os 140, para abranger todos mesmo."
+    },
+    {
+      "timestamp": "02:55",
+      "seconds": 175.72,
+      "text": "Mas se o cara não encontrar o exercício"
+    },
+    {
+      "timestamp": "02:57",
+      "seconds": 177.44,
+      "text": "que ele faz aqui, se for muito"
+    },
+    {
+      "timestamp": "02:58",
+      "seconds": 178.48,
+      "text": "específico, ele consegue cadastrar"
+    },
+    {
+      "timestamp": "03:00",
+      "seconds": 180.239,
+      "text": "também, falando o grupo muscular, tá,"
+    },
+    {
+      "timestamp": "03:02",
+      "seconds": 182.76,
+      "text": "rapaziada? Cada um eu defini com uma"
+    },
+    {
+      "timestamp": "03:04",
+      "seconds": 184.48,
+      "text": "corzinha aqui, tal, para ficar bem"
+    },
+    {
+      "timestamp": "03:06",
+      "seconds": 186.36,
+      "text": "bonitinho o app, mano. Esses apps têm"
+    },
+    {
+      "timestamp": "03:08",
+      "seconds": 188.12,
+      "text": "que ser bem gamificados, bem bonitinhos."
+    },
+    {
+      "timestamp": "03:10",
+      "seconds": 190.28,
+      "text": "Então, o cara consegue até mesmo"
+    },
+    {
+      "timestamp": "03:11",
+      "seconds": 191.72,
+      "text": "cadastrar. Aqui vai mostrar o histórico"
+    },
+    {
+      "timestamp": "03:13",
+      "seconds": 193.76,
+      "text": "quando tiver treinos e aqui é o perfil"
+    },
+    {
+      "timestamp": "03:16",
+      "seconds": 196.16,
+      "text": "dele. Já falando sobre essa arquitetura,"
+    },
+    {
+      "timestamp": "03:17",
+      "seconds": 197.92,
+      "text": "rapaziada, eu optei por fazer um banco"
+    },
+    {
+      "timestamp": "03:20",
+      "seconds": 200.239,
+      "text": "de dados blob só, tá? Isso aqui para"
+    },
+    {
+      "timestamp": "03:22",
+      "seconds": 202.36,
+      "text": "galera que entende um pouquinho mais. O"
+    },
+    {
+      "timestamp": "03:24",
+      "seconds": 204.12,
+      "text": "que quer dizer que a gente não precisa,"
+    },
+    {
+      "timestamp": "03:25",
+      "seconds": 205.48,
+      "text": "por exemplo, de um Supabase. A gente"
+    },
+    {
+      "timestamp": "03:27",
+      "seconds": 207.6,
+      "text": "salva essas informações rápidas aqui no"
+    },
+    {
+      "timestamp": "03:29",
+      "seconds": 209.8,
+      "text": "próprio celular do cara, através de"
+    },
+    {
+      "timestamp": "03:31",
+      "seconds": 211.72,
+      "text": "cache, de memória ali, tá, do celular,"
+    },
+    {
+      "timestamp": "03:34",
+      "seconds": 214.04,
+      "text": "que foi a alternativa que eu vi com o"
+    },
+    {
+      "timestamp": "03:35",
+      "seconds": 215.959,
+      "text": "pessoal aqui na call, como eu falei,"
+    },
+    {
+      "timestamp": "03:38",
+      "seconds": 218.519,
+      "text": "para a gente fazer um MVP bom, sabe?"
+    },
+    {
+      "timestamp": "03:41",
+      "seconds": 221.48,
+      "text": "Então, o cara consegue até baixar os"
+    },
+    {
+      "timestamp": "03:43",
+      "seconds": 223.16,
+      "text": "dados dele, subir em outro celular, se"
+    },
+    {
+      "timestamp": "03:45",
+      "seconds": 225.04,
+      "text": "for o caso, apagar tudo, se ele quiser."
+    },
+    {
+      "timestamp": "03:47",
+      "seconds": 227.239,
+      "text": "O cara consegue definir o descanso, o"
+    },
+    {
+      "timestamp": "03:48",
+      "seconds": 228.64,
+      "text": "meu, por exemplo, é 2 minutos. E aí eu"
+    },
+    {
+      "timestamp": "03:50",
+      "seconds": 230.48,
+      "text": "vou mostrar para vocês iniciando um"
+    },
+    {
+      "timestamp": "03:52",
+      "seconds": 232.0,
+      "text": "treino. Vamos supor aqui que a gente vai"
+    },
+    {
+      "timestamp": "03:53",
+      "seconds": 233.52,
+      "text": "fazer um pouco de ombro, então a gente"
+    },
+    {
+      "timestamp": "03:55",
+      "seconds": 235.48,
+      "text": "vai fazer um desenvolvimento com"
+    },
+    {
+      "timestamp": "03:58",
+      "seconds": 238.04,
+      "text": "halteres, vamos supor aqui que o cara"
+    },
+    {
+      "timestamp": "04:00",
+      "seconds": 240.16,
+      "text": "vai fazer com 12 kg"
+    },
+    {
+      "timestamp": "04:01",
+      "seconds": 241.88,
+      "text": "para 10 repetições e vamos supor que ele"
+    },
+    {
+      "timestamp": "04:04",
+      "seconds": 244.44,
+      "text": "deixou uma na reserva ali. Recorde"
+    },
+    {
+      "timestamp": "04:06",
+      "seconds": 246.56,
+      "text": "absoluto que o cara nunca treinou, tá?"
+    },
+    {
+      "timestamp": "04:08",
+      "seconds": 248.12,
+      "text": "Então registra aí recorde, vamos"
+    },
+    {
+      "timestamp": "04:09",
+      "seconds": 249.64,
+      "text": "adicionar novo. E aqui cara, ó, pode ver"
+    },
+    {
+      "timestamp": "04:11",
+      "seconds": 251.2,
+      "text": "que é tudo bem animadinho, tá rapaziada?"
+    },
+    {
+      "timestamp": "04:13",
+      "seconds": 253.6,
+      "text": "Mas enfim, se o cara fez com 12 kg agora"
+    },
+    {
+      "timestamp": "04:16",
+      "seconds": 256.44,
+      "text": "o aplicativo vai tentar para ele jogar"
+    },
+    {
+      "timestamp": "04:18",
+      "seconds": 258.04,
+      "text": "já 14 kg com menos repetições, que é o"
+    },
+    {
+      "timestamp": "04:20",
+      "seconds": 260.76,
+      "text": "certo do low volume, tá rapaziada? Aí se"
+    },
+    {
+      "timestamp": "04:23",
+      "seconds": 263.32,
+      "text": "o cara vier registrar a mesma carga, só"
+    },
+    {
+      "timestamp": "04:25",
+      "seconds": 265.8,
+      "text": "que com menos repetições, marca só uma"
+    },
+    {
+      "timestamp": "04:28",
+      "seconds": 268.04,
+      "text": "série, não marca necessariamente um"
+    },
+    {
+      "timestamp": "04:30",
+      "seconds": 270.44,
+      "text": "recorde, tá rapaziada? Ele fez 10"
+    },
+    {
+      "timestamp": "04:32",
+      "seconds": 272.36,
+      "text": "repetições aquela hora, se ele fizer"
+    },
+    {
+      "timestamp": "04:33",
+      "seconds": 273.72,
+      "text": "agora 11 ou mais já marca como recorde."
+    },
+    {
+      "timestamp": "04:35",
+      "seconds": 275.96,
+      "text": "E vamos supor que ele deixou zero na"
+    },
+    {
+      "timestamp": "04:37",
+      "seconds": 277.32,
+      "text": "reserva. Beleza, então ele bateu dois"
+    },
+    {
+      "timestamp": "04:39",
+      "seconds": 279.28,
+      "text": "PRs no mesmo treino. E aqui fica"
+    },
+    {
+      "timestamp": "04:40",
+      "seconds": 280.96,
+      "text": "contabilizando o descanso também, tá"
+    },
+    {
+      "timestamp": "04:42",
+      "seconds": 282.52,
+      "text": "rapaziada? Cronometrando. Que apesar que"
+    },
+    {
+      "timestamp": "04:44",
+      "seconds": 284.64,
+      "text": "o cara pode usar o cronômetro do"
+    },
+    {
+      "timestamp": "04:46",
+      "seconds": 286.0,
+      "text": "celular, tem muita gente que não gosta"
+    },
+    {
+      "timestamp": "04:47",
+      "seconds": 287.56,
+      "text": "por N motivos, então achei legal colocar"
+    },
+    {
+      "timestamp": "04:49",
+      "seconds": 289.28,
+      "text": "no app. isso aqui no celular, quando eu"
+    },
+    {
+      "timestamp": "04:51",
+      "seconds": 291.72,
+      "text": "for mostrar, vocês vão ver que tudo isso"
+    },
+    {
+      "timestamp": "04:53",
+      "seconds": 293.8,
+      "text": "aqui tem notificação, então assim que"
+    },
+    {
+      "timestamp": "04:55",
+      "seconds": 295.919,
+      "text": "acaba isso aqui chega uma notificação no"
+    },
+    {
+      "timestamp": "04:57",
+      "seconds": 297.56,
+      "text": "celular do cara avisando que ele já pode"
+    },
+    {
+      "timestamp": "04:59",
+      "seconds": 299.08,
+      "text": "treinar de novo. Talvez o cara saia do"
+    },
+    {
+      "timestamp": "05:01",
+      "seconds": 301.04,
+      "text": "aplicativo, vai para o WhatsApp, quando"
+    },
+    {
+      "timestamp": "05:02",
+      "seconds": 302.8,
+      "text": "ele volta já tá avisando, então achei"
+    },
+    {
+      "timestamp": "05:04",
+      "seconds": 304.36,
+      "text": "muito interessante e ele pode escolher"
+    },
+    {
+      "timestamp": "05:06",
+      "seconds": 306.2,
+      "text": "pular também, né? Então pessoal, simulei"
+    },
+    {
+      "timestamp": "05:08",
+      "seconds": 308.6,
+      "text": "aqui que eu terminei um treino aqui,"
+    },
+    {
+      "timestamp": "05:10",
+      "seconds": 310.44,
+      "text": "consigo ver no histórico que teve quatro"
+    },
+    {
+      "timestamp": "05:12",
+      "seconds": 312.6,
+      "text": "PRs, meu volume total, o dia, a data, os"
+    },
+    {
+      "timestamp": "05:15",
+      "seconds": 315.8,
+      "text": "grupos musculares que eu trabalhei e"
+    },
+    {
+      "timestamp": "05:17",
+      "seconds": 317.84,
+      "text": "agora nossa dashboard inicial tá"
+    },
+    {
+      "timestamp": "05:19",
+      "seconds": 319.48,
+      "text": "totalmente diferente, mostrando nossos"
+    },
+    {
+      "timestamp": "05:21",
+      "seconds": 321.56,
+      "text": "PRs da semana, ritmo de progressão,"
+    },
+    {
+      "timestamp": "05:23",
+      "seconds": 323.64,
+      "text": "sequência de dias, que é meio que aquilo"
+    },
+    {
+      "timestamp": "05:25",
+      "seconds": 325.52,
+      "text": "do Duolingo, do TikTok,"
+    },
+    {
+      "timestamp": "05:26",
+      "seconds": 326.848,
+      "text": "[limpando a garganta] incentiva o cara a"
+    },
+    {
+      "timestamp": "05:27",
+      "seconds": 327.96,
+      "text": "entrar todos os dias, volume total de"
+    },
+    {
+      "timestamp": "05:29",
+      "seconds": 329.919,
+      "text": "carga na última semana, alvos do próximo"
+    },
+    {
+      "timestamp": "05:32",
+      "seconds": 332.52,
+      "text": "treino, tanto o peso quanto a quantidade"
+    },
+    {
+      "timestamp": "05:35",
+      "seconds": 335.08,
+      "text": "de séries e recordes recentes, tá"
+    },
+    {
+      "timestamp": "05:37",
+      "seconds": 337.44,
+      "text": "rapaziada? Mas agora melhor, eu vou"
+    },
+    {
+      "timestamp": "05:39",
+      "seconds": 339.28,
+      "text": "mostrar no celular, que é aonde foi"
+    },
+    {
+      "timestamp": "05:41",
+      "seconds": 341.08,
+      "text": "pensado para existir o app, tá? Porque"
+    },
+    {
+      "timestamp": "05:43",
+      "seconds": 343.88,
+      "text": "ninguém leva PC para academia, então tem"
+    },
+    {
+      "timestamp": "05:46",
+      "seconds": 346.44,
+      "text": "que estar na palma da mão. Mostrar aqui"
+    },
+    {
+      "timestamp": "05:48",
+      "seconds": 348.28,
+      "text": "agora, pessoal, rapidinho para vocês no"
+    },
+    {
+      "timestamp": "05:50",
+      "seconds": 350.24,
+      "text": "celular, para a gente já partir para a"
+    },
+    {
+      "timestamp": "05:51",
+      "seconds": 351.84,
+      "text": "questão de oferta e tudo mais, porque é"
+    },
+    {
+      "timestamp": "05:53",
+      "seconds": 353.76,
+      "text": "uma estratégia validada, não tem ninguém"
+    },
+    {
+      "timestamp": "05:55",
+      "seconds": 355.48,
+      "text": "rodando, eu vou explicar melhor. Mas,"
+    },
+    {
+      "timestamp": "05:57",
+      "seconds": 357.24,
+      "text": "basicamente, quando o cara acessar no"
+    },
+    {
+      "timestamp": "05:58",
+      "seconds": 358.52,
+      "text": "celular, ele vai clicar nesses três"
+    },
+    {
+      "timestamp": "06:00",
+      "seconds": 360.08,
+      "text": "pontos aqui, compartilhar, vai clicar"
+    },
+    {
+      "timestamp": "06:02",
+      "seconds": 362.4,
+      "text": "aqui embaixo e adicionar à tela de"
+    },
+    {
+      "timestamp": "06:04",
+      "seconds": 364.36,
+      "text": "início. O app já reconhece"
+    },
+    {
+      "timestamp": "06:06",
+      "seconds": 366.0,
+      "text": "automaticamente aqui, nome, tudo mais e"
+    },
+    {
+      "timestamp": "06:08",
+      "seconds": 368.32,
+      "text": "o cara pode vir e abrir. Pronto,"
+    },
+    {
+      "timestamp": "06:10",
+      "seconds": 370.28,
+      "text": "rapaziada, aqui vai ser aquela mesma"
+    },
+    {
+      "timestamp": "06:11",
+      "seconds": 371.8,
+      "text": "tela que vocês viram lá, tá? E, olha"
+    },
+    {
+      "timestamp": "06:14",
+      "seconds": 374.08,
+      "text": "como fica no celular. Dá para ver que"
+    },
+    {
+      "timestamp": "06:15",
+      "seconds": 375.64,
+      "text": "está bem melhor do que no PC. O app é"
+    },
+    {
+      "timestamp": "06:17",
+      "seconds": 377.72,
+      "text": "ajustado para ser para o celular, tá,"
+    },
+    {
+      "timestamp": "06:19",
+      "seconds": 379.28,
+      "text": "rapaziada? Então, imagina a gente"
+    },
+    {
+      "timestamp": "06:20",
+      "seconds": 380.76,
+      "text": "mostrando num criativo essa tela aqui do"
+    },
+    {
+      "timestamp": "06:23",
+      "seconds": 383.28,
+      "text": "nosso celular. Absurdo, né, mano? O lead"
+    },
+    {
+      "timestamp": "06:25",
+      "seconds": 385.48,
+      "text": "vai gostar bastante, ao invés de receber"
+    },
+    {
+      "timestamp": "06:27",
+      "seconds": 387.48,
+      "text": "um PDF ou até mesmo vídeo aulas, porque"
+    },
+    {
+      "timestamp": "06:29",
+      "seconds": 389.64,
+      "text": "isso aqui, eu criei com base no que eu"
+    },
+    {
+      "timestamp": "06:31",
+      "seconds": 391.32,
+      "text": "precisava. Eu não quero ver vídeo aula"
+    },
+    {
+      "timestamp": "06:33",
+      "seconds": 393.08,
+      "text": "de um cara fazendo um exercício, eu"
+    },
+    {
+      "timestamp": "06:34",
+      "seconds": 394.4,
+      "text": "tenho que praticar enquanto tem uma boa"
+    },
+    {
+      "timestamp": "06:36",
+      "seconds": 396.0,
+      "text": "ferramenta me instruindo, entende?"
+    },
+    {
+      "timestamp": "06:37",
+      "seconds": 397.68,
+      "text": "Então, quero mostrar para vocês as"
+    },
+    {
+      "timestamp": "06:38",
+      "seconds": 398.76,
+      "text": "notificações, tá? Só o cara vir no"
+    },
+    {
+      "timestamp": "06:40",
+      "seconds": 400.32,
+      "text": "perfil dele, ligar, permitir e, tá"
+    },
+    {
+      "timestamp": "06:42",
+      "seconds": 402.96,
+      "text": "vendo? Já chegou uma notificação e aí"
+    },
+    {
+      "timestamp": "06:45",
+      "seconds": 405.04,
+      "text": "ele pode ligar todas outras essas, ó,"
+    },
+    {
+      "timestamp": "06:47",
+      "seconds": 407.04,
+      "text": "alvo do dia, resumos da semana, volta ao"
+    },
+    {
+      "timestamp": "06:49",
+      "seconds": 409.48,
+      "text": "treino, exercício travado, marco próximo"
+    },
+    {
+      "timestamp": "06:51",
+      "seconds": 411.88,
+      "text": "e tem aqui os exemplos, tá, rapaziada?"
+    },
+    {
+      "timestamp": "06:54",
+      "seconds": 414.68,
+      "text": "Então, notificaçãozinha aí, nativa, isso"
+    },
+    {
+      "timestamp": "06:57",
+      "seconds": 417.12,
+      "text": "aqui é um aplicativo PWA, tá, rapaziada?"
+    },
+    {
+      "timestamp": "06:59",
+      "seconds": 419.68,
+      "text": "Quem tava ali na call aprendeu a fazer"
+    },
+    {
+      "timestamp": "07:01",
+      "seconds": 421.52,
+      "text": "exatamente isso aqui. E é isso,"
+    },
+    {
+      "timestamp": "07:03",
+      "seconds": 423.16,
+      "text": "rapaziada, já mostrei para vocês o"
+    },
+    {
+      "timestamp": "07:04",
+      "seconds": 424.56,
+      "text": "aplicativo todo, agora vamos falar sobre"
+    },
+    {
+      "timestamp": "07:07",
+      "seconds": 427.4,
+      "text": "essa oferta em si. Explicando agora mais"
+    },
+    {
+      "timestamp": "07:09",
+      "seconds": 429.88,
+      "text": "sobre o app, rapaziada, por que que eu"
+    },
+    {
+      "timestamp": "07:11",
+      "seconds": 431.56,
+      "text": "vi que daria para vender como um"
+    },
+    {
+      "timestamp": "07:12",
+      "seconds": 432.919,
+      "text": "microsas, principalmente como um low"
+    },
+    {
+      "timestamp": "07:14",
+      "seconds": 434.76,
+      "text": "ticket, na verdade, ao invés de"
+    },
+    {
+      "timestamp": "07:16",
+      "seconds": 436.24,
+      "text": "microsas, é porque eu analisei que tem"
+    },
+    {
+      "timestamp": "07:18",
+      "seconds": 438.2,
+      "text": "muitos bons apps de academia, vou dar"
+    },
+    {
+      "timestamp": "07:20",
+      "seconds": 440.52,
+      "text": "uma ênfase aqui, nesse FitForYou, que tá"
+    },
+    {
+      "timestamp": "07:22",
+      "seconds": 442.64,
+      "text": "me pegando bastante no algoritmo do"
+    },
+    {
+      "timestamp": "07:24",
+      "seconds": 444.28,
+      "text": "Instagram, mas o criador dele é um dev,"
+    },
+    {
+      "timestamp": "07:26",
+      "seconds": 446.84,
+      "text": "tá, rapaziada? E não alguém que é do low"
+    },
+    {
+      "timestamp": "07:29",
+      "seconds": 449.36,
+      "text": "ticket em si, porque isso muda muito,"
+    },
+    {
+      "timestamp": "07:31",
+      "seconds": 451.08,
+      "text": "cara, acredite se quiser. Nós do low"
+    },
+    {
+      "timestamp": "07:32",
+      "seconds": 452.76,
+      "text": "ticket fazemos um modelo de negócio"
+    },
+    {
+      "timestamp": "07:35",
+      "seconds": 455.04,
+      "text": "totalmente diferente, que é no tráfego"
+    },
+    {
+      "timestamp": "07:36",
+      "seconds": 456.76,
+      "text": "direto, né, rapaziada? Com criativos"
+    },
+    {
+      "timestamp": "07:38",
+      "seconds": 458.8,
+      "text": "UGC, com criativos mostrando o produto,"
+    },
+    {
+      "timestamp": "07:41",
+      "seconds": 461.36,
+      "text": "enfim, para o cara pegar e acessar na"
+    },
+    {
+      "timestamp": "07:43",
+      "seconds": 463.24,
+      "text": "hora através de uma landing page. Esse"
+    },
+    {
+      "timestamp": "07:45",
+      "seconds": 465.0,
+      "text": "FitForYou, por exemplo, é daquele jeito,"
+    },
+    {
+      "timestamp": "07:47",
+      "seconds": 467.0,
+      "text": "né? Na App Store, na Google Play. Então,"
+    },
+    {
+      "timestamp": "07:49",
+      "seconds": 469.6,
+      "text": "é uma parada que vai ter uma recorrência"
+    },
+    {
+      "timestamp": "07:51",
+      "seconds": 471.28,
+      "text": "assim bem maior, mas até pegar tração"
+    },
+    {
+      "timestamp": "07:53",
+      "seconds": 473.64,
+      "text": "pode demorar bem mais, tá? Depende bem"
+    },
+    {
+      "timestamp": "07:55",
+      "seconds": 475.96,
+      "text": "mais de vídeos no TikTok, no Instagram,"
+    },
+    {
+      "timestamp": "07:57",
+      "seconds": 477.88,
+      "text": "por exemplo, construir um branding"
+    },
+    {
+      "timestamp": "07:59",
+      "seconds": 479.84,
+      "text": "diferente de um low ticket que a gente"
+    },
+    {
+      "timestamp": "08:01",
+      "seconds": 481.68,
+      "text": "entrega um microsas, rapaziada. Que"
+    },
+    {
+      "timestamp": "08:03",
+      "seconds": 483.64,
+      "text": "assim como eu vou mostrar na tela aqui,"
+    },
+    {
+      "timestamp": "08:05",
+      "seconds": 485.44,
+      "text": "eu gravei um vídeo levando um low ticket"
+    },
+    {
+      "timestamp": "08:07",
+      "seconds": 487.6,
+      "text": "microsas do zero até a escala bem"
+    },
+    {
+      "timestamp": "08:10",
+      "seconds": 490.04,
+      "text": "rápido. E então, tipo, eu nem acredito"
+    },
+    {
+      "timestamp": "08:12",
+      "seconds": 492.4,
+      "text": "que menos de uma semana eu já estava"
+    },
+    {
+      "timestamp": "08:14",
+      "seconds": 494.24,
+      "text": "fazendo mais de 1.000 reais de lucro por"
+    },
+    {
+      "timestamp": "08:16",
+      "seconds": 496.08,
+      "text": "dia, porque eu estava usando tráfego"
+    },
+    {
+      "timestamp": "08:18",
+      "seconds": 498.08,
+      "text": "direto de low ticket e entregando o"
+    },
+    {
+      "timestamp": "08:19",
+      "seconds": 499.919,
+      "text": "microsas, mostrando ele nos criativos."
+    },
+    {
+      "timestamp": "08:21",
+      "seconds": 501.96,
+      "text": "Então, quando a gente coloca o"
+    },
+    {
+      "timestamp": "08:23",
+      "seconds": 503.88,
+      "text": "entregável no lugar dele e assume que é"
+    },
+    {
+      "timestamp": "08:25",
+      "seconds": 505.8,
+      "text": "só o entregável que importa, é a oferta"
+    },
+    {
+      "timestamp": "08:27",
+      "seconds": 507.88,
+      "text": "por trás, a promessa, o mecanismo único,"
+    },
+    {
+      "timestamp": "08:30",
+      "seconds": 510.24,
+      "text": "e a gente une com o tráfego direto,"
+    },
+    {
+      "timestamp": "08:31",
+      "seconds": 511.84,
+      "text": "obviamente, aí o resultado é assim, tá,"
+    },
+    {
+      "timestamp": "08:33",
+      "seconds": 513.76,
+      "text": "rapaziada? Então, eu vi essa lacuna que"
+    },
+    {
+      "timestamp": "08:35",
+      "seconds": 515.599,
+      "text": "não tem ninguém rodando dessa forma e"
+    },
+    {
+      "timestamp": "08:37",
+      "seconds": 517.52,
+      "text": "por isso eu decidi criar esse microsas,"
+    },
+    {
+      "timestamp": "08:39",
+      "seconds": 519.68,
+      "text": "tá, rapaziada? E é uma ideia validada,"
+    },
+    {
+      "timestamp": "08:41",
+      "seconds": 521.56,
+      "text": "cara, porque é uma dor minha, é uma"
+    },
+    {
+      "timestamp": "08:43",
+      "seconds": 523.8,
+      "text": "ideia do pessoal da academia que eu"
+    },
+    {
+      "timestamp": "08:45",
+      "seconds": 525.44,
+      "text": "troquei ideia. Na cala ali não teve"
+    },
+    {
+      "timestamp": "08:47",
+      "seconds": 527.48,
+      "text": "ninguém que falou que o aplicativo não"
+    },
+    {
+      "timestamp": "08:49",
+      "seconds": 529.88,
+      "text": "seria uma boa, porque ele ajuda mesmo,"
+    },
+    {
+      "timestamp": "08:52",
+      "seconds": 532.0,
+      "text": "tá, rapaziada? Como eu falei, eu criei"
+    },
+    {
+      "timestamp": "08:53",
+      "seconds": 533.48,
+      "text": "com base em uma dor que eu mesmo tive."
+    },
+    {
+      "timestamp": "08:55",
+      "seconds": 535.64,
+      "text": "Então, era isso que eu queria mostrar"
+    },
+    {
+      "timestamp": "08:56",
+      "seconds": 536.76,
+      "text": "para vocês, rapaziada. Comentem aí o que"
+    },
+    {
+      "timestamp": "08:58",
+      "seconds": 538.92,
+      "text": "que vocês acharam da ideia desse app. Se"
+    },
+    {
+      "timestamp": "09:01",
+      "seconds": 541.32,
+      "text": "surgiu uma ideia aí na sua cabeça, não"
+    },
+    {
+      "timestamp": "09:03",
+      "seconds": 543.16,
+      "text": "só de um app de academia, cara, mas às"
+    },
+    {
+      "timestamp": "09:04",
+      "seconds": 544.92,
+      "text": "vezes um app de, sei lá, Hyrox, de"
+    },
+    {
+      "timestamp": "09:07",
+      "seconds": 547.52,
+      "text": "CrossFit, de qualquer outra parada. E"
+    },
+    {
+      "timestamp": "09:09",
+      "seconds": 549.8,
+      "text": "não só desse nicho, pode ser de qualquer"
+    },
+    {
+      "timestamp": "09:11",
+      "seconds": 551.76,
+      "text": "outro nicho, de games, tanto faz, cara,"
+    },
+    {
+      "timestamp": "09:14",
+      "seconds": 554.0,
+      "text": "de cartinha de Pokémon, tem uns"
+    },
+    {
+      "timestamp": "09:15",
+      "seconds": 555.64,
+      "text": "microsas, ah, para o cara ir abrindo,"
+    },
+    {
+      "timestamp": "09:17",
+      "seconds": 557.839,
+      "text": "registrando, falando qual o pacote que o"
+    },
+    {
+      "timestamp": "09:20",
+      "seconds": 560.16,
+      "text": "cara deve abrir para ter mais"
+    },
+    {
+      "timestamp": "09:21",
+      "seconds": 561.56,
+      "text": "probabilidade, enfim. Então, infinitas"
+    },
+    {
+      "timestamp": "09:23",
+      "seconds": 563.76,
+      "text": "possibilidades, rapaziada. Vai da"
+    },
+    {
+      "timestamp": "09:25",
+      "seconds": 565.32,
+      "text": "imaginação de vocês, assim como eu"
+    },
+    {
+      "timestamp": "09:26",
+      "seconds": 566.88,
+      "text": "deixei a minha fluir um pouquinho e já"
+    },
+    {
+      "timestamp": "09:28",
+      "seconds": 568.76,
+      "text": "criei um microsas, um MVPzinho bem da"
+    },
+    {
+      "timestamp": "09:30",
+      "seconds": 570.88,
+      "text": "hora, tá, rapaziada? Novamente,"
+    },
+    {
+      "timestamp": "09:32",
+      "seconds": 572.52,
+      "text": "salientando, eu faço vídeos para o meu"
+    },
+    {
+      "timestamp": "09:34",
+      "seconds": 574.52,
+      "text": "público, que é o público da galera que"
+    },
+    {
+      "timestamp": "09:36",
+      "seconds": 576.28,
+      "text": "roda low ticket, eu não faço vídeo para"
+    },
+    {
+      "timestamp": "09:38",
+      "seconds": 578.32,
+      "text": "dev, até porque dev passa dois anos"
+    },
+    {
+      "timestamp": "09:41",
+      "seconds": 581.16,
+      "text": "lapidando app, quando ele vai vender já"
+    },
+    {
+      "timestamp": "09:43",
+      "seconds": 583.04,
+      "text": "saturou, alguém já rodou. Então, a ideia"
+    },
+    {
+      "timestamp": "09:45",
+      "seconds": 585.84,
+      "text": "do que a gente vende é completamente"
+    },
+    {
+      "timestamp": "09:47",
+      "seconds": 587.2,
+      "text": "diferente, é pegar a ideia, transformar"
+    },
+    {
+      "timestamp": "09:49",
+      "seconds": 589.48,
+      "text": "numa oferta qualquer, seja um microsite,"
+    },
+    {
+      "timestamp": "09:52",
+      "seconds": 592.16,
+      "text": "seja um PDF, e-books e começar a rodar"
+    },
+    {
+      "timestamp": "09:54",
+      "seconds": 594.28,
+      "text": "logo, ver o que que acontece. Fechou,"
+    },
+    {
+      "timestamp": "09:55",
+      "seconds": 595.72,
+      "text": "rapaziada? Sempre com MVP e depois a"
+    },
+    {
+      "timestamp": "09:57",
+      "seconds": 597.68,
+      "text": "gente vai melhorando. Então, tamo junto,"
+    },
+    {
+      "timestamp": "09:59",
+      "seconds": 599.28,
+      "text": "rapaziada, espero que vocês tenham"
+    },
+    {
+      "timestamp": "10:00",
+      "seconds": 600.56,
+      "text": "curtido e é nós."
+    }
+  ],
+  "full_text": "Hoje, enquanto eu metia aquele treinão pesado, eu passei por uma dor. Vou te explicar, a consultoria que eu comprei é baseada em a cada treino eu bater o meu PR. Para isso, eu preciso decorar o peso exato cada vez, de cada exercício que eu fizer. E aí, o amigo que me ajuda falou para eu fazer igual os old school e anotar em um caderninho o peso que eu tô batendo. Mas, pelo amor de Deus, né, rapaziada? Logo em 2026, a era das IAs. Então, em três horinhas eu desenvolvi um aplicativo que faz exatamente o que eu quero e acabou virando um micro SaaS. Tô extremamente ansioso para te mostrar, então, bora para a tela do meu notebook aqui. Tô de volta aqui, pessoal. É um novo dia, teve uns imprevistinhos aí, mas acontece. A primeira coisa que eu queria mostrar para vocês, cara, é que eu não criei essa narrativa, tá? É que eu demorei três horas para fazer, tá tudo comprovado, porque eu fiz ao vivo com a galera aqui no Meet, tá? Então, a gente estava em call e eu fui fazendo todo o aplicativo, desde escolher o nome, tá vendo a galera aqui? Refinando aí o app, né? Tudo através do Cloud Code, tá, rapaziada? Vou mostrar agora o aplicativo para vocês, de fato. Tá aqui ele. Cara, por que que eu escolhi esse nome Poucas e Boas? Esse treino que eu faço é o famoso low volume, tá, rapaziada? Então, tu faz poucas séries, poucas repetições, só que com muita intensidade, tá? Então, toda série tem um alvo, o app calcula exatamente o que você precisa fazer hoje para bater o recorde de cada exercício, beleza? Nada mais de caderninho, exatamente o ponto que eu vi a dor, eu coloquei no app, tá, cara? Para já criar uma ideia validada. Carga, repetições, RR, isso aqui eu nem sei o que que é. De todos os exercícios, de todos os grupos, sempre à mão e comparáveis entre si. Low volume exige precisão, poucas séries, todas valendo. Se você não sabe o número anterior, não existe progressão. Exatamente o ponto que eu queria bater, rapaziada. Então, o cara vai colocar o nome dele, tá, rapaziada? Vou mostrar o app, depois eu explico um pouco da arquitetura para vocês. Cara, então, essa é a primeira tela aqui, obviamente, a A ainda não fez nenhum treino, nenhum exercício, então não tem nada, mas mostra a sequência de dias que o cara tá fazendo e vai mostrando os PRs na semana, os recordes que ele tá batendo, que neste tipo de exercício, como eu falei, é muito importante, tá pessoal? E futuramente, quando o cara tiver treinando, vai mostrar alvos do próximo treino para ele bater. Enfim, tudo aqui indica, ó, ao cara começar a fazer um treino logo, tá, rapaziada? Que é nesse botãozinho aqui. E lembrando, eu vou mostrar tanto aqui no PC, porque ele funciona nativamente nos dois, mas o foco é o celular, tanto é que a gente já tá com o aplicativo pronto instalado no celular, logo eu mostro para vocês. Falo mais sobre a oferta também, fica até o final desse vídeo que vocês vão entender tudo. Aqui tem todos os tipos de exercício, rapaziada. Tem 70 exercícios que são os mais comum. Então, para ombro, uma elevação lateral, tá aqui. Ah, um supino, supino fechado, supino inclinado. E aí tem exercícios na polia, como o tríceps corda e vários outros, tá? Cara, bem completinho aqui, depois eu posso ver de aumentar esse catálogo para os 140, para abranger todos mesmo. Mas se o cara não encontrar o exercício que ele faz aqui, se for muito específico, ele consegue cadastrar também, falando o grupo muscular, tá, rapaziada? Cada um eu defini com uma corzinha aqui, tal, para ficar bem bonitinho o app, mano. Esses apps têm que ser bem gamificados, bem bonitinhos. Então, o cara consegue até mesmo cadastrar. Aqui vai mostrar o histórico quando tiver treinos e aqui é o perfil dele. Já falando sobre essa arquitetura, rapaziada, eu optei por fazer um banco de dados blob só, tá? Isso aqui para galera que entende um pouquinho mais. O que quer dizer que a gente não precisa, por exemplo, de um Supabase. A gente salva essas informações rápidas aqui no próprio celular do cara, através de cache, de memória ali, tá, do celular, que foi a alternativa que eu vi com o pessoal aqui na call, como eu falei, para a gente fazer um MVP bom, sabe? Então, o cara consegue até baixar os dados dele, subir em outro celular, se for o caso, apagar tudo, se ele quiser. O cara consegue definir o descanso, o meu, por exemplo, é 2 minutos. E aí eu vou mostrar para vocês iniciando um treino. Vamos supor aqui que a gente vai fazer um pouco de ombro, então a gente vai fazer um desenvolvimento com halteres, vamos supor aqui que o cara vai fazer com 12 kg para 10 repetições e vamos supor que ele deixou uma na reserva ali. Recorde absoluto que o cara nunca treinou, tá? Então registra aí recorde, vamos adicionar novo. E aqui cara, ó, pode ver que é tudo bem animadinho, tá rapaziada? Mas enfim, se o cara fez com 12 kg agora o aplicativo vai tentar para ele jogar já 14 kg com menos repetições, que é o certo do low volume, tá rapaziada? Aí se o cara vier registrar a mesma carga, só que com menos repetições, marca só uma série, não marca necessariamente um recorde, tá rapaziada? Ele fez 10 repetições aquela hora, se ele fizer agora 11 ou mais já marca como recorde. E vamos supor que ele deixou zero na reserva. Beleza, então ele bateu dois PRs no mesmo treino. E aqui fica contabilizando o descanso também, tá rapaziada? Cronometrando. Que apesar que o cara pode usar o cronômetro do celular, tem muita gente que não gosta por N motivos, então achei legal colocar no app. isso aqui no celular, quando eu for mostrar, vocês vão ver que tudo isso aqui tem notificação, então assim que acaba isso aqui chega uma notificação no celular do cara avisando que ele já pode treinar de novo. Talvez o cara saia do aplicativo, vai para o WhatsApp, quando ele volta já tá avisando, então achei muito interessante e ele pode escolher pular também, né? Então pessoal, simulei aqui que eu terminei um treino aqui, consigo ver no histórico que teve quatro PRs, meu volume total, o dia, a data, os grupos musculares que eu trabalhei e agora nossa dashboard inicial tá totalmente diferente, mostrando nossos PRs da semana, ritmo de progressão, sequência de dias, que é meio que aquilo do Duolingo, do TikTok, [limpando a garganta] incentiva o cara a entrar todos os dias, volume total de carga na última semana, alvos do próximo treino, tanto o peso quanto a quantidade de séries e recordes recentes, tá rapaziada? Mas agora melhor, eu vou mostrar no celular, que é aonde foi pensado para existir o app, tá? Porque ninguém leva PC para academia, então tem que estar na palma da mão. Mostrar aqui agora, pessoal, rapidinho para vocês no celular, para a gente já partir para a questão de oferta e tudo mais, porque é uma estratégia validada, não tem ninguém rodando, eu vou explicar melhor. Mas, basicamente, quando o cara acessar no celular, ele vai clicar nesses três pontos aqui, compartilhar, vai clicar aqui embaixo e adicionar à tela de início. O app já reconhece automaticamente aqui, nome, tudo mais e o cara pode vir e abrir. Pronto, rapaziada, aqui vai ser aquela mesma tela que vocês viram lá, tá? E, olha como fica no celular. Dá para ver que está bem melhor do que no PC. O app é ajustado para ser para o celular, tá, rapaziada? Então, imagina a gente mostrando num criativo essa tela aqui do nosso celular. Absurdo, né, mano? O lead vai gostar bastante, ao invés de receber um PDF ou até mesmo vídeo aulas, porque isso aqui, eu criei com base no que eu precisava. Eu não quero ver vídeo aula de um cara fazendo um exercício, eu tenho que praticar enquanto tem uma boa ferramenta me instruindo, entende? Então, quero mostrar para vocês as notificações, tá? Só o cara vir no perfil dele, ligar, permitir e, tá vendo? Já chegou uma notificação e aí ele pode ligar todas outras essas, ó, alvo do dia, resumos da semana, volta ao treino, exercício travado, marco próximo e tem aqui os exemplos, tá, rapaziada? Então, notificaçãozinha aí, nativa, isso aqui é um aplicativo PWA, tá, rapaziada? Quem tava ali na call aprendeu a fazer exatamente isso aqui. E é isso, rapaziada, já mostrei para vocês o aplicativo todo, agora vamos falar sobre essa oferta em si. Explicando agora mais sobre o app, rapaziada, por que que eu vi que daria para vender como um microsas, principalmente como um low ticket, na verdade, ao invés de microsas, é porque eu analisei que tem muitos bons apps de academia, vou dar uma ênfase aqui, nesse FitForYou, que tá me pegando bastante no algoritmo do Instagram, mas o criador dele é um dev, tá, rapaziada? E não alguém que é do low ticket em si, porque isso muda muito, cara, acredite se quiser. Nós do low ticket fazemos um modelo de negócio totalmente diferente, que é no tráfego direto, né, rapaziada? Com criativos UGC, com criativos mostrando o produto, enfim, para o cara pegar e acessar na hora através de uma landing page. Esse FitForYou, por exemplo, é daquele jeito, né? Na App Store, na Google Play. Então, é uma parada que vai ter uma recorrência assim bem maior, mas até pegar tração pode demorar bem mais, tá? Depende bem mais de vídeos no TikTok, no Instagram, por exemplo, construir um branding diferente de um low ticket que a gente entrega um microsas, rapaziada. Que assim como eu vou mostrar na tela aqui, eu gravei um vídeo levando um low ticket microsas do zero até a escala bem rápido. E então, tipo, eu nem acredito que menos de uma semana eu já estava fazendo mais de 1.000 reais de lucro por dia, porque eu estava usando tráfego direto de low ticket e entregando o microsas, mostrando ele nos criativos. Então, quando a gente coloca o entregável no lugar dele e assume que é só o entregável que importa, é a oferta por trás, a promessa, o mecanismo único, e a gente une com o tráfego direto, obviamente, aí o resultado é assim, tá, rapaziada? Então, eu vi essa lacuna que não tem ninguém rodando dessa forma e por isso eu decidi criar esse microsas, tá, rapaziada? E é uma ideia validada, cara, porque é uma dor minha, é uma ideia do pessoal da academia que eu troquei ideia. Na cala ali não teve ninguém que falou que o aplicativo não seria uma boa, porque ele ajuda mesmo, tá, rapaziada? Como eu falei, eu criei com base em uma dor que eu mesmo tive. Então, era isso que eu queria mostrar para vocês, rapaziada. Comentem aí o que que vocês acharam da ideia desse app. Se surgiu uma ideia aí na sua cabeça, não só de um app de academia, cara, mas às vezes um app de, sei lá, Hyrox, de CrossFit, de qualquer outra parada. E não só desse nicho, pode ser de qualquer outro nicho, de games, tanto faz, cara, de cartinha de Pokémon, tem uns microsas, ah, para o cara ir abrindo, registrando, falando qual o pacote que o cara deve abrir para ter mais probabilidade, enfim. Então, infinitas possibilidades, rapaziada. Vai da imaginação de vocês, assim como eu deixei a minha fluir um pouquinho e já criei um microsas, um MVPzinho bem da hora, tá, rapaziada? Novamente, salientando, eu faço vídeos para o meu público, que é o público da galera que roda low ticket, eu não faço vídeo para dev, até porque dev passa dois anos lapidando app, quando ele vai vender já saturou, alguém já rodou. Então, a ideia do que a gente vende é completamente diferente, é pegar a ideia, transformar numa oferta qualquer, seja um microsite, seja um PDF, e-books e começar a rodar logo, ver o que que acontece. Fechou, rapaziada? Sempre com MVP e depois a gente vai melhorando. Então, tamo junto, rapaziada, espero que vocês tenham curtido e é nós."
+}
