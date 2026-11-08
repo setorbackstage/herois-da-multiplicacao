@@ -3,3 +3,4 @@ node_modules/
 temp_*
 *.zip
 package-lock.json
+midias_brutas/

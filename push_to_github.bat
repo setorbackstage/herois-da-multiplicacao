@@ -1,12 +1,9 @@
 @echo off
 set "PATH=C:\Program Files\Git\cmd;C:\Program Files\GitHub CLI;%PATH%"
-cd /d "C:\Users\Admin\Downloads\Criativos"
+cd /d "%~dp0"
 
 echo Checking git status...
 git status
-
-echo Creating repository on GitHub...
-gh repo create missao-tabuada --public --source=. --remote=origin --push
-
-echo Checking repo URL...
-gh repo view --web
+git add tabuada-offer.html .gitignore
+git commit -m "feat(checkout): ativa links oficiais de checkout ggCheckout (R$10 e R$27)"
+git push origin main
