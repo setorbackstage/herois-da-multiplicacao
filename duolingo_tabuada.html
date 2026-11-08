@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Missão Tabuada — O Duolingo da Matemática</title>
+  
+  <!-- Fontes Oficiais Fredoka & Nunito -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js">
+    
+
+    function selectPill(category, value, el) {
+      heroProfile[category] = value;
+      el.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+      playTone(450, 'sine', 0.05);
+    }
+
+    function goToStep(stepNum) {
+      document.querySelectorAll('.onboard-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step-' + stepNum).classList.add('active');
+      playTone(600, 'triangle', 0.1);
+    }
+
+    function generateBadgeCard() {
+      const childName = document.getElementById('input-child-name').value.trim() || 'Herói';
+      const guardianName = document.getElementById('input-guardian-name').value.trim() || 'Responsável';
+      heroProfile.name = childName;
+      heroProfile.guardianName = guardianName;
+
+      document.getElementById('badge-name-text').innerText = 'AGENTE ' + childName.toUpperCase();
+      document.getElementById('badge-details-text').innerText = heroProfile.age + ' ANOS • ' + heroProfile.grade.toUpperCase();
+      document.getElementById('badge-guardian-text').innerText = 'Guardião: ' + heroProfile.guardianType + ' ' + guardianName;
+
+      const imgSrc = heroProfile.mascot === 'leo' ? 'tabuada-assets/heroi-menino-oficial.png' : 'tabuada-assets/heroi-menina-oficial.png';
+      document.getElementById('badge-avatar-img').src = imgSrc;
+
+      // Confetti & Som de Vitória
+      try {
+        confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
+        playLevelUpFanfare();
+      } catch(e) {}
+
+      goToStep(4);
+    }
+
+    function finishOnboarding() {
+      localStorage.setItem('missao_tabuada_hero_profile', JSON.stringify(heroProfile));
+      document.getElementById('onboarding-overlay').style.display = 'none';
+      document.getElementById('header-hero-name').innerText = heroProfile.name;
+      
+      try {
+        confetti({ particleCount: 100, spread: 90, origin: { y: 0.5 } });
+        playSuccessSound();
+      } catch(e) {}
+    }
+
+    function openBadgeModal() {
+      goToStep(4);
+      document.getElementById('onboarding-overlay').style.display = 'flex';
+    }
+
+    // Inicialização do perfil
+    const savedHero = localStorage.getItem('missao_tabuada_hero_profile');
+    if (savedHero) {
+      try {
+        heroProfile = JSON.parse(savedHero);
+        document.getElementById('header-hero-name').innerText = heroProfile.name;
+      } catch(e) {}
+    } else {
+      // Abre onboarding para novos alunos
+      document.getElementById('onboarding-overlay').style.display = 'flex';
+    }
+
+</script>
+
+  <style>
+    :root {
+      --duo-green: #58CC02;
+      --duo-green-dark: #46A302;
+      --duo-green-light: #D7FFB8;
+      
+      --duo-blue: #1CB0F6;
+      --duo-blue-dark: #1899D6;
+      --duo-blue-light: #DDF4FF;
+      
+      --duo-yellow: #FFC800;
+      --duo-yellow-dark: #E5B200;
+      --duo-yellow-light: #FFF5CC;
+      
+      --duo-red: #FF4B4B;
+      --duo-red-dark: #EA2B2B;
+      --duo-red-light: #FFDFE0;
+      
+      --duo-purple: #CE82FF;
+      --duo-purple-dark: #A55EEA;
+      
+      --duo-gray: #E5E5E5;
+      --duo-gray-dark: #AFB0B0;
+      --duo-ink: #3C3C3C;
+      --duo-card-bg: #FFFFFF;
+      --bg-color: #F7F7F7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--duo-ink);
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+      overflow-x: hidden;
+    }
+
+    /* Top Stats Bar */
+    .app-header {
+      width: 100%;
+      max-width: 600px;
+      height: 64px;
+      background: #FFFFFF;
+      border-bottom: 2px solid var(--duo-gray);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+
+    .stat-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .stat-streak { color: #FF9600; }
+    .stat-gems { color: var(--duo-blue); }
+    .stat-hearts { color: var(--duo-red); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 12px;
+      transition: background 0.15s;
+    }
+    .btn-icon:hover { background: var(--duo-gray); }
+
+    /* Main Container */
+    .screen {
+      width: 100%;
+      max-width: 600px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* MAP / PATH SCREEN */
+    #map-screen {
+      padding: 24px 16px 120px;
+      align-items: center;
+      position: relative;
+    }
+
+    .banner-vip {
+      width: 100%;
+      background: linear-gradient(135deg, #FFC800 0%, #FF9600 100%);
+      color: #381E00;
+      padding: 16px 20px;
+      border-radius: 20px;
+      border-bottom: 5px solid #D4A017;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 8px 20px rgba(255, 150, 0, 0.25);
+    }
+    .banner-vip-text h3 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+    }
+    .banner-vip-text p {
+      font-size: 13.5px;
+      font-weight: 700;
+      opacity: 0.95;
+    }
+    .btn-download-pdf {
+      background: #FFFFFF;
+      color: #D4A017;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 14px;
+      border: none;
+      border-bottom: 3px solid #CBD5E1;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* Section Unit Card */
+    .unit-card {
+      width: 100%;
+      background: var(--duo-green);
+      color: #FFFFFF;
+      border-radius: 20px;
+      padding: 18px 22px;
+      margin-bottom: 36px;
+      box-shadow: 0 8px 0 var(--duo-green-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .unit-card.unit-blue {
+      background: var(--duo-blue);
+      box-shadow: 0 8px 0 var(--duo-blue-dark);
+    }
+    .unit-card.unit-yellow {
+      background: var(--duo-yellow);
+      box-shadow: 0 8px 0 var(--duo-yellow-dark);
+      color: #381E00;
+    }
+    .unit-card.unit-red {
+      background: var(--duo-red);
+      box-shadow: 0 8px 0 var(--duo-red-dark);
+    }
+    .unit-number {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.9;
+    }
+    .unit-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    /* Trilha de Nós / Path Grid */
+    .path-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 34px;
+      position: relative;
+    }
+
+    .node-row {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      position: relative;
+    }
+    .node-row.pos-left { transform: translateX(-50px); }
+    .node-row.pos-right { transform: translateX(50px); }
+
+    .node-btn {
+      width: 84px;
+      height: 78px;
+      border-radius: 50%;
+      border: none;
+      background: var(--duo-green);
+      box-shadow: 0 9px 0 var(--duo-green-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      color: #FFFFFF;
+      position: relative;
+      transition: transform 0.1s, box-shadow 0.1s;
+      outline: none;
+    }
+    .node-btn:active {
+      transform: translateY(6px);
+      box-shadow: 0 3px 0 var(--duo-green-dark);
+    }
+
+    .node-btn.locked {
+      background: var(--duo-gray);
+      box-shadow: 0 9px 0 var(--duo-gray-dark);
+      cursor: not-allowed;
+      color: #8E8E93;
+    }
+    .node-btn.locked:active {
+      transform: none;
+      box-shadow: 0 9px 0 var(--duo-gray-dark);
+    }
+
+    .node-btn.boss {
+      width: 94px;
+      height: 88px;
+      background: var(--duo-yellow);
+      box-shadow: 0 10px 0 var(--duo-yellow-dark);
+    }
+
+    .node-tooltip {
+      position: absolute;
+      top: -34px;
+      background: #FFFFFF;
+      border: 2px solid var(--duo-gray);
+      color: var(--duo-ink);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      pointer-events: none;
+    }
+
+    /* LESSON SCREEN (O QUIZ ESTILO DUOLINGO) */
+    #lesson-screen {
+      display: none;
+      background: #FFFFFF;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      max-width: 600px;
+    }
+
+    .lesson-header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-close-lesson {
+      background: none;
+      border: none;
+      font-size: 26px;
+      color: var(--duo-gray-dark);
+      cursor: pointer;
+      line-height: 1;
+    }
+    .progress-bar-wrap {
+      flex: 1;
+      height: 16px;
+      background: var(--duo-gray);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--duo-green);
+      border-radius: 999px;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .lesson-body {
+      flex: 1;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .prompt-bubble-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .mascot-avatar {
+      font-size: 64px;
+      line-height: 1;
+      animation: mascotBounce 2.5s ease-in-out infinite;
+    }
+    @keyframes mascotBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .speech-bubble {
+      background: #FFFFFF;
+      border: 2px solid var(--duo-gray);
+      border-radius: 20px;
+      padding: 18px 22px;
+      position: relative;
+      flex: 1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 24px;
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 10px solid var(--duo-gray);
+    }
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      left: -7px;
+      top: 24px;
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 9px solid #FFFFFF;
+    }
+    .speech-bubble h2 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--duo-ink);
+      line-height: 1.25;
+    }
+
+    /* Grid de Opções de Resposta (4 Cartas) */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .option-card {
+      background: #FFFFFF;
+      border: 2px solid var(--duo-gray);
+      border-bottom: 5px solid var(--duo-gray-dark);
+      border-radius: 18px;
+      padding: 24px 16px;
+      text-align: center;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--duo-ink);
+      cursor: pointer;
+      transition: transform 0.1s, border-color 0.1s, background 0.1s;
+      outline: none;
+    }
+    .option-card:hover {
+      background: #F8FAFC;
+      border-color: var(--duo-blue-dark);
+    }
+    .option-card.selected {
+      background: var(--duo-blue-light);
+      border-color: var(--duo-blue);
+      border-bottom: 5px solid var(--duo-blue-dark);
+      color: var(--duo-blue-dark);
+      transform: translateY(2px);
+    }
+
+    /* Rodapé com Feedback Drawer */
+    .lesson-footer {
+      border-top: 2px solid var(--duo-gray);
+      padding: 18px 20px;
+      position: relative;
+    }
+    .btn-verify {
+      width: 100%;
+      background: var(--duo-green);
+      color: #FFFFFF;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 16px;
+      border-radius: 16px;
+      border: none;
+      border-bottom: 5px solid var(--duo-green-dark);
+      cursor: pointer;
+      transition: transform 0.1s, background 0.15s;
+    }
+    .btn-verify:active {
+      transform: translateY(3px);
+      border-bottom-width: 2px;
+    }
+    .btn-verify:disabled {
+      background: var(--duo-gray);
+      border-bottom-color: var(--duo-gray-dark);
+      color: #A0A0A0;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Gaveta de Feedback de Acerto/Erro */
+    .feedback-drawer {
+      display: none;
+      padding: 20px 24px 28px;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .feedback-drawer.correct {
+      background: var(--duo-green-light);
+      color: #2E7D32;
+    }
+    .feedback-drawer.incorrect {
+      background: var(--duo-red-light);
+      color: #C62828;
+    }
+    .fb-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .fb-msg {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .btn-next {
+      width: 100%;
+      padding: 16px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      border-radius: 16px;
+      border: none;
+      cursor: pointer;
+      color: #FFFFFF;
+      transition: transform 0.1s;
+    }
+    .btn-next.correct {
+      background: var(--duo-green);
+      border-bottom: 5px solid var(--duo-green-dark);
+    }
+    .btn-next.incorrect {
+      background: var(--duo-red);
+      border-bottom: 5px solid var(--duo-red-dark);
+    }
+    .btn-next:active {
+      transform: translateY(3px);
+      border-bottom-width: 2px;
+    }
+
+    /* Modal de Vitória da Fase */
+    #victory-screen {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #FFFFFF;
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+    }
+    .vic-badge {
+      font-size: 80px;
+      animation: pulseStar 1.5s infinite alternate;
+    }
+    @keyframes pulseStar {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.15) rotate(5deg); }
+    }
+    .vic-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: #FFC800;
+      margin: 16px 0 6px;
+    }
+    .vic-sub {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--duo-ink);
+      margin-bottom: 28px;
+    }
+    .vic-stats-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 36px;
+      width: 100%;
+      max-width: 380px;
+    }
+    .vic-stat-card {
+      flex: 1;
+      background: #F8FAFC;
+      border: 2px solid var(--duo-gray);
+      border-radius: 18px;
+      padding: 16px 12px;
+    }
+    .vic-stat-val {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--duo-blue);
+    }
+    .vic-stat-lbl {
+      font-size: 12px;
+      font-weight: 700;
+      color: #94A3B8;
+      text-transform: uppercase;
+    }
+
+    /* Mobile Floating Bottom Bar */
+    .mobile-tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: #FFFFFF;
+      border-top: 2px solid var(--duo-gray);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 90;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #94A3B8;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .tab-item.active { color: var(--duo-green); }
+    .tab-icon { font-size: 22px; }
+  
+    /* =========================================
+       ONBOARDING / JORNADA DO HERÓI (DUOLINGO)
+       ========================================= */
+    .onboarding-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .onboarding-card {
+      width: 100%;
+      max-width: 500px;
+      background: #FFFFFF;
+      border-radius: 32px;
+      padding: 30px 24px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+      border: 4px solid var(--duo-gray);
+      text-align: center;
+      position: relative;
+      animation: modalPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes modalPop {
+      0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .onboard-step {
+      display: none;
+    }
+    .onboard-step.active {
+      display: block;
+    }
+    .onboard-hero-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .onboard-mascot-img {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+      animation: mascotFloat 3s ease-in-out infinite;
+    }
+    @keyframes mascotFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .onboard-badge {
+      display: inline-block;
+      background: #EFF6FF;
+      color: #1D4ED8;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 6px 18px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 2px solid #BFDBFE;
+      margin-top: 10px;
+    }
+    .onboard-badge.gold {
+      background: #FEF3C7;
+      color: #B45309;
+      border-color: #F59E0B;
+    }
+    .onboard-step-indicator {
+      font-size: 13px;
+      font-weight: 900;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .onboard-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #1E293B;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    .onboard-desc {
+      font-size: 15px;
+      color: #64748B;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 24px;
+    }
+
+    /* Hero Selector Grid */
+    .hero-selector-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .hero-choice-card {
+      background: #F8FAFC;
+      border: 3px solid var(--duo-gray);
+      border-radius: 20px;
+      padding: 16px 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hero-choice-card:hover {
+      border-color: #38BDF8;
+      transform: translateY(-2px);
+    }
+    .hero-choice-card.selected {
+      border-color: var(--duo-green);
+      background: #F0FDF4;
+      box-shadow: 0 0 0 2px var(--duo-green-dark), 0 8px 20px rgba(88, 204, 2, 0.2);
+    }
+    .hero-choice-card img {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+    .hero-choice-card .hero-name {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1E293B;
+    }
+    .hero-choice-card .hero-tag {
+      font-size: 12px;
+      font-weight: 800;
+      color: #64748B;
+      margin-top: 4px;
+    }
+
+    /* Form Inputs */
+    .input-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 900;
+      color: #334155;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .duo-input {
+      width: 100%;
+      height: 52px;
+      border: 3px solid var(--duo-gray);
+      border-radius: 16px;
+      padding: 0 18px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 18px;
+      color: #1E293B;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .duo-input:focus {
+      border-color: var(--duo-blue);
+      box-shadow: 0 0 0 3px rgba(28, 176, 246, 0.2);
+    }
+    .pill-options-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill-btn {
+      flex: 1 1 calc(33.333% - 8px);
+      min-width: 80px;
+      padding: 12px 10px;
+      background: #FFFFFF;
+      border: 2px solid var(--duo-gray);
+      border-radius: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 900;
+      color: #475569;
+      cursor: pointer;
+      box-shadow: 0 3px 0 var(--duo-gray);
+      transition: all 0.15s ease;
+    }
+    .pill-btn:hover {
+      background: #F8FAFC;
+    }
+    .pill-btn.selected {
+      background: #EFF6FF;
+      border-color: var(--duo-blue);
+      color: var(--duo-blue-dark);
+      box-shadow: 0 3px 0 var(--duo-blue-dark);
+      transform: translateY(1px);
+    }
+
+    /* Buttons Duolingo Style */
+    .btn-duo-next {
+      width: 100%;
+      height: 56px;
+      background: var(--duo-green);
+      border: none;
+      border-radius: 18px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFFFFF;
+      cursor: pointer;
+      box-shadow: 0 5px 0 var(--duo-green-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 10px;
+      transition: all 0.1s ease;
+    }
+    .btn-duo-next:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 var(--duo-green-dark);
+    }
+    .btn-duo-next.btn-gold {
+      background: #F59E0B;
+      box-shadow: 0 5px 0 #B45309;
+    }
+    .btn-duo-next.btn-gold:active {
+      box-shadow: 0 1px 0 #B45309;
+    }
+
+    /* Carteirinha de Herói (Holográfica) */
+    .hero-badge-card {
+      background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #1E1B4B 100%);
+      border: 4px solid #F59E0B;
+      border-radius: 24px;
+      padding: 20px;
+      color: #FFF;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(245, 158, 11, 0.4);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .hero-badge-card::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+      animation: shine 4s infinite linear;
+    }
+    @keyframes shine {
+      0% { transform: translateY(-100%) rotate(45deg); }
+      100% { transform: translateY(100%) rotate(45deg); }
+    }
+    .badge-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 10px;
+    }
+    .badge-logo-text {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #FBBF24;
+      letter-spacing: 1px;
+    }
+    .badge-agent-id {
+      font-size: 12px;
+      font-weight: 800;
+      color: #94A3B8;
+    }
+    .badge-body {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .badge-avatar-img {
+      width: 85px;
+      height: 85px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid #F59E0B;
+      border-radius: 18px;
+      padding: 4px;
+    }
+    .badge-info h3 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #FFF;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .badge-details {
+      font-size: 13px;
+      color: #CBD5E1;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .badge-guardian-tag {
+      display: inline-block;
+      background: rgba(88, 204, 2, 0.2);
+      border: 1px solid #58CC02;
+      color: #86EFAC;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .badge-stats-row {
+      display: flex;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 900;
+      color: #FDE047;
+    }
+    .badge-seal {
+      position: absolute;
+      bottom: 12px; right: 12px;
+      font-size: 10px;
+      font-weight: 900;
+      background: #F59E0B;
+      color: #78350F;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .btn-badge-trigger {
+      background: #FEF3C7;
+      border: 2px solid #F59E0B;
+      color: #B45309;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+</style>
+</head>
+<body>
+
+  <!-- TOP STATS BAR -->
+  
+  
+  <!-- MODAL DE ONBOARDING JORNADA DO HERÓI -->
+  <div id="onboarding-overlay" class="onboarding-overlay" style="display:none;">
+    <div class="onboarding-card">
+      
+      <!-- PASSO 1: BOAS-VINDAS & ESCOLHA DO MASCOTE -->
+      <div id="step-1" class="onboard-step active">
+        <div class="onboard-hero-visual">
+          <img src="tabuada-assets/heroi-menino-oficial.png" class="onboard-mascot-img" id="hero-preview-img" alt="Herói">
+          <div class="onboard-badge">🚀 BEM-VINDO À MISSÃO TABUADA</div>
+        </div>
+        <h2 class="onboard-title">A Liga da Multiplicação convoca você!</h2>
+        <p class="onboard-desc">Treine 15 minutos por dia, vença os desafios e torne-se um Mestre da Tabuada!</p>
+        
+        <div style="font-size:14px;font-weight:900;color:#334155;margin-bottom:12px;text-align:left;">ESCOLHA SEU HERÓI PARCEIRO:</div>
+        <div class="hero-selector-grid">
+          <div class="hero-choice-card selected" id="choice-leo" onclick="selectMascot('leo')">
+            <img src="tabuada-assets/heroi-menino-oficial.png" alt="Léo">
+            <div class="hero-name">LÉO</div>
+            <div class="hero-tag">Raio da Agilidade ⚡</div>
+          </div>
+          <div class="hero-choice-card" id="choice-maya" onclick="selectMascot('maya')">
+            <img src="tabuada-assets/heroi-menina-oficial.png" alt="Maya">
+            <div class="hero-name">MAYA</div>
+            <div class="hero-tag">Escudo da Sabedoria 🛡️</div>
+          </div>
+        </div>
+
+        <button class="btn-duo-next" onclick="goToStep(2)">Continuar Missão ➔</button>
+      </div>
+
+      <!-- PASSO 2: DADOS DA CRIANÇA -->
+      <div id="step-2" class="onboard-step">
+        <div class="onboard-step-indicator">PASSO 1 DE 3 • PERFIL DO HERÓI</div>
+        <h2 class="onboard-title">Quem é o Herói da Casa?</h2>
+        
+        <div class="input-group">
+          <label>Qual o Primeiro Nome da Criança?</label>
+          <input type="text" id="input-child-name" placeholder="Ex: Pedro, Sofia, Arthur..." class="duo-input" value="Pedro">
+        </div>
+
+        <div class="input-group">
+          <label>Qual a Idade?</label>
+          <div class="pill-options-grid" id="age-pills">
+            <button type="button" class="pill-btn" onclick="selectPill('age', 6, this)">6 anos</button>
+            <button type="button" class="pill-btn" onclick="selectPill('age', 7, this)">7 anos</button>
+            <button type="button" class="pill-btn selected" onclick="selectPill('age', 8, this)">8 anos</button>
+            <button type="button" class="pill-btn" onclick="selectPill('age', 9, this)">9 anos</button>
+            <button type="button" class="pill-btn" onclick="selectPill('age', 10, this)">10 anos</button>
+            <button type="button" class="pill-btn" onclick="selectPill('age', 11, this)">11+ anos</button>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Qual Ano na Escola?</label>
+          <div class="pill-options-grid" id="grade-pills">
+            <button type="button" class="pill-btn" onclick="selectPill('grade', '1º Ano', this)">1º Ano</button>
+            <button type="button" class="pill-btn" onclick="selectPill('grade', '2º Ano', this)">2º Ano</button>
+            <button type="button" class="pill-btn selected" onclick="selectPill('grade', '3º Ano', this)">3º Ano</button>
+            <button type="button" class="pill-btn" onclick="selectPill('grade', '4º Ano', this)">4º Ano</button>
+            <button type="button" class="pill-btn" onclick="selectPill('grade', '5º Ano', this)">5º Ano</button>
+          </div>
+        </div>
+
+        <button class="btn-duo-next" onclick="goToStep(3)">Avançar ➔</button>
+      </div>
+
+      <!-- PASSO 3: GUARDIÃO / RESPONSÁVEL -->
+      <div id="step-3" class="onboard-step">
+        <div class="onboard-step-indicator">PASSO 2 DE 3 • O GUARDIÃO</div>
+        <h2 class="onboard-title">Quem vai acompanhar os treinos?</h2>
+        
+        <div class="input-group">
+          <label>Quem é o parceiro de estudos?</label>
+          <div class="pill-options-grid">
+            <button type="button" class="pill-btn selected" onclick="selectPill('guardianType', 'Mamãe', this)">Mamãe 👩‍👧</button>
+            <button type="button" class="pill-btn" onclick="selectPill('guardianType', 'Papai', this)">Papai 👨‍👦</button>
+            <button type="button" class="pill-btn" onclick="selectPill('guardianType', 'Vovó / Vovô', this)">Vovó / Vovô 👵</button>
+            <button type="button" class="pill-btn" onclick="selectPill('guardianType', 'Responsável', this)">Responsável 🌟</button>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Nome do Responsável:</label>
+          <input type="text" id="input-guardian-name" placeholder="Ex: Camila, Juliana, Marcos..." class="duo-input" value="Camila">
+        </div>
+
+        <div class="input-group">
+          <label>Meta Diária de Treino:</label>
+          <div class="pill-options-grid">
+            <button type="button" class="pill-btn" onclick="selectPill('timeGoal', '10 min', this)">10 min (Rápido)</button>
+            <button type="button" class="pill-btn selected" onclick="selectPill('timeGoal', '15 min', this)">15 min (Ideal ⭐)</button>
+            <button type="button" class="pill-btn" onclick="selectPill('timeGoal', '20 min', this)">20 min (Avançado)</button>
+          </div>
+        </div>
+
+        <button class="btn-duo-next btn-gold" onclick="generateBadgeCard()">Emitir Carteirinha Oficial ➔</button>
+      </div>
+
+      <!-- PASSO 4: CARTEIRINHA EMITIDA -->
+      <div id="step-4" class="onboard-step">
+        <div class="onboard-badge gold">🏅 CARTEIRINHA OFICIAL EMITIDA</div>
+        <h2 class="onboard-title" style="margin-bottom:6px;">Parabéns, novo(a) Agente!</h2>
+        <p class="onboard-desc" style="margin-bottom:18px;">Você foi oficialmente aprovado(a) para a Liga dos Heróis da Multiplicação!</p>
+        
+        <div class="hero-badge-card" id="hero-badge-result">
+          <div class="badge-top-row">
+            <span class="badge-logo-text">⚡ LIGA DOS HERÓIS</span>
+            <span class="badge-agent-id">ID #2026-HEROI</span>
+          </div>
+          <div class="badge-body">
+            <img src="tabuada-assets/heroi-menino-oficial.png" class="badge-avatar-img" id="badge-avatar-img" alt="Avatar">
+            <div class="badge-info">
+              <h3 id="badge-name-text">AGENTE PEDRO</h3>
+              <div class="badge-details" id="badge-details-text">8 ANOS • 3º ANO ESCOLAR</div>
+              <div class="badge-guardian-tag" id="badge-guardian-text">Guardião: Mamãe Camila</div>
+              <div class="badge-stats-row">
+                <span>⭐ Nível 1</span>
+                <span>⚡ 100 XP</span>
+                <span>❤️ 5 Vidas</span>
+              </div>
+            </div>
+          </div>
+          <div class="badge-seal">OFICIAL APROVADO</div>
+        </div>
+
+        <button class="btn-duo-next" onclick="finishOnboarding()">COMEÇAR MINHA JORNADA 🚀</button>
+      </div>
+
+    </div>
+  </div>
+
+  <header class="app-header">
+
+    <div class="stat-badge stat-streak">
+      <span>🔥</span>
+      <span id="streak-val">3</span>
+    </div>
+    <div class="stat-badge stat-gems">
+      <span>💎</span>
+      <span id="gems-val">120</span>
+    </div>
+    <div class="stat-badge stat-hearts">
+      <span>❤️</span>
+      <span id="hearts-val">5</span>
+    </div>
+    
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="btn-badge-trigger" onclick="openBadgeModal()" title="Ver Minha Carteirinha">🏅 <span id="header-hero-name">Herói</span></button>
+    </div>
+    <div class="header-actions">
+
+      <button class="btn-icon" id="btn-sound" title="Alternar Som">🔊</button>
+    </div>
+  </header>
+
+  <!-- SCREEN 1: MAP / CAMINHO DUOLINGO -->
+  <main class="screen" id="map-screen">
+    
+    <!-- Banner VIP para Alunos -->
+    <div class="banner-vip">
+      <div class="banner-vip-text">
+        <h3>📚 Seus Cadernos em PDF</h3>
+        <p>Acesse as 6 apostilas prontas para impressão física.</p>
+      </div>
+      <a href="Missao_Tabuada_Volume_1.pdf" class="btn-download-pdf" target="_blank">Baixar PDFs ➔</a>
+    </div>
+
+    <!-- UNIDADE 1 -->
+    <div class="unit-card">
+      <div class="unit-number">Unidade 1 • Iniciação</div>
+      <div class="unit-title">A Tabuada do 2 e 3 dos Heróis</div>
+    </div>
+
+    <div class="path-container">
+      <div class="node-row">
+        <button class="node-btn" onclick="startLesson(1)" title="Fase 1: Tabuada do 2">
+          <span>⚡</span>
+          <div class="node-tooltip">Fase 1 • Tabuada do 2</div>
+        </button>
+      </div>
+
+      <div class="node-row pos-left">
+        <button class="node-btn" id="node-2" onclick="startLesson(2)" title="Fase 2: Tabuada do 3">
+          <span>🌟</span>
+          <div class="node-tooltip">Fase 2 • Tabuada do 3</div>
+        </button>
+      </div>
+
+      <div class="node-row pos-right">
+        <button class="node-btn boss" id="node-3" onclick="startLesson(3)" title="Batalha 1: Desafio das Estrelas">
+          <span>🏆</span>
+          <div class="node-tooltip">Batalha 1 • Desafio 2 & 3</div>
+        </button>
+      </div>
+    </div>
+
+    <div style="height: 38px;"></div>
+
+    <!-- UNIDADE 2 -->
+    <div class="unit-card unit-blue">
+      <div class="unit-number">Unidade 2 • Intermediário</div>
+      <div class="unit-title">A Floresta dos Múltiplos (4, 5 e 6)</div>
+    </div>
+
+    <div class="path-container">
+      <div class="node-row">
+        <button class="node-btn locked" id="node-4" onclick="startLesson(4)">
+          <span>🔒</span>
+          <div class="node-tooltip">Fase 4 • Tabuada do 4</div>
+        </button>
+      </div>
+
+      <div class="node-row pos-left">
+        <button class="node-btn locked" id="node-5" onclick="startLesson(5)">
+          <span>🔒</span>
+          <div class="node-tooltip">Fase 5 • Tabuada do 5</div>
+        </button>
+      </div>
+
+      <div class="node-row pos-right">
+        <button class="node-btn locked" id="node-6" onclick="startLesson(6)">
+          <span>🔒</span>
+          <div class="node-tooltip">Fase 6 • Tabuada do 6</div>
+        </button>
+      </div>
+    </div>
+
+    <div style="height: 38px;"></div>
+
+    <!-- UNIDADE 3: ZONA DO TERROR (7 E 8) -->
+    <div class="unit-card unit-yellow">
+      <div class="unit-number">Unidade 3 • Onde Todos Travam</div>
+      <div class="unit-title">O Vulcão do 7 e do 8 🔥</div>
+    </div>
+
+    <div class="path-container">
+      <div class="node-row">
+        <button class="node-btn locked" id="node-7" onclick="startLesson(7)">
+          <span>🔒</span>
+          <div class="node-tooltip">Fase 7 • Segredos do 7</div>
+        </button>
+      </div>
+
+      <div class="node-row pos-right">
+        <button class="node-btn locked" id="node-8" onclick="startLesson(8)">
+          <span>🔒</span>
+          <div class="node-tooltip">Fase 8 • Gigantes do 8</div>
+        </button>
+      </div>
+
+      <div class="node-row">
+        <button class="node-btn boss locked" id="node-boss" onclick="startLesson(9)">
+          <span>👑</span>
+          <div class="node-tooltip">Chefe Final • 4 Operações</div>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SCREEN 2: LESSON QUIZ (ESTILO DUOLINGO) -->
+  <div class="screen" id="lesson-screen">
+    <div class="lesson-header">
+      <button class="btn-close-lesson" onclick="exitLesson()">✕</button>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="lesson-progress"></div>
+      </div>
+      <div class="stat-badge stat-hearts">
+        <span>❤️</span>
+        <span id="lesson-hearts">5</span>
+      </div>
+    </div>
+
+    <div class="lesson-body">
+      <div class="prompt-bubble-row">
+        <div class="mascot-avatar" id="mascot-face">🦸‍♂️</div>
+        <div class="speech-bubble">
+          <h2 id="question-text">Quanto é 2 × 4?</h2>
+        </div>
+      </div>
+
+      <div class="options-grid" id="options-container">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <div class="lesson-footer" id="footer-verify">
+      <button class="btn-verify" id="btn-verify" disabled onclick="checkAnswer()">VERIFICAR</button>
+    </div>
+
+    <div class="feedback-drawer" id="feedback-drawer">
+      <div class="fb-title" id="fb-title">✓ Incrível!</div>
+      <div class="fb-msg" id="fb-msg">Você acertou com maestria.</div>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()">CONTINUAR</button>
+    </div>
+  </div>
+
+  <!-- MODAL DE VITÓRIA DA FASE -->
+  <div id="victory-screen">
+    <div class="vic-badge">🏆</div>
+    <div class="vic-title">Lição Concluída!</div>
+    <div class="vic-sub">Você dominou a tabuada com louvor!</div>
+
+    <div class="vic-stats-row">
+      <div class="vic-stat-card">
+        <div class="vic-stat-val">+20</div>
+        <div class="vic-stat-lbl">XP Total</div>
+      </div>
+      <div class="vic-stat-card">
+        <div class="vic-stat-val">100%</div>
+        <div class="vic-stat-lbl">Precisão</div>
+      </div>
+      <div class="vic-stat-card">
+        <div class="vic-stat-val">🔥 +1</div>
+        <div class="vic-stat-lbl">Sequência</div>
+      </div>
+    </div>
+
+    <button class="btn-verify" style="max-width:320px;" onclick="closeVictory()">CONTINUAR NA JORNADA ➔</button>
+  </div>
+
+  <!-- TAB BAR FIXA MOBILE -->
+  <nav class="mobile-tab-bar">
+    <div class="tab-item active">
+      <span class="tab-icon">🗺️</span>
+      <span>Aprender</span>
+    </div>
+    <a href="tabuada-offer.html" class="tab-item">
+      <span class="tab-icon">⭐</span>
+      <span>Loja</span>
+    </a>
+    <a href="Missao_Tabuada_Volume_1.pdf" class="tab-item" target="_blank">
+      <span class="tab-icon">📖</span>
+      <span>Apostilas</span>
+    </a>
+  </nav>
+
+  <!-- GAME ENGINE LOGIC & SOUND SYNTHESIZER -->
+  <script>
+    // Sintetizador Web Audio API Nativo (Zero dependências externas)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let soundEnabled = true;
+
+    document.getElementById('btn-sound').onclick = () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('btn-sound').innerText = soundEnabled ? '🔊' : '🔇';
+    };
+
+    function playTone(freq, type, duration, delay = 0) {
+      if (!soundEnabled) return;
+      setTimeout(() => {
+        try {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.18, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + duration);
+        } catch(e) {}
+      }, delay);
+    }
+
+    function playSuccessSound() {
+      playTone(523.25, 'sine', 0.12, 0);   // C5
+      playTone(659.25, 'sine', 0.12, 100); // E5
+      playTone(783.99, 'sine', 0.25, 200); // G5
+      playTone(1046.50, 'sine', 0.35, 300); // C6
+    }
+
+    function playErrorSound() {
+      playTone(220, 'sawtooth', 0.15, 0);
+      playTone(180, 'sawtooth', 0.25, 120);
+    }
+
+    function playLevelUpFanfare() {
+      playTone(440, 'triangle', 0.15, 0);
+      playTone(554.37, 'triangle', 0.15, 120);
+      playTone(659.25, 'triangle', 0.15, 240);
+      playTone(880, 'triangle', 0.45, 360);
+    }
+
+    // Banco de Perguntas Gamificadas por Fase
+    const lessonsData = {
+      1: {
+        title: "Tabuada do 2",
+        questions: [
+          { q: "Quanto é 2 × 3?", options: [4, 6, 8, 9], correct: 6, tip: "Dica: 3 + 3 = 6!" },
+          { q: "Quanto é 2 × 6?", options: [10, 12, 14, 16], correct: 12, tip: "Dica: O dobro de 6 é 12!" },
+          { q: "Se cada herói tem 2 capas, quantas capas têm 4 heróis?", options: [6, 8, 10, 12], correct: 8, tip: "2 × 4 = 8 capas!" },
+          { q: "Quanto é 2 × 9?", options: [16, 17, 18, 20], correct: 18, tip: "Dica: 9 + 9 = 18!" }
+        ]
+      },
+      2: {
+        title: "Tabuada do 3",
+        questions: [
+          { q: "Quanto é 3 × 4?", options: [10, 12, 15, 16], correct: 12, tip: "Dica: 4 + 4 + 4 = 12!" },
+          { q: "Quanto é 3 × 7?", options: [18, 20, 21, 24], correct: 21, tip: "Dica: 7 + 7 = 14 + 7 = 21!" },
+          { q: "Três equipes com 5 heróis cada. Quantos heróis no total?", options: [12, 15, 18, 20], correct: 15, tip: "3 × 5 = 15 heróis!" },
+          { q: "Quanto é 3 × 9?", options: [24, 26, 27, 30], correct: 27, tip: "Dica: 30 menos 3 é 27!" }
+        ]
+      },
+      3: {
+        title: "Batalha das Estrelas (2 e 3)",
+        questions: [
+          { q: "Desafio Relâmpago: 2 × 8 = ?", options: [14, 16, 18, 20], correct: 16, tip: "8 + 8 = 16!" },
+          { q: "Qual número completa: 3 × [ ? ] = 18", options: [5, 6, 7, 8], correct: 6, tip: "3 × 6 = 18!" },
+          { q: "Quanto é (2 × 5) + (3 × 2)?", options: [14, 15, 16, 18], correct: 16, tip: "10 + 6 = 16!" }
+        ]
+      },
+      7: {
+        title: "Vulcão do 7",
+        questions: [
+          { q: "O Terror da Tabuada: Quanto é 7 × 8?", options: [54, 56, 58, 64], correct: 56, tip: "Lembre-se: 5, 6, 7, 8 -> 56 = 7 × 8!" },
+          { q: "Quanto é 7 × 7?", options: [42, 47, 49, 51], correct: 49, tip: "7 × 7 = 49 (Quadrado Mágico)!" },
+          { q: "Quanto é 7 × 6?", options: [36, 42, 44, 48], correct: 42, tip: "Dica: 6 × 7 = 42!" }
+        ]
+      }
+    };
+
+    // Estado do Jogador com LocalStorage
+    let playerState = {
+      unlockedLevel: 1,
+      hearts: 5,
+      streak: 3,
+      gems: 120,
+      xp: 45
+    };
+
+    const saved = localStorage.getItem('missao_tabuada_duo');
+    if (saved) {
+      try { playerState = JSON.parse(saved); } catch(e) {}
+    }
+
+    function saveState() {
+      localStorage.setItem('missao_tabuada_duo', JSON.stringify(playerState));
+      updateUI();
+    }
+
+    function updateUI() {
+      document.getElementById('hearts-val').innerText = playerState.hearts;
+      document.getElementById('lesson-hearts').innerText = playerState.hearts;
+      document.getElementById('gems-val').innerText = playerState.gems;
+      document.getElementById('streak-val').innerText = playerState.streak;
+
+      // Atualiza nós desbloqueados
+      for (let i = 2; i <= 9; i++) {
+        const el = document.getElementById('node-' + i);
+        if (el) {
+          if (playerState.unlockedLevel >= i) {
+            el.classList.remove('locked');
+            if (el.innerText === '🔒') el.innerText = '⭐';
+          }
+        }
+      }
+    }
+    updateUI();
+
+    // Lesson Runner
+    let currentLesson = null;
+    let currentQIndex = 0;
+    let selectedOption = null;
+
+    function startLesson(level) {
+      if (level > playerState.unlockedLevel) {
+        alert("🔒 Complete as fases anteriores primeiro para desbloquear este poder!");
+        return;
+      }
+      currentLesson = lessonsData[level] || lessonsData[1];
+      currentQIndex = 0;
+      selectedOption = null;
+
+      document.getElementById('map-screen').style.display = 'none';
+      document.querySelector('.mobile-tab-bar').style.display = 'none';
+      document.querySelector('.app-header').style.display = 'none';
+      document.getElementById('lesson-screen').style.display = 'flex';
+      renderQuestion();
+    }
+
+    function exitLesson() {
+      if (confirm("Deseja sair da lição? Seu progresso nesta fase será reiniciado.")) {
+        closeLessonView();
+      }
+    }
+
+    function closeLessonView() {
+      document.getElementById('lesson-screen').style.display = 'none';
+      document.getElementById('map-screen').style.display = 'flex';
+      document.querySelector('.mobile-tab-bar').style.display = 'flex';
+      document.querySelector('.app-header').style.display = 'flex';
+      document.getElementById('feedback-drawer').style.display = 'none';
+      document.getElementById('footer-verify').style.display = 'block';
+    }
+
+    function renderQuestion() {
+      const q = currentLesson.questions[currentQIndex];
+      const progressPercent = (currentQIndex / currentLesson.questions.length) * 100;
+      document.getElementById('lesson-progress').style.width = progressPercent + '%';
+
+      document.getElementById('question-text').innerText = q.q;
+      const optsCont = document.getElementById('options-container');
+      optsCont.innerHTML = '';
+      selectedOption = null;
+      document.getElementById('btn-verify').disabled = true;
+
+      // Esconde feedback
+      document.getElementById('feedback-drawer').style.display = 'none';
+      document.getElementById('footer-verify').style.display = 'block';
+
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-card';
+        btn.innerText = opt;
+        btn.onclick = () => selectOption(btn, opt);
+        optsCont.appendChild(btn);
+      });
+    }
+
+    function selectOption(btn, val) {
+      document.querySelectorAll('.option-card').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedOption = val;
+      document.getElementById('btn-verify').disabled = false;
+      playTone(400, 'sine', 0.05);
+    }
+
+    function checkAnswer() {
+      if (selectedOption === null) return;
+      const q = currentLesson.questions[currentQIndex];
+      const isCorrect = (selectedOption === q.correct);
+
+      document.getElementById('footer-verify').style.display = 'none';
+      const drawer = document.getElementById('feedback-drawer');
+      const title = document.getElementById('fb-title');
+      const msg = document.getElementById('fb-msg');
+      const nextBtn = document.getElementById('btn-next');
+
+      drawer.className = 'feedback-drawer ' + (isCorrect ? 'correct' : 'incorrect');
+      nextBtn.className = 'btn-next ' + (isCorrect ? 'correct' : 'incorrect');
+      drawer.style.display = 'block';
+
+      if (isCorrect) {
+        playSuccessSound();
+        confetti({ particleCount: 40, spread: 60, origin: { y: 0.85 } });
+        title.innerHTML = '🎉 Resposta Certa!';
+        msg.innerText = 'Sensacional! Você calculou como um verdadeiro Herói!';
+      } else {
+        playErrorSound();
+        playerState.hearts = Math.max(0, playerState.hearts - 1);
+        updateUI();
+        title.innerHTML = '❌ Quase lá!';
+        msg.innerText = q.tip || 'Tente novamente na próxima rodada!';
+      }
+    }
+
+    function nextQuestion() {
+      currentQIndex++;
+      if (currentQIndex < currentLesson.questions.length) {
+        renderQuestion();
+      } else {
+        // Vitória da Fase
+        finishLesson();
+      }
+    }
+
+    function finishLesson() {
+      playLevelUpFanfare();
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+      playerState.unlockedLevel = Math.max(playerState.unlockedLevel, (currentLesson.title.includes('3') ? 3 : 2));
+      playerState.gems += 20;
+      playerState.xp += 20;
+      saveState();
+
+      document.getElementById('victory-screen').style.display = 'flex';
+    }
+
+    function closeVictory() {
+      document.getElementById('victory-screen').style.display = 'none';
+      closeLessonView();
+    }
+  
+
+    /* =========================================
+       ONBOARDING LOGIC & PERSISTENCE
+       ========================================= */
+    window.heroProfile = {
+      mascot: 'leo',
+      name: 'Pedro',
+      age: 8,
+      grade: '3º Ano',
+      guardianType: 'Mamãe',
+      guardianName: 'Camila',
+      timeGoal: '15 min'
+    };
+
+    window.selectMascot = function(type) {
+      window.heroProfile.mascot = type;
+      document.getElementById('choice-leo').classList.toggle('selected', type === 'leo');
+      document.getElementById('choice-maya').classList.toggle('selected', type === 'maya');
+      const imgSrc = type === 'leo' ? 'tabuada-assets/heroi-menino-oficial.png' : 'tabuada-assets/heroi-menina-oficial.png';
+      document.getElementById('hero-preview-img').src = imgSrc;
+      document.getElementById('badge-avatar-img').src = imgSrc;
+      if (typeof playTone === 'function') playTone(520, 'sine', 0.08);
+    };
+
+    window.selectPill = function(category, value, el) {
+      window.heroProfile[category] = value;
+      el.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+      if (typeof playTone === 'function') playTone(450, 'sine', 0.05);
+    };
+
+    window.goToStep = function(stepNum) {
+      document.querySelectorAll('.onboard-step').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('step-' + stepNum);
+      if (target) target.classList.add('active');
+      if (typeof playTone === 'function') playTone(600, 'triangle', 0.1);
+    };
+
+    window.generateBadgeCard = function() {
+      const childName = document.getElementById('input-child-name').value.trim() || 'Herói';
+      const guardianName = document.getElementById('input-guardian-name').value.trim() || 'Responsável';
+      window.heroProfile.name = childName;
+      window.heroProfile.guardianName = guardianName;
+
+      document.getElementById('badge-name-text').innerText = 'AGENTE ' + childName.toUpperCase();
+      document.getElementById('badge-details-text').innerText = window.heroProfile.age + ' ANOS • ' + window.heroProfile.grade.toUpperCase();
+      document.getElementById('badge-guardian-text').innerText = 'Guardião: ' + window.heroProfile.guardianType + ' ' + guardianName;
+
+      const imgSrc = window.heroProfile.mascot === 'leo' ? 'tabuada-assets/heroi-menino-oficial.png' : 'tabuada-assets/heroi-menina-oficial.png';
+      document.getElementById('badge-avatar-img').src = imgSrc;
+
+      try {
+        if (typeof confetti === 'function') confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
+        if (typeof playLevelUpFanfare === 'function') playLevelUpFanfare();
+      } catch(e) {}
+
+      window.goToStep(4);
+    };
+
+    window.finishOnboarding = function() {
+      localStorage.setItem('missao_tabuada_hero_profile', JSON.stringify(window.heroProfile));
+      document.getElementById('onboarding-overlay').style.display = 'none';
+      const headerName = document.getElementById('header-hero-name');
+      if (headerName) headerName.innerText = window.heroProfile.name;
+      
+      try {
+        if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 90, origin: { y: 0.5 } });
+        if (typeof playSuccessSound === 'function') playSuccessSound();
+      } catch(e) {}
+    };
+
+    window.openBadgeModal = function() {
+      window.goToStep(4);
+      document.getElementById('onboarding-overlay').style.display = 'flex';
+    };
+
+    // Auto-executa
+    setTimeout(() => {
+      const savedHero = localStorage.getItem('missao_tabuada_hero_profile');
+      if (savedHero) {
+        try {
+          window.heroProfile = JSON.parse(savedHero);
+          const headerName = document.getElementById('header-hero-name');
+          if (headerName) headerName.innerText = window.heroProfile.name;
+          document.getElementById('onboarding-overlay').style.display = 'none';
+        } catch(e) {}
+      } else {
+        document.getElementById('onboarding-overlay').style.display = 'flex';
+      }
+    }, 100);
+
+</script>
+</body>
+</html>
