@@ -1,0 +1,2082 @@
+const fs = require('fs');
+const path = require('path');
+
+const targetPath = path.resolve(__dirname, 'duolingo_tabuada.html');
+
+const fullHtml = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Missão Tabuada — O Duolingo dos Heróis da Matemática</title>
+  
+  <!-- Fontes Oficiais Fredoka & Nunito -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --duo-green: #58CC02;
+      --duo-green-dark: #46A302;
+      --duo-green-light: #D7FFB8;
+      
+      --duo-blue: #1CB0F6;
+      --duo-blue-dark: #1899D6;
+      --duo-blue-light: #DDF4FF;
+      
+      --duo-yellow: #FFC800;
+      --duo-yellow-dark: #E5B200;
+      --duo-yellow-light: #FFF5CC;
+      
+      --duo-red: #FF4B4B;
+      --duo-red-dark: #EA2B2B;
+      --duo-red-light: #FFDFE0;
+      
+      --duo-purple: #CE82FF;
+      --duo-purple-dark: #A55EEA;
+      
+      --duo-gold: #F59E0B;
+      --duo-gold-dark: #B45309;
+      
+      --duo-gray: #E5E5E5;
+      --duo-gray-dark: #AFB0B0;
+      --duo-ink: #1E293B;
+      --duo-card-bg: #FFFFFF;
+      --bg-color: #F8FAFC;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--duo-ink);
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+      overflow-x: hidden;
+    }
+
+    /* Container Global Responsivo (Tablet, PC e Mobile) */
+    .app-viewport {
+      width: 100%;
+      max-width: 580px;
+      min-height: 100vh;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 0 50px rgba(0,0,0,0.06);
+    }
+
+    @media (min-width: 1024px) {
+      body {
+        background: radial-gradient(circle at 50% 20%, #1E1B4B 0%, #0F172A 70%, #030712 100%);
+        padding: 24px 0;
+      }
+      .app-viewport {
+        border-radius: 36px;
+        overflow: hidden;
+        min-height: calc(100vh - 48px);
+        max-height: 940px;
+        box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+      }
+    }
+
+    /* TOP STATS BAR */
+    .app-header {
+      width: 100%;
+      height: 64px;
+      background: #FFFFFF;
+      border-bottom: 2px solid var(--duo-gray);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-badge-trigger {
+      background: #FEF3C7;
+      border: 2px solid #F59E0B;
+      color: #B45309;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.1s;
+    }
+    .btn-badge-trigger:active { transform: scale(0.96); }
+
+    .header-stats {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .stat-streak { color: #FF9600; }
+    .stat-gems { color: var(--duo-blue); }
+    .stat-hearts { color: var(--duo-red); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-icon {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 8px;
+    }
+
+    /* SCREENS */
+    .screen {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 80px;
+      overflow-y: auto;
+    }
+
+    /* MAPA DUOLINGO */
+    #map-screen {
+      padding: 20px 16px 100px;
+      align-items: center;
+    }
+
+    .banner-vip {
+      width: 100%;
+      background: linear-gradient(135deg, #4C1D95 0%, #6D28D9 100%);
+      border-radius: 20px;
+      padding: 16px 20px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(109, 40, 217, 0.25);
+    }
+    .banner-vip-text h3 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #FBBF24;
+    }
+    .banner-vip-text p {
+      font-size: 13px;
+      color: #E9D5FF;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .btn-vip-action {
+      background: #FBBF24;
+      color: #581C87;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #D97706;
+      white-space: nowrap;
+    }
+    .btn-vip-action:active { transform: translateY(2px); box-shadow: 0 2px 0 #D97706; }
+
+    /* UNIDADES DE FASES */
+    .unit-card {
+      width: 100%;
+      background: var(--duo-green);
+      border-radius: 20px;
+      padding: 16px 20px;
+      color: #FFFFFF;
+      margin-bottom: 24px;
+      box-shadow: 0 5px 0 var(--duo-green-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .unit-card.purple { background: var(--duo-purple); box-shadow: 0 5px 0 var(--duo-purple-dark); }
+    .unit-card.blue { background: var(--duo-blue); box-shadow: 0 5px 0 var(--duo-blue-dark); }
+    .unit-card.gold { background: var(--duo-gold); box-shadow: 0 5px 0 var(--duo-gold-dark); }
+    .unit-card.red { background: var(--duo-red); box-shadow: 0 5px 0 var(--duo-red-dark); }
+
+    .unit-number {
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.9;
+    }
+    .unit-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* CAMINHO DAS FASES (PATH) */
+    .path-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+    }
+
+    .node-row {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      position: relative;
+    }
+    .node-row.pos-left { justify-content: flex-start; padding-left: 20%; }
+    .node-row.pos-right { justify-content: flex-end; padding-right: 20%; }
+
+    .node-btn {
+      width: 76px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--duo-green);
+      border: none;
+      box-shadow: 0 8px 0 var(--duo-green-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: #FFFFFF;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.1s ease;
+    }
+    .node-btn:active {
+      transform: translateY(6px);
+      box-shadow: 0 2px 0 var(--duo-green-dark);
+    }
+    .node-btn.locked {
+      background: var(--duo-gray);
+      box-shadow: 0 8px 0 var(--duo-gray-dark);
+      cursor: not-allowed;
+      color: #94A3B8;
+      font-size: 26px;
+    }
+    .node-btn.locked:active {
+      transform: none;
+      box-shadow: 0 8px 0 var(--duo-gray-dark);
+    }
+    .node-btn.boss {
+      background: var(--duo-red);
+      box-shadow: 0 8px 0 var(--duo-red-dark);
+      width: 86px;
+      height: 82px;
+      font-size: 38px;
+    }
+    .node-btn.boss:active {
+      transform: translateY(6px);
+      box-shadow: 0 2px 0 var(--duo-red-dark);
+    }
+
+    .node-tooltip {
+      position: absolute;
+      bottom: -32px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1E293B;
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    /* TELA DE LIÇÃO / QUIZ */
+    #lesson-screen {
+      display: none;
+      background: #FFFFFF;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .lesson-header {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 16px;
+    }
+    .btn-close-lesson {
+      background: none;
+      border: none;
+      font-size: 26px;
+      color: #64748B;
+      cursor: pointer;
+    }
+    .progress-bar-bg {
+      flex: 1;
+      height: 16px;
+      background: var(--duo-gray);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--duo-green);
+      width: 0%;
+      border-radius: 999px;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .lesson-body {
+      flex: 1;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .prompt-bubble-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .mascot-avatar-small {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+      animation: mascotBounce 2.5s ease-in-out infinite;
+    }
+    @keyframes mascotBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .speech-bubble {
+      background: #FFFFFF;
+      border: 3px solid var(--duo-gray);
+      border-radius: 20px;
+      padding: 16px 20px;
+      position: relative;
+      flex: 1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 20px;
+      width: 0; height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 12px solid var(--duo-gray);
+    }
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 20px;
+      width: 0; height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 10px solid #FFFFFF;
+    }
+    .speech-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #64748B;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .speech-question {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #1E293B;
+    }
+
+    /* GRID DE OPÇÕES */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+    .option-card {
+      background: #FFFFFF;
+      border: 3px solid var(--duo-gray);
+      border-radius: 20px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #1E293B;
+      cursor: pointer;
+      box-shadow: 0 5px 0 var(--duo-gray);
+      transition: all 0.1s ease;
+    }
+    .option-card:hover {
+      background: #F8FAFC;
+      border-color: #CBD5E1;
+    }
+    .option-card:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 var(--duo-gray);
+    }
+    .option-card.selected {
+      background: var(--duo-blue-light);
+      border-color: var(--duo-blue);
+      color: var(--duo-blue-dark);
+      box-shadow: 0 5px 0 var(--duo-blue-dark);
+    }
+
+    /* FOOTER DE VERIFICAÇÃO & FEEDBACK DRAWER */
+    .lesson-footer {
+      border-top: 2px solid var(--duo-gray);
+      padding: 16px 20px;
+      background: #FFFFFF;
+    }
+    .btn-verify {
+      width: 100%;
+      height: 56px;
+      background: var(--duo-green);
+      border: none;
+      border-radius: 18px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFFFFF;
+      cursor: pointer;
+      box-shadow: 0 5px 0 var(--duo-green-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .btn-verify:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 var(--duo-green-dark);
+    }
+    .btn-verify:disabled {
+      background: var(--duo-gray);
+      box-shadow: 0 5px 0 var(--duo-gray-dark);
+      cursor: not-allowed;
+      color: #94A3B8;
+    }
+
+    /* Feedback Drawer */
+    .feedback-drawer {
+      display: none;
+      padding: 20px;
+      border-top: 2px solid transparent;
+      animation: slideUp 0.25s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .feedback-drawer.correct {
+      background: var(--duo-green-light);
+      border-color: var(--duo-green);
+    }
+    .feedback-drawer.incorrect {
+      background: var(--duo-red-light);
+      border-color: var(--duo-red);
+    }
+    .feedback-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .correct .feedback-title { color: var(--duo-green-dark); }
+    .incorrect .feedback-title { color: var(--duo-red-dark); }
+    .feedback-msg {
+      font-size: 15px;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .btn-next {
+      width: 100%;
+      height: 54px;
+      border: none;
+      border-radius: 18px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFFFFF;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+    .btn-next.correct {
+      background: var(--duo-green);
+      box-shadow: 0 5px 0 var(--duo-green-dark);
+    }
+    .btn-next.incorrect {
+      background: var(--duo-red);
+      box-shadow: 0 5px 0 var(--duo-red-dark);
+    }
+
+    /* MODAL DE VIDAS ESGOTADAS (GAME OVER / RECUPERAÇÃO) */
+    .gameover-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.95);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .gameover-card {
+      width: 100%;
+      max-width: 440px;
+      background: #FFFFFF;
+      border-radius: 28px;
+      padding: 30px 24px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+    .gameover-mascot {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+    .gameover-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--duo-red);
+      margin-bottom: 8px;
+    }
+    .gameover-desc {
+      font-size: 15px;
+      color: #64748B;
+      font-weight: 700;
+      margin-bottom: 24px;
+      line-height: 1.45;
+    }
+    .recovery-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn-recover {
+      width: 100%;
+      padding: 16px;
+      border-radius: 16px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-recover.green {
+      background: var(--duo-green);
+      color: #FFF;
+      box-shadow: 0 4px 0 var(--duo-green-dark);
+    }
+    .btn-recover.blue {
+      background: var(--duo-blue);
+      color: #FFF;
+      box-shadow: 0 4px 0 var(--duo-blue-dark);
+    }
+    .btn-recover.gray {
+      background: #F1F5F9;
+      color: #64748B;
+      border: 2px solid var(--duo-gray);
+    }
+
+    /* TELA DE VITÓRIA DA FASE */
+    #victory-screen {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.94);
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .victory-card {
+      width: 100%;
+      max-width: 440px;
+      background: #FFFFFF;
+      border-radius: 28px;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .victory-icon {
+      font-size: 72px;
+      margin-bottom: 12px;
+      animation: victoryPulse 1.5s infinite;
+    }
+    @keyframes victoryPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .victory-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--duo-green);
+      margin-bottom: 8px;
+    }
+    .reward-pills {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 20px 0 28px;
+    }
+    .reward-pill {
+      background: #F8FAFC;
+      border: 2px solid var(--duo-gray);
+      border-radius: 14px;
+      padding: 10px 18px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* TELA DA LOJA / CRÉDITOS / VIP */
+    #shop-screen {
+      display: none;
+      padding: 20px 16px 100px;
+    }
+    .shop-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 16px;
+    }
+    .vip-pass-card {
+      background: linear-gradient(135deg, #4C1D95 0%, #7C3AED 50%, #4C1D95 100%);
+      border: 3px solid #F59E0B;
+      border-radius: 24px;
+      padding: 24px 20px;
+      color: #FFF;
+      margin-bottom: 24px;
+      box-shadow: 0 15px 35px rgba(124, 58, 237, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .vip-tag {
+      background: #F59E0B;
+      color: #78350F;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .vip-pass-card h3 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #FFF;
+      margin-bottom: 8px;
+    }
+    .vip-pass-card p {
+      font-size: 14px;
+      color: #E9D5FF;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .vip-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .vip-benefit-item {
+      font-size: 14px;
+      font-weight: 800;
+      color: #FDF4FF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-activate-vip {
+      width: 100%;
+      height: 52px;
+      background: #F59E0B;
+      border: none;
+      border-radius: 16px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #78350F;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #B45309;
+      text-transform: uppercase;
+    }
+    .btn-activate-vip:active { transform: translateY(2px); box-shadow: 0 2px 0 #B45309; }
+
+    .gems-shop-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .gem-pack-card {
+      background: #FFFFFF;
+      border: 2px solid var(--duo-gray);
+      border-radius: 18px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 4px 0 var(--duo-gray);
+    }
+    .gem-pack-card img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 6px;
+    }
+    .gem-amount {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--duo-blue-dark);
+    }
+    .gem-price {
+      font-size: 13px;
+      font-weight: 800;
+      color: #64748B;
+      margin: 4px 0 10px;
+    }
+    .btn-buy-gem {
+      width: 100%;
+      padding: 8px;
+      background: var(--duo-blue);
+      border: none;
+      border-radius: 12px;
+      color: #FFF;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 3px 0 var(--duo-blue-dark);
+    }
+
+    /* MOBILE FLOATING BOTTOM BAR */
+    .mobile-tab-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: #FFFFFF;
+      border-top: 2px solid var(--duo-gray);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 90;
+    }
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #94A3B8;
+      text-decoration: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .tab-item.active { color: var(--duo-green); }
+    .tab-icon { font-size: 22px; }
+
+    /* ONBOARDING MODAL */
+    .onboarding-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .onboarding-card {
+      width: 100%;
+      max-width: 480px;
+      background: #FFFFFF;
+      border-radius: 32px;
+      padding: 28px 22px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+      border: 4px solid var(--duo-gray);
+      text-align: center;
+      position: relative;
+      animation: modalPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes modalPop {
+      0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .onboard-step { display: none; }
+    .onboard-step.active { display: block; }
+    .onboard-hero-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .onboard-mascot-img {
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
+      animation: mascotFloat 3s ease-in-out infinite;
+    }
+    @keyframes mascotFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .onboard-badge {
+      display: inline-block;
+      background: #EFF6FF;
+      color: #1D4ED8;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 6px 16px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      border: 2px solid #BFDBFE;
+      margin-top: 8px;
+    }
+    .onboard-badge.gold {
+      background: #FEF3C7;
+      color: #B45309;
+      border-color: #F59E0B;
+    }
+    .onboard-step-indicator {
+      font-size: 12px;
+      font-weight: 900;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .onboard-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #1E293B;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .onboard-desc {
+      font-size: 14px;
+      color: #64748B;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 20px;
+    }
+
+    .hero-selector-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .hero-choice-card {
+      background: #F8FAFC;
+      border: 3px solid var(--duo-gray);
+      border-radius: 20px;
+      padding: 14px 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hero-choice-card.selected {
+      border-color: var(--duo-green);
+      background: #F0FDF4;
+      box-shadow: 0 0 0 2px var(--duo-green-dark), 0 8px 20px rgba(88, 204, 2, 0.2);
+    }
+    .hero-choice-card img {
+      width: 85px;
+      height: 85px;
+      object-fit: contain;
+      margin-bottom: 6px;
+    }
+    .hero-choice-card .hero-name {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1E293B;
+    }
+    .hero-choice-card .hero-tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: #64748B;
+      margin-top: 2px;
+    }
+
+    .input-group {
+      text-align: left;
+      margin-bottom: 16px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 900;
+      color: #334155;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .duo-input {
+      width: 100%;
+      height: 48px;
+      border: 3px solid var(--duo-gray);
+      border-radius: 14px;
+      padding: 0 16px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 17px;
+      color: #1E293B;
+      outline: none;
+    }
+    .duo-input:focus { border-color: var(--duo-blue); }
+
+    .pill-options-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pill-btn {
+      flex: 1 1 calc(33.333% - 6px);
+      min-width: 75px;
+      padding: 10px 8px;
+      background: #FFFFFF;
+      border: 2px solid var(--duo-gray);
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 900;
+      color: #475569;
+      cursor: pointer;
+      box-shadow: 0 3px 0 var(--duo-gray);
+    }
+    .pill-btn.selected {
+      background: #EFF6FF;
+      border-color: var(--duo-blue);
+      color: var(--duo-blue-dark);
+      box-shadow: 0 3px 0 var(--duo-blue-dark);
+      transform: translateY(1px);
+    }
+
+    .btn-duo-next {
+      width: 100%;
+      height: 52px;
+      background: var(--duo-green);
+      border: none;
+      border-radius: 16px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: #FFFFFF;
+      cursor: pointer;
+      box-shadow: 0 5px 0 var(--duo-green-dark);
+      text-transform: uppercase;
+      margin-top: 10px;
+    }
+    .btn-duo-next:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 var(--duo-green-dark);
+    }
+    .btn-duo-next.btn-gold {
+      background: #F59E0B;
+      box-shadow: 0 5px 0 #B45309;
+      color: #78350F;
+    }
+
+    /* CARTEIRINHA DE HERÓI HOLOGRÁFICA */
+    .hero-badge-card {
+      background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #1E1B4B 100%);
+      border: 4px solid #F59E0B;
+      border-radius: 22px;
+      padding: 18px;
+      color: #FFF;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(245, 158, 11, 0.4);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .hero-badge-card::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+      animation: badgeShine 4s infinite linear;
+    }
+    @keyframes badgeShine {
+      0% { transform: translateY(-100%) rotate(45deg); }
+      100% { transform: translateY(100%) rotate(45deg); }
+    }
+    .badge-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 8px;
+    }
+    .badge-logo-text {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #FBBF24;
+      letter-spacing: 1px;
+    }
+    .badge-agent-id {
+      font-size: 11px;
+      font-weight: 800;
+      color: #94A3B8;
+    }
+    .badge-body {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .badge-avatar-img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid #F59E0B;
+      border-radius: 16px;
+      padding: 4px;
+    }
+    .badge-info h3 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFF;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .badge-details {
+      font-size: 12px;
+      color: #CBD5E1;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .badge-guardian-tag {
+      display: inline-block;
+      background: rgba(88, 204, 2, 0.2);
+      border: 1px solid #58CC02;
+      color: #86EFAC;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+    .badge-stats-row {
+      display: flex;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 900;
+      color: #FDE047;
+    }
+    .badge-seal {
+      position: absolute;
+      bottom: 10px; right: 10px;
+      font-size: 9px;
+      font-weight: 900;
+      background: #F59E0B;
+      color: #78350F;
+      padding: 3px 6px;
+      border-radius: 5px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- VIEWPORT CONTAINER -->
+  <div class="app-viewport">
+
+    <!-- MODAL DE ONBOARDING JORNADA DO HERÓI -->
+    <div id="onboarding-overlay" class="onboarding-overlay" style="display:none;">
+      <div class="onboarding-card">
+        
+        <!-- PASSO 1: BOAS-VINDAS & ESCOLHA DO MASCOTE -->
+        <div id="step-1" class="onboard-step active">
+          <div class="onboard-hero-visual">
+            <img src="tabuada-assets/heroi-menino-oficial.png" class="onboard-mascot-img" id="hero-preview-img" alt="Herói">
+            <div class="onboard-badge">🚀 BEM-VINDO À MISSÃO TABUADA</div>
+          </div>
+          <h2 class="onboard-title">A Liga da Multiplicação convoca você!</h2>
+          <p class="onboard-desc">Treine 15 minutos por dia, vença os monstros dos números e torne-se um Mestre da Tabuada!</p>
+          
+          <div style="font-size:13px;font-weight:900;color:#334155;margin-bottom:10px;text-align:left;">ESCOLHA SEU HERÓI PARCEIRO:</div>
+          <div class="hero-selector-grid">
+            <div class="hero-choice-card selected" id="choice-leo" onclick="selectMascot('leo')">
+              <img src="tabuada-assets/heroi-menino-oficial.png" alt="Léo">
+              <div class="hero-name">LÉO</div>
+              <div class="hero-tag">Raio da Agilidade ⚡</div>
+            </div>
+            <div class="hero-choice-card" id="choice-maya" onclick="selectMascot('maya')">
+              <img src="tabuada-assets/heroi-menina-oficial.png" alt="Maya">
+              <div class="hero-name">MAYA</div>
+              <div class="hero-tag">Escudo da Sabedoria 🛡️</div>
+            </div>
+          </div>
+
+          <button class="btn-duo-next" onclick="goToStep(2)">Continuar Missão ➔</button>
+        </div>
+
+        <!-- PASSO 2: DADOS DA CRIANÇA -->
+        <div id="step-2" class="onboard-step">
+          <div class="onboard-step-indicator">PASSO 1 DE 3 • PERFIL DO HERÓI</div>
+          <h2 class="onboard-title">Quem é o Herói da Casa?</h2>
+          
+          <div class="input-group">
+            <label>Qual o Primeiro Nome da Criança?</label>
+            <input type="text" id="input-child-name" placeholder="Ex: Pedro, Sofia, Arthur..." class="duo-input" value="Pedro">
+          </div>
+
+          <div class="input-group">
+            <label>Qual a Idade?</label>
+            <div class="pill-options-grid" id="age-pills">
+              <button type="button" class="pill-btn" onclick="selectPill('age', 6, this)">6 anos</button>
+              <button type="button" class="pill-btn" onclick="selectPill('age', 7, this)">7 anos</button>
+              <button type="button" class="pill-btn selected" onclick="selectPill('age', 8, this)">8 anos</button>
+              <button type="button" class="pill-btn" onclick="selectPill('age', 9, this)">9 anos</button>
+              <button type="button" class="pill-btn" onclick="selectPill('age', 10, this)">10 anos</button>
+              <button type="button" class="pill-btn" onclick="selectPill('age', 11, this)">11+ anos</button>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Qual Ano na Escola?</label>
+            <div class="pill-options-grid" id="grade-pills">
+              <button type="button" class="pill-btn" onclick="selectPill('grade', '1º Ano', this)">1º Ano</button>
+              <button type="button" class="pill-btn" onclick="selectPill('grade', '2º Ano', this)">2º Ano</button>
+              <button type="button" class="pill-btn selected" onclick="selectPill('grade', '3º Ano', this)">3º Ano</button>
+              <button type="button" class="pill-btn" onclick="selectPill('grade', '4º Ano', this)">4º Ano</button>
+              <button type="button" class="pill-btn" onclick="selectPill('grade', '5º Ano', this)">5º Ano</button>
+            </div>
+          </div>
+
+          <button class="btn-duo-next" onclick="goToStep(3)">Avançar ➔</button>
+        </div>
+
+        <!-- PASSO 3: GUARDIÃO / RESPONSÁVEL -->
+        <div id="step-3" class="onboard-step">
+          <div class="onboard-step-indicator">PASSO 2 DE 3 • O GUARDIÃO</div>
+          <h2 class="onboard-title">Quem vai acompanhar os treinos?</h2>
+          
+          <div class="input-group">
+            <label>Quem é o parceiro de estudos?</label>
+            <div class="pill-options-grid">
+              <button type="button" class="pill-btn selected" onclick="selectPill('guardianType', 'Mamãe', this)">Mamãe 👩‍👧</button>
+              <button type="button" class="pill-btn" onclick="selectPill('guardianType', 'Papai', this)">Papai 👨‍👦</button>
+              <button type="button" class="pill-btn" onclick="selectPill('guardianType', 'Vovó / Vovô', this)">Vovó / Vovô 👵</button>
+              <button type="button" class="pill-btn" onclick="selectPill('guardianType', 'Responsável', this)">Responsável 🌟</button>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Nome do Responsável:</label>
+            <input type="text" id="input-guardian-name" placeholder="Ex: Camila, Juliana, Marcos..." class="duo-input" value="Camila">
+          </div>
+
+          <div class="input-group">
+            <label>Meta Diária de Treino:</label>
+            <div class="pill-options-grid">
+              <button type="button" class="pill-btn" onclick="selectPill('timeGoal', '10 min', this)">10 min (Rápido)</button>
+              <button type="button" class="pill-btn selected" onclick="selectPill('timeGoal', '15 min', this)">15 min (Ideal ⭐)</button>
+              <button type="button" class="pill-btn" onclick="selectPill('timeGoal', '20 min', this)">20 min (Avançado)</button>
+            </div>
+          </div>
+
+          <button class="btn-duo-next btn-gold" onclick="generateBadgeCard()">Emitir Carteirinha Oficial ➔</button>
+        </div>
+
+        <!-- PASSO 4: CARTEIRINHA EMITIDA -->
+        <div id="step-4" class="onboard-step">
+          <div class="onboard-badge gold">🏅 CARTEIRINHA OFICIAL EMITIDA</div>
+          <h2 class="onboard-title" style="margin-bottom:6px;">Parabéns, novo(a) Agente!</h2>
+          <p class="onboard-desc" style="margin-bottom:16px;">Você foi oficialmente aprovado(a) para a Liga dos Heróis da Multiplicação!</p>
+          
+          <div class="hero-badge-card" id="hero-badge-result">
+            <div class="badge-top-row">
+              <span class="badge-logo-text">⚡ LIGA DOS HERÓIS</span>
+              <span class="badge-agent-id">ID #2026-HEROI</span>
+            </div>
+            <div class="badge-body">
+              <img src="tabuada-assets/heroi-menino-oficial.png" class="badge-avatar-img" id="badge-avatar-img" alt="Avatar">
+              <div class="badge-info">
+                <h3 id="badge-name-text">AGENTE PEDRO</h3>
+                <div class="badge-details" id="badge-details-text">8 ANOS • 3º ANO ESCOLAR</div>
+                <div class="badge-guardian-tag" id="badge-guardian-text">Guardião: Mamãe Camila</div>
+                <div class="badge-stats-row">
+                  <span>⭐ Nível 1</span>
+                  <span>⚡ 100 XP</span>
+                  <span>❤️ 5 Vidas</span>
+                </div>
+              </div>
+            </div>
+            <div class="badge-seal">OFICIAL APROVADO</div>
+          </div>
+
+          <button class="btn-duo-next" onclick="finishOnboarding()">COMEÇAR MINHA JORNADA 🚀</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MODAL DE GAME OVER / VIDAS ESGOTADAS -->
+    <div id="gameover-modal" class="gameover-overlay">
+      <div class="gameover-card">
+        <img src="tabuada-assets/heroi-menino-oficial.png" class="gameover-mascot" id="gameover-mascot-img" alt="Mascote">
+        <h2 class="gameover-title">Quase lá, Herói!</h2>
+        <p class="gameover-desc">Suas vidas acabaram, mas todo grande herói aprende com os erros! Escolha como quer continuar:</p>
+        
+        <div class="recovery-options">
+          <button class="btn-recover green" onclick="recoverWithQuickTraining()">
+            <span>⚡</span> Treino Rápido de 1 Minuto (+3 Vidas Grátis)
+          </button>
+          <button class="btn-recover blue" onclick="recoverWithGems()">
+            <span>💎</span> Usar 20 Gemas (+5 Vidas)
+          </button>
+          <button class="btn-recover gray" onclick="closeGameOver()">
+            <span>⏳</span> Voltar ao Mapa e Descansar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- APP HEADER -->
+    <header class="app-header">
+      <div class="header-left">
+        <button class="btn-badge-trigger" onclick="openBadgeModal()" title="Ver Minha Carteirinha">
+          🏅 <span id="header-hero-name">Pedro</span>
+        </button>
+      </div>
+
+      <div class="header-stats">
+        <div class="stat-badge stat-streak" title="Sequência de dias">
+          <span>🔥</span><span id="streak-val">3</span>
+        </div>
+        <div class="stat-badge stat-gems" onclick="openShop()" title="Gemas / Créditos">
+          <span>💎</span><span id="gems-val">120</span>
+        </div>
+        <div class="stat-badge stat-hearts" title="Vidas Restantes">
+          <span>❤️</span><span id="hearts-val">5</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-icon" id="btn-sound" title="Alternar Som">🔊</button>
+      </div>
+    </header>
+
+    <!-- SCREEN 1: MAP / CAMINHO DUOLINGO -->
+    <main class="screen" id="map-screen">
+      
+      <!-- Banner VIP -->
+      <div class="banner-vip">
+        <div class="banner-vip-text">
+          <h3>👑 Passe VIP dos Heróis</h3>
+          <p>Vidas infinitas ❤️♾️ e apostilas mensais.</p>
+        </div>
+        <button class="btn-vip-action" onclick="openShop()">Ver Benefícios ➔</button>
+      </div>
+
+      <!-- UNIDADE 1 -->
+      <div class="unit-card">
+        <div>
+          <div class="unit-number">Unidade 1 • Iniciação</div>
+          <div class="unit-title">Tabuada do 2 e 3 dos Heróis</div>
+        </div>
+        <span style="font-size:28px;">⚡</span>
+      </div>
+
+      <div class="path-container">
+        <!-- Fase 1 -->
+        <div class="node-row">
+          <button class="node-btn" onclick="startLesson(1)">
+            <span>⚡</span>
+            <div class="node-tooltip">Fase 1 • Tabuada do 2</div>
+          </button>
+        </div>
+
+        <!-- Fase 2 -->
+        <div class="node-row pos-left">
+          <button class="node-btn" id="node-2" onclick="startLesson(2)">
+            <span>🌲</span>
+            <div class="node-tooltip">Fase 2 • Tabuada do 3</div>
+          </button>
+        </div>
+
+        <!-- Fase 3 -->
+        <div class="node-row pos-right">
+          <button class="node-btn" id="node-3" onclick="startLesson(3)">
+            <span>⭐</span>
+            <div class="node-tooltip">Fase 3 • Desafio Estelar (2 e 3)</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- UNIDADE 2 -->
+      <div class="unit-card blue" style="margin-top:36px;">
+        <div>
+          <div class="unit-number">Unidade 2 • Intermediária</div>
+          <div class="unit-title">Tabuada do 4, 5 e 6</div>
+        </div>
+        <span style="font-size:28px;">🛡️</span>
+      </div>
+
+      <div class="path-container">
+        <!-- Fase 4 -->
+        <div class="node-row">
+          <button class="node-btn locked" id="node-4" onclick="startLesson(4)">
+            <span>🔒</span>
+            <div class="node-tooltip">Fase 4 • Tabuada do 4</div>
+          </button>
+        </div>
+
+        <!-- Fase 5 -->
+        <div class="node-row pos-left">
+          <button class="node-btn locked" id="node-5" onclick="startLesson(5)">
+            <span>🔒</span>
+            <div class="node-tooltip">Fase 5 • Tabuada do 5</div>
+          </button>
+        </div>
+
+        <!-- Fase 6 -->
+        <div class="node-row pos-right">
+          <button class="node-btn locked" id="node-6" onclick="startLesson(6)">
+            <span>🔒</span>
+            <div class="node-tooltip">Fase 6 • Tabuada do 6</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- UNIDADE 3 -->
+      <div class="unit-card gold" style="margin-top:36px;">
+        <div>
+          <div class="unit-number">Unidade 3 • Avançada</div>
+          <div class="unit-title">Tabuada do 7, 8 e 9</div>
+        </div>
+        <span style="font-size:28px;">🔥</span>
+      </div>
+
+      <div class="path-container">
+        <!-- Fase 7 -->
+        <div class="node-row">
+          <button class="node-btn locked" id="node-7" onclick="startLesson(7)">
+            <span>🔒</span>
+            <div class="node-tooltip">Fase 7 • Vulcão do 7 (7x8)</div>
+          </button>
+        </div>
+
+        <!-- Fase 8 -->
+        <div class="node-row pos-left">
+          <button class="node-btn locked" id="node-8" onclick="startLesson(8)">
+            <span>🔒</span>
+            <div class="node-tooltip">Fase 8 • Vale do 8</div>
+          </button>
+        </div>
+
+        <!-- Fase 9 -->
+        <div class="node-row pos-right">
+          <button class="node-btn locked" id="node-9" onclick="startLesson(9)">
+            <span>🔒</span>
+            <div class="node-tooltip">Fase 9 • Truque do 9</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- UNIDADE 4: O CHEFÃO FINAL -->
+      <div class="unit-card red" style="margin-top:36px;">
+        <div>
+          <div class="unit-number">Unidade 4 • Batalha Épica</div>
+          <div class="unit-title">Tabuada do 10 & Chefão Final</div>
+        </div>
+        <span style="font-size:28px;">👑</span>
+      </div>
+
+      <div class="path-container" style="margin-bottom:30px;">
+        <div class="node-row">
+          <button class="node-btn boss locked" id="node-10" onclick="startLesson(10)">
+            <span>👹</span>
+            <div class="node-tooltip">Fase 10 • Chefão Final</div>
+          </button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- SCREEN 2: LOJA / VIP / CRÉDITOS -->
+    <main class="screen" id="shop-screen">
+      <h2 class="shop-title">💎 Loja dos Heróis</h2>
+
+      <!-- Card do Passe VIP Recorrente -->
+      <div class="vip-pass-card">
+        <span class="vip-tag">⭐ RECORRÊNCIA MENSAL</span>
+        <h3>Passe Herói Lendário VIP</h3>
+        <p>Garanta que seu filho nunca pare de aprender com vidas ilimitadas e novos conteúdos todos os meses!</p>
+        
+        <div class="vip-benefits">
+          <div class="vip-benefit-item">❤️ Vidas Infinitas (Sem tempo de espera)</div>
+          <div class="vip-benefit-item">🔓 Todas as 10 Fases Desbloqueadas</div>
+          <div class="vip-benefit-item">📚 Novos Livros e Atividades em PDF todo mês</div>
+          <div class="vip-benefit-item">🏆 Carteirinha Dourada VIP Exclusiva</div>
+        </div>
+
+        <button class="btn-activate-vip" onclick="alert('👑 Preparado para integração de assinatura recorrente (R$ 14,90/mês)!')">
+          ASSINAR POR R$ 14,90/MÊS ➔
+        </button>
+      </div>
+
+      <h3 style="font-family:'Fredoka';font-size:20px;margin-bottom:12px;">Pacotes de Gemas / Créditos</h3>
+      <div class="gems-shop-grid">
+        <div class="gem-pack-card">
+          <div style="font-size:36px;">💎</div>
+          <div class="gem-amount">100 Gemas</div>
+          <div class="gem-price">R$ 4,90</div>
+          <button class="btn-buy-gem" onclick="buyGems(100)">Comprar ➔</button>
+        </div>
+        <div class="gem-pack-card" style="border-color:#F59E0B;">
+          <div style="font-size:36px;">💎💎</div>
+          <div class="gem-amount" style="color:#B45309;">500 Gemas</div>
+          <div class="gem-price">R$ 14,90 <span style="color:#10B981;font-weight:900;">(POPULAR)</span></div>
+          <button class="btn-buy-gem" style="background:#F59E0B;box-shadow:0 3px 0 #B45309;" onclick="buyGems(500)">Comprar ➔</button>
+        </div>
+      </div>
+
+      <div style="background:#F8FAFC;border:2px solid var(--duo-gray);border-radius:18px;padding:16px;text-align:center;">
+        <h4 style="font-family:'Fredoka';font-size:18px;color:#1E293B;">📚 Seus Cadernos Impressos</h4>
+        <p style="font-size:13px;color:#64748B;margin:4px 0 12px;">Baixe as apostilas de 43 páginas para imprimir em casa.</p>
+        <a href="Missao_Tabuada_Volume_1.pdf" target="_blank" style="display:inline-block;background:#3B82F6;color:#FFF;padding:10px 20px;border-radius:12px;text-decoration:none;font-weight:900;font-size:14px;">Baixar Apostila 1 ➔</a>
+      </div>
+    </main>
+
+    <!-- SCREEN 3: QUIZ / LIÇÃO INTERATIVA -->
+    <div class="screen" id="lesson-screen">
+      <div class="lesson-header">
+        <button class="btn-close-lesson" onclick="exitLesson()">✕</button>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="lesson-progress"></div>
+        </div>
+        <div class="stat-badge stat-hearts">
+          <span>❤️</span><span id="lesson-hearts">5</span>
+        </div>
+      </div>
+
+      <div class="lesson-body">
+        <div class="prompt-bubble-row">
+          <img src="tabuada-assets/heroi-menino-oficial.png" class="mascot-avatar-small" id="lesson-mascot-img" alt="Mascote">
+          <div class="speech-bubble">
+            <div class="speech-title" id="speech-category">Missão dos Heróis</div>
+            <div class="speech-question" id="question-text">Quanto é 2 × 3?</div>
+          </div>
+        </div>
+
+        <div class="options-grid" id="options-container">
+          <!-- Opções geradas dinamicamente -->
+        </div>
+      </div>
+
+      <div class="lesson-footer" id="footer-verify">
+        <button class="btn-verify" id="btn-verify" onclick="checkAnswer()" disabled>VERIFICAR RESPOSTA</button>
+      </div>
+
+      <div class="feedback-drawer" id="feedback-drawer">
+        <div class="feedback-title" id="fb-title">🎉 Resposta Certa!</div>
+        <div class="feedback-msg" id="fb-msg">Excelente cálculo!</div>
+        <button class="btn-next correct" id="btn-next" onclick="nextQuestion()">CONTINUAR ➔</button>
+      </div>
+    </div>
+
+    <!-- TELA DE VITÓRIA DA FASE -->
+    <div id="victory-screen">
+      <div class="victory-card">
+        <div class="victory-icon">🏆</div>
+        <h2 class="victory-title">Missão Concluída!</h2>
+        <p style="font-size:15px;color:#64748B;font-weight:700;">Você conquistou esta ilha e destravou novos poderes da tabuada!</p>
+        
+        <div class="reward-pills">
+          <div class="reward-pill" style="color:#10B981;">⚡ +30 XP</div>
+          <div class="reward-pill" style="color:var(--duo-blue);">💎 +15 Gemas</div>
+        </div>
+
+        <button class="btn-duo-next" onclick="closeVictory()">CONTINUAR AVENTURA 🚀</button>
+      </div>
+    </div>
+
+    <!-- FLOATING BOTTOM NAVIGATION -->
+    <nav class="mobile-tab-bar">
+      <button class="tab-item active" id="tab-btn-map" onclick="switchTab('map')">
+        <span class="tab-icon">🗺️</span>
+        <span>Aventura</span>
+      </button>
+      <button class="tab-item" id="tab-btn-shop" onclick="switchTab('shop')">
+        <span class="tab-icon">💎</span>
+        <span>Loja & VIP</span>
+      </button>
+      <a href="tabuada-offer.html" class="tab-item">
+        <span class="tab-icon">📖</span>
+        <span>Oferta</span>
+      </a>
+      <button class="tab-item" onclick="openBadgeModal()">
+        <span class="tab-icon">🏅</span>
+        <span>Crachá</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- JAVASCRIPT GLOBAL -->
+  <script>
+    // Web Audio Synthesizer
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) audioCtx = new AudioContext();
+    }
+    document.addEventListener('click', initAudio, { once: true });
+
+    document.getElementById('btn-sound').onclick = () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('btn-sound').innerText = soundEnabled ? '🔊' : '🔇';
+    };
+
+    function playTone(freq, type, duration, delay = 0) {
+      if (!soundEnabled || !audioCtx) return;
+      setTimeout(() => {
+        try {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.18, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + duration);
+        } catch(e) {}
+      }, delay);
+    }
+
+    function playSuccessSound() {
+      playTone(523.25, 'sine', 0.12, 0);   // C5
+      playTone(659.25, 'sine', 0.12, 100); // E5
+      playTone(783.99, 'sine', 0.25, 200); // G5
+      playTone(1046.50, 'sine', 0.35, 300); // C6
+    }
+
+    function playErrorSound() {
+      playTone(220, 'sawtooth', 0.15, 0);
+      playTone(180, 'sawtooth', 0.25, 120);
+    }
+
+    function playLevelUpFanfare() {
+      playTone(440, 'triangle', 0.15, 0);
+      playTone(554.37, 'triangle', 0.15, 120);
+      playTone(659.25, 'triangle', 0.15, 240);
+      playTone(880, 'triangle', 0.45, 360);
+    }
+
+    // BANCO COMPLETO DE TODAS AS 10 MISSÕES DA TABUADA
+    const lessonsData = {
+      1: {
+        title: "Tabuada do 2 • Iniciação",
+        questions: [
+          { q: "Quanto é 2 × 3?", options: [4, 6, 8, 9], correct: 6, tip: "Dica do Léo: 3 + 3 = 6!" },
+          { q: "Quanto é 2 × 6?", options: [10, 12, 14, 16], correct: 12, tip: "Dica: O dobro de 6 é 12!" },
+          { q: "Se cada herói tem 2 capas, quantas capas têm 4 heróis?", options: [6, 8, 10, 12], correct: 8, tip: "2 × 4 = 8 capas!" },
+          { q: "Quanto é 2 × 9?", options: [16, 17, 18, 20], correct: 18, tip: "Dica: 9 + 9 = 18!" }
+        ]
+      },
+      2: {
+        title: "Tabuada do 3 • Floresta Mágica",
+        questions: [
+          { q: "Quanto é 3 × 4?", options: [10, 12, 15, 16], correct: 12, tip: "Dica: 4 + 4 + 4 = 12!" },
+          { q: "Quanto é 3 × 7?", options: [18, 20, 21, 24], correct: 21, tip: "Dica: 7 + 7 + 7 = 21!" },
+          { q: "Três equipes com 5 heróis cada. Quantos no total?", options: [12, 15, 18, 20], correct: 15, tip: "3 × 5 = 15 heróis!" },
+          { q: "Quanto é 3 × 9?", options: [24, 26, 27, 30], correct: 27, tip: "Dica: 30 menos 3 é 27!" }
+        ]
+      },
+      3: {
+        title: "Batalha das Estrelas (2 e 3)",
+        questions: [
+          { q: "Desafio Relâmpago: 2 × 8 = ?", options: [14, 16, 18, 20], correct: 16, tip: "8 + 8 = 16!" },
+          { q: "Qual número completa: 3 × [ ? ] = 18", options: [5, 6, 7, 8], correct: 6, tip: "3 × 6 = 18!" },
+          { q: "Quanto é (2 × 5) + (3 × 2)?", options: [14, 15, 16, 18], correct: 16, tip: "10 + 6 = 16!" }
+        ]
+      },
+      4: {
+        title: "Tabuada do 4 • Castelo dos Quadrados",
+        questions: [
+          { q: "Quanto é 4 × 4?", options: [12, 14, 16, 18], correct: 16, tip: "4 grupos de 4 é igual a 16!" },
+          { q: "Quanto é 4 × 7?", options: [24, 26, 28, 32], correct: 28, tip: "Dica: O dobro de 14 é 28!" },
+          { q: "Quanto é 4 × 8?", options: [30, 32, 34, 36], correct: 32, tip: "Dica: 8 + 8 + 8 + 8 = 32!" }
+        ]
+      },
+      5: {
+        title: "Tabuada do 5 • Montanha do Relógio",
+        questions: [
+          { q: "Quanto é 5 × 5?", options: [20, 25, 30, 35], correct: 25, tip: "Conte de 5 em 5: 5, 10, 15, 20, 25!" },
+          { q: "Quanto é 5 × 8?", options: [35, 40, 45, 50], correct: 40, tip: "Metade de 80 é 40!" },
+          { q: "Quanto é 5 × 9?", options: [40, 45, 50, 55], correct: 45, tip: "Termina em 5: 45!" }
+        ]
+      },
+      6: {
+        title: "Tabuada do 6 • Fortaleza dos Hexágonos",
+        questions: [
+          { q: "Quanto é 6 × 6?", options: [32, 36, 40, 42], correct: 36, tip: "Seis vezes seis = trinta e seis!" },
+          { q: "Quanto é 6 × 7?", options: [40, 42, 44, 48], correct: 42, tip: "Dica: 6 × 7 = 42!" },
+          { q: "Quanto é 6 × 8?", options: [46, 48, 50, 54], correct: 48, tip: "Seis vezes oito = quarenta e oito!" }
+        ]
+      },
+      7: {
+        title: "Tabuada do 7 • Vulcão do 7",
+        questions: [
+          { q: "O Terror da Tabuada: Quanto é 7 × 8?", options: [54, 56, 58, 64], correct: 56, tip: "Memorize: 5, 6, 7, 8 -> 56 = 7 × 8!" },
+          { q: "Quanto é 7 × 7?", options: [42, 47, 49, 51], correct: 49, tip: "Sete vezes sete = 49!" },
+          { q: "Quanto é 7 × 9?", options: [61, 63, 65, 70], correct: 63, tip: "70 menos 7 é 63!" }
+        ]
+      },
+      8: {
+        title: "Tabuada do 8 • Vale dos Polvos",
+        questions: [
+          { q: "Quanto é 8 × 8?", options: [60, 62, 64, 68], correct: 64, tip: "Oito vezes oito = 64!" },
+          { q: "Quanto é 8 × 6?", options: [42, 46, 48, 52], correct: 48, tip: "8 × 6 = 48!" },
+          { q: "Quanto é 8 × 9?", options: [68, 70, 72, 74], correct: 72, tip: "80 menos 8 é 72!" }
+        ]
+      },
+      9: {
+        title: "Tabuada do 9 • Truque Mágico",
+        questions: [
+          { q: "Quanto é 9 × 9?", options: [79, 80, 81, 89], correct: 81, tip: "A soma dos dígitos dá 9: 8 + 1 = 9!" },
+          { q: "Quanto é 9 × 6?", options: [52, 54, 56, 58], correct: 54, tip: "5 + 4 = 9!" },
+          { q: "Quanto é 9 × 7?", options: [61, 63, 67, 72], correct: 63, tip: "6 + 3 = 9!" }
+        ]
+      },
+      10: {
+        title: "Tabuada do 10 & Chefão Final",
+        questions: [
+          { q: "Batalha do Chefão: Quanto é 10 × 7?", options: [60, 70, 75, 80], correct: 70, tip: "Basta colocar o zero no final: 70!" },
+          { q: "Quanto é 10 × 9?", options: [80, 89, 90, 100], correct: 90, tip: "9 com zero vira 90!" },
+          { q: "GOLPE FINAL NO CHEFÃO: (7 × 8) + 10 = ?", options: [64, 66, 68, 70], correct: 66, tip: "56 + 10 = 66! O Chefão foi derrotado!" }
+        ]
+      }
+    };
+
+    // ESTADO DO JOGADOR
+    let playerState = {
+      unlockedLevel: 1,
+      hearts: 5,
+      streak: 3,
+      gems: 120,
+      xp: 100
+    };
+
+    let heroProfile = {
+      mascot: 'leo',
+      name: 'Pedro',
+      age: 8,
+      grade: '3º Ano',
+      guardianType: 'Mamãe',
+      guardianName: 'Camila',
+      timeGoal: '15 min'
+    };
+
+    // Carrega LocalStorage
+    try {
+      const savedState = localStorage.getItem('missao_tabuada_duo');
+      if (savedState) playerState = JSON.parse(savedState);
+      const savedHero = localStorage.getItem('missao_tabuada_hero_profile');
+      if (savedHero) heroProfile = JSON.parse(savedHero);
+    } catch(e) {}
+
+    function saveState() {
+      localStorage.setItem('missao_tabuada_duo', JSON.stringify(playerState));
+      localStorage.setItem('missao_tabuada_hero_profile', JSON.stringify(heroProfile));
+      updateUI();
+    }
+
+    function updateUI() {
+      document.getElementById('hearts-val').innerText = playerState.hearts;
+      document.getElementById('lesson-hearts').innerText = playerState.hearts;
+      document.getElementById('gems-val').innerText = playerState.gems;
+      document.getElementById('streak-val').innerText = playerState.streak;
+      document.getElementById('header-hero-name').innerText = heroProfile.name;
+
+      // Atualiza nós desbloqueados
+      for (let i = 2; i <= 10; i++) {
+        const el = document.getElementById('node-' + i);
+        if (el) {
+          if (playerState.unlockedLevel >= i) {
+            el.classList.remove('locked');
+            if (el.innerText === '🔒') {
+              el.innerText = (i === 10 ? '👹' : '⭐');
+            }
+          }
+        }
+      }
+
+      // Mascote nas lições
+      const mascotImg = heroProfile.mascot === 'leo' ? 'tabuada-assets/heroi-menino-oficial.png' : 'tabuada-assets/heroi-menina-oficial.png';
+      document.getElementById('lesson-mascot-img').src = mascotImg;
+    }
+
+    // ONBOARDING HANDLERS
+    function selectMascot(type) {
+      heroProfile.mascot = type;
+      document.getElementById('choice-leo').classList.toggle('selected', type === 'leo');
+      document.getElementById('choice-maya').classList.toggle('selected', type === 'maya');
+      const imgSrc = type === 'leo' ? 'tabuada-assets/heroi-menino-oficial.png' : 'tabuada-assets/heroi-menina-oficial.png';
+      document.getElementById('hero-preview-img').src = imgSrc;
+      document.getElementById('badge-avatar-img').src = imgSrc;
+      playTone(520, 'sine', 0.08);
+    }
+
+    function selectPill(category, value, el) {
+      heroProfile[category] = value;
+      el.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+      playTone(450, 'sine', 0.05);
+    }
+
+    function goToStep(stepNum) {
+      document.querySelectorAll('.onboard-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step-' + stepNum).classList.add('active');
+      playTone(600, 'triangle', 0.1);
+    }
+
+    function generateBadgeCard() {
+      const childName = document.getElementById('input-child-name').value.trim() || 'Herói';
+      const guardianName = document.getElementById('input-guardian-name').value.trim() || 'Responsável';
+      heroProfile.name = childName;
+      heroProfile.guardianName = guardianName;
+
+      document.getElementById('badge-name-text').innerText = 'AGENTE ' + childName.toUpperCase();
+      document.getElementById('badge-details-text').innerText = heroProfile.age + ' ANOS • ' + heroProfile.grade.toUpperCase();
+      document.getElementById('badge-guardian-text').innerText = 'Guardião: ' + heroProfile.guardianType + ' ' + guardianName;
+
+      const imgSrc = heroProfile.mascot === 'leo' ? 'tabuada-assets/heroi-menino-oficial.png' : 'tabuada-assets/heroi-menina-oficial.png';
+      document.getElementById('badge-avatar-img').src = imgSrc;
+
+      try {
+        confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
+        playLevelUpFanfare();
+      } catch(e) {}
+
+      goToStep(4);
+    }
+
+    function finishOnboarding() {
+      saveState();
+      document.getElementById('onboarding-overlay').style.display = 'none';
+      try {
+        confetti({ particleCount: 100, spread: 90, origin: { y: 0.5 } });
+        playSuccessSound();
+      } catch(e) {}
+    }
+
+    function openBadgeModal() {
+      generateBadgeCard();
+      document.getElementById('onboarding-overlay').style.display = 'flex';
+    }
+
+    // TABS NAVEGAÇÃO
+    function switchTab(tab) {
+      document.getElementById('map-screen').style.display = tab === 'map' ? 'flex' : 'none';
+      document.getElementById('shop-screen').style.display = tab === 'shop' ? 'flex' : 'none';
+      document.getElementById('tab-btn-map').classList.toggle('active', tab === 'map');
+      document.getElementById('tab-btn-shop').classList.toggle('active', tab === 'shop');
+      playTone(400, 'sine', 0.05);
+    }
+
+    function openShop() {
+      switchTab('shop');
+    }
+
+    function buyGems(amount) {
+      playerState.gems += amount;
+      saveState();
+      playLevelUpFanfare();
+      confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+      alert('🎉 +' + amount + ' Gemas adicionadas ao seu saldo!');
+    }
+
+    // LESSON ENGINE
+    let currentLesson = null;
+    let currentQIndex = 0;
+    let selectedOption = null;
+
+    function startLesson(level) {
+      if (level > playerState.unlockedLevel) {
+        alert("🔒 Complete as fases anteriores primeiro para desbloquear este poder!");
+        return;
+      }
+      if (playerState.hearts <= 0) {
+        showGameOver();
+        return;
+      }
+
+      currentLesson = lessonsData[level] || lessonsData[1];
+      currentQIndex = 0;
+      selectedOption = null;
+
+      document.getElementById('map-screen').style.display = 'none';
+      document.getElementById('shop-screen').style.display = 'none';
+      document.querySelector('.mobile-tab-bar').style.display = 'none';
+      document.querySelector('.app-header').style.display = 'none';
+      document.getElementById('lesson-screen').style.display = 'flex';
+
+      document.getElementById('speech-category').innerText = currentLesson.title;
+      renderQuestion();
+    }
+
+    function exitLesson() {
+      if (confirm("Deseja sair da lição? Seu progresso nesta fase será reiniciado.")) {
+        closeLessonView();
+      }
+    }
+
+    function closeLessonView() {
+      document.getElementById('lesson-screen').style.display = 'none';
+      document.getElementById('map-screen').style.display = 'flex';
+      document.querySelector('.mobile-tab-bar').style.display = 'flex';
+      document.querySelector('.app-header').style.display = 'flex';
+      document.getElementById('feedback-drawer').style.display = 'none';
+      document.getElementById('footer-verify').style.display = 'block';
+      updateUI();
+    }
+
+    function renderQuestion() {
+      const q = currentLesson.questions[currentQIndex];
+      const progressPercent = (currentQIndex / currentLesson.questions.length) * 100;
+      document.getElementById('lesson-progress').style.width = progressPercent + '%';
+
+      document.getElementById('question-text').innerText = q.q;
+      const optsCont = document.getElementById('options-container');
+      optsCont.innerHTML = '';
+      selectedOption = null;
+      document.getElementById('btn-verify').disabled = true;
+
+      document.getElementById('feedback-drawer').style.display = 'none';
+      document.getElementById('footer-verify').style.display = 'block';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-card';
+        btn.innerText = opt;
+        btn.setAttribute('data-key', idx + 1);
+        btn.onclick = () => selectOption(btn, opt);
+        optsCont.appendChild(btn);
+      });
+    }
+
+    function selectOption(btn, val) {
+      document.querySelectorAll('.option-card').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedOption = val;
+      document.getElementById('btn-verify').disabled = false;
+      playTone(480, 'sine', 0.05);
+    }
+
+    function checkAnswer() {
+      if (selectedOption === null) return;
+      const q = currentLesson.questions[currentQIndex];
+      const isCorrect = (selectedOption === q.correct);
+
+      document.getElementById('footer-verify').style.display = 'none';
+      const drawer = document.getElementById('feedback-drawer');
+      const title = document.getElementById('fb-title');
+      const msg = document.getElementById('fb-msg');
+      const nextBtn = document.getElementById('btn-next');
+
+      drawer.className = 'feedback-drawer ' + (isCorrect ? 'correct' : 'incorrect');
+      nextBtn.className = 'btn-next ' + (isCorrect ? 'correct' : 'incorrect');
+      drawer.style.display = 'block';
+
+      if (isCorrect) {
+        playSuccessSound();
+        confetti({ particleCount: 40, spread: 60, origin: { y: 0.85 } });
+        title.innerHTML = '🎉 Resposta Certa!';
+        msg.innerText = 'Sensacional! Você calculou como um verdadeiro Herói!';
+      } else {
+        playErrorSound();
+        playerState.hearts = Math.max(0, playerState.hearts - 1);
+        document.getElementById('lesson-hearts').innerText = playerState.hearts;
+        saveState();
+
+        title.innerHTML = '❌ Quase lá!';
+        msg.innerText = q.tip || 'Tente novamente! Todo herói aprende errando.';
+
+        if (playerState.hearts <= 0) {
+          setTimeout(showGameOver, 1200);
+        }
+      }
+    }
+
+    function nextQuestion() {
+      currentQIndex++;
+      if (currentQIndex < currentLesson.questions.length) {
+        renderQuestion();
+      } else {
+        finishLesson();
+      }
+    }
+
+    function finishLesson() {
+      playLevelUpFanfare();
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+      
+      // Desbloqueia próxima fase
+      playerState.unlockedLevel = Math.max(playerState.unlockedLevel, playerState.unlockedLevel + 1);
+      playerState.gems += 15;
+      playerState.xp += 30;
+      saveState();
+
+      document.getElementById('victory-screen').style.display = 'flex';
+    }
+
+    function closeVictory() {
+      document.getElementById('victory-screen').style.display = 'none';
+      closeLessonView();
+    }
+
+    // GAME OVER & RECUPERAÇÃO
+    function showGameOver() {
+      document.getElementById('gameover-modal').style.display = 'flex';
+    }
+
+    function closeGameOver() {
+      document.getElementById('gameover-modal').style.display = 'none';
+      closeLessonView();
+    }
+
+    function recoverWithQuickTraining() {
+      playerState.hearts = 3;
+      saveState();
+      document.getElementById('gameover-modal').style.display = 'none';
+      playSuccessSound();
+      alert('⚡ Treino de recuperação concluído! Você ganhou +3 Vidas ❤️');
+      if (document.getElementById('lesson-screen').style.display === 'flex') {
+        renderQuestion();
+      }
+    }
+
+    function recoverWithGems() {
+      if (playerState.gems >= 20) {
+        playerState.gems -= 20;
+        playerState.hearts = 5;
+        saveState();
+        document.getElementById('gameover-modal').style.display = 'none';
+        playLevelUpFanfare();
+        alert('💎 Vidas recarregadas com sucesso! +5 Vidas ❤️');
+      } else {
+        alert('💎 Gemas insuficientes! Compre mais na Loja ou faça o Treino Rápido.');
+      }
+    }
+
+    // ATALHOS DE TECLADO PARA PC / DESKTOP
+    window.addEventListener('keydown', (e) => {
+      // 1, 2, 3, 4 selecionam opções
+      if (['1', '2', '3', '4'].includes(e.key)) {
+        const btn = document.querySelector(\`.option-card[data-key="\${e.key}"]\`);
+        if (btn) btn.click();
+      }
+      // Enter verifica ou avança
+      if (e.key === 'Enter') {
+        const verifyBtn = document.getElementById('btn-verify');
+        const nextBtn = document.getElementById('btn-next');
+        const drawer = document.getElementById('feedback-drawer');
+        if (drawer && drawer.style.display === 'block') {
+          nextBtn.click();
+        } else if (verifyBtn && !verifyBtn.disabled) {
+          verifyBtn.click();
+        }
+      }
+      // Esc fecha
+      if (e.key === 'Escape') {
+        if (document.getElementById('gameover-modal').style.display === 'flex') {
+          closeGameOver();
+        } else if (document.getElementById('onboarding-overlay').style.display === 'flex') {
+          document.getElementById('onboarding-overlay').style.display = 'none';
+        }
+      }
+    });
+
+    // INICIALIZAÇÃO
+    updateUI();
+    const hasProfile = localStorage.getItem('missao_tabuada_hero_profile');
+    if (!hasProfile) {
+      document.getElementById('onboarding-overlay').style.display = 'flex';
+    }
+  </script>
+</body>
+</html>
+`;
+
+fs.writeFileSync(targetPath, fullHtml, 'utf8');
+console.log('duolingo_tabuada.html RECONSTRUÍDO COM SUCESSO COMO MASTERPIECE!');
