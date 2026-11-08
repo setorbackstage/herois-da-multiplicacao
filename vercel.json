@@ -2,12 +2,13 @@
   "version": 2,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/tabuada-offer.html" },
-    { "source": "/oferta", "destination": "/tabuada-offer.html" },
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/oferta", "destination": "/index.html" },
     { "source": "/obrigado", "destination": "/obrigado.html" },
-    { "source": "/app", "destination": "/index.html" },
-    { "source": "/jogar", "destination": "/index.html" },
-    { "source": "/download", "destination": "/Missao_Tabuada_Volume_1.pdf" }
+    { "source": "/app", "destination": "/app.html" },
+    { "source": "/jogar", "destination": "/app.html" },
+    { "source": "/download", "destination": "/Missao_Tabuada_Volume_1.pdf" },
+    { "source": "/downlownd", "destination": "/Missao_Tabuada_Volume_1.pdf" }
   ],
   "headers": [
     {
@@ -20,7 +21,7 @@
       ]
     },
     {
-      "source": "/(obrigado|obrigado\\.html|download|.*\\.pdf)",
+      "source": "/(obrigado|obrigado\\.html|download|downlownd|.*\\.pdf)",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
         { "key": "Cache-Control", "value": "no-store, max-age=0" }

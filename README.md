@@ -7,10 +7,10 @@
 ## 🌐 Links Online (GitHub Pages)
 
 - 🛒 **Página de Vendas Oficial (Oferta R$ 10 / R$ 27):**  
-  [https://xavier2bit.github.io/missao-tabuada/tabuada-offer.html](https://xavier2bit.github.io/missao-tabuada/tabuada-offer.html)
+  [https://heroisdamultiplicacao.vercel.app/tabuada-offer.html](https://heroisdamultiplicacao.vercel.app/tabuada-offer.html)
 
 - 🎮 **Webapp Interativo do Livro (Volume 1):**  
-  [https://xavier2bit.github.io/missao-tabuada/](https://xavier2bit.github.io/missao-tabuada/)
+  [https://heroisdamultiplicacao.vercel.app/](https://heroisdamultiplicacao.vercel.app/)
 
 ---
 

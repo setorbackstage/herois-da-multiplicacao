@@ -26,7 +26,7 @@ Em tráfego pago direto (Meta Ads / TikTok Ads), **cada 1 segundo de atraso no c
 2. Clique em **"Add New..." > "Project"**.
 3. Selecione o repositório **`missao-tabuada`**.
 4. *(Se estiver hospedando a partir do repositório direto, clique em **Deploy**).*
-5. Pronto! Seu domínio Vercel (ex: `missao-tabuada.vercel.app`) estará ativo com SSL gratuito e velocidade máxima.
+5. Pronto! Seu domínio Vercel (ex: `heroisdamultiplicacao.vercel.app`) estará ativo com SSL gratuito e velocidade máxima.
 
 ---
 

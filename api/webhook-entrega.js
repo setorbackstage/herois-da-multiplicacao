@@ -27,8 +27,8 @@ export default async function handler(req, res) {
       console.log(`[ggCheckout Webhook] Pagamento confirmado para: ${customerEmail} (${customerName})`);
 
       // Links oficiais de entrega
-      const downloadPdfUrl = 'https://xavier2bit.github.io/missao-tabuada/Missao_Tabuada_Volume_1.pdf';
-      const webappUrl = 'https://xavier2bit.github.io/missao-tabuada/index.html';
+      const downloadPdfUrl = 'https://heroisdamultiplicacao.vercel.app/download';
+      const webappUrl = 'https://heroisdamultiplicacao.vercel.app/app';
 
       // 1. Opcional: Integração com Resend (Open-Source / 3.000 emails grátis/mês)
       const RESEND_API_KEY = process.env.RESEND_API_KEY;
