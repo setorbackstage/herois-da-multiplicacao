@@ -4,6 +4,8 @@
   "description": "",
   "main": "test_pdf.js",
   "scripts": {
+    "app:dev": "npm --prefix webapp run dev",
+    "app:build": "npm --prefix webapp run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

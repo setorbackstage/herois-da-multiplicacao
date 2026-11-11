@@ -5,8 +5,8 @@
     { "source": "/", "destination": "/index.html" },
     { "source": "/oferta", "destination": "/index.html" },
     { "source": "/obrigado", "destination": "/obrigado.html" },
-    { "source": "/app", "destination": "/app.html" },
-    { "source": "/jogar", "destination": "/app.html" },
+    { "source": "/app", "destination": "/app-dist/index.html" },
+    { "source": "/jogar", "destination": "/app-dist/index.html" },
     { "source": "/download", "destination": "/Missao_Tabuada_Volume_1.pdf" },
     { "source": "/downlownd", "destination": "/Missao_Tabuada_Volume_1.pdf" }
   ],
@@ -29,6 +29,12 @@
     },
     {
       "source": "/(tabuada-assets|assets)/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/app-dist/assets/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
