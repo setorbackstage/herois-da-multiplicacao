@@ -1,4 +1,4 @@
-const API_KEY = 'ggck_live_8012d969056cb0d8e42e2f3471856ce4da8d7146f679a43ea7d57b21dcf0cdc3';
+const API_KEY = process.env.GGCHECKOUT_API_KEY || '';
 const BASE_URL = 'https://ggcheckout.app';
 
 async function main() {
