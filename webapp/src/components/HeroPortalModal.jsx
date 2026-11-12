@@ -344,14 +344,14 @@ export default function HeroPortalModal({
 
             <div>
               <label className="block font-display font-bold text-sm text-duo-ink mb-1.5">
-                Senha de Acesso:
+                Código de Acesso VIP:
               </label>
               <input
-                type="password"
+                type="text"
                 value={guardianPassword}
                 onChange={(e) => setGuardianPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-2xl bg-slate-50 border-2 border-slate-200 focus:border-duo-purple focus:bg-white outline-none font-body font-bold text-sm sm:text-base"
+                placeholder="Ex: LIGA27 (enviado após a compra)"
+                className="w-full px-4 py-3 rounded-2xl bg-slate-50 border-2 border-slate-200 focus:border-duo-purple focus:bg-white outline-none font-body font-bold text-sm sm:text-base uppercase"
               />
             </div>
 
@@ -359,7 +359,7 @@ export default function HeroPortalModal({
               type="submit"
               className="toy-btn w-full py-3.5 rounded-2xl bg-duo-purple border-b-[6px] border-duo-purpleDark text-white text-sm uppercase"
             >
-              Sincronizar Conta VIP ☁️
+              Ativar Acesso VIP ☁️
             </button>
           </form>
         )}

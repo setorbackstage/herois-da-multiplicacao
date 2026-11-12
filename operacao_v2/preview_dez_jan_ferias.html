@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heróis da Multiplicação — Férias Educativas (Variante Dez/Jan • Prévia)</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  window.__META_PV_ID = 'pv_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+  window.__META_VC_ID = 'vc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+  fbq('init', '2683241518773685');
+  fbq('track', 'PageView', {}, { eventID: window.__META_PV_ID });
+  fbq('track', 'ViewContent', {
+    content_name: 'Heróis da Multiplicação — Férias Educativas',
+    content_category: 'Material Pedagógico Infantil',
+    content_ids: ['liga-27', 'tabuada-10'],
+    content_type: 'product',
+    value: 27.00,
+    currency: 'BRL'
+  }, { eventID: window.__META_VC_ID });
+  </script>
+  <!-- End Meta Pixel Code -->
+
+  <style>
+    :root {
+      --purple-hero: #713D9D;
+      --purple-dark: #522675;
+      --blue-hero: #176DB3;
+      --blue-dark: #0F4E82;
+      --blue-soft: #E8F8FC;
+      --yellow-hero: #FFC928;
+      --yellow-dark: #D4A017;
+      --yellow-soft: #FFF9E6;
+      --red-hero: #E9433B;
+      --red-dark: #BD2B24;
+      --green-action: #16A34A;
+      --creme-bg: #FFF8E9;
+      --creme-alt: #FBF4E4;
+      --white: #FFFFFF;
+      --ink-title: #1B2A4A;
+      --ink-body: #334155;
+      --ink-muted: #64748B;
+      --border-soft: #E5DFD3;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --radius-pill: 999px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    html, body { overflow-x: hidden; width: 100%; max-width: 100vw; }
+    body {
+      background: var(--creme-bg);
+      color: var(--ink-body);
+      font-family: 'Nunito', -apple-system, sans-serif;
+      line-height: 1.55;
+      padding-bottom: 72px;
+    }
+    h1, h2, h3, h4, .btn-hero { font-family: 'Fredoka', 'Nunito', sans-serif; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 20px; width: 100%; }
+    .section { padding: 48px 0; }
+    .section-white { background: var(--white); border-top: 1px solid #EFE8DA; border-bottom: 1px solid #EFE8DA; }
+    .section-alt { background: var(--creme-alt); border-top: 1px solid #EFE8DA; border-bottom: 1px solid #EFE8DA; }
+
+    .preview-notice {
+      background: #0F4E82;
+      color: #F8FAFC;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-align: center;
+      padding: 8px 14px;
+    }
+    .season-bar {
+      background: linear-gradient(90deg, var(--blue-dark) 0%, var(--blue-hero) 100%);
+      color: #FFF;
+      text-align: center;
+      padding: 9px 14px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+    }
+    .season-bar span { color: var(--yellow-hero); }
+
+    .main-header { background: var(--white); border-bottom: 1px solid #EFE8DA; padding: 10px 0; }
+    .header-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .header-logo { height: 46px; }
+
+    .btn-hero {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 15px 24px; font-size: 1.05rem; font-weight: 700; text-decoration: none;
+      border-radius: var(--radius-md); border: none; cursor: pointer; line-height: 1.25;
+    }
+    .btn-red { background: var(--red-hero); color: #FFF; border-bottom: 4px solid var(--red-dark); }
+    .btn-blue { background: var(--blue-hero); color: #FFF; border-bottom: 4px solid var(--blue-dark); }
+    .btn-yellow { background: var(--yellow-hero); color: #381E00; border-bottom: 4px solid var(--yellow-dark); }
+    .btn-sm { padding: 10px 18px; font-size: 0.92rem; border-radius: var(--radius-pill); }
+
+    .badge-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--yellow-hero); color: #452600; font-family: 'Fredoka', sans-serif;
+      font-size: 12.5px; font-weight: 700; padding: 5px 14px; border-radius: var(--radius-pill);
+      border: 1.5px solid #E5B21C; margin-bottom: 12px; text-transform: uppercase;
+    }
+    .section-header { text-align: center; max-width: 720px; margin: 0 auto 30px; }
+    .section-title { font-size: 28px; color: var(--ink-title); margin-bottom: 8px; }
+    .section-subtitle { font-size: 16px; font-weight: 600; }
+
+    .hero-section { padding: 28px 0 42px; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: center; }
+    .hero-content h1 { font-size: clamp(26px, 3.6vw, 40px); color: var(--ink-title); line-height: 1.15; margin-bottom: 12px; }
+    .hero-highlight { color: var(--blue-hero); }
+    .hero-sub { font-size: 17px; font-weight: 700; margin-bottom: 18px; }
+    .hero-trust-bullets { display: flex; flex-wrap: wrap; gap: 12px 18px; margin-top: 14px; font-size: 13.5px; font-weight: 800; color: var(--ink-title); }
+    .hero-trust-bullets span { color: var(--green-action); }
+
+    .hero-visual-card {
+      background: var(--white); border: 3px solid var(--yellow-hero); border-bottom: 7px solid var(--yellow-dark);
+      border-radius: var(--radius-lg); padding: 14px;
+    }
+    .hero-covers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .hero-covers-grid img { border-radius: 10px; border: 1px solid #E2E8F0; aspect-ratio: 3 / 4; object-fit: cover; width: 100%; }
+    .hero-visual-caption { margin-top: 10px; background: var(--blue-soft); border-radius: 10px; padding: 8px 12px; text-align: center; font-size: 13px; font-weight: 800; color: var(--ink-title); }
+
+    .clarity-grid, .offers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .clarity-card { background: var(--creme-bg); border: 2px solid var(--border-soft); border-radius: var(--radius-md); padding: 22px; }
+    .clarity-card.highlight-app { background: #F0FDF4; border-color: #BBF7D0; }
+    .clarity-card h3 { font-size: 20px; color: var(--ink-title); margin-bottom: 8px; }
+    .clarity-list { list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700; }
+
+    .offers-section { background: linear-gradient(135deg, var(--purple-hero) 0%, var(--purple-dark) 100%); padding: 54px 0; color: #FFF; }
+    .offer-card { background: var(--white); color: var(--ink-title); border-radius: var(--radius-lg); padding: 26px 22px; display: flex; flex-direction: column; position: relative; }
+    .offer-basic { border: 2px solid #CBD5E1; }
+    .offer-premium { border: 4px solid var(--yellow-hero); }
+    .offer-thumb { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 10px; margin-bottom: 14px; }
+    .offer-list { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; font-weight: 700; margin-bottom: 18px; flex: 1; }
+    .offer-price-box { background: var(--yellow-soft); border: 1.5px solid #FDE68A; border-radius: 14px; padding: 14px; text-align: center; margin-bottom: 14px; }
+    .offer-price-box.basic-box { background: #F8FAFC; border-color: #E2E8F0; }
+    .price-big { font-family: 'Fredoka', sans-serif; font-size: 38px; line-height: 1; }
+
+    .mobile-sticky-bar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--white);
+      border-top: 2px solid var(--yellow-hero); padding: 10px 14px; align-items: center; justify-content: space-between; z-index: 99;
+    }
+    footer { text-align: center; padding: 24px 16px; font-size: 13px; color: var(--ink-muted); }
+
+    @media (max-width: 820px) {
+      .hero-grid, .clarity-grid, .offers-grid { grid-template-columns: 1fr; }
+      .btn-hero { width: 100%; }
+      .mobile-sticky-bar { display: flex; }
+    }
+  </style>
+</head>
+<body>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2683241518773685&ev=PageView&noscript=1"
+  /></noscript>
+
+  <div class="preview-notice">
+    VARIANTE SAZONAL PLANEJADA — DEZEMBRO E JANEIRO (FÉRIAS EDUCATIVAS) • AGUARDANDO APROVAÇÃO FUTURA
+  </div>
+
+  <div class="season-bar">
+    ☀️ <span>FÉRIAS EDUCATIVAS</span> • Rotina leve para praticar tabuada em casa sem perder o ritmo escolar
+  </div>
+
+  <header class="main-header">
+    <div class="container header-row">
+      <a href="#"><img src="../tabuada-assets/logo-transparente.png" alt="Heróis da Multiplicação" class="header-logo"></a>
+      <a href="#ofertas" class="btn-hero btn-blue btn-sm" style="width: auto;">VER PLANOS DE FÉRIAS →</a>
+    </div>
+  </header>
+
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="badge-tag">☀️ FÉRIAS EDUCATIVAS</div>
+        <h1><span class="hero-highlight">Continue praticando tabuada nas férias</span> com jogos e missões divertidas.</h1>
+        <p class="hero-sub">Mantenha uma rotina leve de ~15 minutos por dia com atividades ilustradas para imprimir, jogos de mesa em família e WebApp interativo.</p>
+        <a href="#ofertas" class="btn-hero btn-red">CONHECER OS MATERIAIS →</a>
+        <div class="hero-trust-bullets">
+          <div><span>✓</span> 100% digital (PDFs A4 para imprimir)</div>
+          <div><span>✓</span> Jogos de tabuleiro, dominó e bingo no Combo</div>
+          <div><span>✓</span> Pagamento único • Acesso imediato</div>
+        </div>
+      </div>
+
+      <div class="hero-visual-card">
+        <div class="hero-covers-grid">
+          <img src="../tabuada-assets/capa-missao-tabuada.jpg" alt="Capa Missão Tabuada Volume 1">
+          <img src="../tabuada-assets/capa-liga-dos-herois.jpg" alt="Capa Liga dos Heróis da Matemática">
+        </div>
+        <div class="hero-visual-caption">
+          🎲 Jogos de Mesa + Pintura + Missões em PDF + WebApp no Combo
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-white">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-tag">Para Imprimir & Para Jogar</div>
+        <h2 class="section-title">Como aproveitar nas férias em família</h2>
+        <p class="section-subtitle">Combine folhas curtas no papel durante a semana com jogos de mesa e desafios no celular.</p>
+      </div>
+      <div class="clarity-grid">
+        <div class="clarity-card">
+          <h3>🖨️ Cadernos e Jogos em PDF (A4)</h3>
+          <ul class="clarity-list">
+            <li>✓ Tabuadas do 1 ao 10 com cronômetro de desafio</li>
+            <li>✓ Caderno de pintura guiada pela multiplicação</li>
+            <li>✓ Trilha, Dominó e Bingo para recortar e brincar em casa</li>
+          </ul>
+        </div>
+        <div class="clarity-card highlight-app">
+          <h3>📱 WebApp Interativo (Combo R$ 27)</h3>
+          <ul class="clarity-list">
+            <li>✓ Funciona no navegador do celular ou tablet sem instalar</li>
+            <li>✓ 10 fases de prática leve sem anúncios de terceiros</li>
+            <li>✓ Entrega digital imediata + 7 dias de garantia + suporte via WhatsApp (21) 99392-3582</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="offers-section" id="ofertas">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-tag">Planos Confirmados</div>
+        <h2 class="section-title" style="color: #FFF;">Escolha sua missão de férias</h2>
+      </div>
+      <div class="offers-grid">
+        <div class="offer-card offer-basic">
+          <img src="../tabuada-assets/conteudo-6.png" alt="Missão Tabuada" class="offer-thumb">
+          <h3>Missão Tabuada</h3>
+          <ul class="offer-list">
+            <li>✓ Livro ilustrado de 43 páginas em PDF (1 ao 10)</li>
+            <li>✓ Manual para pais, gabarito oficial e certificado</li>
+          </ul>
+          <div class="offer-price-box basic-box">
+            <div class="price-big">R$ 10,00</div>
+          </div>
+          <button class="btn-hero btn-blue" style="width: 100%;" onclick="handleCheckout('basic')">QUERO POR R$ 10 →</button>
+        </div>
+
+        <div class="offer-card offer-premium">
+          <img src="../tabuada-assets/conteudo-7.png" alt="Liga dos Heróis" class="offer-thumb">
+          <h3>Liga dos Heróis — Combo Completo</h3>
+          <ul class="offer-list">
+            <li>★ Livro 43 págs + Cronograma 12 Semanas + Fichas Diárias</li>
+            <li>★ Caderno de Pintura + Jogos (Trilha, Dominó, Bingo) + Desafios Semanais</li>
+            <li>★ WebApp Interativo no navegador</li>
+          </ul>
+          <div class="offer-price-box">
+            <div class="price-big">R$ 27,00</div>
+          </div>
+          <button class="btn-hero btn-yellow" style="width: 100%;" onclick="handleCheckout('premium')">QUERO COMBO POR R$ 27 →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Heróis da Multiplicação • Suporte aos pais: WhatsApp (21) 99392-3582 • Garantia de 7 dias conforme checkout.</p>
+  </footer>
+
+  <div class="mobile-sticky-bar">
+    <span style="font-size: 12.5px; font-weight: 800; color: var(--ink-title);">Férias Educativas • R$ 10 ou R$ 27</span>
+    <a href="#ofertas" class="btn-hero btn-red btn-sm" style="width: auto;">ESCOLHER →</a>
+  </div>
+
+  <script>
+    const CHECKOUT_BASIC_URL = "https://ggcheckout.app/checkout/X7MW1ajXduVAyxH95jw6lT";
+    const CHECKOUT_PREMIUM_URL = "https://ggcheckout.app/checkout/buJIuO7Th5tjHRGQB8dIQ8";
+
+    function readCookie(name) {
+      const m = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : '';
+    }
+
+    (function initUtms() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck', 'fbclid'];
+        const saved = JSON.parse(localStorage.getItem('herois_tracking_params') || '{}');
+        keys.forEach(k => { if (params.has(k)) saved[k] = params.get(k); });
+        localStorage.setItem('herois_tracking_params', JSON.stringify(saved));
+      } catch (e) {}
+    })();
+
+    function sendServerEvent(eventName, eventId, customData) {
+      try {
+        const saved = JSON.parse(localStorage.getItem('herois_tracking_params') || '{}');
+        const cur = new URLSearchParams(window.location.search);
+        const payload = JSON.stringify({
+          eventName: eventName,
+          eventId: eventId,
+          eventSourceUrl: window.location.href,
+          fbp: readCookie('_fbp'),
+          fbc: readCookie('_fbc'),
+          fbclid: cur.get('fbclid') || saved.fbclid || '',
+          customData: customData || {}
+        });
+        if (navigator.sendBeacon) {
+          const blob = new Blob([payload], { type: 'application/json' });
+          if (navigator.sendBeacon('/api/meta-capi', blob)) return;
+        }
+        fetch('/api/meta-capi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+          keepalive: true
+        }).catch(function () {});
+      } catch (e) {}
+    }
+
+    setTimeout(function () {
+      sendServerEvent('PageView', window.__META_PV_ID, {});
+      sendServerEvent('ViewContent', window.__META_VC_ID, {
+        content_name: 'Heróis da Multiplicação — Férias Educativas',
+        content_category: 'Material Pedagógico Infantil',
+        content_ids: ['liga-27', 'tabuada-10'],
+        content_type: 'product',
+        value: 27.00,
+        currency: 'BRL'
+      });
+    }, 800);
+
+    function buildCheckoutUrl(base) {
+      try {
+        const url = new URL(base);
+        const saved = JSON.parse(localStorage.getItem('herois_tracking_params') || '{}');
+        const cur = new URLSearchParams(window.location.search);
+        Object.entries(saved).forEach(([k, v]) => { if (v) url.searchParams.set(k, v); });
+        cur.forEach((v, k) => url.searchParams.set(k, v));
+        return url.toString();
+      } catch (e) { return base; }
+    }
+
+    function handleCheckout(plan) {
+      const isPremium = plan === 'premium';
+      const targetUrl = buildCheckoutUrl(isPremium ? CHECKOUT_PREMIUM_URL : CHECKOUT_BASIC_URL);
+      const icEventId = 'ic_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+      const icData = {
+        content_name: isPremium ? 'Liga dos Heróis da Matemática' : 'Missão Tabuada',
+        content_ids: [isPremium ? 'liga-27' : 'tabuada-10'],
+        content_type: 'product',
+        value: isPremium ? 27.00 : 10.00,
+        currency: 'BRL'
+      };
+      if (typeof window.fbq === 'function') {
+        try {
+          window.fbq('track', 'InitiateCheckout', icData, { eventID: icEventId });
+        } catch (e) {}
+      }
+      sendServerEvent('InitiateCheckout', icEventId, icData);
+      setTimeout(() => { window.location.href = targetUrl; }, 250);
+    }
+  </script>
+</body>
+</html>

@@ -1,7 +1,5 @@
 /**
- * HeroAudioEngine — Cartoon Game Sound Effects + Expressive PT-BR Heroic Voice Tutor
- * Ready for both instant Web Audio cartoon synth / tuned PT-BR neural voices
- * AND pre-generated studio MP3 dubbing clips in `/tabuada-assets/audio/<persona>/<clipKey>.mp3`.
+ * HeroAudioEngine — Cartoon Game Sound Effects + Natural PT-BR Voice Tutor
  */
 
 let audioCtx = null;
@@ -9,30 +7,31 @@ let soundEnabled = true;
 let activePersona = 'leo'; // 'leo' | 'maya'
 let activeAudioEl = null;
 
-// Register generated studio MP3 keys here once generated (prevents 404 console noise before generation)
 export const AVAILABLE_STUDIO_CLIPS = new Set([]);
 
 const CORRECT_PRAISES = {
   leo: [
-    'Isso aí super herói! Multiplicação certeira!',
-    'Mandou bem demais! Mais força para a Liga!',
-    'Sensacional! Você acertou em cheio!',
+    'Boa! Mandou muito bem!',
+    'Isso mesmo! Conta certa!',
+    'Show! Você está ficando craque!',
+    'Acertou em cheio!',
   ],
   maya: [
-    'Brilhante! Cálculo perfeito de heroína!',
-    'Uau! Sua mente mágica acertou na hora!',
-    'Espetacular! A Liga dos Heróis vibrou com você!',
+    'Isso aí! Resposta certinha!',
+    'Muito bem! Raciocínio rápido!',
+    'Perfeito! Mais uma conquistada!',
+    'Excelente! Continue assim!',
   ],
 };
 
-const LIGHTNING_PRAISES = {
+const COMBO_PRAISES = {
   leo: [
-    'Velocidade da luz! Resposta relâmpago incrível!',
-    'Turbo dos heróis ativado! Rápido e perfeito!',
+    'Sequência incrível! Acertou várias seguidas!',
+    'Você pegou o jeito da tabuada!',
   ],
   maya: [
-    'Caramba, que velocidade mágica! Resposta relâmpago!',
-    'Super poder relâmpago! Acertou num piscar de olhos!',
+    'Que sequência boa! Sem errar nenhuma!',
+    'Mandando super bem em sequência!',
   ],
 };
 
@@ -104,40 +103,38 @@ function playGlideTone({
   osc.stop(t0 + duration + 0.02);
 }
 
-/** Tactile bubbly pop when tapping UI tiles or buttons */
 export function playPopSound() {
   playGlideTone({
     startFreq: 380,
     endFreq: 660,
     duration: 0.065,
     type: 'sine',
-    volume: 0.11,
+    volume: 0.1,
   });
 }
 
 export function playSuccessSound() {
-  playGlideTone({ startFreq: 523.25, endFreq: 523.25, duration: 0.09, delay: 0, volume: 0.13 });
-  playGlideTone({ startFreq: 659.25, endFreq: 659.25, duration: 0.09, delay: 0.07, volume: 0.13 });
-  playGlideTone({ startFreq: 783.99, endFreq: 783.99, duration: 0.1, delay: 0.14, volume: 0.14 });
-  playGlideTone({ startFreq: 1046.5, endFreq: 1060, duration: 0.24, delay: 0.21, type: 'sine', volume: 0.15 });
+  playGlideTone({ startFreq: 523.25, endFreq: 523.25, duration: 0.09, delay: 0, volume: 0.12 });
+  playGlideTone({ startFreq: 659.25, endFreq: 659.25, duration: 0.09, delay: 0.07, volume: 0.12 });
+  playGlideTone({ startFreq: 783.99, endFreq: 783.99, duration: 0.1, delay: 0.14, volume: 0.13 });
+  playGlideTone({ startFreq: 1046.5, endFreq: 1060, duration: 0.22, delay: 0.21, type: 'sine', volume: 0.14 });
 }
 
 export function playLightningSound() {
-  playGlideTone({ startFreq: 420, endFreq: 1180, duration: 0.16, delay: 0, type: 'sine', volume: 0.13 });
-  playGlideTone({ startFreq: 783.99, endFreq: 783.99, duration: 0.1, delay: 0.12, volume: 0.13 });
-  playGlideTone({ startFreq: 1046.5, endFreq: 1046.5, duration: 0.12, delay: 0.19, volume: 0.14 });
-  playGlideTone({ startFreq: 1318.5, endFreq: 1318.5, duration: 0.26, delay: 0.27, type: 'sine', volume: 0.15 });
+  playGlideTone({ startFreq: 440, endFreq: 1100, duration: 0.14, delay: 0, type: 'sine', volume: 0.12 });
+  playGlideTone({ startFreq: 783.99, endFreq: 783.99, duration: 0.09, delay: 0.11, volume: 0.12 });
+  playGlideTone({ startFreq: 1046.5, endFreq: 1046.5, duration: 0.11, delay: 0.18, volume: 0.13 });
+  playGlideTone({ startFreq: 1318.5, endFreq: 1318.5, duration: 0.22, delay: 0.26, type: 'sine', volume: 0.14 });
 }
 
-/** Friendly comic cartoon bounce (never a harsh buzzer) */
 export function playErrorSound() {
-  playGlideTone({ startFreq: 310, endFreq: 215, duration: 0.14, delay: 0, type: 'triangle', volume: 0.12 });
-  playGlideTone({ startFreq: 235, endFreq: 155, duration: 0.2, delay: 0.11, type: 'sine', volume: 0.13 });
+  playGlideTone({ startFreq: 310, endFreq: 215, duration: 0.14, delay: 0, type: 'triangle', volume: 0.11 });
+  playGlideTone({ startFreq: 235, endFreq: 155, duration: 0.2, delay: 0.11, type: 'sine', volume: 0.12 });
 }
 
 export function playLockedSound() {
-  playGlideTone({ startFreq: 260, endFreq: 210, duration: 0.07, delay: 0, type: 'triangle', volume: 0.1 });
-  playGlideTone({ startFreq: 240, endFreq: 180, duration: 0.08, delay: 0.08, type: 'triangle', volume: 0.1 });
+  playGlideTone({ startFreq: 260, endFreq: 210, duration: 0.07, delay: 0, type: 'triangle', volume: 0.09 });
+  playGlideTone({ startFreq: 240, endFreq: 180, duration: 0.08, delay: 0.08, type: 'triangle', volume: 0.09 });
 }
 
 export function playChestSound() {
@@ -145,10 +142,10 @@ export function playChestSound() {
     playGlideTone({
       startFreq: freq,
       endFreq: freq,
-      duration: 0.16,
+      duration: 0.15,
       delay: i * 0.065,
       type: 'sine',
-      volume: 0.12,
+      volume: 0.11,
     });
   });
 }
@@ -160,7 +157,7 @@ export function playFanfareSound() {
     { f: 659.25, d: 0.1, t: 0.22 },
     { f: 783.99, d: 0.16, t: 0.34 },
     { f: 659.25, d: 0.1, t: 0.5 },
-    { f: 1046.5, d: 0.42, t: 0.62 },
+    { f: 1046.5, d: 0.38, t: 0.62 },
   ];
   notes.forEach((n) =>
     playGlideTone({
@@ -169,35 +166,29 @@ export function playFanfareSound() {
       duration: n.d,
       delay: n.t,
       type: 'triangle',
-      volume: 0.15,
+      volume: 0.14,
     })
   );
 }
 
-/** Converts math equations & symbols into playful spoken Brazilian Portuguese */
 export function humanizeMathForKids(rawText) {
   if (!rawText) return '';
   return rawText
     .replace(/\[\s*\?\s*\]/g, 'qual número')
-    .replace(/GOLPE FINAL NO CHEFÃO:/gi, 'Golpe final no Monstrinho!')
-    .replace(/Batalha do Chefão:/gi, 'Batalha do Chefão!')
-    .replace(/Desafio Relâmpago:/gi, 'Desafio relâmpago!')
-    .replace(/O Terror da Tabuada:/gi, 'Atenção, herói!')
-    .replace(/Dica da Liga:/gi, 'Dica secreta da Liga!')
-    .replace(/Dica da Maya:/gi, 'Dica mágica da Maya!')
-    .replace(/Dica do Léo:/gi, 'Dica do Léo!')
-    .replace(/Dica:/gi, 'Dica rápida!')
+    .replace(/Golpe Final da Liga:/gi, 'Desafio final!')
+    .replace(/Desafio clássico:/gi, 'Atenção:')
     .replace(/->/g, ', que dá ')
     .replace(/×/g, ' vezes ')
+    .replace(/−/g, ' menos ')
     .replace(/\+/g, ' mais ')
     .replace(/=/g, ' é igual a ')
     .replace(/é igual a\s*\?/g, 'é igual a quanto?')
-    .replace(/[•⭐🎉💎❤️🔥⚡🎲📝🎨⏱️📅📚🗺️🏅🔊🔇✖🚀☁️✨]/g, ' ')
+    .replace(/[•⭐🎉💎❤️🔥⚡🎲📝🎨⏱️📅📚🗺️🏅🔊🔇✖🚀☁️✨🛡️👑💡🎯🔒]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 }
 
-function selectBestPtBrCartoonVoice(persona) {
+function selectBestPtBrVoice(persona) {
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) return null;
   const voices = window.speechSynthesis.getVoices() || [];
   const ptVoices = voices.filter((v) => (v.lang || '').toLowerCase().startsWith('pt'));
@@ -216,8 +207,8 @@ function selectBestPtBrCartoonVoice(persona) {
         ]
       : [
           'google português',
-          'thalita online',
           'antonio online',
+          'thalita online',
           'francisca online',
           'luciana',
           'maria',
@@ -237,7 +228,6 @@ function selectBestPtBrCartoonVoice(persona) {
       }
     });
     if (nameLower.includes('daniel') && persona === 'leo') {
-      // Old desktop SAPI Daniel sounds adult/robotic even pitched up; rank below neural voices
       score -= 15;
     }
     if (score > bestScore) {
@@ -261,7 +251,6 @@ export function speakHeroLine(text, { clipKey = null, personaOverride = null } =
 
   stopAllSpeech();
 
-  // 1) Try pre-generated studio cartoon MP3 if registered
   const scopedClip = clipKey ? `${persona}/${clipKey}` : null;
   if (scopedClip && AVAILABLE_STUDIO_CLIPS.has(scopedClip)) {
     const audio = new Audio(`/tabuada-assets/audio/${scopedClip}.mp3`);
@@ -271,7 +260,6 @@ export function speakHeroLine(text, { clipKey = null, personaOverride = null } =
     return;
   }
 
-  // 2) Play expressive PT-BR cartoon-tuned Web Speech fallback
   if (!('speechSynthesis' in window)) return;
   const spoken = humanizeMathForKids(text);
   if (!spoken) return;
@@ -279,16 +267,16 @@ export function speakHeroLine(text, { clipKey = null, personaOverride = null } =
   try {
     const utt = new SpeechSynthesisUtterance(spoken);
     utt.lang = 'pt-BR';
-    utt.pitch = persona === 'maya' ? 1.38 : 1.28;
-    utt.rate = persona === 'maya' ? 1.07 : 1.1;
+    // Natural, warm pitch (avoid overly synthetic high pitch)
+    utt.pitch = persona === 'maya' ? 1.15 : 1.08;
+    utt.rate = 1.02;
 
-    const chosenVoice = selectBestPtBrCartoonVoice(persona);
+    const chosenVoice = selectBestPtBrVoice(persona);
     if (chosenVoice) {
       utt.voice = chosenVoice;
       const lowerName = chosenVoice.name.toLowerCase();
-      // Slightly soften pitch if voice itself is already very high-pitched
       if (lowerName.includes('thalita') || lowerName.includes('google')) {
-        utt.pitch = persona === 'maya' ? 1.24 : 1.16;
+        utt.pitch = persona === 'maya' ? 1.08 : 1.02;
       }
     }
     window.speechSynthesis.speak(utt);
@@ -297,7 +285,7 @@ export function speakHeroLine(text, { clipKey = null, personaOverride = null } =
   }
 }
 
-export function getRandomPraise(isLightning, persona = activePersona) {
-  const pool = isLightning ? LIGHTNING_PRAISES[persona] : CORRECT_PRAISES[persona];
+export function getRandomPraise(isCombo, persona = activePersona) {
+  const pool = isCombo ? COMBO_PRAISES[persona] : CORRECT_PRAISES[persona];
   return pool[Math.floor(Math.random() * pool.length)];
 }

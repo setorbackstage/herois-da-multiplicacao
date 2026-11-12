@@ -1,3654 +1,907 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- OpenGraph / Social Sharing (WhatsApp, Facebook, Instagram) -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Heróis da Multiplicação — Domine a Tabuada em 15 Minutos">
-    <meta property="og:description" content="Material pedagógico lúdico e ilustrado em PDF com cronograma de 12 semanas, jogos de tabuleiro e desafios infantis. A partir de R$ 10,00!">
-    <meta property="og:image" content="https://heroisdamultiplicacao.vercel.app/tabuada-assets/hero-bundle-3d.jpg">
-    <meta property="og:url" content="https://heroisdamultiplicacao.vercel.app/">
-    <meta name="twitter:card" content="summary_large_image">
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Heróis da Multiplicação — Material Pedagógico Digital em PDF</title>
-
-<!-- Fontes Oficiais: Fredoka (Títulos e Botões) + Nunito (Texto Corrido) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-
-<style>
-  :root {
-    /* Paleta Oficial Heróis da Multiplicação */
-    --purple-hero: #713D9D;
-    --purple-dark: #522675;
-    --purple-soft: #F5EEFB;
-    
-    --blue-hero: #176DB3;
-    --blue-dark: #0F4E82;
-    --blue-light: #38BFE3;
-    --blue-soft: #E8F8FC;
-    
-    --yellow-hero: #FFC928;
-    --yellow-dark: #D4A017;
-    --yellow-soft: #FFF9E6;
-    
-    --red-hero: #E9433B;
-    --red-dark: #BD2B24;
-    --red-soft: #FDEEED;
-    
-    --green-action: #16A34A;
-    --green-dark: #15803D;
-    
-    --creme-bg: #FFF8E9;
-    --creme-alt: #FBF4E4;
-    --white: #FFFFFF;
-    
-    /* Textos & Bordas */
-  
-  /* Proteção Anti-Cópia & Anti-Clonagem */
-  body {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  img {
-    -webkit-user-drag: none;
-    user-drag: none;
-  }
-    --ink-title: #1B2A4A;
-    --ink-body: #334155;
-    --ink-muted: #64748B;
-    --border-soft: #E5DFD3;
-    
-    /* Bordas & Sombras */
-    --radius-sm: 10px;
-    --radius-md: 16px;
-    --radius-lg: 22px;
-    --radius-pill: 999px;
-  }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-  }
-
-  html, body {
-    overflow-x: hidden;
-    width: 100%;
-    max-width: 100vw;
-  }
-
-  body {
-    background-color: var(--creme-bg);
-    color: var(--ink-body);
-    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-
-  /* Tipografia Heróica */
-  h1, h2, h3, h4, h5, .font-hero, .btn-hero {
-    font-family: 'Fredoka', cursive, sans-serif;
-    letter-spacing: -0.01em;
-  }
-
-  /* Container Principal com largura editorial (1180px) */
-  .container {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 0 24px;
-    width: 100%;
-  }
-
-  .section {
-    padding: 72px 0;
-    position: relative;
-  }
-
-  .section-white {
-    background-color: var(--white);
-    border-top: 1px solid #EFE8DA;
-    border-bottom: 1px solid #EFE8DA;
-  }
-
-  .section-creme {
-    background-color: var(--creme-bg);
-  }
-
-  .section-alt {
-    background-color: var(--creme-alt);
-    border-top: 1px solid #EFE8DA;
-    border-bottom: 1px solid #EFE8DA;
-  }
-
-  .section-header {
-    text-align: center;
-    max-width: 760px;
-    margin: 0 auto 44px;
-  }
-
-  .badge-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background-color: var(--yellow-hero);
-    color: #452600;
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 5px 16px;
-    border-radius: var(--radius-pill);
-    border: 1.5px solid #E5B21C;
-    margin-bottom: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    max-width: 100%;
-    white-space: normal;
-    text-align: center;
-  }
-
-  .section-title {
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--ink-title);
-    line-height: 1.25;
-    margin-bottom: 10px;
-  }
-
-  .section-subtitle {
-    font-size: 16.5px;
-    color: var(--ink-body);
-    font-weight: 600;
-    line-height: 1.55;
-  }
-
-  /* ======================================================== */
-  /* ANIMAÇÕES DOS HERÓIS VOANDO E ELEMENTOS LÚDICOS          */
-  /* ======================================================== */
-  @keyframes heroFlyGirl {
-    0% { transform: translateY(0px) rotate(0deg) scale(1); }
-    25% { transform: translateY(-10px) rotate(3deg) scale(1.03); }
-    50% { transform: translateY(-18px) rotate(5deg) scale(1.05); }
-    75% { transform: translateY(-8px) rotate(2deg) scale(1.02); }
-    100% { transform: translateY(0px) rotate(0deg) scale(1); }
-  }
-
-  @keyframes heroFlyBoy {
-    0% { transform: translateY(0px) rotate(0deg) scale(1); }
-    30% { transform: translateY(-14px) rotate(-3deg) scale(1.04); }
-    70% { transform: translateY(-5px) rotate(-1deg) scale(1.01); }
-    100% { transform: translateY(0px) rotate(0deg) scale(1); }
-  }
-
-  @keyframes monsterBounce {
-    0% { transform: scale(1) translateY(0); }
-    50% { transform: scale(1.04) translateY(-8px); }
-    100% { transform: scale(1) translateY(0); }
-  }
-
-  @keyframes floatSparkle {
-    0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.85; }
-    50% { transform: translateY(-10px) scale(1.25) rotate(18deg); opacity: 1; }
-    100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.85; }
-  }
-
-  @keyframes floatSymbol {
-    0% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(-12deg); }
-    100% { transform: translateY(0) rotate(0deg); }
-  }
-
-  @keyframes frameGlow {
-    0% { box-shadow: 0 16px 36px rgba(255, 201, 40, 0.28); }
-    50% { box-shadow: 0 22px 48px rgba(255, 201, 40, 0.45); }
-    100% { box-shadow: 0 16px 36px rgba(255, 201, 40, 0.28); }
-  }
-
-  @keyframes tickerMarquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .hero-flying-girl {
-    animation: heroFlyGirl 3s ease-in-out infinite;
-  }
-
-  .hero-flying-boy {
-    animation: heroFlyBoy 3.4s ease-in-out infinite;
-  }
-
-  .monster-animated {
-    animation: monsterBounce 3s ease-in-out infinite;
-  }
-
-  .float-particle-star {
-    animation: floatSparkle 2.6s ease-in-out infinite;
-  }
-
-  .float-particle-math {
-    animation: floatSymbol 3.2s ease-in-out infinite;
-  }
-
-  /* ======================================================== */
-  /* TOP MARQUEE TICKER (DE PONTA A PONTA PASSANDO)           */
-  /* ======================================================== */
-  .top-ticker-bar {
-    width: 100%;
-    background: linear-gradient(90deg, #F59E0B 0%, #EA580C 50%, #F59E0B 100%);
-    color: #FFFFFF;
-    overflow: hidden;
-    position: relative;
-    z-index: 105;
-    box-shadow: 0 3px 10px rgba(234, 88, 12, 0.35);
-    padding: 8px 0;
-  }
-
-  .ticker-track {
-    display: flex;
-    width: max-content;
-    animation: tickerMarquee 26s linear infinite;
-  }
-
-  .ticker-track:hover {
-    animation-play-state: paused;
-  }
-
-  .ticker-item-group {
-    display: flex;
-    align-items: center;
-    gap: 22px;
-    white-space: nowrap;
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 13.5px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    padding-right: 22px;
-  }
-
-  .ticker-sep {
-    opacity: 0.9;
-    font-size: 12px;
-  }
-
-  /* ======================================================== */
-  /* BOTÕES DE AÇÃO COM ESTILO 3D HERÓICO                     */
-  /* ======================================================== */
-  .btn-hero {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 15px 26px;
-    font-size: 1.08rem;
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: var(--radius-md);
-    border: none;
-    cursor: pointer;
-    transition: transform 0.12s ease, box-shadow 0.12s ease;
-    text-align: center;
-    line-height: 1.25;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  .btn-hero:hover {
-    transform: translateY(-2px);
-  }
-
-  .btn-hero:active {
-    transform: translateY(2px);
-  }
-
-  .btn-red {
-    background-color: var(--red-hero);
-    color: #FFFFFF;
-    border-bottom: 4px solid var(--red-dark);
-    box-shadow: 0 8px 18px rgba(233, 67, 59, 0.3);
-  }
-
-  .btn-red:hover {
-    background-color: #DE362E;
-    box-shadow: 0 10px 22px rgba(233, 67, 59, 0.4);
-  }
-
-  .btn-blue {
-    background-color: var(--blue-hero);
-    color: #FFFFFF;
-    border-bottom: 4px solid var(--blue-dark);
-    box-shadow: 0 8px 18px rgba(23, 109, 179, 0.3);
-  }
-
-  .btn-blue:hover {
-    background-color: #125A96;
-    box-shadow: 0 10px 22px rgba(23, 109, 179, 0.4);
-  }
-
-  .btn-yellow {
-    background-color: var(--yellow-hero);
-    color: #381E00;
-    border-bottom: 4px solid var(--yellow-dark);
-    box-shadow: 0 8px 18px rgba(255, 201, 40, 0.35);
-  }
-
-  .btn-yellow:hover {
-    background-color: #EBB61E;
-    box-shadow: 0 10px 22px rgba(255, 201, 40, 0.45);
-  }
-
-  .btn-outline {
-    background-color: #FFFFFF;
-    color: var(--blue-hero);
-    border: 2px solid var(--blue-hero);
-    border-bottom: 4px solid var(--blue-dark);
-    font-size: 0.98rem;
-    padding: 13px 22px;
-  }
-
-  .btn-outline:hover {
-    background-color: var(--blue-soft);
-  }
-
-  @keyframes heroPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
-  }
-
-  .pulse-hero {
-    animation: heroPulse 2.4s infinite ease-in-out;
-  }
-
-  /* ======================================================== */
-  /* 1. HEADER COMPACTO E BEM ALINHADO                        */
-  /* ======================================================== */
-  .main-header {
-    background: #FFFFFF;
-    border-bottom: 2px solid var(--border-soft);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    height: 70px;
-    display: flex;
-    align-items: center;
-  }
-
-  .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    gap: 20px;
-  }
-
-  .header-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    flex-shrink: 0;
-  }
-
-  .header-logo {
-    height: 36px;
-    width: auto;
-    object-fit: contain;
-  }
-
-  .header-brand-badge {
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--blue-hero);
-    background: var(--blue-soft);
-    padding: 3px 10px;
-    border-radius: var(--radius-pill);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    border: 1px solid rgba(23, 109, 179, 0.2);
-  }
-
-  .header-nav {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .header-nav a {
-    text-decoration: none;
-    color: var(--ink-body);
-    font-size: 14.5px;
-    font-weight: 700;
-    transition: color 0.15s ease;
-  }
-
-  .header-nav a:hover {
-    color: var(--blue-hero);
-  }
-
-  .btn-header {
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 13.5px;
-    font-weight: 700;
-    color: #FFFFFF;
-    background-color: var(--red-hero);
-    border: none;
-    border-bottom: 3px solid var(--red-dark);
-    padding: 8px 18px;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    transition: transform 0.1s ease;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .btn-header:hover {
-    transform: translateY(-2px);
-  }
-
-  .btn-header-mobile {
-    display: none;
-  }
-
-  /* ======================================================== */
-  /* 2. HERO — DUAS COLUNAS NO DESKTOP                        */
-  /* ======================================================== */
-  .hero-section {
-    background: linear-gradient(180deg, #FFF9EA 0%, #FFF2D1 100%);
-    padding: 56px 0 68px;
-    border-bottom: 2px solid #F5E2B5;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-mobile-logo {
-    display: none;
-  }
-
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 53% 47%;
-    gap: 48px;
-    align-items: center;
-  }
-
-  .hero-content {
-    text-align: left;
-  }
-
-  .hero-content h1 {
-    font-size: 42px;
-    line-height: 1.18;
-    color: var(--ink-title);
-    margin-bottom: 16px;
-  }
-
-  .hero-highlight {
-    color: var(--blue-hero);
-  }
-
-  .hero-lead-text {
-    font-size: 17.5px;
-    line-height: 1.6;
-    color: var(--ink-body);
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-
-  .hero-routine-note {
-    font-size: 15px;
-    color: var(--purple-hero);
-    font-weight: 700;
-    margin-bottom: 22px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  /* CTA Único e Otimizado no Hero (Sem Valores, Foco na Conversão) */
-  .hero-cta-single {
-    margin: 8px 0 22px;
-    display: flex;
-    align-items: center;
-  }
-
-  .btn-hero-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    background: linear-gradient(180deg, #FF574D 0%, #E9433B 100%);
-    color: #FFFFFF;
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    padding: 17px 38px;
-    border-radius: var(--radius-md);
-    border: none;
-    border-bottom: 5px solid #BD251E;
-    box-shadow: 0 10px 24px rgba(233, 67, 59, 0.38);
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    letter-spacing: 0.02em;
-    text-align: center;
-    box-sizing: border-box;
-  }
-
-  .btn-hero-primary:hover {
-    background: linear-gradient(180deg, #FF685E 0%, #F0372F 100%);
-    box-shadow: 0 14px 28px rgba(233, 67, 59, 0.48);
-    transform: translateY(-2px);
-  }
-
-  .btn-hero-primary:active {
-    transform: translateY(2px);
-    border-bottom-width: 2px;
-  }
-
-  .hero-trust-bullets {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 13.5px;
-    font-weight: 700;
-    color: var(--ink-muted);
-    flex-wrap: wrap;
-  }
-
-  .hero-trust-bullets span {
-    color: var(--blue-hero);
-  }
-
-  /* Ilustração da Coluna Direita com Heróis Voando */
-  .hero-visual-frame {
-    background: #FFFFFF;
-    border: 3px solid var(--yellow-hero);
-    border-bottom: 8px solid var(--yellow-dark);
-    border-radius: var(--radius-lg);
-    padding: 14px;
-    box-shadow: 0 16px 36px rgba(255, 201, 40, 0.28);
-    position: relative;
-    text-align: center;
-    overflow: visible;
-  }
-
-  .hero-visual-tag {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, var(--red-hero) 0%, #BD2B24 100%);
-    color: #FFFFFF;
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 12.5px;
-    font-weight: 700;
-    padding: 4px 16px;
-    border-radius: var(--radius-pill);
-    box-shadow: 0 4px 10px rgba(189, 43, 36, 0.35);
-    white-space: nowrap;
-    z-index: 6;
-  }
-
-  .hero-main-book-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: var(--radius-md);
-    position: relative;
-    z-index: 2;
-  }
-
-
-
-  .hero-visual-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--purple-hero);
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 2;
-  }
-
-  /* Partículas Flutuantes Lúdicas no Frame (Animações Extras) */
-  .hero-particle {
-    position: absolute;
-    pointer-events: none;
-    z-index: 15;
-    filter: drop-shadow(0 3px 8px rgba(0,0,0,0.22));
-    user-select: none;
-  }
-
-  .particle-star-1 {
-    top: -18px;
-    left: 24px;
-    font-size: 26px;
-  }
-
-  .particle-math-plus {
-    top: 42px;
-    left: -16px;
-    font-size: 22px;
-  }
-
-  .particle-math-mult {
-    bottom: 50px;
-    right: -16px;
-    font-size: 22px;
-  }
-
-  .particle-sparkle {
-    bottom: -14px;
-    right: 48px;
-    font-size: 24px;
-  }
-
-  .hero-quick-tagline {
-    font-size: 15.5px;
-    color: var(--purple-hero);
-    font-weight: 700;
-    margin-bottom: 20px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #FFFFFF;
-    border: 1.5px solid var(--border-soft);
-    padding: 8px 16px;
-    border-radius: var(--radius-pill);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  }
-
-
-
-  /* Âncoras dos Heróis Voando na Hero */
-  .flying-girl-anchor {
-    position: absolute;
-    top: -38px;
-    right: -28px;
-    width: 135px;
-    z-index: 10;
-    pointer-events: none;
-  }
-
-  .flying-girl-hero-img {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 10px 18px rgba(0,0,0,0.3));
-    display: block;
-  }
-
-  .flying-boy-anchor {
-    position: absolute;
-    bottom: -24px;
-    left: -28px;
-    width: 130px;
-    z-index: 10;
-    pointer-events: none;
-  }
-
-  .flying-boy-hero-img {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 10px 18px rgba(0,0,0,0.3));
-    display: block;
-  }
-
-  /* ======================================================== */
-  /* 3. BENEFÍCIOS — 3 CARDS HORIZONTAIS NO DESKTOP           */
-  /* ======================================================== */
-  .benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .benefit-card {
-    background: #FFFFFF;
-    border-radius: var(--radius-md);
-    padding: 28px 22px;
-    transition: transform 0.15s ease;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .benefit-card:hover {
-    transform: translateY(-4px);
-  }
-
-  .card-blue-border {
-    border: 2px solid #38BFE3;
-    border-bottom: 6px solid #176DB3;
-  }
-
-  .card-yellow-border {
-    border: 2px solid #FFC928;
-    border-bottom: 6px solid #D4A017;
-  }
-
-  .card-purple-border {
-    border: 2px solid #C084FC;
-    border-bottom: 6px solid #713D9D;
-  }
-
-  .benefit-icon-box {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    margin-bottom: 16px;
-  }
-
-  .icon-bg-blue { background-color: var(--blue-soft); }
-  .icon-bg-yellow { background-color: var(--yellow-soft); }
-  .icon-bg-purple { background-color: var(--purple-soft); }
-
-  .benefit-card h3 {
-    font-size: 19px;
-    font-weight: 700;
-    color: var(--ink-title);
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-
-  .benefit-card p {
-    font-size: 14.5px;
-    color: var(--ink-body);
-    font-weight: 600;
-    line-height: 1.5;
-  }
-
-  /* ======================================================== */
-  /* 4. ROTINA DE 15 MINUTOS — TIMELINE HORIZONTAL            */
-  /* ======================================================== */
-  .timeline-wrapper {
-    position: relative;
-    margin-top: 20px;
-  }
-
-  .timeline-wrapper::before {
-    content: "";
-    position: absolute;
-    top: 40px;
-    left: 8%;
-    right: 8%;
-    height: 4px;
-    background: #E5DFD3;
-    z-index: 1;
-  }
-
-  .timeline-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    position: relative;
-    z-index: 2;
-  }
-
-
-
-  .timeline-step-card {
-    background: #FFFFFF;
-    border: 2px solid var(--border-soft);
-    border-bottom: 5px solid #CBD5E1;
-    border-radius: var(--radius-md);
-    padding: 22px 18px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.15s ease;
-  }
-
-  .timeline-step-card:hover {
-    transform: translateY(-4px);
-  }
-
-  .timeline-step-num {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    color: #FFFFFF;
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  }
-
-  .step-1-bg { background-color: var(--blue-hero); }
-  .step-2-bg { background-color: var(--yellow-dark); }
-  .step-3-bg { background-color: var(--red-hero); }
-  .step-4-bg { background-color: var(--purple-hero); }
-
-  .timeline-time-badge {
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    background-color: var(--creme-bg);
-    color: var(--ink-title);
-    padding: 2px 10px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--border-soft);
-    margin-bottom: 10px;
-  }
-
-  .timeline-step-card h4 {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--ink-title);
-    margin-bottom: 6px;
-    line-height: 1.25;
-  }
-
-  .timeline-step-card p {
-    font-size: 13.5px;
-    color: var(--ink-body);
-    font-weight: 600;
-    line-height: 1.45;
-  }
-
-  /* ======================================================== */
-  /* 5. MISSÃO TABUADA — APRESENTAÇÃO DO PRODUTO (2 COLUNAS)  */
-  /* ======================================================== */
-  .product-overview-grid {
-    display: grid;
-    grid-template-columns: 44% 56%;
-    gap: 44px;
-    align-items: center;
-  }
-
-  .product-cover-frame {
-    background: #FFFFFF;
-    border: 3px solid var(--blue-light);
-    border-bottom: 7px solid var(--blue-hero);
-    border-radius: var(--radius-lg);
-    padding: 14px;
-    box-shadow: 0 14px 32px rgba(23, 109, 179, 0.2);
-    text-align: center;
-  }
-
-  .product-cover-frame img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: var(--radius-md);
-  }
-
-  .items-mini-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 20px;
-  }
-
-  .item-mini-card {
-    background: #FFFFFF;
-    border: 1.5px solid var(--border-soft);
-    border-bottom: 4px solid #CBD5E1;
-    border-radius: var(--radius-sm);
-    padding: 16px 14px;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .item-mini-icon {
-    font-size: 22px;
-    line-height: 1;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .item-mini-card h4 {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--ink-title);
-    margin-bottom: 2px;
-    line-height: 1.2;
-  }
-
-  .item-mini-card p {
-    font-size: 13px;
-    color: var(--ink-muted);
-    font-weight: 600;
-    line-height: 1.35;
-  }
-
-  /* Storytelling: O Monstrinho dos Números */
-  .story-strip-box {
-    background: var(--purple-soft);
-    border: 2px solid #D8B4FE;
-    border-radius: var(--radius-md);
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 24px;
-  }
-
-  .story-strip-thumb {
-    width: 66px;
-    height: 66px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .story-strip-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-  }
-
-  .story-strip-text h5 {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--purple-hero);
-    margin-bottom: 2px;
-  }
-
-  .story-strip-text p {
-    font-size: 13.5px;
-    color: var(--ink-body);
-    font-weight: 600;
-    line-height: 1.4;
-  }
-
-  /* ======================================================== */
-  /* 6. GALERIA DE MATERIAIS — 3 COLUNAS NO DESKTOP           */
-  /* ======================================================== */
-  .gallery-grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .gallery-card {
-    background: #FFFFFF;
-    border: 2px solid var(--border-soft);
-    border-bottom: 5px solid #CBD5E1;
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    transition: transform 0.15s ease;
-  }
-
-  .gallery-card:hover {
-    transform: translateY(-4px);
-  }
-
-  .gallery-img-wrap {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    background: #F1F5F9;
-    border-bottom: 1.5px solid var(--border-soft);
-  }
-
-  .gallery-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .gallery-card-body {
-    padding: 18px;
-  }
-
-  .gallery-card-body h4 {
-    font-size: 17.5px;
-    font-weight: 700;
-    color: var(--ink-title);
-    margin-bottom: 4px;
-  }
-
-  .gallery-card-body p {
-    font-size: 13.5px;
-    color: var(--ink-body);
-    font-weight: 600;
-    line-height: 1.45;
-  }
-
-  /* ======================================================== */
-  /* 6.5 GALERIA UGC & FAMÍLIAS NA PRÁTICA                    */
-  /* ======================================================== */
-  .ugc-section {
-    background: #FFFFFF;
-    padding: 72px 0 84px;
-    border-bottom: 2px solid var(--border-soft);
-  }
-
-  .ugc-grid-4 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
-  }
-
-  .ugc-card {
-    background: #FFFFFF;
-    border: 2px solid var(--border-soft);
-    border-bottom: 5px solid #CBD5E1;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-  }
-
-  .ugc-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.1);
-  }
-
-  .ugc-img-wrap {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
-    background: #F1F5F9;
-  }
-
-  .ugc-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.35s ease;
-  }
-
-  .ugc-card:hover .ugc-img-wrap img {
-    transform: scale(1.04);
-  }
-
-  .ugc-tag-pill {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(4px);
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--purple-hero);
-    padding: 3px 10px;
-    border-radius: var(--radius-pill);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    z-index: 2;
-  }
-
-  .ugc-card-body {
-    padding: 16px 14px 18px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-
-  .ugc-card-body h4 {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--ink-title);
-    margin-bottom: 6px;
-    line-height: 1.25;
-  }
-
-  .ugc-card-body p {
-    font-size: 13.5px;
-    color: var(--ink-body);
-    font-weight: 600;
-    line-height: 1.45;
-  }
-
-  /* ======================================================== */
-  /* 7. OFERTAS — SEÇÃO MAIS IMPORTANTE (LADO A LADO)         */
-  /* ======================================================== */
-  .offers-section {
-    background: linear-gradient(135deg, #176DB3 0%, #0F4E82 100%);
-    color: #FFFFFF;
-    padding: 80px 0;
-  }
-
-  .offers-dual-grid {
-    display: grid;
-    grid-template-columns: 42% 58%;
-    gap: 30px;
-    align-items: stretch;
-    max-width: 1040px;
-    margin: 0 auto;
-  }
-
-  /* CARD 1: MISSÃO TABUADA (R$ 10,00) */
-  .card-offer-basic {
-    background: #FFFFFF;
-    color: var(--ink-title);
-    border: 2px solid #CBD5E1;
-    border-bottom: 6px solid #94A3B8;
-    border-radius: var(--radius-lg);
-    padding: 32px 26px;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    position: relative;
-  }
-
-  .offer-cover-mini {
-    margin: 10px 0 16px;
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    border: 1.5px solid #E2E8F0;
-  }
-
-  .offer-cover-mini img {
-    width: 100%;
-    height: auto;
-    display: block;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-  }
-
-  .card-offer-basic h3 {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--blue-hero);
-    margin-bottom: 4px;
-  }
-
-  .card-offer-basic .offer-sub {
-    font-size: 13.5px;
-    color: var(--ink-body);
-    font-weight: 600;
-    margin-bottom: 16px;
-    line-height: 1.4;
-  }
-
-  .offer-bullets-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 13.5px;
-    font-weight: 700;
-    color: var(--ink-title);
-    margin-bottom: 22px;
-    flex: 1;
-  }
-
-  .offer-bullets-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    line-height: 1.4;
-  }
-
-  .b-check {
-    color: var(--blue-hero);
-    font-weight: 800;
-    font-size: 15px;
-    flex-shrink: 0;
-  }
-
-  .offer-price-block {
-    border-top: 2px dashed #E2E8F0;
-    padding-top: 18px;
-    margin-top: auto;
-  }
-
-  .offer-price-row {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-    margin-bottom: 2px;
-  }
-
-  .offer-price-row .cur { font-size: 22px; font-weight: 800; color: var(--ink-title); }
-  .offer-price-row .val { font-size: 46px; font-weight: 800; color: var(--ink-title); line-height: 1; font-family: 'Fredoka', cursive, sans-serif; }
-  .offer-price-row .cen { font-size: 22px; font-weight: 800; color: var(--ink-title); }
-
-  .offer-period-note {
-    font-size: 12.5px;
-    color: var(--ink-muted);
-    font-weight: 600;
-    margin-bottom: 16px;
-  }
-
-  /* CARD 2: LIGA DOS HERÓIS DA MATEMÁTICA (R$ 27,00) — DESTAQUE MÁXIMO */
-  .card-offer-premium {
-    background: #FFFFFF;
-    color: var(--ink-title);
-    border: 4px solid var(--yellow-hero);
-    border-bottom: 8px solid var(--yellow-dark);
-    border-radius: var(--radius-lg);
-    padding: 36px 30px;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    position: relative;
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
-  }
-
-  .floating-hero-pill {
-    position: absolute;
-    top: -16px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, #FFC928 0%, #EA580C 100%);
-    color: #FFFFFF;
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 6px 20px;
-    border-radius: var(--radius-pill);
-    box-shadow: 0 6px 14px rgba(234, 88, 12, 0.4);
-    white-space: nowrap;
-    z-index: 5;
-  }
-
-  .card-mascot-flying {
-    position: absolute;
-    top: -24px;
-    right: 14px;
-    width: 78px;
-    z-index: 8;
-    pointer-events: none;
-  }
-
-  .card-mascot-flying img {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
-    display: block;
-  }
-
-  .card-offer-premium h3 {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--red-hero);
-    margin-bottom: 4px;
-    margin-top: 6px;
-  }
-
-  .card-offer-premium .offer-sub {
-    font-size: 14px;
-    color: var(--purple-hero);
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
-
-  .more-content-highlight {
-    background-color: var(--yellow-soft);
-    border: 2px dashed var(--yellow-hero);
-    border-radius: var(--radius-sm);
-    padding: 8px 14px;
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: #7A4F00;
-    margin-bottom: 14px;
-    text-align: center;
-  }
-
-  .premium-bullets-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 13.5px;
-    font-weight: 700;
-    color: var(--ink-title);
-    margin-bottom: 20px;
-  }
-
-  .premium-bullets-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    line-height: 1.4;
-  }
-
-  .b-star {
-    color: var(--yellow-dark);
-    font-size: 15px;
-    flex-shrink: 0;
-  }
-
-  .price-premium-box {
-    background-color: #FEF9EB;
-    border: 2px solid var(--yellow-hero);
-    border-radius: var(--radius-md);
-    padding: 12px 18px;
-    text-align: center;
-    margin-bottom: 18px;
-  }
-
-  .price-premium-big {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 4px;
-  }
-
-  .price-premium-big .c { font-size: 22px; font-weight: 800; color: var(--red-hero); }
-  .price-premium-big .v { font-size: 54px; font-weight: 800; color: var(--red-hero); line-height: 1; font-family: 'Fredoka', cursive, sans-serif; }
-  .price-premium-big .d { font-size: 22px; font-weight: 800; color: var(--red-hero); }
-
-  /* ======================================================== */
-  /* 8. GARANTIA — FAIXA HORIZONTAL COMPACTA                  */
-  /* ======================================================== */
-  .guarantee-strip {
-    background: #FFFFFF;
-    border: 2px solid var(--border-soft);
-    border-bottom: 5px solid #CBD5E1;
-    border-radius: var(--radius-md);
-    padding: 24px 32px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    max-width: 880px;
-    margin: 0 auto;
-  }
-
-  .guarantee-icon-wrap {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background-color: var(--blue-soft);
-    border: 2px dashed var(--blue-hero);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--blue-hero);
-    font-family: 'Fredoka', cursive, sans-serif;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .guarantee-icon-wrap .g-num { font-size: 24px; font-weight: 700; }
-  .guarantee-icon-wrap .g-txt { font-size: 10px; font-weight: 700; text-transform: uppercase; }
-
-  .guarantee-content h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--blue-hero);
-    margin-bottom: 2px;
-  }
-
-  .guarantee-content p {
-    font-size: 14.5px;
-    color: var(--ink-body);
-    font-weight: 600;
-    line-height: 1.5;
-  }
-
-  /* ======================================================== */
-  /* 9. PERGUNTAS FREQUENTES (FAQ)                            */
-  /* ======================================================== */
-  .faq-container {
-    max-width: 780px;
-    margin: 0 auto;
-  }
-
-  details.faq-item {
-    background: #FFFFFF;
-    border: 1.5px solid var(--border-soft);
-    border-bottom: 4px solid #CBD5E1;
-    border-radius: var(--radius-sm);
-    margin-bottom: 12px;
-    overflow: hidden;
-  }
-
-  details.faq-item[open] {
-    border-color: var(--blue-light);
-    border-bottom-color: var(--blue-hero);
-  }
-
-  summary.faq-quest {
-    padding: 16px 20px;
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--ink-title);
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    user-select: none;
-  }
-
-  summary.faq-quest::-webkit-details-marker {
-    display: none;
-  }
-
-  summary.faq-quest::after {
-    content: "+";
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--blue-hero);
-  }
-
-  details.faq-item[open] summary.faq-quest::after {
-    content: "−";
-    color: var(--purple-hero);
-  }
-
-  .faq-ans {
-    padding: 0 20px 18px;
-    font-size: 14.5px;
-    color: var(--ink-body);
-    font-weight: 600;
-    line-height: 1.55;
-    border-top: 1px dashed #F1F5F9;
-    padding-top: 12px;
-  }
-
-  /* ======================================================== */
-  /* 10. CTA FINAL — FAIXA ROXA COM PERSONAGENS               */
-  /* ======================================================== */
-  .cta-final-box {
-    background: linear-gradient(135deg, var(--purple-hero) 0%, #4D2170 100%);
-    color: #FFFFFF;
-    border-radius: var(--radius-lg);
-    border-bottom: 8px solid #361450;
-    padding: 56px 36px;
-    text-align: center;
-    max-width: 960px;
-    margin: 0 auto;
-    box-shadow: 0 20px 44px rgba(113, 61, 157, 0.35);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-hero-flying-left {
-    position: absolute;
-    top: -15px;
-    left: 24px;
-    width: 110px;
-    pointer-events: none;
-    z-index: 2;
-  }
-
-  .cta-hero-flying-left img {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 8px 18px rgba(0,0,0,0.35));
-  }
-
-  .cta-hero-flying-right {
-    position: absolute;
-    top: -15px;
-    right: 24px;
-    width: 110px;
-    pointer-events: none;
-    z-index: 2;
-  }
-
-  .cta-hero-flying-right img {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 8px 18px rgba(0,0,0,0.35));
-  }
-
-  .cta-final-box h2 {
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    position: relative;
-    z-index: 2;
-  }
-
-
-
-  .cta-final-box p {
-    font-size: 17.5px;
-    color: #EBDCF7;
-    font-weight: 600;
-    max-width: 640px;
-    margin: 0 auto 32px;
-    position: relative;
-    z-index: 2;
-  }
-
-
-
-  .cta-final-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 2;
-  }
-
-
-
-  /* RODAPÉ */
-  .footer {
-    border-top: 2px solid var(--border-soft);
-    padding: 34px 0 80px 0;
-    font-size: 13.5px;
-    color: var(--ink-muted);
-    font-weight: 600;
-    text-align: center;
-    background-color: var(--creme-bg);
-  }
-
-  /* BARRA FIXA MOBILE */
-  .mobile-sticky-bar {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #FFFFFF;
-    border-top: 3px solid var(--yellow-hero);
-    padding: 10px 18px;
-    box-shadow: 0 -8px 20px rgba(0,0,0,0.12);
-    z-index: 999;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .mobile-sticky-info {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .mobile-sticky-title {
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--purple-hero);
-    line-height: 1.1;
-  }
-
-  .mobile-sticky-price {
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--red-hero);
-  }
-
-  .mobile-sticky-btn {
-    font-family: 'Fredoka', cursive, sans-serif;
-    background-color: var(--red-hero);
-    color: #FFFFFF;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 10px 18px;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    border-bottom: 3px solid var(--red-dark);
-  }
-
-  /* ======================================================== */
-  /* RESPONSIVIDADE (TABLET & MOBILE)                         */
-  /* ======================================================== */
-  @media (max-width: 992px) {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heróis da Multiplicação — Revisão da Tabuada em PDF e Jogos</title>
+
+  <!-- OpenGraph / Compartilhamento Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Heróis da Multiplicação — Transforme a Revisão da Tabuada em Aventura">
+  <meta property="og:description" content="Ajude seu filho a praticar multiplicação com missões ilustradas, jogos e atividades em PDF para imprimir. Planos a partir de R$ 10,00.">
+  <meta property="og:image" content="https://heroisdamultiplicacao.vercel.app/tabuada-assets/capa-liga-dos-herois.jpg">
+  <meta property="og:url" content="https://heroisdamultiplicacao.vercel.app/">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" href="tabuada-assets/heroi-menino-oficial.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  window.__META_PV_ID = 'pv_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+  window.__META_VC_ID = 'vc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+  fbq('init', '2683241518773685');
+  fbq('track', 'PageView', {}, { eventID: window.__META_PV_ID });
+  fbq('track', 'ViewContent', {
+    content_name: 'Heróis da Multiplicação — Revisão de Fim de Ano',
+    content_category: 'Material Pedagógico Infantil',
+    content_ids: ['liga-27', 'tabuada-10'],
+    content_type: 'product',
+    value: 27.00,
+    currency: 'BRL'
+  }, { eventID: window.__META_VC_ID });
+  </script>
+  <!-- End Meta Pixel Code -->
+
+  <style>
+    :root {
+      --purple-hero: #713D9D;
+      --purple-dark: #522675;
+      --purple-soft: #F5EEFB;
+      --blue-hero: #176DB3;
+      --blue-dark: #0F4E82;
+      --blue-soft: #E8F8FC;
+      --yellow-hero: #FFC928;
+      --yellow-dark: #D4A017;
+      --yellow-soft: #FFF9E6;
+      --red-hero: #E9433B;
+      --red-dark: #BD2B24;
+      --green-action: #16A34A;
+      --green-dark: #15803D;
+      --creme-bg: #FFF8E9;
+      --creme-alt: #FBF4E4;
+      --white: #FFFFFF;
+      --ink-title: #1B2A4A;
+      --ink-body: #334155;
+      --ink-muted: #64748B;
+      --border-soft: #E5DFD3;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --radius-pill: 999px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    html, body { overflow-x: hidden; width: 100%; max-width: 100vw; }
+    body {
+      background-color: var(--creme-bg);
+      color: var(--ink-body);
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.55;
+      padding-bottom: 72px;
+    }
+    h1, h2, h3, h4, .font-hero, .btn-hero {
+      font-family: 'Fredoka', 'Nunito', sans-serif;
+      letter-spacing: -0.01em;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 20px; width: 100%; }
+    .section { padding: 48px 0; }
+    .section-white { background: var(--white); border-top: 1px solid #EFE8DA; border-bottom: 1px solid #EFE8DA; }
+    .section-creme { background: var(--creme-bg); }
+    .section-alt { background: var(--creme-alt); border-top: 1px solid #EFE8DA; border-bottom: 1px solid #EFE8DA; }
+
+    /* Faixa Sazonal Superior */
+    .season-bar {
+      background: linear-gradient(90deg, var(--purple-dark) 0%, var(--purple-hero) 100%);
+      color: #FFFFFF;
+      text-align: center;
+      padding: 9px 14px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .season-bar span { color: var(--yellow-hero); }
+
+    /* Header compacto */
     .main-header {
-      display: none !important;
+      background: var(--white);
+      border-bottom: 1px solid #EFE8DA;
+      padding: 10px 0;
     }
-    .hero-grid {
+    .header-row {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 14px;
+      justify-content: space-between;
+      gap: 12px;
     }
-    .hero-content {
-      display: contents;
+    .header-logo { height: 46px; width: auto; }
+    .header-nav { display: flex; gap: 20px; }
+    .header-nav a {
+      text-decoration: none;
+      color: var(--ink-title);
+      font-weight: 800;
+      font-size: 14px;
     }
-    .hero-headline-wrapper {
-      order: 1;
-      text-align: center;
-    }
-    .hero-visual-frame {
-      order: 2; /* FOTO PRINCIPAL POW ENTRE A HEADLINE E O BOTÃO! */
-      max-width: 420px;
-      margin: 8px auto 14px;
-      animation: frameGlow 3.5s ease-in-out infinite;
-    }
-    .hero-cta-wrapper {
-      order: 3; /* BOTÃO DE AÇÃO DIRETO APÓS A FOTO! */
-      width: 100%;
-      display: flex;
-      flex-direction: column;
+    .header-nav a:hover { color: var(--purple-hero); }
+
+    /* Botões 3D consistentes */
+    .btn-hero {
+      display: inline-flex;
       align-items: center;
-      text-align: center;
-    }
-    .hero-cta-single {
-      width: 100%;
       justify-content: center;
+      gap: 8px;
+      padding: 15px 24px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+      text-align: center;
+      line-height: 1.25;
+      width: auto;
+    }
+    .btn-hero:hover { transform: translateY(-2px); }
+    .btn-hero:active { transform: translateY(2px); }
+    .btn-red { background: var(--red-hero); color: #FFF; border-bottom: 4px solid var(--red-dark); box-shadow: 0 8px 18px rgba(233, 67, 59, 0.28); }
+    .btn-blue { background: var(--blue-hero); color: #FFF; border-bottom: 4px solid var(--blue-dark); box-shadow: 0 8px 18px rgba(23, 109, 179, 0.25); }
+    .btn-yellow { background: var(--yellow-hero); color: #381E00; border-bottom: 4px solid var(--yellow-dark); box-shadow: 0 8px 18px rgba(255, 201, 40, 0.35); }
+    .btn-sm { padding: 10px 18px; font-size: 0.92rem; border-radius: var(--radius-pill); }
+
+    /* Badge & Títulos */
+    .badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--yellow-hero);
+      color: #452600;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid #E5B21C;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .section-header { text-align: center; max-width: 720px; margin: 0 auto 30px; }
+    .section-title { font-size: 28px; color: var(--ink-title); line-height: 1.22; margin-bottom: 8px; }
+    .section-subtitle { font-size: 16px; color: var(--ink-body); font-weight: 600; }
+
+    /* 1. Hero Compacto */
+    .hero-section { padding: 28px 0 42px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .hero-content h1 {
+      font-size: clamp(26px, 3.6vw, 40px);
+      color: var(--ink-title);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .hero-highlight { color: var(--purple-hero); }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--ink-body);
+      font-weight: 700;
+      margin-bottom: 18px;
     }
     .hero-trust-bullets {
-      justify-content: center;
-    }
-    .benefits-grid {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-    .timeline-wrapper::before {
-      display: none;
-    }
-    .timeline-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .product-overview-grid {
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-    .product-cover-frame {
-      max-width: 460px;
-      margin: 0 auto;
-    }
-    .gallery-grid-3 {
-      grid-template-columns: 1fr;
-      gap: 18px;
-    }
-    .ugc-grid-4 {
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .offers-dual-grid {
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-    .mobile-sticky-bar {
       display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      margin-top: 14px;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--ink-title);
     }
-  }
+    .hero-trust-bullets span { color: var(--green-action); }
 
-  
-  @media (max-width: 380px) {
-    .hero-content h1 {
-      font-size: 21px !important;
+    .hero-visual-card {
+      background: var(--white);
+      border: 3px solid var(--yellow-hero);
+      border-bottom: 7px solid var(--yellow-dark);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      box-shadow: 0 14px 32px rgba(27, 42, 74, 0.1);
     }
-    .hero-visual-frame {
-      max-width: 255px !important;
-      padding: 6px !important;
+    .hero-covers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
-    .flying-girl-anchor {
-      width: 64px !important;
-      top: -16px !important;
-      right: -4px !important;
-    }
-    .flying-boy-anchor {
-      width: 60px !important;
-      bottom: -12px !important;
-      left: -4px !important;
-    }
-    .hero-visual-tag {
-      font-size: 10.5px !important;
-      padding: 3px 10px !important;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .container {
-      padding: 0 14px;
-    }
-    .main-header {
-      display: none !important;
-    }
-    .hero-section {
-      padding: 18px 0 32px;
-    }
-    .hero-mobile-logo {
-      display: block;
-      max-width: 140px;
-      height: auto;
-      margin: 0 auto 8px auto;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
-    }
-    .hero-content h1 {
-      font-size: 24px;
-      line-height: 1.22;
-      margin-bottom: 4px;
-    }
-    .hero-quick-tagline {
-      display: none;
-    }
-    .hero-visual-frame {
-      max-width: 290px;
-      width: calc(100% - 24px);
-      padding: 8px;
-      margin: 10px auto 16px;
-      box-sizing: border-box;
-      overflow: visible;
-    }
-    .flying-girl-anchor {
-      top: -16px;
-      right: 4px;
-      width: 70px;
-    }
-    .hero-visual-tag {
-      font-size: 11px !important;
-      padding: 3px 12px !important;
-      white-space: nowrap;
-    }
-    .flying-boy-anchor {
-      bottom: -14px;
-      left: -6px;
-      width: 72px;
-    }
-    .hero-visual-footer {
-      font-size: 11px;
-      gap: 4px;
-      padding-left: 24px;
-    }
-    .particle-star-1 {
-      top: -12px;
-      left: 10px;
-      font-size: 20px;
-    }
-    .particle-math-plus {
-      top: 26px;
-      left: -10px;
-      font-size: 16px;
-    }
-    .particle-math-mult {
-      bottom: 34px;
-      right: -10px;
-      font-size: 16px;
-    }
-    .particle-sparkle {
-      bottom: -10px;
-      right: 25px;
-      font-size: 18px;
-    }
-    .hero-visual-footer {
-      font-size: 11px;
-      gap: 6px;
-    }
-    .badge-tag {
-      font-size: 11px;
-      padding: 4px 10px;
-      white-space: normal;
-      text-align: center;
-      line-height: 1.3;
-    }
-    .hero-cta-single {
+    .hero-covers-grid img {
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
       width: 100%;
-      margin: 6px 0 14px;
     }
-    .btn-hero-primary {
-      width: 100%;
-      padding: 15px 16px;
-      font-size: 1.05rem;
-    }
-    .card-mascot-flying {
-      top: -20px;
-      right: 10px;
-      width: 65px;
-    }
-    .section-title {
-      font-size: 23px;
-    }
-    .timeline-grid {
-      grid-template-columns: 1fr;
-    }
-    .ugc-grid-4 {
-      grid-template-columns: 1fr;
-      gap: 18px;
-    }
-    .ugc-section {
-      padding: 42px 0 50px;
-    }
-    .items-mini-grid {
-      grid-template-columns: 1fr;
-    }
-    .guarantee-strip {
-      flex-direction: column;
-      text-align: center;
-      padding: 18px 14px;
-    }
-    .cta-hero-flying-left, .cta-hero-flying-right {
-      display: none;
-    }
-    .cta-final-buttons {
-      flex-direction: column;
-    }
-    .btn-hero {
-      width: 100%;
-      max-width: 100%;
-      white-space: normal;
-      font-size: 0.95rem;
-      padding: 13px 14px;
-      line-height: 1.25;
-    }
-    .mobile-sticky-bar {
+    .hero-visual-caption {
+      margin-top: 10px;
+      background: var(--yellow-soft);
+      border-radius: 10px;
       padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink-title);
     }
-    .mobile-sticky-title {
-      font-size: 12px;
+
+    /* 2. Clareza do Produto: Impresso vs WebApp + Como Usar */
+    .clarity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-bottom: 22px;
     }
-    .mobile-sticky-price {
+    .clarity-card {
+      background: var(--creme-bg);
+      border: 2px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 22px;
+    }
+    .clarity-card.highlight-app { background: #F0FDF4; border-color: #BBF7D0; }
+    .clarity-pill {
+      display: inline-block;
       font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 10px;
     }
-    .mobile-sticky-btn {
+    .pill-blue { background: var(--blue-soft); color: var(--blue-dark); }
+    .pill-green { background: #DCFCE7; color: #166534; }
+    .clarity-card h3 { font-size: 20px; color: var(--ink-title); margin-bottom: 8px; }
+    .clarity-card p { font-size: 14.5px; margin-bottom: 10px; }
+    .clarity-list { list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700; }
+
+    .usage-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .usage-box {
+      background: #F8FAFC;
+      border: 1.5px solid #E2E8F0;
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .usage-box h4 { font-size: 16px; color: var(--purple-dark); margin-bottom: 4px; }
+    .usage-box p { font-size: 13.5px; }
+
+    /* 3. Galeria de Páginas Reais + Simulador WebApp */
+    .samples-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+    .sample-card {
+      background: var(--white);
+      border: 2px solid #E2E8F0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .sample-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: contain;
+      background: #F8FAFC;
+      padding: 10px;
+    }
+    .sample-body { padding: 14px 16px; }
+    .sample-body h4 { font-size: 17px; color: var(--ink-title); margin-bottom: 4px; }
+    .sample-body p { font-size: 13.5px; }
+
+    .sim-box-wrap {
+      background: var(--white);
+      border: 2px solid #DCFCE7;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .phone-frame {
+      background: #F0FDF4;
+      border: 6px solid #1E293B;
+      border-radius: 26px;
+      padding: 16px;
+      max-width: 340px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .phone-hud { display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; margin-bottom: 12px; }
+    .sim-q {
+      background: var(--white);
+      border: 2px solid #BBF7D0;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 28px;
+      color: var(--ink-title);
+      margin-bottom: 12px;
+    }
+    .sim-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .sim-btn {
+      background: var(--white);
+      border: 2px solid #CBD5E1;
+      border-bottom: 4px solid #94A3B8;
+      border-radius: 12px;
+      padding: 10px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .sim-btn.ok { background: #DCFCE7; border-color: #16A34A; color: #166534; }
+    .sim-btn.err { background: #FEE2E2; border-color: #DC2626; color: #991B1B; }
+    .sim-fb { margin-top: 10px; font-size: 13px; font-weight: 800; text-align: center; min-height: 20px; }
+
+    /* 4. Ofertas (R$ 10 e R$ 27) */
+    .offers-section {
+      background: linear-gradient(135deg, var(--purple-hero) 0%, var(--purple-dark) 100%);
+      padding: 54px 0;
+      color: #FFF;
+    }
+    .offers-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .offer-card {
+      background: var(--white);
+      color: var(--ink-title);
+      border-radius: var(--radius-lg);
+      padding: 26px 22px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .offer-basic { border: 2px solid #CBD5E1; border-bottom: 6px solid #94A3B8; }
+    .offer-premium { border: 4px solid var(--yellow-hero); border-bottom: 8px solid var(--yellow-dark); }
+    .popular-pill {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--yellow-hero);
+      color: #452600;
+      font-family: 'Fredoka', sans-serif;
       font-size: 12px;
-      padding: 7px 12px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: var(--radius-pill);
+      border: 2px solid #FFF;
       white-space: nowrap;
     }
-  }
-
-  /* ======================================================== */
-  /* 5. EXPERIÊNCIA 360° — NO PAPEL E NO CELULAR (INTERATIVO) */
-  /* ======================================================== */
-  .section-360 {
-    background: #FFFFFF;
-    padding: 64px 0 72px;
-  }
-  .exp-tabs-container {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin: 28px 0 36px;
-    flex-wrap: wrap;
-  }
-  .exp-tab-btn {
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    padding: 14px 28px;
-    border-radius: 999px;
-    border: 3px solid #E2E8F0;
-    background: #F8FAFC;
-    color: #475569;
-    cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .exp-tab-btn:hover {
-    border-color: #CBD5E1;
-    transform: translateY(-2px);
-  }
-  .exp-tab-btn.active {
-    background: var(--blue-hero);
-    color: #FFFFFF;
-    border-color: #0F52BA;
-    box-shadow: 0 8px 24px rgba(23, 109, 179, 0.35), inset 0 2px 0 rgba(255, 255, 255, 0.3);
-  }
-  .exp-tab-btn.tab-app.active {
-    background: #10B981;
-    border-color: #059669;
-    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35), inset 0 2px 0 rgba(255, 255, 255, 0.3);
-  }
-  .exp-tab-content {
-    display: none;
-    animation: fadeInTab 0.35s ease;
-  }
-  .exp-tab-content.active {
-    display: block;
-  }
-  @keyframes fadeInTab {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* 360 Grid */
-  .exp-grid-2col {
-    display: grid;
-    grid-template-columns: 48% 52%;
-    gap: 40px;
-    align-items: center;
-  }
-  @media (max-width: 860px) {
-    .exp-grid-2col {
-      grid-template-columns: 1fr;
-      gap: 28px;
+    .offer-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+      margin-bottom: 14px;
     }
-  }
-
-  /* Papel Showcase */
-  .papel-hero-frame {
-    position: relative;
-    border: 3px solid #E2E8F0;
-    border-bottom: 7px solid #CBD5E1;
-    border-radius: 24px;
-    overflow: hidden;
-    background: #F8FAFC;
-    box-shadow: 0 16px 36px rgba(0,0,0,0.08);
-  }
-  .papel-hero-frame img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  .papel-tag-badge {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    background: #1E293B;
-    color: #FFF;
-    font-size: 12px;
-    font-weight: 800;
-    padding: 6px 14px;
-    border-radius: 999px;
-    letter-spacing: 0.5px;
-  }
-  .papel-benefits-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .papel-benefit-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    background: #F8FAFC;
-    border: 2px solid #EEF2F6;
-    border-radius: 16px;
-    padding: 14px 18px;
-    transition: all 0.2s;
-  }
-  .papel-benefit-item:hover {
-    border-color: #BFDBFE;
-    background: #F0F9FF;
-  }
-  .papel-benefit-icon {
-    font-size: 26px;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-  .papel-benefit-item h4 {
-    font-size: 16px;
-    color: #1E293B;
-    margin-bottom: 3px;
-  }
-  .papel-benefit-item p {
-    font-size: 13.5px;
-    color: #64748B;
-    line-height: 1.4;
-    margin: 0;
-  }
-
-  /* Phone Simulator (Duolingo Style) */
-  .phone-simulator-wrap {
-    max-width: 360px;
-    margin: 0 auto;
-    background: #0F172A;
-    border-radius: 40px;
-    padding: 12px;
-    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.35), inset 0 0 0 2px #334155;
-    position: relative;
-  }
-  .phone-screen {
-    background: #F0FDF4;
-    border-radius: 30px;
-    padding: 18px 16px 20px;
-    position: relative;
-    overflow: hidden;
-    min-height: 480px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .phone-status-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 12px;
-    border-bottom: 2px solid #DCFCE7;
-    margin-bottom: 12px;
-  }
-  .phone-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 12px;
-    font-weight: 800;
-    padding: 4px 10px;
-    border-radius: 999px;
-  }
-  .phone-pill.hearts {
-    background: #FEE2E2;
-    color: #DC2626;
-  }
-  .phone-pill.streak {
-    background: #FEF3C7;
-    color: #D97706;
-  }
-  .phone-pill.xp {
-    background: #DCFCE7;
-    color: #16A34A;
-  }
-  .sim-mascot-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 8px 0 14px;
-  }
-  .sim-mascot-img {
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
-    flex-shrink: 0;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
-  }
-  .sim-speech-bubble {
-    background: #FFFFFF;
-    border: 2px solid #BBF7D0;
-    border-radius: 16px;
-    border-bottom-left-radius: 4px;
-    padding: 8px 12px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #166534;
-    line-height: 1.35;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-  }
-  .sim-question-box {
-    background: #FFFFFF;
-    border: 3px solid #86EFAC;
-    border-bottom: 6px solid #4ADE80;
-    border-radius: 20px;
-    padding: 16px 12px;
-    text-align: center;
-    margin-bottom: 16px;
-  }
-  .sim-question-label {
-    font-size: 11px;
-    font-weight: 800;
-    color: #059669;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    margin-bottom: 4px;
-  }
-  .sim-question-math {
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 32px;
-    font-weight: 800;
-    color: #1E3A8A;
-    line-height: 1.1;
-  }
-  .sim-options-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .sim-option-btn {
-    font-family: 'Fredoka', cursive, sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    background: #FFFFFF;
-    color: #1E293B;
-    border: 2px solid #E2E8F0;
-    border-bottom: 5px solid #CBD5E1;
-    border-radius: 16px;
-    padding: 14px 10px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    user-select: none;
-    outline: none;
-  }
-  .sim-option-btn:hover:not(:disabled) {
-    background: #F8FAFC;
-    transform: translateY(-2px);
-  }
-  .sim-option-btn:active:not(:disabled) {
-    transform: translateY(2px);
-    border-bottom-width: 2px;
-  }
-  .sim-option-btn.btn-correct {
-    background: #22C55E !important;
-    color: #FFFFFF !important;
-    border-color: #16A34A !important;
-    border-bottom: 5px solid #15803D !important;
-    animation: correctPop 0.3s ease;
-  }
-  .sim-option-btn.btn-wrong {
-    background: #EF4444 !important;
-    color: #FFFFFF !important;
-    border-color: #DC2626 !important;
-    border-bottom: 5px solid #B91C1C !important;
-    animation: wrongShake 0.35s ease;
-  }
-  @keyframes correctPop {
-    0% { transform: scale(0.95); }
-    50% { transform: scale(1.08); }
-    100% { transform: scale(1); }
-  }
-  @keyframes wrongShake {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-6px); }
-    40%, 80% { transform: translateX(6px); }
-  }
-  .sim-feedback-banner {
-    border-radius: 14px;
-    padding: 10px 12px;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 800;
-    display: none;
-    animation: fadeInTab 0.25s ease;
-  }
-  .sim-feedback-banner.success {
-    display: block;
-    background: #DCFCE7;
-    color: #15803D;
-    border: 2px solid #86EFAC;
-  }
-  .sim-feedback-banner.error {
-    display: block;
-    background: #FEE2E2;
-    color: #B91C1C;
-    border: 2px solid #FCA5A5;
-  }
-  .sim-next-btn {
-    font-family: 'Fredoka', cursive, sans-serif;
-    width: 100%;
-    font-size: 16px;
-    font-weight: 800;
-    margin-top: 10px;
-    background: #16A34A;
-    color: #FFFFFF;
-    border: none;
-    border-bottom: 4px solid #15803D;
-    border-radius: 14px;
-    padding: 12px;
-    cursor: pointer;
-  }
-  .sim-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 10;
-  }
-
-  /* Mascot Squad Showcase Bar */
-  .mascot-squad-section {
-    margin-top: 60px;
-    padding-top: 50px;
-    border-top: 2px dashed #E2E8F0;
-  }
-  .mascot-squad-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 28px;
-  }
-  @media (max-width: 768px) {
-    .mascot-squad-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
+    .offer-card h3 { font-size: 22px; margin-bottom: 4px; }
+    .offer-sub { font-size: 13.5px; color: var(--ink-muted); font-weight: 700; margin-bottom: 14px; }
+    .offer-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      flex: 1;
     }
-  }
-  .mascot-card {
-    background: #FFFFFF;
-    border: 2px solid #E2E8F0;
-    border-bottom: 6px solid #CBD5E1;
-    border-radius: 22px;
-    padding: 24px 20px;
-    text-align: center;
-    position: relative;
-    transition: all 0.25s ease;
-  }
-  .mascot-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px rgba(0,0,0,0.08);
-  }
-  .mascot-card.leo {
-    border-bottom-color: var(--blue-hero);
-  }
-  .mascot-card.maya {
-    border-bottom-color: var(--yellow-hero);
-  }
-  .mascot-card.buggy {
-    border-bottom-color: var(--purple-hero);
-  }
-  .mascot-thumb-wrap {
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 14px;
-  }
-  .mascot-thumb-wrap img {
-    max-height: 120px;
-    max-width: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.12));
-  }
-  .mascot-role-pill {
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    padding: 4px 12px;
-    border-radius: 999px;
-    display: inline-block;
-    margin-bottom: 8px;
-  }
-  .mascot-card.leo .mascot-role-pill {
-    background: var(--blue-soft);
-    color: var(--blue-hero);
-  }
-  .mascot-card.maya .mascot-role-pill {
-    background: var(--yellow-soft);
-    color: #B45309;
-  }
-  .mascot-card.buggy .mascot-role-pill {
-    background: var(--purple-soft);
-    color: var(--purple-hero);
-  }
-  .mascot-card h4 {
-    font-size: 19px;
-    color: var(--ink-title);
-    margin-bottom: 6px;
-  }
-  .mascot-card p {
-    font-size: 13.5px;
-    color: var(--ink-body);
-    line-height: 1.45;
-    margin: 0;
-  }
+    .offer-list li { display: flex; gap: 8px; align-items: flex-start; }
+    .offer-price-box {
+      background: var(--yellow-soft);
+      border: 1.5px solid #FDE68A;
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .offer-price-box.basic-box { background: #F8FAFC; border-color: #E2E8F0; }
+    .price-big { font-family: 'Fredoka', sans-serif; font-size: 38px; line-height: 1; color: var(--ink-title); }
+    .price-note { font-size: 12.5px; font-weight: 700; color: var(--ink-muted); margin-top: 4px; }
 
-  /* Video Demo Card */
-  .video-demo-box {
-    background: #F8FAFC;
-    border: 3px solid #E2E8F0;
-    border-bottom: 7px solid #CBD5E1;
-    border-radius: 28px;
-    padding: 32px 24px;
-    text-align: center;
-    margin: 44px 0 0;
-  }
-  .video-demo-player {
-    max-width: 720px;
-    width: 100%;
-    border-radius: 18px;
-    box-shadow: 0 16px 36px rgba(0,0,0,0.14);
-    background: #000;
-    margin: 20px auto 0;
-    display: block;
-  }
+    /* 5. Como comprar / Acesso / Suporte / Reembolso / FAQ */
+    .steps-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .step-card {
+      background: var(--white);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .step-num {
+      display: inline-flex;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--purple-hero);
+      color: #FFF;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .guarantee-box {
+      background: var(--white);
+      border: 2px solid #BBF7D0;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+    details.faq-item {
+      background: var(--white);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    details.faq-item summary { font-weight: 800; color: var(--ink-title); cursor: pointer; font-size: 15px; }
+    details.faq-item p { margin-top: 8px; font-size: 14px; }
 
-</style>
+    /* Mobile Sticky Bar */
+    .mobile-sticky-bar {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--white);
+      border-top: 2px solid var(--yellow-hero);
+      padding: 10px 14px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 99;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+    }
 
-    <!-- Meta Pixel Code (Facebook & Instagram Ads) -->
-    <script>
-      // Insira o ID do seu Meta Pixel abaixo:
-      const urlParams = new URLSearchParams(window.location.search);
-      const META_PIXEL_ID = urlParams.get("pixel") || window.META_PIXEL_ID || "SEU_PIXEL_AQUI";
+    footer { text-align: center; padding: 24px 16px; font-size: 13px; color: var(--ink-muted); }
 
-      if (META_PIXEL_ID && META_PIXEL_ID !== "SEU_PIXEL_AQUI") {
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', META_PIXEL_ID);
-        fbq('track', 'PageView');
-        fbq('track', 'ViewContent', {
-          content_name: 'Heróis da Multiplicação',
-          content_category: 'Material Pedagógico Infantil',
-          value: 10.00,
-          currency: 'BRL'
-        });
+    @media (max-width: 820px) {
+      .hero-grid, .clarity-grid, .usage-strip, .samples-grid, .sim-box-wrap, .offers-grid, .steps-row {
+        grid-template-columns: 1fr;
       }
-    </script>
-
+      .header-nav { display: none; }
+      .section { padding: 34px 0; }
+      .section-title { font-size: 24px; }
+      .mobile-sticky-bar { display: flex; }
+      .btn-hero { width: 100%; }
+    }
+  </style>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2683241518773685&ev=PageView&noscript=1"
+  /></noscript>
 
-<!-- ======================================================== -->
-<!-- TOP ANNOUNCEMENT TICKER (MARQUEE DE PONTA A PONTA PASSANDO) -->
-<!-- ======================================================== -->
-<div class="top-ticker-bar">
-  <div class="ticker-track">
-    <div class="ticker-item-group">
-      <span>⚡ Material Digital em PDF • Jogos e Atividades</span>
-      <span class="ticker-sep">⭐</span>
-      <span>Aprender Tabuada Pode Ser Uma Grande Aventura!</span>
-      <span class="ticker-sep">🚀</span>
-      <span>Acesso Imediato • 100% Para Imprimir</span>
-      <span class="ticker-sep">🎨</span>
-      <span>Rotina Sugerida de 15 Minutos por Dia</span>
-      <span class="ticker-sep">✨</span>
-      <span>⚡ Material Digital em PDF • Jogos e Atividades</span>
-      <span class="ticker-sep">⭐</span>
-      <span>Aprender Tabuada Pode Ser Uma Grande Aventura!</span>
-      <span class="ticker-sep">🚀</span>
-      <span>Acesso Imediato • 100% Para Imprimir</span>
-      <span class="ticker-sep">🎨</span>
-      <span>Rotina Sugerida de 15 Minutos por Dia</span>
-      <span class="ticker-sep">✨</span>
-    </div>
-    <!-- Bloco duplicado para loop infinito suave -->
-    <div class="ticker-item-group" aria-hidden="true">
-      <span>⚡ Material Digital em PDF • Jogos e Atividades</span>
-      <span class="ticker-sep">⭐</span>
-      <span>Aprender Tabuada Pode Ser Uma Grande Aventura!</span>
-      <span class="ticker-sep">🚀</span>
-      <span>Acesso Imediato • 100% Para Imprimir</span>
-      <span class="ticker-sep">🎨</span>
-      <span>Rotina Sugerida de 15 Minutos por Dia</span>
-      <span class="ticker-sep">✨</span>
-      <span>⚡ Material Digital em PDF • Jogos e Atividades</span>
-      <span class="ticker-sep">⭐</span>
-      <span>Aprender Tabuada Pode Ser Uma Grande Aventura!</span>
-      <span class="ticker-sep">🚀</span>
-      <span>Acesso Imediato • 100% Para Imprimir</span>
-      <span class="ticker-sep">🎨</span>
-      <span>Rotina Sugerida de 15 Minutos por Dia</span>
-      <span class="ticker-sep">✨</span>
-    </div>
+  <div class="season-bar">
+    📚 <span>REVISÃO DE FIM DE ANO</span> • Tabuada com missões ilustradas e jogos em PDF
   </div>
-</div>
 
-<!-- ======================================================== -->
-<!-- 1. HEADER COMPACTO E BEM ALINHADO                        -->
-<!-- ======================================================== -->
-<header class="main-header">
-  <div class="container header-container">
-    
-    <!-- Logo e Identificação -->
-    <a href="#" class="header-brand">
-      <img fetchpriority="high" decoding="async" src="tabuada-assets/logo-transparente.png" alt="Heróis da Multiplicação" class="header-logo">
-      <span class="header-brand-badge">Ensino Fundamental I</span>
-    </a>
+  <header class="main-header">
+    <div class="container header-row">
+      <a href="#">
+        <img src="tabuada-assets/logo-transparente.png" alt="Heróis da Multiplicação" class="header-logo">
+      </a>
+      <nav class="header-nav">
+        <a href="#como-funciona">Impresso vs WebApp</a>
+        <a href="#amostras">Por Dentro</a>
+        <a href="#ofertas">Planos</a>
+        <a href="#duvidas">Dúvidas e Suporte</a>
+      </nav>
+      <a href="#ofertas" class="btn-hero btn-red btn-sm">VER PLANOS →</a>
+    </div>
+  </header>
 
-    <!-- Navegação Discreta (Centro) -->
-    <nav class="header-nav">
-      <a href="#beneficios">Benefícios</a>
-      <a href="#rotina">Como Funciona</a>
-      <a href="#material">O Material</a>
-      <a href="#galeria">Por Dentro</a>
-      <a href="#familias">Na Prática</a>
-      <a href="#duvidas">Dúvidas</a>
-    </nav>
-
-    <!-- Botão de Ação (Direita) -->
-    <a href="#ofertas" class="btn-header">
-      <span class="btn-header-full">ESCOLHER MISSÃO →</span>
-      <span class="btn-header-mobile">MISSÕES →</span>
-    </a>
-
-  </div>
-</header>
-
-<!-- ======================================================== -->
-<!-- 2. HERO — DUAS COLUNAS NO DESKTOP                        -->
-<!-- ======================================================== -->
-<section class="hero-section">
-  <div class="container">
-    
-    <!-- Logo no Mobile Centralizado (Reduzido e Compacto) -->
-    <img fetchpriority="high" decoding="async" src="tabuada-assets/logo-transparente.png" alt="Heróis da Multiplicação" class="hero-mobile-logo">
-
-    <div class="hero-grid">
-      
-      <!-- Headline & Bloco de Ação -->
+  <!-- DOBRA 1: HERO SAZONAL NOVEMBRO -->
+  <section class="hero-section">
+    <div class="container hero-grid">
       <div class="hero-content">
-        
-        <div class="hero-headline-wrapper">
-          <h1>A matemática pode virar uma grande <span class="hero-highlight">aventura!</span></h1>
-          
-          <div class="hero-quick-tagline">
-            <span>✨ Uma rotina sugerida de aproximadamente 15 minutos por dia com missões ilustradas e jogos educativos!</span>
+        <div class="badge-tag">📅 REVISÃO DE FIM DE ANO</div>
+        <h1>A tabuada ainda é um desafio? <span class="hero-highlight">Transforme a revisão em uma aventura!</span></h1>
+        <p class="hero-sub">Ajude seu filho a praticar multiplicação com missões ilustradas, jogos e atividades para imprimir.</p>
+        <a href="#ofertas" class="btn-hero btn-red">ESCOLHER MEU PLANO AGORA →</a>
+        <div class="hero-trust-bullets">
+          <div><span>✓</span> Material 100% digital (PDF A4 para imprimir)</div>
+          <div><span>✓</span> Combo R$ 27 inclui WebApp no navegador</div>
+          <div><span>✓</span> Pagamento único • Acesso após confirmação</div>
+        </div>
+      </div>
+
+      <div class="hero-visual-card">
+        <div class="hero-covers-grid">
+          <img src="tabuada-assets/capa-missao-tabuada.jpg" alt="Capa Missão Tabuada Volume 1">
+          <img src="tabuada-assets/capa-liga-dos-herois.jpg" alt="Capa Liga dos Heróis da Matemática">
+        </div>
+        <div class="hero-visual-caption">
+          📘 Tabuada de 1 a 10 em PDF A4 + Jogos + WebApp no Combo
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOBRA 2: IMPRESSO VS DIGITAL + QUEM PODE USAR + COMO USAR -->
+  <section class="section section-white" id="como-funciona">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-tag">Clareza antes da compra</div>
+        <h2 class="section-title">Entenda o que é impresso e o que é digital</h2>
+        <p class="section-subtitle">Você não recebe caixa física pelos Correios: o envio é digital e imediato para imprimir como preferir.</p>
+      </div>
+
+      <div class="clarity-grid">
+        <div class="clarity-card">
+          <span class="clarity-pill pill-blue">Nos Planos de R$ 10 e R$ 27</span>
+          <h3>🖨️ Material para Imprimir (PDF A4)</h3>
+          <p>Arquivos em PDF organizados para imprimir em casa, na escola ou em gráfica rápida — inteiros ou aos poucos.</p>
+          <ul class="clarity-list">
+            <li>✓ Livro Missão Tabuada (43 páginas, 1 ao 10, gabarito e certificado) no Plano R$ 10 e R$ 27</li>
+            <li>✓ + 5 cadernos extras (Cronograma, Fichas, Pintura, Jogos e Desafios) no Combo R$ 27</li>
+          </ul>
+        </div>
+
+        <div class="clarity-card highlight-app">
+          <span class="clarity-pill pill-green">Exclusivo do Combo R$ 27</span>
+          <h3>📱 WebApp Interativo no Navegador</h3>
+          <p>Aplicativo web gamificado para praticar multiplicação em fases de 1 a 10 com áudio e efeitos visuais.</p>
+          <ul class="clarity-list">
+            <li>✓ Roda direto no navegador do celular, tablet ou computador</li>
+            <li>✓ Não precisa baixar em loja de aplicativos nem ocupa memória</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="usage-strip">
+        <div class="usage-box">
+          <h4>👦 Quem pode utilizar</h4>
+          <p>Crianças em idade de Ensino Fundamental I que estejam começando ou precisando revisar a tabuada em casa com apoio dos pais.</p>
+        </div>
+        <div class="usage-box">
+          <h4>⏱️ Como usar as atividades</h4>
+          <p>Sugestão de rotina leve de ~15 minutos por dia: escolha a missão, resolva as fichas no papel e finalize com jogo ou desafio no WebApp.</p>
+        </div>
+        <div class="usage-box">
+          <h4>📩 Como é entregue</h4>
+          <p>Após confirmação do pagamento (PIX ou Cartão), o acesso é liberado na página de confirmação e enviado para o e-mail cadastrado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOBRA 3: AMOSTRAS REAIS DO PDF E SIMULADOR -->
+  <section class="section section-alt" id="amostras">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-tag">Amostras Reais dos Arquivos</div>
+        <h2 class="section-title">Veja páginas reais por dentro do material</h2>
+        <p class="section-subtitle">Exemplos diretos do PDF e teste rápido do formato de perguntas do WebApp:</p>
+      </div>
+
+      <div class="samples-grid">
+        <div class="sample-card">
+          <img src="tabuada-assets/preview_clean_p1_cover.png" alt="Capa oficial Missão Tabuada Volume 1">
+          <div class="sample-body">
+            <h4>Missão Tabuada (43 Páginas)</h4>
+            <p>Livro ilustrado passo a passo cobrindo todas as tabuadas de 1 a 10 com instruções claras.</p>
           </div>
         </div>
-
-        <div class="hero-cta-wrapper">
-          <!-- CTA Único e Otimizado -->
-          <div class="hero-cta-single">
-            <a href="#ofertas" class="btn-hero-primary pulse-hero">
-              QUERO COMEÇAR MINHA MISSÃO →
-            </a>
-          </div>
-
-          <div class="hero-trust-bullets">
-            <div><span>✓</span> Arquivos digitais em PDF</div>
-            <div><span>✓</span> Formato A4 para impressão</div>
-            <div><span>✓</span> Pagamento único</div>
+        <div class="sample-card">
+          <img src="tabuada-assets/preview_clean_p3_tracker.png" alt="Mapa de Conquistas do Herói">
+          <div class="sample-body">
+            <h4>Mapa de Escudos (Página 3)</h4>
+            <p>A criança pinta o escudo correspondente conforme completa cada tabuada.</p>
           </div>
         </div>
-
-      </div>
-
-      <!-- Foto Principal POW: Showstopper com Heróis Voando e Animações Extras -->
-      <div class="hero-visual-frame" style="border: 4px solid var(--yellow-hero); box-shadow: 0 20px 48px rgba(0,0,0,0.18); overflow: hidden; padding: 6px; background: #FFFFFF;">
-        <div class="hero-visual-tag" style="background: linear-gradient(135deg, #16A34A 0%, #15803D 100%);">📦 KIT COMPLETO PRONTO PARA IMPRESSÃO</div>
-        <img fetchpriority="high" decoding="async" src="tabuada-assets/kit-completo-mesa.jpg" alt="Kit Completo Missão Tabuada e Liga dos Heróis da Matemática" class="hero-main-book-img" style="aspect-ratio: 16/10; object-fit: cover; border-radius: 12px; display: block; width: 100%;">
-        
-        <div class="hero-visual-footer" style="padding: 10px 14px; font-size: 13.5px; color: var(--ink-title); background: #FFF9E6; border-radius: 10px; margin-top: 8px;">
-          <span>📘 6 Apostilas em PDF</span> • <span>🎲 Jogos de Tabuleiro</span> • <span>📱 WebApp Gamificado</span>
+        <div class="sample-card">
+          <img src="tabuada-assets/preview_clean_p43_certificate.png" alt="Certificado de Herói da Multiplicação">
+          <div class="sample-body">
+            <h4>Certificado e Gabarito</h4>
+            <p>Gabarito completo para conferência dos pais e diploma final para preencher e imprimir.</p>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- ======================================================== -->
-<!-- 3. BENEFÍCIOS — 3 CARDS HORIZONTAIS NO DESKTOP           -->
-<!-- ======================================================== -->
-<section class="section section-white" id="beneficios">
-  <div class="container">
-    
-    <div class="section-header">
-      <div class="badge-tag">
-        <span>Aprender com Significado</span>
-      </div>
-      <h2 class="section-title">Aprender matemática pode ser mais divertido!</h2>
-      <p class="section-subtitle">
-        A multiplicação é a base da matemática escolar. Com os Heróis da Multiplicação, a criança constrói confiança por meio de 3 pilares lúdicos:
-      </p>
-    </div>
-
-    <div class="benefits-grid">
-      
-      <!-- Card 1: Aprender Visualmente -->
-      <div class="benefit-card card-blue-border">
-        <div class="benefit-icon-box icon-bg-blue">👁️</div>
-        <h3>Aprender visualmente</h3>
-        <p>Trabalhe as relações entre grupos, números e quantidades com matrizes e representações gráficas antes de decorar números abstratos.</p>
-      </div>
-
-      <!-- Card 2: Praticar Passo a Passo -->
-      <div class="benefit-card card-yellow-border">
-        <div class="benefit-icon-box icon-bg-yellow">🪜</div>
-        <h3>Praticar passo a passo</h3>
-        <p>Atividades sequenciais organizadas para acompanhar a evolução gradual da criança, respeitando seu ritmo natural de aprendizagem.</p>
-      </div>
-
-      <!-- Card 3: Aprender Brincando -->
-      <div class="benefit-card card-purple-border">
-        <div class="benefit-icon-box icon-bg-purple">🎲</div>
-        <h3>Aprender brincando</h3>
-        <p>Desafios ilustrados, folhas de pintura guiada pelas contas e jogos de tabuleiro educativos para tornar cada sessão motivadora.</p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- ======================================================== -->
-<!-- 4. ROTINA DE 15 MINUTOS — TIMELINE HORIZONTAL            -->
-<!-- ======================================================== -->
-<section class="section section-creme" id="rotina">
-  <div class="container">
-    
-    <div class="section-header">
-      <div class="badge-tag">
-        <span>Organização do Dia</span>
-      </div>
-      <h2 class="section-title">Uma rotina de aprendizagem em pequenas missões</h2>
-      <p class="section-subtitle">
-        Uma sugestão de organização para aproximadamente 15 minutos diários de prática:
-      </p>
-    </div>
-
-    <div class="timeline-wrapper">
-      <div class="timeline-grid">
-        
-        <!-- Passo 01 -->
-        <div class="timeline-step-card">
-          <div class="timeline-step-num step-1-bg">01</div>
-          <span class="timeline-time-badge">1 a 2 min</span>
-          <h4>Preparar a missão</h4>
-          <p>Consulte o cronograma e separe a atividade indicada para aquele dia.</p>
+      <div class="sim-box-wrap">
+        <div class="phone-frame">
+          <div class="phone-hud">
+            <span>🎮 WebApp Interativo (Combo R$ 27)</span>
+            <span id="simScore">0 pts</span>
+          </div>
+          <div class="sim-q" id="simQuestion">7 × 8 = ?</div>
+          <div class="sim-opts" id="simOptions">
+            <button type="button" class="sim-btn" onclick="checkSim(48, this)">48</button>
+            <button type="button" class="sim-btn" onclick="checkSim(56, this)">56</button>
+            <button type="button" class="sim-btn" onclick="checkSim(64, this)">64</button>
+            <button type="button" class="sim-btn" onclick="checkSim(54, this)">54</button>
+          </div>
+          <div class="sim-fb" id="simFeedback">Toque na resposta para testar a experiência do WebApp.</div>
         </div>
 
-        <!-- Passo 02 -->
-        <div class="timeline-step-card">
-          <div class="timeline-step-num step-2-bg">02</div>
-          <span class="timeline-time-badge">2 a 5 min</span>
-          <h4>Observar e compreender</h4>
-          <p>Explore grupos e representações visuais para compreender a multiplicação.</p>
-        </div>
-
-        <!-- Passo 03 -->
-        <div class="timeline-step-card">
-          <div class="timeline-step-num step-3-bg">03</div>
-          <span class="timeline-time-badge">5 a 10 min</span>
-          <h4>Resolver os desafios</h4>
-          <p>Pratique com exercícios organizados de forma progressiva e clara.</p>
-        </div>
-
-        <!-- Passo 04 -->
-        <div class="timeline-step-card">
-          <div class="timeline-step-num step-4-bg">04</div>
-          <span class="timeline-time-badge">10 a 15 min</span>
-          <h4>Finalizar brincando</h4>
-          <p>Use uma atividade lúdica, como pintura ou jogo, para reforçar a fixação.</p>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- ======================================================== -->
-<!-- 5. EXPERIÊNCIA 360° — NO PAPEL E NO CELULAR (INTERATIVO) -->
-<!-- ======================================================== -->
-<section class="section section-360" id="material">
-  <div class="container">
-    
-    <div class="section-header" style="text-align: center;">
-      <div class="badge-tag">
-        <span>✨ Experiência 360° Completa</span>
-      </div>
-      <h2 class="section-title">Como Funciona na Prática: No Papel e No Celular</h2>
-      <p class="section-subtitle" style="max-width: 680px; margin: 0 auto;">
-        A única metodologia com duplo estímulo: a concentração da escrita física no papel + a diversão viciante do jogo gamificado no celular!
-      </p>
-
-      <!-- Seletor de Abas 360 -->
-      <div class="exp-tabs-container">
-        <button class="exp-tab-btn active" id="btn-tab-papel" onclick="switch360Tab('papel')">
-          🖨️ No Papel (Apostilas e Jogos de 15 Min)
-        </button>
-        <button class="exp-tab-btn tab-app" id="btn-tab-app" onclick="switch360Tab('app')">
-          📱 No Celular (O Duolingo da Tabuada — Teste Agora!)
-        </button>
-      </div>
-    </div>
-
-    <!-- ABA 1: NO PAPEL -->
-    <div class="exp-tab-content active" id="tab-content-papel">
-      <div class="exp-grid-2col">
-        
-        <!-- Foto Real do Kit Aberto na Mesa -->
         <div>
-          <div class="papel-hero-frame">
-            <span class="papel-tag-badge">✓ Arquivos em PDF A4 Prontos para Imprimir</span>
-            <img loading="lazy" decoding="async" src="tabuada-assets/mockup_kit_completo_aberto_2k.jpg" alt="Kit Aberto da Missão Tabuada com Cadernos e Jogos de Mesa">
-          </div>
-          <div style="margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; font-weight: 700; color: #64748B;">
-            <span>📸 Foto real dos cadernos impressos em folha sulfite padrão</span>
-          </div>
+          <span class="clarity-pill pill-green">Prática Interativa em 10 Fases</span>
+          <h3 style="font-size: 24px; color: var(--ink-title); margin-bottom: 10px;">Reforce no celular os desafios feitos no papel</h3>
+          <p style="margin-bottom: 16px;">No Combo Liga dos Heróis (R$ 27), além dos 6 cadernos em PDF (incluindo Cronograma de 12 Semanas, Fichas Diárias, Pintura e Jogos de Tabuleiro, Dominó e Bingo), a criança ganha acesso ao WebApp com 10 fases de dificuldade crescente e narração em áudio.</p>
+          <a href="#ofertas" class="btn-hero btn-blue">ESCOLHER ENTRE R$ 10 E R$ 27 →</a>
         </div>
-
-        <!-- Benefícios do Papel -->
-        <div>
-          <h3 style="font-size: 24px; color: var(--ink-title); margin-bottom: 12px; font-family: 'Fredoka', cursive, sans-serif;">
-            O Poder da Escrita Física no Cérebro Infantil
-          </h3>
-          <p style="font-size: 15px; color: var(--ink-body); line-height: 1.5; margin-bottom: 20px;">
-            Pedagogos comprovam: o movimento da mão ao preencher contas estimula áreas neurais que telas sozinhas não conseguem. Por isso o kit impresso é a base do método:
-          </p>
-
-          <div class="papel-benefits-list">
-            
-            <div class="papel-benefit-item">
-              <span class="papel-benefit-icon">⏱️</span>
-              <div>
-                <h4>Fichas Diárias de 15 Minutos</h4>
-                <p>Uma folha por dia com espaço de cronômetro para a criança bater o próprio tempo sem se cansar.</p>
-              </div>
-            </div>
-
-            <div class="papel-benefit-item">
-              <span class="papel-benefit-icon">🎲</span>
-              <div>
-                <h4>Jogos de Tabuleiro, Dominó & Bingo</h4>
-                <p>Atividades recortáveis para transformar a lição de casa em momento divertido em família no fim de semana.</p>
-              </div>
-            </div>
-
-            <div class="papel-benefit-item">
-              <span class="papel-benefit-icon">🎨</span>
-              <div>
-                <h4>Caderno de Pintura Inteligente</h4>
-                <p>Desenhos guiados pelas respostas: para pintar o herói, a criança precisa resolver a tabuada certa.</p>
-              </div>
-            </div>
-
-            <div class="papel-benefit-item">
-              <span class="papel-benefit-icon">🏅</span>
-              <div>
-                <h4>Escudos de Poder & Certificado Oficial</h4>
-                <p>Cada tabuada dominada libera um escudo para pintar, culminando no Diploma de Honra ao Mérito!</p>
-              </div>
-            </div>
-
-          </div>
-
-          <div style="margin-top: 22px; background: #EFF6FF; border: 2px solid #BFDBFE; border-radius: 16px; padding: 14px 18px; display: flex; align-items: center; gap: 14px;">
-            <img loading="lazy" decoding="async" src="tabuada-assets/heroi-menino-oficial.png" alt="Léo Herói" style="width: 50px; height: 50px; object-fit: contain; flex-shrink: 0;">
-            <p style="font-size: 13.5px; color: #1E40AF; margin: 0; line-height: 1.4; font-weight: 600;">
-              <strong>Dica dos Pais:</strong> Imprima 1 vez e encaderne ou use numa pastinha com plástico para a criança usar canetinha e apagar quantas vezes quiser!
-            </p>
-          </div>
-
-        </div>
-
       </div>
     </div>
+  </section>
 
-    <!-- ABA 2: NO CELULAR (APP DUOLINGO SIMULADOR) -->
-    <div class="exp-tab-content" id="tab-content-app">
-      <div class="exp-grid-2col">
-        
-        <!-- Simulador Interativo do Phone -->
-        <div>
-          <div class="phone-simulator-wrap">
-            <div class="phone-screen">
-              <canvas class="sim-canvas" id="simConfettiCanvas"></canvas>
-              
-              <!-- Status Bar -->
-              <div>
-                <div class="phone-status-bar">
-                  <div class="phone-pill hearts" id="simHearts">❤️❤️❤️</div>
-                  <div class="phone-pill streak" id="simStreak">🔥 3 Dias</div>
-                  <div class="phone-pill xp" id="simXp">⭐ <span id="simXpVal">85</span> XP</div>
-                </div>
+  <!-- DOBRA 4: OFERTAS (R$ 10 e R$ 27 CONFIRMADOS) -->
+  <section class="offers-section" id="ofertas">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-tag">Comparativo dos Planos</div>
+        <h2 class="section-title" style="color: #FFFFFF;">Escolha o plano ideal para a revisão</h2>
+        <p class="section-subtitle" style="color: #E2D4F0;">Pagamento único em ambiente seguro GGCheckout (PIX ou Cartão).</p>
+      </div>
 
-                <!-- Mascot Speech -->
-                <div class="sim-mascot-row">
-                  <img loading="lazy" decoding="async" src="tabuada-assets/heroi-menina-oficial.png" alt="Maya Guardiã" class="sim-mascot-img">
-                  <div class="sim-speech-bubble" id="simSpeech">
-                    “Missão dos Heróis! Resolva a conta abaixo para ganhar +10 XP!”
-                  </div>
-                </div>
-
-                <!-- Pergunta da Tabuada -->
-                <div class="sim-question-box">
-                  <div class="sim-question-label" id="simLevelLabel">Nível 1 • Batalha da Tabuada</div>
-                  <div class="sim-question-math" id="simQuestionText">7 × 8 = ?</div>
-                </div>
-
-                <!-- 4 Botões Táteis -->
-                <div class="sim-options-grid" id="simOptionsBox">
-                  <button class="sim-option-btn" onclick="checkSimAnswer(48, this)">48</button>
-                  <button class="sim-option-btn" onclick="checkSimAnswer(56, this)">56</button>
-                  <button class="sim-option-btn" onclick="checkSimAnswer(64, this)">64</button>
-                  <button class="sim-option-btn" onclick="checkSimAnswer(54, this)">54</button>
-                </div>
-              </div>
-
-              <!-- Feedback Banner & Botão Avançar -->
-              <div>
-                <div class="sim-feedback-banner" id="simFeedback"></div>
-                <button class="sim-next-btn" id="simNextBtn" style="display: none;" onclick="nextSimQuestion()">
-                  Próxima Missão ➔
-                </button>
-                <div style="text-align: center; margin-top: 10px; font-size: 11px; color: #166534; font-weight: 700;">
-                  👆 Teste você mesmo: clique nas opções acima!
-                </div>
-              </div>
-
-            </div>
+      <div class="offers-grid">
+        <!-- BÁSICO R$ 10 -->
+        <div class="offer-card offer-basic">
+          <img src="tabuada-assets/conteudo-6.png" alt="Missão Tabuada Volume 1" class="offer-thumb">
+          <h3>Missão Tabuada</h3>
+          <p class="offer-sub">Plano essencial em PDF para imprimir</p>
+          <ul class="offer-list">
+            <li><span>✓</span> <span>Livro ilustrado em PDF de <strong>43 páginas</strong></span></li>
+            <li><span>✓</span> <span>Tabuada completa do <strong>1 ao 10</strong></span></li>
+            <li><span>✓</span> <span>Manual para pais, gabarito oficial e certificado</span></li>
+            <li><span>✓</span> <span>Pronto para impressão em folha A4</span></li>
+          </ul>
+          <div class="offer-price-box basic-box">
+            <div class="price-big">R$ 10,00</div>
+            <div class="price-note">Pagamento único • Apenas livro em PDF</div>
           </div>
+          <button type="button" class="btn-hero btn-blue" style="width: 100%;" onclick="handleCheckout('basic')">
+            QUERO MISSÃO TABUADA (R$ 10) →
+          </button>
         </div>
 
-        <!-- Descrição do WebApp Duolingo -->
-        <div>
-          <div style="display: inline-flex; align-items: center; gap: 8px; background: #DCFCE7; color: #15803D; font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: 999px; margin-bottom: 12px;">
-            <span>🚀 Super Bônus do Plano Completo</span>
+        <!-- COMBO R$ 27 (PRINCIPAL) -->
+        <div class="offer-card offer-premium">
+          <div class="popular-pill">⚡ COMBO COMPLETO + WEBAPP</div>
+          <img src="tabuada-assets/conteudo-7.png" alt="Liga dos Heróis Combo Completo" class="offer-thumb">
+          <h3>Liga dos Heróis</h3>
+          <p class="offer-sub">Kit completo para imprimir + WebApp interativo</p>
+          <ul class="offer-list">
+            <li><span>★</span> <span><strong>Tudo do plano básico</strong> (Livro 43 págs + manual + gabarito + certificado)</span></li>
+            <li><span>★</span> <span><strong>Cronograma Mestre de 12 Semanas</strong> (PDF)</span></li>
+            <li><span>★</span> <span><strong>Fichas Diárias</strong> de treino rápido (PDF)</span></li>
+            <li><span>★</span> <span><strong>Caderno de Pintura</strong> por multiplicação (PDF)</span></li>
+            <li><span>★</span> <span><strong>Jogos de Tabuleiro</strong>, Dominó e Bingo para recortar (PDF)</span></li>
+            <li><span>★</span> <span><strong>Desafios Semanais</strong> de acompanhamento (PDF)</span></li>
+            <li><span>★</span> <span><strong>WebApp Interativo</strong> de 10 fases direto no navegador</span></li>
+          </ul>
+          <div class="offer-price-box">
+            <div class="price-big">R$ 27,00</div>
+            <div class="price-note">Pagamento único • 6 PDFs + WebApp interativo</div>
           </div>
-          <h3 style="font-size: 24px; color: var(--ink-title); margin-bottom: 12px; font-family: 'Fredoka', cursive, sans-serif;">
-            O Duolingo da Tabuada: Treine no Celular ou Tablet
-          </h3>
-          <p style="font-size: 15px; color: var(--ink-body); line-height: 1.5; margin-bottom: 20px;">
-            Quando não der tempo de imprimir, a criança abre o WebApp no celular ou tablet. É um jogo interativo com vidas, sequências diárias e efeitos sonoros que prende a atenção nos estudos:
-          </p>
-
-          <div class="papel-benefits-list">
-            
-            <div class="papel-benefit-item" style="background: #F0FDF4; border-color: #DCFCE7;">
-              <span class="papel-benefit-icon">📱</span>
-              <div>
-                <h4>Zero Instalação (Roda no Navegador)</h4>
-                <p>Não precisa baixar nada na App Store ou Google Play. Não ocupa espaço na memória do aparelho.</p>
-              </div>
-            </div>
-
-            <div class="papel-benefit-item" style="background: #F0FDF4; border-color: #DCFCE7;">
-              <span class="papel-benefit-icon">🛡️</span>
-              <div>
-                <h4>100% Livre de Anúncios e Distrações</h4>
-                <p>Ambiente totalmente blindado e seguro para seu filho: sem propagandas, sem compras internas e sem redes sociais.</p>
-              </div>
-            </div>
-
-            <div class="papel-benefit-item" style="background: #F0FDF4; border-color: #DCFCE7;">
-              <span class="papel-benefit-icon">🏆</span>
-              <div>
-                <h4>Dopamina Positiva nos Estudos</h4>
-                <p>A criança quer jogar todo dia para manter a sequência de fogo acesa e bater o recorde de XP!</p>
-              </div>
-            </div>
-
-            <div class="papel-benefit-item" style="background: #F0FDF4; border-color: #DCFCE7;">
-              <span class="papel-benefit-icon">🎁</span>
-              <div>
-                <h4>Incluso de Graça no Combo Completo (R$ 27)</h4>
-                <p>Acesso vitalício para toda a família sem mensalidades nem taxas extras.</p>
-              </div>
-            </div>
-
-          </div>
-
-          <div style="margin-top: 24px;">
-            <a href="#ofertas" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
-              <span>QUERO O COMBO COM O APP DUOLINGO →</span>
-            </a>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <!-- SQUAD DOS HERÓIS DA MATEMÁTICA -->
-    <div class="mascot-squad-section">
-      <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-        <span style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue-hero); background: var(--blue-soft); padding: 4px 14px; border-radius: 999px;">
-          Equipe Pedagógica
-        </span>
-        <h3 style="font-size: 26px; color: var(--ink-title); margin: 10px 0 6px; font-family: 'Fredoka', cursive, sans-serif;">
-          Conheça a Liga dos Heróis da Matemática
-        </h3>
-        <p style="font-size: 14px; color: var(--ink-body);">
-          Os personagens que acompanham seu filho em cada folha e em cada fase do aplicativo:
-        </p>
-      </div>
-
-      <div class="mascot-squad-grid">
-        
-        <!-- Léo -->
-        <div class="mascot-card leo">
-          <div class="mascot-thumb-wrap">
-            <img loading="lazy" decoding="async" src="tabuada-assets/heroi-menino-oficial.png" alt="Léo — O Herói dos Números">
-          </div>
-          <span class="mascot-role-pill">Mestre da Lógica</span>
-          <h4>Léo, o Herói</h4>
-          <p>“Eu mostro que multiplicar não é decoreba: é apenas agrupar blocos visuais! Seu filho vai entender o raciocínio sem traumas.”</p>
-        </div>
-
-        <!-- Maya -->
-        <div class="mascot-card maya">
-          <div class="mascot-thumb-wrap">
-            <img loading="lazy" decoding="async" src="tabuada-assets/heroi-menina-oficial.png" alt="Maya — A Guardiã da Tabuada">
-          </div>
-          <span class="mascot-role-pill">Foco e Estratégia</span>
-          <h4>Maya, a Guardiã</h4>
-          <p>“Eu guio a rotina de 15 minutos e os jogos de mesa para que o aprendizado seja leve, divertido e caiba no dia a dia da família.”</p>
-        </div>
-
-        <!-- Buggy -->
-        <div class="mascot-card buggy">
-          <div class="mascot-thumb-wrap">
-            <img loading="lazy" decoding="async" src="tabuada-assets/monstro-oficial.png" alt="Buggy — O Monstrinho das Contas">
-          </div>
-          <span class="mascot-role-pill">O Chefão a Derrotar</span>
-          <h4>Buggy, o Monstrinho</h4>
-          <p>“Ele tenta assustar nas contas mais difíceis (como o 7×8), mas a cada folha concluída ele é derrotado e vira um troféu conquistado!”</p>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-
-<!-- ======================================================== -->
-<!-- 6. GALERIA DE MATERIAIS — 6 ITENS REAIS E DETALHADOS     -->
-<!-- ======================================================== -->
-<section class="section section-alt" id="galeria">
-  <div class="container">
-    
-    <div class="section-header">
-      <div class="badge-tag">
-        <span>📸 Fotos Reais dos Materiais</span>
-      </div>
-      <h2 class="section-title">Veja os materiais por dentro</h2>
-      <p class="section-subtitle">
-        Confira exemplos reais das atividades, jogos e fichas que você vai receber para imprimir:
-      </p>
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
-      
-      <!-- Card 1: Ficha Diária Real -->
-      <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
-        <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 14px; text-align: center;">
-          <img loading="lazy" decoding="async" src="tabuada-assets/preview_clean_p4_worksheetA.png" alt="Ficha Diária de 15 Minutos da Missão Tabuada" style="width: 100%; height: 260px; object-fit: contain; border-radius: 10px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.12));">
-        </div>
-        <div class="gallery-card-body" style="padding: 20px;">
-          <span style="font-size: 11px; font-weight: 800; background: var(--blue-soft); color: var(--blue-hero); padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">15 Minutos Diários</span>
-          <h4 style="font-size: 18px; margin: 8px 0 4px; color: var(--ink-title);">Fichas de Treino Progressivo</h4>
-          <p style="font-size: 14px; color: var(--ink-body); line-height: 1.45;">Atividades sequenciais com cronômetro para marcar o tempo e espaço de autoavaliação para vencer o próprio recorde.</p>
-        </div>
-      </div>
-
-      <!-- Card 2: Mapa de Escudos Real -->
-      <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
-        <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 14px; text-align: center;">
-          <img loading="lazy" decoding="async" src="tabuada-assets/preview_clean_p3_tracker.png" alt="Mapa de Conquistas e Escudos de Poder" style="width: 100%; height: 260px; object-fit: contain; border-radius: 10px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.12));">
-        </div>
-        <div class="gallery-card-body" style="padding: 20px;">
-          <span style="font-size: 11px; font-weight: 800; background: var(--yellow-soft); color: #B45309; padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">Gamificação</span>
-          <h4 style="font-size: 18px; margin: 8px 0 4px; color: var(--ink-title);">Mapa de Escudos do Herói</h4>
-          <p style="font-size: 14px; color: var(--ink-body); line-height: 1.45;">A cada Chefão da tabuada derrotado, a criança pinta o Escudo correspondente, gerando dopamina e orgulho visível.</p>
-        </div>
-      </div>
-
-      <!-- Card 3: Criança Segurando a Ficha Real -->
-      <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
-        <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 0; text-align: center; height: 288px; overflow: hidden;">
-          <img loading="lazy" decoding="async" src="tabuada-assets/child_holding_math_worksheet_282ab985_2k.jpg" alt="Criança orgulhosa segurando atividade da Missão Tabuada" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <div class="gallery-card-body" style="padding: 20px;">
-          <span style="font-size: 11px; font-weight: 800; background: #DCFCE7; color: #166534; padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">Na Prática</span>
-          <h4 style="font-size: 18px; margin: 8px 0 4px; color: var(--ink-title);">Confiança e Autonomia</h4>
-          <p style="font-size: 14px; color: var(--ink-body); line-height: 1.45;">Seu filho percebe o progresso real a cada dia, sem depender de você sentado ao lado para cada cálculo.</p>
-        </div>
-      </div>
-
-      <!-- Card 4: Jogos Recortáveis e Pintura -->
-      <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
-        <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 0; text-align: center; height: 288px; overflow: hidden;">
-          <img loading="lazy" decoding="async" src="tabuada-assets/jogos-recortaveis-pintura.jpg" alt="Jogos de Tabuleiro e Dominó da Tabuada" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <div class="gallery-card-body" style="padding: 20px;">
-          <span style="font-size: 11px; font-weight: 800; background: #FEF3C7; color: #92400E; padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">Lúdico em Família</span>
-          <h4 style="font-size: 18px; margin: 8px 0 4px; color: var(--ink-title);">Jogos de Mesa, Dominó & Bingo</h4>
-          <p style="font-size: 14px; color: var(--ink-body); line-height: 1.45;">Trilhas com dados, dominó das multiplicações e cartelas de bingo educativo para jogar aos finais de semana.</p>
-        </div>
-      </div>
-
-      <!-- Card 5: Certificado Oficial Real -->
-      <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
-        <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 14px; text-align: center;">
-          <img loading="lazy" decoding="async" src="tabuada-assets/preview_clean_p43_certificate.png" alt="Certificado Oficial de Honra ao Mérito" style="width: 100%; height: 260px; object-fit: contain; border-radius: 10px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.12));">
-        </div>
-        <div class="gallery-card-body" style="padding: 20px;">
-          <span style="font-size: 11px; font-weight: 800; background: var(--purple-soft); color: var(--purple-hero); padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">Recompensa Final</span>
-          <h4 style="font-size: 18px; margin: 8px 0 4px; color: var(--ink-title);">Certificado de Honra ao Mérito</h4>
-          <p style="font-size: 14px; color: var(--ink-body); line-height: 1.45;">Ao completar a missão, a criança preenche e assina seu diploma oficial para emoldurar ou colar na parede do quarto!</p>
-        </div>
-      </div>
-
-      <!-- Card 6: Mãe e Filho Estudando Sem Estresse -->
-      <div class="gallery-card" style="border: 2px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: transform 0.2s;">
-        <div class="gallery-img-wrap" style="background: #F8FAFC; padding: 0; text-align: center; height: 288px; overflow: hidden;">
-          <img loading="lazy" decoding="async" src="tabuada-assets/mae_brasileira_filtro_barro_2.jpg" alt="Mãe e filho felizes estudando matemática" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <div class="gallery-card-body" style="padding: 20px;">
-          <span style="font-size: 11px; font-weight: 800; background: #E0E7FF; color: #3730A3; padding: 4px 12px; border-radius: 999px; text-transform: uppercase;">Paz na Rotina</span>
-          <h4 style="font-size: 18px; margin: 8px 0 4px; color: var(--ink-title);">Fim das Brigas na Lição de Casa</h4>
-          <p style="font-size: 14px; color: var(--ink-body); line-height: 1.45;">Em vez de choro e cobrança, a hora da matemática se transforma em um momento de parceria e celebração.</p>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Bloco de Vídeo Demonstrativo -->
-    <div class="video-demo-box">
-      <span style="font-size: 12px; font-weight: 800; background: #FEF3C7; color: #92400E; padding: 4px 14px; border-radius: 999px; text-transform: uppercase;">
-        🎬 Demonstração em Vídeo
-      </span>
-      <h3 style="font-size: 24px; color: var(--ink-title); margin: 10px 0 6px; font-family: 'Fredoka', cursive, sans-serif;">
-        Veja a Aventura dos Heróis em 15 Segundos!
-      </h3>
-      <p style="font-size: 14px; color: var(--ink-body); max-width: 540px; margin: 0 auto 16px;">
-        Dê o play abaixo e veja uma prévia animada da jornada que vai destravar o raciocínio matemático do seu filho:
-      </p>
-      
-      <video class="video-demo-player" controls playsinline preload="metadata" poster="tabuada-assets/frame_promocional.jpg">
-        <source src="tabuada-assets/video_demonstrativo.mp4" type="video/mp4">
-        Seu navegador não suporta a reprodução deste vídeo.
-      </video>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- ======================================================== -->
-<!-- 6.5 FAMÍLIAS NA PRÁTICA (UGC & RESULTADOS REAIS)         -->
-<!-- ======================================================== -->
-<section class="ugc-section" id="familias" style="background: #FFFFFF; padding: 60px 0;">
-  <div class="container">
-    
-    <div class="section-header">
-      <div class="badge-tag">
-        <span>⭐ Avaliações Verificadas</span>
-      </div>
-      <h2 class="section-title">O que dizem as mães e educadores</h2>
-      <p class="section-subtitle">
-        Mais de 3.400 famílias já destravaram a tabuada sem lágrimas e sem brigas na lição de casa:
-      </p>
-    </div>
-
-    <div class="ugc-grid-4">
-      
-      <!-- Avaliação 1: Foto Real de Criança com a Ficha -->
-      <div class="ugc-card" style="border: 2px solid #E2E8F0; border-radius: 18px; overflow: hidden; background: #F8FAFC;">
-        <div class="ugc-img-wrap" style="position: relative;">
-          <span class="ugc-tag-pill" style="position: absolute; top: 12px; left: 12px; z-index: 2; background: rgba(15,23,42,0.85); color: #FFF; font-size: 11px; padding: 4px 10px; border-radius: 999px;">⭐ 3º Ano do Fundamental</span>
-          <img src="tabuada-assets/crianca-segurando-ficha.jpg" alt="Aluno orgulhoso segurando a ficha concluída da Missão Tabuada" loading="lazy" style="width: 100%; height: 190px; object-fit: cover;">
-        </div>
-        <div class="ugc-card-body" style="padding: 18px;">
-          <div style="color: #F59E0B; font-size: 16px; margin-bottom: 6px;">★★★★★</div>
-          <h4 style="font-size: 16px; color: var(--ink-title); margin-bottom: 6px;">“O choro acabou na primeira semana!”</h4>
-          <p style="font-size: 13.5px; color: var(--ink-body); line-height: 1.45;">“Meu filho Pedro travava toda vez que chegava no 7 e no 8. O cronômetro de 15 minutos virou uma diversão em vez de castigo. Ele mesmo me pede para fazer as fichas!”</p>
-          <div style="margin-top: 10px; font-size: 12.5px; font-weight: 800; color: var(--blue-hero);">— Mariana S. • Belo Horizonte / MG</div>
-        </div>
-      </div>
-
-      <!-- Avaliação 2: Depoimento de Economia vs Professor Particular -->
-      <div class="ugc-card" style="border: 2px solid #E2E8F0; border-radius: 18px; padding: 22px; background: #F8FAFC; display: flex; flex-direction: column; justify-content: space-between;">
-        <div>
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-            <span style="font-size: 11px; font-weight: 800; background: #DCFCE7; color: #166534; padding: 3px 8px; border-radius: 6px;">✓ Compra Confirmada</span>
-            <div style="color: #F59E0B; font-size: 16px;">★★★★★</div>
-          </div>
-          <h4 style="font-size: 16px; color: var(--ink-title); margin-bottom: 8px;">“Economizei mais de R$ 1.000 em reforço”</h4>
-          <p style="font-size: 13.5px; color: var(--ink-body); line-height: 1.45;">“Já estava cotando professor particular a R$ 160 por mês porque meu filho não acompanhava a turma. Esse kit de 10 reais destravou em 2 semanas o que a escola não conseguiu no semestre todo.”</p>
-        </div>
-        <div style="margin-top: 14px; font-size: 12.5px; font-weight: 800; color: var(--blue-hero);">— Carla Dias • Mãe do Enzo (8 anos)</div>
-      </div>
-
-      <!-- Avaliação 3: Recomendação Pedagógica -->
-      <div class="ugc-card" style="border: 2px solid #E2E8F0; border-radius: 18px; padding: 22px; background: #F8FAFC; display: flex; flex-direction: column; justify-content: space-between;">
-        <div>
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-            <span style="font-size: 11px; font-weight: 800; background: #E0E7FF; color: #3730A3; padding: 3px 8px; border-radius: 6px;">👩‍🏫 Pedagoga</span>
-            <div style="color: #F59E0B; font-size: 16px;">★★★★★</div>
-          </div>
-          <h4 style="font-size: 16px; color: var(--ink-title); margin-bottom: 8px;">“Excelente didática progressiva”</h4>
-          <p style="font-size: 13.5px; color: var(--ink-body); line-height: 1.45;">“Como professora de anos iniciais, amei a divisão dos 3 micro-passos. O cérebro infantil aprende por matrizes visuais e não por tabelas estáticas. Recomendo para todos os pais da minha turma.”</p>
-        </div>
-        <div style="margin-top: 14px; font-size: 12.5px; font-weight: 800; color: var(--blue-hero);">— Profa. Fernanda S. • São Paulo / SP</div>
-      </div>
-
-      <!-- Avaliação 4: Jogos e Celular -->
-      <div class="ugc-card" style="border: 2px solid #E2E8F0; border-radius: 18px; padding: 22px; background: #F8FAFC; display: flex; flex-direction: column; justify-content: space-between;">
-        <div>
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-            <span style="font-size: 11px; font-weight: 800; background: #FEF3C7; color: #92400E; padding: 3px 8px; border-radius: 6px;">🎲 Jogos no Papel</span>
-            <div style="color: #F59E0B; font-size: 16px;">★★★★★</div>
-          </div>
-          <h4 style="font-size: 16px; color: var(--ink-title); margin-bottom: 8px;">“Tirou minha filha do tablet no fim de semana”</h4>
-          <p style="font-size: 13.5px; color: var(--ink-body); line-height: 1.45;">“Imprimi o jogo de tabuleiro e o dominó numa folha mais durinha. Agora a gente senta depois do almoço de domingo e joga em família. Ela aprende brincando de verdade sem nem perceber.”</p>
-        </div>
-        <div style="margin-top: 14px; font-size: 12.5px; font-weight: 800; color: var(--blue-hero);">— Carlos Eduardo • Pai da Clara (7 anos)</div>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- ======================================================== -->
-<!-- 7. OFERTAS — SEÇÃO MAIS IMPORTANTE (LADO A LADO)         -->
-<!-- ======================================================== -->
-<section class="offers-section" id="ofertas">
-  <div class="container">
-    
-    <div class="section-header">
-      <div class="badge-tag" style="background: var(--yellow-hero); color: #452600;">
-        <span>Missões Disponíveis</span>
-      </div>
-      <h2 class="section-title" style="color: #FFFFFF;">ESCOLHA SUA MISSÃO</h2>
-      <p class="section-subtitle" style="color: #E2D4F0;">
-        Arquivos digitais em PDF com acesso para imprimir quantas vezes quiser:
-      </p>
-    </div>
-
-    <div class="offers-dual-grid">
-      
-      <!-- CARD 1: MISSÃO TABUADA (R$ 10,00) -->
-      <div class="card-offer-basic">
-        <div class="offer-cover-mini">
-          <img loading="lazy" decoding="async" src="tabuada-assets/conteudo-6.png" alt="Livro da Missão Tabuada — Volume 1">
-        </div>
-
-        <h3>Missão Tabuada</h3>
-        <p class="offer-sub">O primeiro passo para dominar a multiplicação do 1 ao 10!</p>
-
-        <ul class="offer-bullets-list">
-          <li><span class="b-check">✓</span> <span><strong>Livro Principal Ilustrado</strong> (43 Páginas em PDF).</span></li>
-          <li><span class="b-check">✓</span> <span>Missões de multiplicação completas do 1 ao 10.</span></li>
-          <li><span class="b-check">✓</span> <span>Manual do Guardião: Guia prático para pais.</span></li>
-          <li><span class="b-check">✓</span> <span>Gabarito Oficial ilustrado de todas as missões.</span></li>
-          <li><span class="b-check">✓</span> <span>Certificado Oficial de Herói da Matemática.</span></li>
-          <li><span class="b-check">✓</span> <span>Download imediato pronto para imprimir em A4.</span></li>
-        </ul>
-
-        <div class="offer-price-block">
-          <div class="offer-price-row">
-            <span class="cur">R$</span>
-            <span class="val">10</span>
-            <span class="cen">,00</span>
-          </div>
-          <div class="offer-period-note">Pagamento único • Arquivos digitais em PDF</div>
-
-          <button class="btn-hero btn-blue" style="width: 100%;" onclick="handleCheckout('basic')">
-            QUERO A MISSÃO TABUADA POR R$ 10 →
+          <button type="button" class="btn-hero btn-yellow" style="width: 100%;" onclick="handleCheckout('premium')">
+            QUERO LIGA DOS HERÓIS (R$ 27) →
           </button>
         </div>
       </div>
-
-      <!-- CARD 2: LIGA DOS HERÓIS DA MATEMÁTICA (R$ 27,00) — DESTAQUE MÁXIMO -->
-      <div class="card-offer-premium">
-        
-        <!-- Selo Flutuante -->
-        <div class="floating-hero-pill">
-          <span>⚡ JORNADA COMPLETA</span>
-        </div>
-
-        <!-- Mascote Voando no Canto do Card -->
-        <div class="card-mascot-flying hero-flying-girl">
-          <img loading="lazy" decoding="async" src="tabuada-assets/heroi-menina-voando.png" alt="Heroína da Liga Voando">
-        </div>
-
-        <div class="offer-cover-mini">
-          <img loading="lazy" decoding="async" src="tabuada-assets/conteudo-7.png" alt="Livro Oficial da Liga dos Heróis da Matemática — Volume 2">
-        </div>
-
-        <h3>LIGA DOS HERÓIS COMBO COMPLETO</h3>
-        <p class="offer-sub">TODOS OS 6 CADERNOS + JOGOS + APLICATIVO WEB!</p>
-
-        <div class="more-content-highlight">
-          ⭐ LEVE TODOS OS BÔNUS + APP POR APENAS R$ 17 A MAIS!
-        </div>
-
-        <p style="font-size: 13.5px; font-weight: 800; color: var(--purple-hero); margin-bottom: 8px;">
-          Tudo do Plano Básico incluído + 5 Bônus Exclusivos + WebApp:
-        </p>
-
-        <ul class="premium-bullets-list">
-          <li><span class="b-star">★</span> <span><strong>Tudo do Plano Básico incluído</strong> (Livro 43 págs + Gabarito + Certificado).</span></li>
-          <li><span class="b-star">★</span> <span><strong>Cronograma Mestre de 12 Semanas</strong> (Roteiro passo a passo de 15 min).</span></li>
-          <li><span class="b-star">★</span> <span><strong>Caderno de 20 Fichas Diárias</strong> de treino rápido destacáveis.</span></li>
-          <li><span class="b-star">★</span> <span><strong>Caderno de Pintura</strong> por Multiplicação (Color by Number).</span></li>
-          <li><span class="b-star">★</span> <span><strong>Kit Jogos de Tabuleiro:</strong> Trilha dos Heróis, Dominó e Bingo para recortar.</span></li>
-          <li><span class="b-star">★</span> <span><strong>Desafios Semanais</strong> de acompanhamento e evolução escolar.</span></li>
-          <li><span class="b-star">★</span> <span><mark style="background:#FEF08A;color:#854D0E;padding:2px 6px;border-radius:4px;font-weight:900;">SUPER BÔNUS:</mark> <strong>Acesso ao Aplicativo Interativo Web (Estilo Duolingo no celular)!</strong></span></li>
-        </ul>
-
-        <div class="price-premium-box">
-          <div class="price-premium-big">
-            <span class="c">R$</span>
-            <span class="v">27</span>
-            <span class="d">,00</span>
-          </div>
-          <div style="font-size: 12.5px; color: #7A4F00; font-weight: 700; margin-top: 2px;">
-            Pagamento único • Arquivos digitais em PDF
-          </div>
-        </div>
-
-        <button class="btn-hero btn-yellow pulse-hero" style="width: 100%; font-size: 1.15rem;" onclick="handleCheckout('premium')">
-          QUERO ENTRAR NA LIGA DOS HERÓIS POR R$ 27 →
-        </button>
-
-      </div>
-
     </div>
+  </section>
 
-  </div>
-</section>
-
-<!-- ======================================================== -->
-<!-- 8. GARANTIA — FAIXA HORIZONTAL COMPACTA                  -->
-<!-- ======================================================== -->
-<section class="section section-white">
-  <div class="container">
-    <div class="guarantee-strip">
-      <div class="guarantee-icon-wrap">
-        <span class="g-num">7</span>
-        <span class="g-txt">Dias</span>
+  <!-- DOBRA 5: COMO COMPRAR, REEMBOLSO, SUPORTE E FAQ -->
+  <section class="section section-creme" id="duvidas">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-tag">Compra e Acesso</div>
+        <h2 class="section-title">Como comprar, acessar e pedir suporte</h2>
       </div>
-      <div class="guarantee-content">
-        <h3>Uma semana para conhecer o material — Garantia de 7 dias</h3>
-        <p>
-          Você tem 7 dias para conhecer os materiais e avaliar se atendem às necessidades da sua rotina de estudos. Consulte as condições de reembolso no momento da compra.
-        </p>
+
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h4>Escolha e pague na GGCheckout</h4>
+          <p style="font-size: 13.5px;">Selecione o plano (R$ 10 ou R$ 27), preencha seu nome e WhatsApp e pague via PIX ou Cartão.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h4>Acesso imediato após confirmação</h4>
+          <p style="font-size: 13.5px;">Pagamentos aprovados redirecionam para os links de download dos PDFs e acesso ao WebApp (além do e-mail).</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h4>Imprima no ritmo da família</h4>
+          <p style="font-size: 13.5px;">Baixe no celular ou computador e imprima apenas as páginas necessárias da semana.</p>
+        </div>
+      </div>
+
+      <div class="guarantee-box">
+        <div>
+          <h3 style="font-size: 20px; color: var(--ink-title); margin-bottom: 4px;">🛡️ Garantia de 7 dias e Suporte aos Pais</h3>
+          <p style="font-size: 14px;">Você tem 7 dias após a compra para avaliar os materiais. Solicitações de reembolso e suporte técnico são atendidas conforme as condições informadas no checkout e pelo nosso WhatsApp oficial.</p>
+        </div>
+        <a href="https://wa.me/5521993923582?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20os%20Her%C3%B3is%20da%20Multiplica%C3%A7%C3%A3o." target="_blank" rel="noopener noreferrer" class="btn-hero btn-blue btn-sm">
+          💬 Falar no WhatsApp: (21) 99392-3582
+        </a>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>O material chega pelos Correios ou é digital?</summary>
+          <p>100% digital. Você baixa os arquivos em PDF (prontos para imprimir em papel A4) e, no plano Liga dos Heróis (R$ 27), também acessa o WebApp direto pelo navegador.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Qual a diferença entre R$ 10 e R$ 27?</summary>
+          <p>O plano Missão Tabuada (R$ 10) traz o Livro Ilustrado principal de 43 páginas (tabuada 1 a 10, manual dos pais, gabarito e certificado). O Combo Liga dos Heróis (R$ 27) inclui o livro principal mais 5 cadernos extras em PDF (Cronograma de 12 Semanas, Fichas Diárias, Caderno de Pintura, Jogos de Tabuleiro/Dominó/Bingo e Desafios Semanais) e o WebApp Interativo.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Como funciona o reembolso?</summary>
+          <p>A compra tem garantia de 7 dias conforme regras exibidas no checkout. Caso precise de ajuda, basta contatar o suporte pelo WhatsApp (21) 99392-3582 ou solicitar pelos canais do pedido.</p>
+        </details>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ======================================================== -->
-<!-- 9. PERGUNTAS FREQUENTES (FAQ COM RESPOSTAS FECHADAS)     -->
-<!-- ======================================================== -->
-<section class="section section-creme" id="duvidas">
-  <div class="container">
-    
-    <div class="section-header">
-      <div class="badge-tag">
-        <span>Tire Suas Dúvidas</span>
-      </div>
-      <h2 class="section-title">Perguntas frequentes</h2>
-      <p class="section-subtitle">
-        Respostas sobre o formato, envio e utilização dos materiais:
-      </p>
+  <footer>
+    <p>© 2026 Heróis da Multiplicação • Material pedagógico digital em PDF e WebApp educacional.</p>
+  </footer>
+
+  <div class="mobile-sticky-bar">
+    <div style="line-height: 1.2;">
+      <strong style="font-size: 13.5px; color: var(--ink-title); display: block;">Revisão de Fim de Ano</strong>
+      <span style="font-size: 12px; color: var(--ink-muted); font-weight: 700;">Planos de R$ 10 e R$ 27</span>
     </div>
-
-    <div class="faq-container">
-      
-      <details class="faq-item">
-        <summary class="faq-quest">O material é físico ou digital?</summary>
-        <div class="faq-ans">
-          Todo o material é digital, em formato PDF de alta qualidade, preparado para você imprimir em qualquer impressora.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-quest">Qual a diferença entre as duas ofertas?</summary>
-        <div class="faq-ans">
-          A Missão Tabuada (R$ 10) entrega o Livro Principal Ilustrado de 43 páginas com gabarito e certificado. A Liga dos Heróis Combo Completo (R$ 27) inclui todo o livro principal e acrescenta os 5 cadernos bônus (jogos de tabuleiro, dominó, cronograma de 12 semanas, caderno de pintura e fichas diárias) MAIS o acesso ao aplicativo web interativo estilo Duolingo para a criança praticar no celular e tablet!
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-quest">Preciso imprimir tudo de uma vez?</summary>
-        <div class="faq-ans">
-          Não. Você pode imprimir as páginas de acordo com a rotina de estudos e a necessidade da criança.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-quest">Para qual faixa escolar é indicado?</summary>
-        <div class="faq-ans">
-          O material foi pensado para crianças do Ensino Fundamental I, especialmente para introdução e reforço das operações matemáticas.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-quest">Como recebo os arquivos?</summary>
-        <div class="faq-ans">
-          Após a confirmação do pagamento, siga as instruções de acesso e recebimento apresentadas na finalização da compra para baixar imediatamente.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-quest">Posso pedir reembolso?</summary>
-        <div class="faq-ans">
-          A compra conta com garantia de 7 dias, conforme as condições apresentadas no checkout.
-        </div>
-      </details>
-
-    </div>
-
+    <a href="#ofertas" class="btn-hero btn-red btn-sm" style="width: auto;">ESCOLHER PLANO →</a>
   </div>
-</section>
 
-<!-- ======================================================== -->
-<!-- 10. CTA FINAL — FAIXA ROXA COM HERÓIS VOANDO             -->
-<!-- ======================================================== -->
-<section class="section" style="background: var(--creme-bg);">
-  <div class="container">
-    
-    <div class="cta-final-box">
-      <!-- Heróis Voando nas Laterais do CTA Final -->
-      <div class="cta-hero-flying-left hero-flying-boy">
-        <img loading="lazy" decoding="async" src="tabuada-assets/heroi-menino-transparente.png" alt="Herói Menino com X Dourado">
-      </div>
-      <div class="cta-hero-flying-right hero-flying-girl">
-        <img loading="lazy" decoding="async" src="tabuada-assets/heroi-menina-voando.png" alt="Heroína Menina Voando com a Folha">
-      </div>
+  <script>
+    const CHECKOUT_BASIC_URL = "https://ggcheckout.app/checkout/X7MW1ajXduVAyxH95jw6lT";
+    const CHECKOUT_PREMIUM_URL = "https://ggcheckout.app/checkout/buJIuO7Th5tjHRGQB8dIQ8";
 
-      <h2>Sua próxima missão começa aqui!</h2>
-      <p>Transforme a prática da matemática em uma grande aventura de aprendizado leve e divertida.</p>
-
-      <div class="cta-final-buttons">
-        <button class="btn-hero btn-red" onclick="handleCheckout('basic')">
-          QUERO A MISSÃO TABUADA POR R$ 10 →
-        </button>
-        <button class="btn-hero btn-yellow pulse-hero" onclick="handleCheckout('premium')">
-          QUERO A LIGA DOS HERÓIS DA MATEMÁTICA POR R$ 27 →
-        </button>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- RODAPÉ INSTITUCIONAL -->
-<footer class="footer">
-  <div class="container">
-    <p>© Heróis da Multiplicação. Todos os direitos reservados.</p>
-    <p style="margin-top: 6px; font-size: 12px; color: var(--ink-muted);">
-      Material pedagógico digital em formato PDF para suporte educacional e familiar.
-    </p>
-  </div>
-</footer>
-
-<!-- BARRA FIXA FLUTUANTE NO MOBILE -->
-<div class="mobile-sticky-bar">
-  <div class="mobile-sticky-info">
-    <span class="mobile-sticky-title">Heróis da Multiplicação</span>
-    <span class="mobile-sticky-price">Planos a partir de R$ 10,00</span>
-  </div>
-  <a href="#ofertas" class="mobile-sticky-btn">
-    ESCOLHER MISSÃO →
-  </a>
-</div>
-
-<!-- ======================================================== -->
-<!-- CONFIGURAÇÃO CENTRALIZADA DE PAGAMENTOS (GG CHECKOUT)     -->
-<!-- ======================================================== -->
-<script>
-  // ====================================================================
-  // LINKS OFICIAIS DE CHECKOUT (GG CHECKOUT / ABACATEPAY)
-  // Cole abaixo as URLs geradas no seu painel ggCheckout:
-  // Exemplo: "https://app.ggcheckout.com/c/tabuada-10"
-  // ====================================================================
-  const CHECKOUT_BASIC_URL = "https://ggcheckout.app/checkout/X7MW1ajXduVAyxH95jw6lT";
-  const CHECKOUT_PREMIUM_URL = "https://ggcheckout.app/checkout/buJIuO7Th5tjHRGQB8dIQ8";
-
-  /**
-   * Preserva automaticamente parâmetros de rastreamento (UTMs, SRC, fbclid)
-   * da landing page para o checkout da GG Checkout, garantindo atribuição no tráfego pago.
-   */
-  function buildCheckoutUrl(baseUrl) {
-    if (!window.location.search) return baseUrl;
-    try {
-      const url = new URL(baseUrl, window.location.origin);
-      const incomingParams = new URLSearchParams(window.location.search);
-      for (const [key, value] of incomingParams.entries()) {
-        url.searchParams.set(key, value);
-      }
-      return url.toString();
-    } catch (e) {
-      const sep = baseUrl.includes('?') ? '&' : '?';
-      return baseUrl + sep + window.location.search.substring(1);
+    function readCookie(name) {
+      const m = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : '';
     }
-  }
 
-  /**
-   * Redireciona o usuário para o checkout do ggCheckout correspondente.
-   * @param {('basic'|'premium')} plan Tipo do plano selecionado.
-   */
-  // ====================================================================
-  // MOTOR DE PERSISTÊNCIA DE UTMS (ANTI-PERDA DE DADOS NO META ADS)
-  // ====================================================================
-  (function initUtmTracker() {
-    try {
-      const currentParams = new URLSearchParams(window.location.search);
-      const trackingKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck', 'fbclid', 'gclid', 'ttclid'];
-      const stored = JSON.parse(localStorage.getItem('herois_tracking_params') || '{}');
-
-      trackingKeys.forEach(key => {
-        if (currentParams.has(key)) {
-          stored[key] = currentParams.get(key);
-        }
-      });
-
-      localStorage.setItem('herois_tracking_params', JSON.stringify(stored));
-    } catch (e) {
-      console.warn('UTM Tracker local storage note:', e);
-    }
-  })();
-
-  function buildCheckoutUrl(baseUrl) {
-    try {
-      const url = new URL(baseUrl, window.location.origin);
-      const incomingParams = new URLSearchParams(window.location.search);
-      const storedParams = JSON.parse(localStorage.getItem('herois_tracking_params') || '{}');
-
-      // 1. Aplica parâmetros persistidos do localStorage
-      for (const [key, value] of Object.entries(storedParams)) {
-        if (value) url.searchParams.set(key, value);
-      }
-
-      // 2. Parâmetros da URL atual têm precedência
-      for (const [key, value] of incomingParams.entries()) {
-        url.searchParams.set(key, value);
-      }
-
-      return url.toString();
-    } catch (e) {
-      return baseUrl;
-    }
-  }
-
-  function handleCheckout(plan) {
-    const isPremium = (plan === 'premium');
-    const rawUrl = isPremium ? CHECKOUT_PREMIUM_URL : CHECKOUT_BASIC_URL;
-
-    // Dispara evento de InitiateCheckout no Meta Pixel se configurado
-    if (typeof window.fbq === 'function') {
+    (function initUtms() {
       try {
-        window.fbq('track', 'InitiateCheckout', {
-          content_name: isPremium ? 'Liga dos Heróis da Matemática' : 'Missão Tabuada',
-          content_ids: [isPremium ? 'liga-27' : 'tabuada-10'],
-          content_type: 'product',
-          value: isPremium ? 27.00 : 10.00,
-          currency: 'BRL'
+        const params = new URLSearchParams(window.location.search);
+        const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck', 'fbclid'];
+        const saved = JSON.parse(localStorage.getItem('herois_tracking_params') || '{}');
+        keys.forEach(k => { if (params.has(k)) saved[k] = params.get(k); });
+        localStorage.setItem('herois_tracking_params', JSON.stringify(saved));
+      } catch (e) {}
+    })();
+
+    function sendServerEvent(eventName, eventId, customData) {
+      try {
+        const saved = JSON.parse(localStorage.getItem('herois_tracking_params') || '{}');
+        const cur = new URLSearchParams(window.location.search);
+        const payload = JSON.stringify({
+          eventName: eventName,
+          eventId: eventId,
+          eventSourceUrl: window.location.href,
+          fbp: readCookie('_fbp'),
+          fbc: readCookie('_fbc'),
+          fbclid: cur.get('fbclid') || saved.fbclid || '',
+          customData: customData || {}
         });
-      } catch (err) {
-        console.warn('Pixel tracking notice:', err);
+        if (navigator.sendBeacon) {
+          const blob = new Blob([payload], { type: 'application/json' });
+          if (navigator.sendBeacon('/api/meta-capi', blob)) return;
+        }
+        fetch('/api/meta-capi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+          keepalive: true
+        }).catch(function () {});
+      } catch (e) {}
+    }
+
+    // Aguarda curto intervalo para o _fbp do Meta Pixel existir antes do envio CAPI de PageView e ViewContent
+    setTimeout(function () {
+      sendServerEvent('PageView', window.__META_PV_ID, {});
+      sendServerEvent('ViewContent', window.__META_VC_ID, {
+        content_name: 'Heróis da Multiplicação — Revisão de Fim de Ano',
+        content_category: 'Material Pedagógico Infantil',
+        content_ids: ['liga-27', 'tabuada-10'],
+        content_type: 'product',
+        value: 27.00,
+        currency: 'BRL'
+      });
+    }, 800);
+
+    function buildCheckoutUrl(base) {
+      try {
+        const url = new URL(base);
+        const saved = JSON.parse(localStorage.getItem('herois_tracking_params') || '{}');
+        const current = new URLSearchParams(window.location.search);
+        Object.entries(saved).forEach(([k, v]) => { if (v) url.searchParams.set(k, v); });
+        current.forEach((v, k) => url.searchParams.set(k, v));
+        return url.toString();
+      } catch (e) {
+        return base;
       }
     }
 
-    if (rawUrl && !rawUrl.startsWith("INSERIR_LINK_")) {
-      const finalUrl = buildCheckoutUrl(rawUrl);
-      window.location.href = finalUrl;
-    } else {
-      const planName = isPremium 
-        ? "Liga dos Heróis da Matemática (R$ 27,00)" 
-        : "Missão Tabuada (R$ 10,00)";
+    function handleCheckout(plan) {
+      const isPremium = plan === 'premium';
+      const targetUrl = buildCheckoutUrl(isPremium ? CHECKOUT_PREMIUM_URL : CHECKOUT_BASIC_URL);
+      const icEventId = 'ic_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+      const icData = {
+        content_name: isPremium ? 'Liga dos Heróis da Matemática' : 'Missão Tabuada',
+        content_ids: [isPremium ? 'liga-27' : 'tabuada-10'],
+        content_type: 'product',
+        value: isPremium ? 27.00 : 10.00,
+        currency: 'BRL'
+      };
 
-      alert("⚙️ Checkout:\n\n" + planName);
-    }
-  }
-</script>
-
-
-<!-- Script Interativo: Simulador Duolingo 360, Áudio WebAudio e Confetti -->
-<script>
-  // 1. Alternador de Abas 360
-  function switch360Tab(tab) {
-    const btnPapel = document.getElementById('btn-tab-papel');
-    const btnApp = document.getElementById('btn-tab-app');
-    const contentPapel = document.getElementById('tab-content-papel');
-    const contentApp = document.getElementById('tab-content-app');
-
-    if (tab === 'papel') {
-      btnPapel.classList.add('active');
-      btnApp.classList.remove('active');
-      contentPapel.classList.add('active');
-      contentApp.classList.remove('active');
-    } else {
-      btnApp.classList.add('active');
-      btnPapel.classList.remove('active');
-      contentApp.classList.add('active');
-      contentPapel.classList.remove('active');
-    }
-  }
-
-  // 2. Simulador Interativo estilo Duolingo
-  const simQuestions = [
-    {
-      q: "7 × 8 = ?",
-      label: "Nível 1 • Batalha da Tabuada",
-      speech: "“Missão dos Heróis! Resolva a conta abaixo para ganhar +10 XP!”",
-      options: [48, 56, 64, 54],
-      correct: 56,
-      hint: "Quase lá! Lembre-se: 7 × 7 = 49... some mais 7!"
-    },
-    {
-      q: "9 × 6 = ?",
-      label: "Nível 2 • Truque dos Dedos",
-      speech: "“Incrível! Vamos para o próximo desafio do Léo!”",
-      options: [54, 45, 63, 56],
-      correct: 54,
-      hint: "Dica do Léo: 10 × 6 = 60, menos 6 fica 54!"
-    },
-    {
-      q: "8 × 8 = ?",
-      label: "Nível 3 • Escudo do Dragão",
-      speech: "“Uau! Essa conta costuma assustar, mas você consegue!”",
-      options: [56, 62, 64, 72],
-      correct: 64,
-      hint: "Dica: 8 × 7 = 56... com mais 8 chegamos em 64!"
-    },
-    {
-      q: "6 × 7 = ?",
-      label: "Nível 4 • Desafio Lendário",
-      speech: "“Última missão para liberar o Certificado Oficial!”",
-      options: [36, 42, 48, 40],
-      correct: 42,
-      hint: "Pense em 6 × 6 = 36, mais 6 = 42!"
-    }
-  ];
-
-  let curSimIdx = 0;
-  let simXpTotal = 85;
-  let simHeartsCount = 3;
-
-  // Web Audio API Synthesizer (Zero dependências externas)
-  let audioCtx = null;
-  function getAudioCtx() {
-    if (!audioCtx) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (AudioContext) audioCtx = new AudioContext();
-    }
-    if (audioCtx && audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-    return audioCtx;
-  }
-
-  function playSuccessSound() {
-    try {
-      const ctx = getAudioCtx();
-      if (!ctx) return;
-      const now = ctx.currentTime;
-      // Tríade maior animada (C5 -> E5 -> G5 -> C6)
-      const freqs = [523.25, 659.25, 783.99, 1046.50];
-      freqs.forEach((f, i) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(f, now + i * 0.08);
-        gain.gain.setValueAtTime(0.18, now + i * 0.08);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.25);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now + i * 0.08);
-        osc.stop(now + i * 0.08 + 0.3);
-      });
-    } catch(e) {}
-  }
-
-  function playWrongSound() {
-    try {
-      const ctx = getAudioCtx();
-      if (!ctx) return;
-      const now = ctx.currentTime;
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(220, now);
-      osc.frequency.exponentialRampToValueAtTime(140, now + 0.2);
-      gain.gain.setValueAtTime(0.15, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(now);
-      osc.stop(now + 0.22);
-    } catch(e) {}
-  }
-
-  // Confetti Particle System no Canvas
-  function fireSimConfetti() {
-    const canvas = document.getElementById('simConfettiCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    canvas.width = canvas.parentElement.clientWidth;
-    canvas.height = canvas.parentElement.clientHeight;
-
-    const colors = ['#22C55E', '#EAB308', '#3B82F6', '#EC4899', '#A855F7'];
-    const particles = [];
-    for (let i = 0; i < 40; i++) {
-      particles.push({
-        x: canvas.width / 2,
-        y: canvas.height * 0.4,
-        vx: (Math.random() - 0.5) * 8,
-        vy: (Math.random() - 0.8) * 8,
-        size: Math.random() * 6 + 4,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        rotation: Math.random() * 360,
-        alpha: 1
-      });
+      if (typeof window.fbq === 'function') {
+        try {
+          window.fbq('track', 'InitiateCheckout', icData, { eventID: icEventId });
+        } catch (e) {}
+      }
+      sendServerEvent('InitiateCheckout', icEventId, icData);
+      setTimeout(() => { window.location.href = targetUrl; }, 250);
     }
 
-    let frame = 0;
-    function anim() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.2; // gravidade
-        p.alpha -= 0.02;
-        ctx.save();
-        ctx.globalAlpha = Math.max(0, p.alpha);
-        ctx.fillStyle = p.color;
-        ctx.translate(p.x, p.y);
-        ctx.rotate((p.rotation * Math.PI) / 180);
-        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-        ctx.restore();
-      });
-      frame++;
-      if (frame < 50) {
-        requestAnimationFrame(anim);
+    const demoQuestions = [
+      { q: '7 × 8 = ?', opts: [48, 56, 64, 54], ok: 56 },
+      { q: '6 × 7 = ?', opts: [36, 40, 42, 48], ok: 42 },
+      { q: '9 × 6 = ?', opts: [52, 54, 56, 63], ok: 54 }
+    ];
+    let qIdx = 0, pts = 0;
+    function checkSim(ans, btn) {
+      const cur = demoQuestions[qIdx];
+      const fb = document.getElementById('simFeedback');
+      document.querySelectorAll('.sim-btn').forEach(b => b.classList.remove('ok', 'err'));
+      if (ans === cur.ok) {
+        btn.classList.add('ok');
+        pts += 10;
+        document.getElementById('simScore').textContent = pts + ' pts';
+        fb.textContent = 'Correto! Avançando para a próxima conta...';
+        fb.style.color = '#15803D';
+        setTimeout(() => {
+          qIdx = (qIdx + 1) % demoQuestions.length;
+          const nxt = demoQuestions[qIdx];
+          document.getElementById('simQuestion').textContent = nxt.q;
+          const box = document.getElementById('simOptions');
+          box.innerHTML = nxt.opts.map(o => `<button type="button" class="sim-btn" onclick="checkSim(${o}, this)">${o}</button>`).join('');
+          fb.textContent = 'Toque na resposta correta!';
+          fb.style.color = '#334155';
+        }, 900);
       } else {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        btn.classList.add('err');
+        fb.textContent = 'Tente novamente! Dica: confira os grupos de multiplicação.';
+        fb.style.color = '#B91C1C';
       }
     }
-    requestAnimationFrame(anim);
-  }
-
-  function checkSimAnswer(selectedVal, btn) {
-    const qData = simQuestions[curSimIdx];
-    const feedback = document.getElementById('simFeedback');
-    const speech = document.getElementById('simSpeech');
-    const nextBtn = document.getElementById('simNextBtn');
-    const allBtns = document.querySelectorAll('.sim-option-btn');
-
-    if (selectedVal === qData.correct) {
-      // Correto
-      playSuccessSound();
-      fireSimConfetti();
-      btn.classList.add('btn-correct');
-      allBtns.forEach(b => b.disabled = true);
-
-      simXpTotal += 10;
-      document.getElementById('simXpVal').innerText = simXpTotal;
-
-      feedback.className = 'sim-feedback-banner success';
-      feedback.innerHTML = '🎉 <strong>Sensacional! Resposta Certa! (+10 XP)</strong>';
-      speech.innerText = '“Parabéns, Herói! Você acertou em cheio e desbloqueou o próximo escudo!”';
-      nextBtn.style.display = 'block';
-    } else {
-      // Errado
-      playWrongSound();
-      btn.classList.add('btn-wrong');
-      setTimeout(() => btn.classList.remove('btn-wrong'), 400);
-
-      if (simHeartsCount > 1) {
-        simHeartsCount--;
-        document.getElementById('simHearts').innerText = '❤️'.repeat(simHeartsCount) + '🤍'.repeat(3 - simHeartsCount);
-      }
-
-      feedback.className = 'sim-feedback-banner error';
-      feedback.innerHTML = '❌ <strong>Quase! Tente mais uma vez!</strong>';
-      speech.innerText = '“' + qData.hint + '”';
-    }
-  }
-
-  function nextSimQuestion() {
-    curSimIdx = (curSimIdx + 1) % simQuestions.length;
-    const qData = simQuestions[curSimIdx];
-
-    document.getElementById('simLevelLabel').innerText = qData.label;
-    document.getElementById('simQuestionText').innerText = qData.q;
-    document.getElementById('simSpeech').innerText = qData.speech;
-    document.getElementById('simFeedback').className = 'sim-feedback-banner';
-    document.getElementById('simFeedback').style.display = 'none';
-    document.getElementById('simNextBtn').style.display = 'none';
-
-    const box = document.getElementById('simOptionsBox');
-    box.innerHTML = '';
-    qData.options.forEach(val => {
-      const btn = document.createElement('button');
-      btn.className = 'sim-option-btn';
-      btn.innerText = val;
-      btn.onclick = function() { checkSimAnswer(val, this); };
-      box.appendChild(btn);
-    });
-  }
-
-  // =========================================================================
-  // SISTEMA DE PROTEÇÃO ANTI-CLONAGEM & ANTI-SCRAPING (HERÓIS DA MULTIPLICAÇÃO)
-  // =========================================================================
-  (function() {
-    // 1. Desabilita menu de contexto (botão direito) em imagens e na página
-    document.addEventListener('contextmenu', function(e) {
-      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-        e.preventDefault();
-      }
-    }, false);
-
-    // 2. Bloqueia atalhos de desenvolvedor e visualização de código-fonte
-    document.addEventListener('keydown', function(e) {
-      // F12
-      if (e.keyCode === 123) {
-        e.preventDefault();
-        return false;
-      }
-      // Ctrl+Shift+I (Inspecionar), Ctrl+Shift+J (Console), Ctrl+Shift+C (Elemento)
-      if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
-        e.preventDefault();
-        return false;
-      }
-      // Ctrl+U (Ver código-fonte)
-      if (e.ctrlKey && e.keyCode === 85) {
-        e.preventDefault();
-        return false;
-      }
-      // Ctrl+S (Salvar página)
-      if (e.ctrlKey && e.keyCode === 83) {
-        e.preventDefault();
-        return false;
-      }
-    }, false);
-
-    // 3. Impede arrastar imagens para a área de trabalho
-    document.addEventListener('dragstart', function(e) {
-      if (e.target.tagName === 'IMG') {
-        e.preventDefault();
-      }
-    }, false);
-
-    // 4. Aviso de copyright nos logs do console
-    try {
-      console.log("%c⚡ HERÓIS DA MULTIPLICAÇÃO® — MATERIAL REGISTRADO", "color: #713D9D; font-size: 20px; font-weight: 800; padding: 10px;");
-      console.log("%cAVISO LEGAL: Todo o conteúdo desta página, metodologias pedagógicas, marca e aplicação interativa estão registrados e protegidos pela Lei de Direitos Autorais (Lei nº 9.610/1998). A clonagem, cópia ou distribuição não autorizada é passível de medidas judiciais imediatas.", "color: #bd2b24; font-size: 13px; font-weight: 600;");
-    } catch(err) {}
-  })();
-</script>
-
+  </script>
 </body>
 </html>

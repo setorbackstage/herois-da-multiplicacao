@@ -2,6 +2,7 @@ import React from 'react';
 import { CrownIcon, GemIcon, HeartIcon } from './HeroSvgs';
 
 export default function ShopView({
+  isVIP = false,
   onOpenVipGuardian,
   onBuyHearts,
   onAddGems,
@@ -39,7 +40,7 @@ export default function ShopView({
             onClick={onOpenVipGuardian}
             className="toy-btn relative z-10 px-5 py-3 rounded-2xl bg-duo-gold border-b-[5px] border-duo-goldDark text-amber-950 text-sm uppercase shrink-0"
           >
-            Liberar R$ 27,90
+            {isVIP ? '✓ Passe VIP Ativo' : 'Liberar R$ 27,00'}
           </button>
         </div>
 

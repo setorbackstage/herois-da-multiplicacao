@@ -4,10 +4,12 @@ import { HERO_TIPS } from './data/gameData';
 import {
   getHeroRankTitle,
   hasSavedSession,
+  hasVipAccessStorage,
   loadAppData,
   loadAudioPrefs,
   saveAppData,
   saveAudioPrefs,
+  setVipAccessStorage,
 } from './utils/storage';
 import {
   playChestSound,
@@ -74,9 +76,22 @@ export default function App() {
     saveAudioPrefs({ soundEnabled, persona: voicePersona });
   }, [soundEnabled, voicePersona]);
 
-  // Support URL query parameter deep linking
+  // Support URL query parameter deep linking & VIP unlock via post-purchase link
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    const vipToken = (params.get('vip') || '').toLowerCase();
+    if (vipToken === 'liga27' || vipToken === '1' || vipToken === 'true') {
+      setVipAccessStorage(true);
+      setAppData((prev) => {
+        const nextProfiles = { ...prev.profiles };
+        Object.keys(nextProfiles).forEach((id) => {
+          nextProfiles[id] = { ...nextProfiles[id], isVIP: true };
+        });
+        return { ...prev, profiles: nextProfiles };
+      });
+      showToast('👑', 'Passe VIP ativado!', 'Os 6 cadernos A4 estão liberados na aba Apostilas.');
+    }
+
     if (params.get('portal') === 'create') {
       setPortalModal({ open: true, tab: 'create' });
     } else if (params.get('portal') === 'select') {
@@ -93,7 +108,7 @@ export default function App() {
       if (!Number.isNaN(lvl)) setInitialPopoverLevel(lvl);
     } else if (params.get('view') === 'map') {
       // Explicit map view
-    } else if (!hasSavedSession()) {
+    } else if (!hasSavedSession() && !vipToken) {
       setPortalModal({ open: true, tab: 'select' });
     }
   }, []);
@@ -284,6 +299,8 @@ export default function App() {
     setPortalModal({ open: false, tab: 'select' });
     showToast('🚀', `Bem-vindo, ${name}!`, 'Sua jornada na Liga dos Heróis começou!');
   };
+
+  const isVipUnlocked = Boolean(hero?.isVIP || hasVipAccessStorage());
 
   const tipOfMoment = HERO_TIPS[(hero.unlockedLevel - 1) % HERO_TIPS.length];
   const masteryPct = Math.min(100, Math.round(((hero.unlockedLevel - 1) / 10) * 100));
@@ -496,13 +513,19 @@ export default function App() {
 
           {activeTab === 'shop' && (
             <ShopView
+              isVIP={isVipUnlocked}
               onOpenVipGuardian={() => setPortalModal({ open: true, tab: 'guardian' })}
               onBuyHearts={handleBuyHearts}
               onAddGems={handleAddGems}
             />
           )}
 
-          {activeTab === 'workbooks' && <WorkbooksView />}
+          {activeTab === 'workbooks' && (
+            <WorkbooksView
+              isVIP={isVipUnlocked}
+              onOpenUnlock={() => setPortalModal({ open: true, tab: 'guardian' })}
+            />
+          )}
         </main>
 
         {/* RIGHT STICKY WIDGET PANEL (Desktop >= lg) */}
@@ -682,15 +705,23 @@ export default function App() {
           setPortalModal({ open: false, tab: 'select' });
         }}
         onCreateHero={handleCreateHero}
-        onSyncGuardian={(email) => {
+        onSyncGuardian={(email, code) => {
+          const cleanCode = (code || '').trim().toUpperCase();
           if (!email) {
             playLockedSound();
-            showToast('✉️', 'Informe o e-mail', 'Digite um e-mail de responsável válido.');
+            showToast('✉️', 'Informe o e-mail', 'Digite o e-mail usado na compra.');
             return;
           }
+          if (cleanCode !== 'LIGA27') {
+            playLockedSound();
+            showToast('🔑', 'Código VIP inválido', 'Informe o código VIP recebido após a compra (ex: LIGA27) ou abra pelo link da página de acesso.');
+            return;
+          }
+          setVipAccessStorage(true);
+          updateActiveHero((curr) => ({ ...curr, isVIP: true }));
           playFanfareSound();
           setPortalModal({ open: false, tab: 'select' });
-          showToast('☁️', 'Conta sincronizada!', `Passe VIP vinculado a ${email}.`);
+          showToast('👑', 'Conta VIP ativada!', `Biblioteca liberada para ${email}.`);
         }}
       />
 

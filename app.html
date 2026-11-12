@@ -1775,7 +1775,7 @@
               <div class="shop-item-desc">Vidas Infinitas + 6 Apostilas A4 + Todas Fases</div>
             </div>
           </div>
-          <button class="btn-3d btn-3d-gold shop-buy-btn" onclick="openGuardianLoginTab()">R$ 27,90</button>
+          <button class="btn-3d btn-3d-gold shop-buy-btn" id="shop-vip-btn" onclick="openGuardianLoginTab()">R$ 27,00</button>
         </div>
 
         <!-- Refill Hearts -->
@@ -1848,7 +1848,17 @@
       <h2 class="screen-header-title">Biblioteca da Liga dos Heróis</h2>
       <p class="screen-header-desc">Materiais oficiais da franquia Heróis da Multiplicação para imprimir em A4!</p>
 
-      <div class="materials-grid">
+      <div id="workbooks-locked-gate" style="background: #FFF; border: 2px solid #DDD6FE; border-radius: 20px; padding: 24px; text-align: center; margin-bottom: 18px;">
+        <div style="font-size: 36px; margin-bottom: 8px;">🔒</div>
+        <h3 style="font-size: 20px; color: #1E293B; margin-bottom: 6px;">Biblioteca Exclusiva do Combo R$ 27,00</h3>
+        <p style="font-size: 13.5px; color: #64748B; margin-bottom: 16px;">Os 6 livros em PDF (A4) são liberados ao abrir pelo link da sua página de compra ou inserindo seu e-mail e código VIP (LIGA27).</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+          <button class="btn-3d btn-3d-purple" style="padding: 12px 18px; font-size: 13px;" onclick="openGuardianLoginTab()">🔑 JÁ COMPREI • LIBERAR VIP</button>
+          <a href="https://ggcheckout.app/checkout/buJIuO7Th5tjHRGQB8dIQ8?utm_source=app_html_workbooks" target="_blank" rel="noopener noreferrer" class="btn-3d btn-3d-gold" style="padding: 12px 18px; font-size: 13px; text-decoration: none;">⚡ ADQUIRIR COMBO (R$ 27,00)</a>
+        </div>
+      </div>
+
+      <div class="materials-grid" id="workbooks-unlocked-grid" style="display: none;">
         <!-- Material 1 -->
         <div class="material-card">
           <div class="material-icon-box">📅</div>
@@ -2261,12 +2271,12 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Senha de Acesso:</label>
-            <input type="password" id="guardian-password" class="form-input-lg" placeholder="••••••••">
+            <label class="form-label">Código de Acesso VIP:</label>
+            <input type="text" id="guardian-password" class="form-input-lg" placeholder="Ex: LIGA27 (recebido após a compra)" style="text-transform: uppercase;">
           </div>
 
           <button class="btn-3d btn-3d-purple" style="width: 100%; padding: 14px; font-size: 14px;" onclick="syncGuardianAccount()">
-            SINCRONIZAR CONTA VIP ☁️
+            ATIVAR ACESSO VIP ☁️
           </button>
         </div>
 
@@ -3421,14 +3431,38 @@
       renderMapTrail();
     }
 
+    function isVipUnlocked() {
+      const hero = getActiveHero();
+      return Boolean((hero && hero.isVIP) || localStorage.getItem('herois_vip_unlocked') === '1');
+    }
+
+    function applyVipUiState() {
+      const vip = isVipUnlocked();
+      const gate = document.getElementById('workbooks-locked-gate');
+      const grid = document.getElementById('workbooks-unlocked-grid');
+      const shopBtn = document.getElementById('shop-vip-btn');
+      if (gate) gate.style.display = vip ? 'none' : 'block';
+      if (grid) grid.style.display = vip ? 'grid' : 'none';
+      if (shopBtn) shopBtn.textContent = vip ? '✓ Passe VIP Ativo' : 'R$ 27,00';
+    }
+
     function syncGuardianAccount() {
       const email = document.getElementById('guardian-email').value.trim();
+      const code = (document.getElementById('guardian-password').value || '').trim().toUpperCase();
       if (!email) {
-        alert('Por favor, informe seu e-mail de responsável.');
+        alert('Por favor, informe o e-mail usado na compra.');
         return;
       }
+      if (code !== 'LIGA27') {
+        alert('Código VIP inválido. Informe o código recebido após a compra (ex: LIGA27) ou abra pelo link da página de acesso.');
+        return;
+      }
+      localStorage.setItem('herois_vip_unlocked', '1');
+      Object.values(appData.profiles).forEach(p => { p.isVIP = true; });
+      saveState();
+      applyVipUiState();
       playFanfareSound();
-      alert('☁️ Conta de ' + email + ' sincronizada com sucesso! Passe VIP e progresso salvos na nuvem.');
+      alert('👑 Acesso VIP liberado para ' + email + '! As apostilas foram desbloqueadas.');
       closePortalModal();
     }
 
@@ -3547,11 +3581,18 @@
 
     // --- INITIALIZATION ---
     loadState();
+    const urlParams = new URLSearchParams(window.location.search);
+    const vipTokenParam = (urlParams.get('vip') || '').toLowerCase();
+    if (vipTokenParam === 'liga27' || vipTokenParam === '1' || vipTokenParam === 'true') {
+      localStorage.setItem('herois_vip_unlocked', '1');
+      Object.values(appData.profiles).forEach(p => { p.isVIP = true; });
+      saveState();
+    }
+    applyVipUiState();
     renderTopHUD();
     renderMapTrail();
 
     // Query parameter routing for direct navigation & testing
-    const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('portal') === 'create') {
       openPortalModal('create');
     } else if (urlParams.get('portal') === 'select') {

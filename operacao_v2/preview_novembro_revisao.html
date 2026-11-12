@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heróis da Multiplicação — Revisão de Fim de Ano (Prévia V2)</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2683241518773685');
+  fbq('track', 'PageView');
+  fbq('track', 'ViewContent', {
+    content_name: 'Heróis da Multiplicação — Revisão de Fim de Ano',
+    content_category: 'Material Pedagógico Infantil',
+    content_ids: ['liga-27', 'tabuada-10'],
+    content_type: 'product',
+    value: 27.00,
+    currency: 'BRL'
+  }, { eventID: 'vc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7) });
+  </script>
+  <!-- End Meta Pixel Code -->
+
+  <style>
+    :root {
+      --purple-hero: #713D9D;
+      --purple-dark: #522675;
+      --purple-soft: #F5EEFB;
+      --blue-hero: #176DB3;
+      --blue-dark: #0F4E82;
+      --blue-soft: #E8F8FC;
+      --yellow-hero: #FFC928;
+      --yellow-dark: #D4A017;
+      --yellow-soft: #FFF9E6;
+      --red-hero: #E9433B;
+      --red-dark: #BD2B24;
+      --green-action: #16A34A;
+      --green-dark: #15803D;
+      --creme-bg: #FFF8E9;
+      --creme-alt: #FBF4E4;
+      --white: #FFFFFF;
+      --ink-title: #1B2A4A;
+      --ink-body: #334155;
+      --ink-muted: #64748B;
+      --border-soft: #E5DFD3;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --radius-pill: 999px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    html, body { overflow-x: hidden; width: 100%; max-width: 100vw; }
+    body {
+      background-color: var(--creme-bg);
+      color: var(--ink-body);
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.55;
+      padding-bottom: 72px;
+    }
+    h1, h2, h3, h4, .font-hero, .btn-hero {
+      font-family: 'Fredoka', 'Nunito', sans-serif;
+      letter-spacing: -0.01em;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 20px; width: 100%; }
+    .section { padding: 48px 0; }
+    .section-white { background: var(--white); border-top: 1px solid #EFE8DA; border-bottom: 1px solid #EFE8DA; }
+    .section-creme { background: var(--creme-bg); }
+    .section-alt { background: var(--creme-alt); border-top: 1px solid #EFE8DA; border-bottom: 1px solid #EFE8DA; }
+
+    /* Aviso exclusivo da prévia isolada */
+    .preview-notice {
+      background: #1B2A4A;
+      color: #F8FAFC;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-align: center;
+      padding: 8px 14px;
+    }
+
+    /* Faixa Sazonal Superior */
+    .season-bar {
+      background: linear-gradient(90deg, var(--purple-dark) 0%, var(--purple-hero) 100%);
+      color: #FFFFFF;
+      text-align: center;
+      padding: 9px 14px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .season-bar span { color: var(--yellow-hero); }
+
+    /* Header compacto */
+    .main-header {
+      background: var(--white);
+      border-bottom: 1px solid #EFE8DA;
+      padding: 10px 0;
+    }
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .header-logo { height: 46px; width: auto; }
+    .header-nav { display: flex; gap: 20px; }
+    .header-nav a {
+      text-decoration: none;
+      color: var(--ink-title);
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .header-nav a:hover { color: var(--purple-hero); }
+
+    /* Botões 3D consistentes */
+    .btn-hero {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 15px 24px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+      text-align: center;
+      line-height: 1.25;
+      width: auto;
+    }
+    .btn-hero:hover { transform: translateY(-2px); }
+    .btn-hero:active { transform: translateY(2px); }
+    .btn-red { background: var(--red-hero); color: #FFF; border-bottom: 4px solid var(--red-dark); box-shadow: 0 8px 18px rgba(233, 67, 59, 0.28); }
+    .btn-blue { background: var(--blue-hero); color: #FFF; border-bottom: 4px solid var(--blue-dark); box-shadow: 0 8px 18px rgba(23, 109, 179, 0.25); }
+    .btn-yellow { background: var(--yellow-hero); color: #381E00; border-bottom: 4px solid var(--yellow-dark); box-shadow: 0 8px 18px rgba(255, 201, 40, 0.35); }
+    .btn-sm { padding: 10px 18px; font-size: 0.92rem; border-radius: var(--radius-pill); }
+
+    /* Badge & Títulos */
+    .badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--yellow-hero);
+      color: #452600;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid #E5B21C;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .section-header { text-align: center; max-width: 720px; margin: 0 auto 30px; }
+    .section-title { font-size: 28px; color: var(--ink-title); line-height: 1.22; margin-bottom: 8px; }
+    .section-subtitle { font-size: 16px; color: var(--ink-body); font-weight: 600; }
+
+    /* 1. Hero Compacto */
+    .hero-section { padding: 28px 0 42px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .hero-content h1 {
+      font-size: clamp(26px, 3.6vw, 40px);
+      color: var(--ink-title);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .hero-highlight { color: var(--purple-hero); }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--ink-body);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .hero-trust-bullets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      margin-top: 14px;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--ink-title);
+    }
+    .hero-trust-bullets span { color: var(--green-action); }
+
+    .hero-visual-card {
+      background: var(--white);
+      border: 3px solid var(--yellow-hero);
+      border-bottom: 7px solid var(--yellow-dark);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      box-shadow: 0 14px 32px rgba(27, 42, 74, 0.1);
+    }
+    .hero-covers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .hero-covers-grid img {
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      width: 100%;
+    }
+    .hero-visual-caption {
+      margin-top: 10px;
+      background: var(--yellow-soft);
+      border-radius: 10px;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink-title);
+    }
+
+    /* 2. Clareza do Produto: Impresso vs WebApp + Como Usar */
+    .clarity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+    .clarity-card {
+      background: var(--creme-bg);
+      border: 2px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 22px;
+    }
+    .clarity-card.highlight-app { background: #F0FDF4; border-color: #BBF7D0; }
+    .clarity-pill {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 10px;
+    }
+    .pill-blue { background: var(--blue-soft); color: var(--blue-dark); }
+    .pill-green { background: #DCFCE7; color: #166534; }
+    .clarity-card h3 { font-size: 20px; color: var(--ink-title); margin-bottom: 8px; }
+    .clarity-card p { font-size: 14.5px; margin-bottom: 10px; }
+    .clarity-list { list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700; }
+
+    .usage-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .usage-box {
+      background: #F8FAFC;
+      border: 1.5px solid #E2E8F0;
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .usage-box h4 { font-size: 16px; color: var(--purple-dark); margin-bottom: 4px; }
+    .usage-box p { font-size: 13.5px; }
+
+    /* 3. Galeria de Páginas Reais + Simulador WebApp */
+    .samples-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+    .sample-card {
+      background: var(--white);
+      border: 2px solid #E2E8F0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .sample-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: contain;
+      background: #F8FAFC;
+      padding: 10px;
+    }
+    .sample-body { padding: 14px 16px; }
+    .sample-body h4 { font-size: 17px; color: var(--ink-title); margin-bottom: 4px; }
+    .sample-body p { font-size: 13.5px; }
+
+    .sim-box-wrap {
+      background: var(--white);
+      border: 2px solid #DCFCE7;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .phone-frame {
+      background: #F0FDF4;
+      border: 6px solid #1E293B;
+      border-radius: 26px;
+      padding: 16px;
+      max-width: 340px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .phone-hud { display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; margin-bottom: 12px; }
+    .sim-q {
+      background: var(--white);
+      border: 2px solid #BBF7D0;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 28px;
+      color: var(--ink-title);
+      margin-bottom: 12px;
+    }
+    .sim-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .sim-btn {
+      background: var(--white);
+      border: 2px solid #CBD5E1;
+      border-bottom: 4px solid #94A3B8;
+      border-radius: 12px;
+      padding: 10px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .sim-btn.ok { background: #DCFCE7; border-color: #16A34A; color: #166534; }
+    .sim-btn.err { background: #FEE2E2; border-color: #DC2626; color: #991B1B; }
+    .sim-fb { margin-top: 10px; font-size: 13px; font-weight: 800; text-align: center; min-height: 20px; }
+
+    /* 4. Ofertas (R$ 10 e R$ 27) */
+    .offers-section {
+      background: linear-gradient(135deg, var(--purple-hero) 0%, var(--purple-dark) 100%);
+      padding: 54px 0;
+      color: #FFF;
+    }
+    .offers-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .offer-card {
+      background: var(--white);
+      color: var(--ink-title);
+      border-radius: var(--radius-lg);
+      padding: 26px 22px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .offer-basic { border: 2px solid #CBD5E1; border-bottom: 6px solid #94A3B8; }
+    .offer-premium { border: 4px solid var(--yellow-hero); border-bottom: 8px solid var(--yellow-dark); }
+    .popular-pill {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--yellow-hero);
+      color: #452600;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: var(--radius-pill);
+      border: 2px solid #FFF;
+      white-space: nowrap;
+    }
+    .offer-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+      margin-bottom: 14px;
+    }
+    .offer-card h3 { font-size: 22px; margin-bottom: 4px; }
+    .offer-sub { font-size: 13.5px; color: var(--ink-muted); font-weight: 700; margin-bottom: 14px; }
+    .offer-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+    .offer-list li { display: flex; gap: 8px; align-items: flex-start; }
+    .offer-price-box {
+      background: var(--yellow-soft);
+      border: 1.5px solid #FDE68A;
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .offer-price-box.basic-box { background: #F8FAFC; border-color: #E2E8F0; }
+    .price-big { font-family: 'Fredoka', sans-serif; font-size: 38px; line-height: 1; color: var(--ink-title); }
+    .price-note { font-size: 12.5px; font-weight: 700; color: var(--ink-muted); margin-top: 4px; }
+
+    /* 5. Como comprar / Acesso / Suporte / Reembolso / FAQ */
+    .steps-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .step-card {
+      background: var(--white);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .step-num {
+      display: inline-flex;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--purple-hero);
+      color: #FFF;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .guarantee-box {
+      background: var(--white);
+      border: 2px solid #BBF7D0;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+    details.faq-item {
+      background: var(--white);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    details.faq-item summary { font-weight: 800; color: var(--ink-title); cursor: pointer; font-size: 15px; }
+    details.faq-item p { margin-top: 8px; font-size: 14px; }
+
+    /* Mobile Sticky Bar */
+    .mobile-sticky-bar {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--white);
+      border-top: 2px solid var(--yellow-hero);
+      padding: 10px 14px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 99;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+    }
+
+    footer { text-align: center; padding: 24px 16px; font-size: 13px; color: var(--ink-muted); }
+
+    @media (max-width: 820px) {
+      .hero-grid, .clarity-grid, .usage-strip, .samples-grid, .sim-box-wrap, .offers-grid, .steps-row {
+        grid-template-columns: 1fr;
+      }
+      .header-nav { display: none; }
+      .section { padding: 34px 0; }
+      .section-title { font-size: 24px; }
+      .mobile-sticky-bar { display: flex; }
+      .btn-hero { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2683241518773685&ev=PageView&noscript=1"
+  /></noscript>
+
+  <div class="preview-notice">
+    PRÉVIA ISOLADA V2.1 — NOVEMBRO (REVISÃO DE FIM DE ANO) • NÃO PUBLICADA EM PRODUÇÃO
+  </div>
+
+  <div class="season-bar">
+    📚 <span>REVISÃO DE FIM DE ANO</span> • Tabuada com missões ilustradas e jogos em PDF
+  </div>
+
+  <header class="main-header">
+    <div class="container header-row">
+      <a href="#">
+        <img src="../tabuada-assets/logo-transparente.png" alt="Heróis da Multiplicação" class="header-logo">
+      </a>
+      <nav class="header-nav">
+        <a href="#como-funciona">Impresso vs WebApp</a>
+        <a href="#amostras">Por Dentro</a>
+        <a href="#ofertas">Planos</a>
+        <a href="#duvidas">Dúvidas e Suporte</a>
+      </nav>
+      <a href="#ofertas" class="btn-hero btn-red btn-sm">VER PLANOS →</a>
+    </div>
+  </header>
+
+  <!-- DOBRA 1: HERO SAZONAL NOVEMBRO -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="badge-tag">📅 REVISÃO DE FIM DE ANO</div>
+        <h1>A tabuada ainda é um desafio? <span class="hero-highlight">Transforme a revisão em uma aventura!</span></h1>
+        <p class="hero-sub">Ajude seu filho a praticar multiplicação com missões ilustradas, jogos e atividades para imprimir.</p>
+        <a href="#ofertas" class="btn-hero btn-red">ESCOLHER MEU PLANO AGORA →</a>
+        <div class="hero-trust-bullets">
+          <div><span>✓</span> Material 100% digital (PDF A4 para imprimir)</div>
+          <div><span>✓</span> Combo R$ 27 inclui WebApp no navegador</div>
+          <div><span>✓</span> Pagamento único • Acesso após confirmação</div>
+        </div>
+      </div>
+
+      <div class="hero-visual-card">
+        <div class="hero-covers-grid">
+          <img src="../tabuada-assets/capa-missao-tabuada.jpg" alt="Capa Missão Tabuada Volume 1">
+          <img src="../tabuada-assets/capa-liga-dos-herois.jpg" alt="Capa Liga dos Heróis da Matemática">
+        </div>
+        <div class="hero-visual-caption">
+          📘 Tabuada de 1 a 10 em PDF A4 + Jogos + WebApp no Combo
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOBRA 2: IMPRESSO VS DIGITAL + QUEM PODE USAR + COMO USAR -->
+  <section class="section section-white" id="como-funciona">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-tag">Clareza antes da compra</div>
+        <h2 class="section-title">Entenda o que é impresso e o que é digital</h2>
+        <p class="section-subtitle">Você não recebe caixa física pelos Correios: o envio é digital e imediato para imprimir como preferir.</p>
+      </div>
+
+      <div class="clarity-grid">
+        <div class="clarity-card">
+          <span class="clarity-pill pill-blue">Nos Planos de R$ 10 e R$ 27</span>
+          <h3>🖨️ Material para Imprimir (PDF A4)</h3>
+          <p>Arquivos em PDF organizados para imprimir em casa, na escola ou em gráfica rápida — inteiros ou aos poucos.</p>
+          <ul class="clarity-list">
+            <li>✓ Livro Missão Tabuada (43 páginas, 1 ao 10, gabarito e certificado) no Plano R$ 10 e R$ 27</li>
+            <li>✓ + 5 cadernos extras (Cronograma, Fichas, Pintura, Jogos e Desafios) no Combo R$ 27</li>
+          </ul>
+        </div>
+
+        <div class="clarity-card highlight-app">
+          <span class="clarity-pill pill-green">Exclusivo do Combo R$ 27</span>
+          <h3>📱 WebApp Interativo no Navegador</h3>
+          <p>Aplicativo web gamificado para praticar multiplicação em fases de 1 a 10 com áudio e efeitos visuais.</p>
+          <ul class="clarity-list">
+            <li>✓ Roda direto no navegador do celular, tablet ou computador</li>
+            <li>✓ Não precisa baixar em loja de aplicativos nem ocupa memória</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="usage-strip">
+        <div class="usage-box">
+          <h4>👦 Quem pode utilizar</h4>
+          <p>Crianças em idade de Ensino Fundamental I que estejam começando ou precisando revisar a tabuada em casa com apoio dos pais.</p>
+        </div>
+        <div class="usage-box">
+          <h4>⏱️ Como usar as atividades</h4>
+          <p>Sugestão de rotina leve de ~15 minutos por dia: escolha a missão, resolva as fichas no papel e finalize com jogo ou desafio no WebApp.</p>
+        </div>
+        <div class="usage-box">
+          <h4>📩 Como é entregue</h4>
+          <p>Após confirmação do pagamento (PIX ou Cartão), o acesso é liberado na página de confirmação e enviado para o e-mail cadastrado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOBRA 3: AMOSTRAS REAIS DO PDF E SIMULADOR -->
+  <section class="section section-alt" id="amostras">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-tag">Amostras Reais dos Arquivos</div>
+        <h2 class="section-title">Veja páginas reais por dentro do material</h2>
+        <p class="section-subtitle">Exemplos diretos do PDF e teste rápido do formato de perguntas do WebApp:</p>
+      </div>
+
+      <div class="samples-grid">
+        <div class="sample-card">
+          <img src="../tabuada-assets/preview_clean_p4_worksheetA.png" alt="Ficha Tabuada do 1 com cronômetro">
+          <div class="sample-body">
+            <h4>Fichas por Tabuada (1 a 10)</h4>
+            <p>Blocos progressivos passo a passo com espaço para registrar o tempo da missão.</p>
+          </div>
+        </div>
+        <div class="sample-card">
+          <img src="../tabuada-assets/preview_clean_p3_tracker.png" alt="Mapa de Conquistas do Herói">
+          <div class="sample-body">
+            <h4>Mapa de Escudos (Página 3)</h4>
+            <p>A criança pinta o escudo correspondente conforme completa cada tabuada.</p>
+          </div>
+        </div>
+        <div class="sample-card">
+          <img src="../tabuada-assets/preview_clean_p43_certificate.png" alt="Certificado de Herói da Multiplicação">
+          <div class="sample-body">
+            <h4>Certificado e Gabarito</h4>
+            <p>Gabarito completo para conferência dos pais e diploma final para preencher e imprimir.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-box-wrap">
+        <div class="phone-frame">
+          <div class="phone-hud">
+            <span>🎮 WebApp Interativo (Combo R$ 27)</span>
+            <span id="simScore">0 pts</span>
+          </div>
+          <div class="sim-q" id="simQuestion">7 × 8 = ?</div>
+          <div class="sim-opts" id="simOptions">
+            <button class="sim-btn" onclick="checkSim(48, this)">48</button>
+            <button class="sim-btn" onclick="checkSim(56, this)">56</button>
+            <button class="sim-btn" onclick="checkSim(64, this)">64</button>
+            <button class="sim-btn" onclick="checkSim(54, this)">54</button>
+          </div>
+          <div class="sim-fb" id="simFeedback">Toque na resposta para testar a experiência do WebApp.</div>
+        </div>
+
+        <div>
+          <span class="clarity-pill pill-green">Prática Interativa em 10 Fases</span>
+          <h3 style="font-size: 24px; color: var(--ink-title); margin-bottom: 10px;">Reforce no celular os desafios feitos no papel</h3>
+          <p style="margin-bottom: 16px;">No Combo Liga dos Heróis (R$ 27), além dos 6 cadernos em PDF (incluindo Cronograma de 12 Semanas, Fichas Diárias, Pintura e Jogos de Tabuleiro, Dominó e Bingo), a criança ganha acesso ao WebApp com 10 fases de dificuldade crescente e narração em áudio.</p>
+          <a href="#ofertas" class="btn-hero btn-blue">ESCOLHER ENTRE R$ 10 E R$ 27 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOBRA 4: OFERTAS (R$ 10 e R$ 27 CONFIRMADOS) -->
+  <section class="offers-section" id="ofertas">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-tag">Comparativo dos Planos</div>
+        <h2 class="section-title" style="color: #FFFFFF;">Escolha o plano ideal para a revisão</h2>
+        <p class="section-subtitle" style="color: #E2D4F0;">Pagamento único em ambiente seguro GGCheckout (PIX ou Cartão).</p>
+      </div>
+
+      <div class="offers-grid">
+        <!-- BÁSICO R$ 10 -->
+        <div class="offer-card offer-basic">
+          <img src="../tabuada-assets/conteudo-6.png" alt="Missão Tabuada Volume 1" class="offer-thumb">
+          <h3>Missão Tabuada</h3>
+          <p class="offer-sub">Plano essencial em PDF para imprimir</p>
+          <ul class="offer-list">
+            <li><span>✓</span> <span>Livro ilustrado em PDF de <strong>43 páginas</strong></span></li>
+            <li><span>✓</span> <span>Tabuada completa do <strong>1 ao 10</strong></span></li>
+            <li><span>✓</span> <span>Manual para pais, gabarito oficial e certificado</span></li>
+            <li><span>✓</span> <span>Pronto para impressão em folha A4</span></li>
+          </ul>
+          <div class="offer-price-box basic-box">
+            <div class="price-big">R$ 10,00</div>
+            <div class="price-note">Pagamento único • Apenas livro em PDF</div>
+          </div>
+          <button class="btn-hero btn-blue" style="width: 100%;" onclick="handleCheckout('basic')">
+            QUERO MISSÃO TABUADA (R$ 10) →
+          </button>
+        </div>
+
+        <!-- COMBO R$ 27 (PRINCIPAL) -->
+        <div class="offer-card offer-premium">
+          <div class="popular-pill">⚡ COMBO COMPLETO + WEBAPP</div>
+          <img src="../tabuada-assets/conteudo-7.png" alt="Liga dos Heróis Combo Completo" class="offer-thumb">
+          <h3>Liga dos Heróis</h3>
+          <p class="offer-sub">Kit completo para imprimir + WebApp interativo</p>
+          <ul class="offer-list">
+            <li><span>★</span> <span><strong>Tudo do plano básico</strong> (Livro 43 págs + manual + gabarito + certificado)</span></li>
+            <li><span>★</span> <span><strong>Cronograma Mestre de 12 Semanas</strong> (PDF)</span></li>
+            <li><span>★</span> <span><strong>Fichas Diárias</strong> de treino rápido (PDF)</span></li>
+            <li><span>★</span> <span><strong>Caderno de Pintura</strong> por multiplicação (PDF)</span></li>
+            <li><span>★</span> <span><strong>Jogos de Tabuleiro</strong>, Dominó e Bingo para recortar (PDF)</span></li>
+            <li><span>★</span> <span><strong>Desafios Semanais</strong> de acompanhamento (PDF)</span></li>
+            <li><span>★</span> <span><strong>WebApp Interativo</strong> de 10 fases direto no navegador</span></li>
+          </ul>
+          <div class="offer-price-box">
+            <div class="price-big">R$ 27,00</div>
+            <div class="price-note">Pagamento único • 6 PDFs + WebApp interativo</div>
+          </div>
+          <button class="btn-hero btn-yellow" style="width: 100%;" onclick="handleCheckout('premium')">
+            QUERO LIGA DOS HERÓIS (R$ 27) →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOBRA 5: COMO COMPRAR, REEMBOLSO, SUPORTE E FAQ -->
+  <section class="section section-creme" id="duvidas">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-tag">Compra e Acesso</div>
+        <h2 class="section-title">Como comprar, acessar e pedir suporte</h2>
+      </div>
+
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h4>Escolha e pague na GGCheckout</h4>
+          <p style="font-size: 13.5px;">Selecione o plano (R$ 10 ou R$ 27), preencha seu nome, e-mail e WhatsApp e pague via PIX ou Cartão.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h4>Acesso imediato após confirmação</h4>
+          <p style="font-size: 13.5px;">Pagamentos aprovados redirecionam para os links de download dos PDFs e acesso ao WebApp (além do e-mail).</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h4>Imprima no ritmo da família</h4>
+          <p style="font-size: 13.5px;">Baixe no celular ou computador e imprima apenas as páginas necessárias da semana.</p>
+        </div>
+      </div>
+
+      <div class="guarantee-box">
+        <div>
+          <h3 style="font-size: 20px; color: var(--ink-title); margin-bottom: 4px;">🛡️ Garantia de 7 dias e Suporte aos Pais</h3>
+          <p style="font-size: 14px;">Você tem 7 dias após a compra para avaliar os materiais. Solicitações de reembolso e suporte técnico são atendidas conforme as condições informadas no checkout e pelo nosso WhatsApp oficial.</p>
+        </div>
+        <a href="https://wa.me/5521993923582?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20os%20Her%C3%B3is%20da%20Multiplica%C3%A7%C3%A3o." target="_blank" class="btn-hero btn-blue btn-sm">
+          💬 Falar no WhatsApp: (21) 99392-3582
+        </a>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>O material chega pelos Correios ou é digital?</summary>
+          <p>100% digital. Você baixa os arquivos em PDF (prontos para imprimir em papel A4) e, no plano Liga dos Heróis (R$ 27), também acessa o WebApp direto pelo navegador.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Qual a diferença entre R$ 10 e R$ 27?</summary>
+          <p>O plano Missão Tabuada (R$ 10) traz o Livro Ilustrado principal de 43 páginas (tabuada 1 a 10, manual dos pais, gabarito e certificado). O Combo Liga dos Heróis (R$ 27) inclui o livro principal mais 5 cadernos extras em PDF (Cronograma de 12 Semanas, Fichas Diárias, Caderno de Pintura, Jogos de Tabuleiro/Dominó/Bingo e Desafios Semanais) e o WebApp Interativo.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Como funciona o reembolso?</summary>
+          <p>A compra tem garantia de 7 dias conforme regras exibidas no checkout. Caso precise de ajuda, basta contatar o suporte pelo WhatsApp (21) 99392-3582 ou solicitar pelos canais do pedido.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Heróis da Multiplicação • Material pedagógico digital em PDF e WebApp educacional.</p>
+  </footer>
+
+  <div class="mobile-sticky-bar">
+    <div style="line-height: 1.2;">
+      <strong style="font-size: 13.5px; color: var(--ink-title); display: block;">Revisão de Fim de Ano</strong>
+      <span style="font-size: 12px; color: var(--ink-muted); font-weight: 700;">Planos de R$ 10 e R$ 27</span>
+    </div>
+    <a href="#ofertas" class="btn-hero btn-red btn-sm" style="width: auto;">ESCOLHER PLANO →</a>
+  </div>
+
+  <script>
+    const CHECKOUT_BASIC_URL = "https://ggcheckout.app/checkout/X7MW1ajXduVAyxH95jw6lT";
+    const CHECKOUT_PREMIUM_URL = "https://ggcheckout.app/checkout/buJIuO7Th5tjHRGQB8dIQ8";
+
+    (function initUtms() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck', 'fbclid'];
+        const saved = JSON.parse(localStorage.getItem('herois_tracking_params') || '{}');
+        keys.forEach(k => { if (params.has(k)) saved[k] = params.get(k); });
+        localStorage.setItem('herois_tracking_params', JSON.stringify(saved));
+      } catch (e) {}
+    })();
+
+    function buildCheckoutUrl(base) {
+      try {
+        const url = new URL(base);
+        const saved = JSON.parse(localStorage.getItem('herois_tracking_params') || '{}');
+        const current = new URLSearchParams(window.location.search);
+        Object.entries(saved).forEach(([k, v]) => { if (v) url.searchParams.set(k, v); });
+        current.forEach((v, k) => url.searchParams.set(k, v));
+        return url.toString();
+      } catch (e) {
+        return base;
+      }
+    }
+
+    function handleCheckout(plan) {
+      const isPremium = plan === 'premium';
+      const targetUrl = buildCheckoutUrl(isPremium ? CHECKOUT_PREMIUM_URL : CHECKOUT_BASIC_URL);
+      if (typeof window.fbq === 'function') {
+        const icEventId = 'ic_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+        try {
+          window.fbq('track', 'InitiateCheckout', {
+            content_name: isPremium ? 'Liga dos Heróis da Matemática' : 'Missão Tabuada',
+            content_ids: [isPremium ? 'liga-27' : 'tabuada-10'],
+            content_type: 'product',
+            value: isPremium ? 27.00 : 10.00,
+            currency: 'BRL'
+          }, { eventID: icEventId });
+        } catch (e) {}
+        setTimeout(() => { window.location.href = targetUrl; }, 220);
+        return;
+      }
+      window.location.href = targetUrl;
+    }
+
+    const demoQuestions = [
+      { q: '7 × 8 = ?', opts: [48, 56, 64, 54], ok: 56 },
+      { q: '6 × 7 = ?', opts: [36, 40, 42, 48], ok: 42 },
+      { q: '9 × 6 = ?', opts: [52, 54, 56, 63], ok: 54 }
+    ];
+    let qIdx = 0, pts = 0;
+    function checkSim(ans, btn) {
+      const cur = demoQuestions[qIdx];
+      const fb = document.getElementById('simFeedback');
+      document.querySelectorAll('.sim-btn').forEach(b => b.classList.remove('ok', 'err'));
+      if (ans === cur.ok) {
+        btn.classList.add('ok');
+        pts += 10;
+        document.getElementById('simScore').textContent = pts + ' pts';
+        fb.textContent = 'Correto! Avançando para a próxima conta...';
+        fb.style.color = '#15803D';
+        setTimeout(() => {
+          qIdx = (qIdx + 1) % demoQuestions.length;
+          const nxt = demoQuestions[qIdx];
+          document.getElementById('simQuestion').textContent = nxt.q;
+          const box = document.getElementById('simOptions');
+          box.innerHTML = nxt.opts.map(o => `<button class="sim-btn" onclick="checkSim(${o}, this)">${o}</button>`).join('');
+          fb.textContent = 'Toque na resposta correta!';
+          fb.style.color = '#334155';
+        }, 900);
+      } else {
+        btn.classList.add('err');
+        fb.textContent = 'Tente novamente! Dica: confira os grupos de multiplicação.';
+        fb.style.color = '#B91C1C';
+      }
+    }
+  </script>
+</body>
+</html>
