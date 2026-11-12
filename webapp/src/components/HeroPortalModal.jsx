@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AVATAR_CATALOG } from '../data/gameData';
-import { AvatarGraphic } from './HeroSvgs';
+import { AvatarGraphic, BrandLogo } from './HeroSvgs';
 import { playPopSound } from '../utils/heroAudio';
 
 export default function HeroPortalModal({
@@ -8,6 +8,8 @@ export default function HeroPortalModal({
   initialTab = 'select',
   profiles,
   activeHeroId,
+  parentUnlocked = false,
+  onRequestParentGate,
   onClose,
   onSelectHero,
   onCreateHero,
@@ -84,55 +86,62 @@ export default function HeroPortalModal({
     onSyncGuardian(guardianEmail.trim(), guardianPassword);
   };
 
+  const handleTabClick = (nextTab) => {
+    playPopSound();
+    if (nextTab === 'guardian' && !parentUnlocked) {
+      onRequestParentGate?.(() => {
+        setTab('guardian');
+        setPinChallengeHero(null);
+      });
+      return;
+    }
+    setTab(nextTab);
+    setPinChallengeHero(null);
+  };
+
   return (
     <div
-      className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-[490px] max-h-[92vh] overflow-y-auto bg-white rounded-[28px] border-[3px] border-slate-200 border-b-[8px] border-b-slate-300 p-6 shadow-2xl animate-popIn"
+        className="relative w-full max-w-[490px] max-h-[92vh] overflow-y-auto bg-white rounded-[26px] border-[3px] border-slate-200 border-b-[8px] border-b-slate-300 p-4 sm:p-6 shadow-2xl animate-popIn"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Fechar portal"
-          className="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 border-2 border-slate-300 border-b-4 flex items-center justify-center text-slate-500 font-bold hover:bg-slate-200 active:translate-y-0.5"
+          className="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-slate-100 border-2 border-slate-300 border-b-4 flex items-center justify-center text-slate-500 font-bold hover:bg-slate-200 active:translate-y-0.5"
         >
           ✕
         </button>
 
         {/* Brand Header */}
         <div className="text-center mb-4">
-          <img
-            src="/tabuada-assets/logo-transparente.png"
-            alt="Heróis da Multiplicação"
-            className="h-12 mx-auto object-contain mb-1.5"
-          />
+          <div className="flex justify-center mb-2">
+            <BrandLogo />
+          </div>
           <h2 className="font-display font-extrabold text-xl text-duo-ink">
-            Portal dos Heróis
+            Quem vai jogar hoje?
           </h2>
           <p className="font-body text-xs sm:text-sm text-slate-500 font-semibold">
-            Bem-vindo à Liga dos Heróis da Multiplicação!
+            Escolha seu herói ou crie um novo perfil para começar!
           </p>
         </div>
 
-        {/* Tabs */}
-        <div className="grid grid-cols-3 gap-1.5 bg-slate-100 p-1.5 rounded-2xl mb-5">
+        {/* Single-line compact tabs on 360px+ */}
+        <div className="grid grid-cols-3 gap-1 bg-slate-100 p-1 rounded-2xl mb-4">
           {[
             { id: 'select', label: 'Quem joga?' },
-            { id: 'create', label: '+ Novo Herói' },
-            { id: 'guardian', label: 'Pais / Nuvem' },
+            { id: 'create', label: '+ Novo' },
+            { id: 'guardian', label: 'Pais 🔒' },
           ].map((item) => (
             <button
               key={item.id}
               type="button"
-              onClick={() => {
-                playPopSound();
-                setTab(item.id);
-                setPinChallengeHero(null);
-              }}
-              className={`py-2 px-2 rounded-xl font-display font-bold text-xs sm:text-sm transition-all ${
+              onClick={() => handleTabClick(item.id)}
+              className={`py-2 px-1.5 rounded-xl font-display font-bold text-xs sm:text-sm whitespace-nowrap transition-all ${
                 tab === item.id
                   ? 'bg-white text-duo-ink shadow-sm'
                   : 'text-slate-500 hover:text-duo-ink'
@@ -201,7 +210,7 @@ export default function HeroPortalModal({
                         key={hero.id}
                         type="button"
                         onClick={() => handleCardClick(hero)}
-                        className={`relative rounded-[20px] p-3.5 border-2 border-b-[6px] flex flex-col items-center text-center transition-all active:translate-y-1 ${
+                        className={`relative rounded-[20px] p-3 border-2 border-b-[6px] flex flex-col items-center text-center transition-all active:translate-y-1 ${
                           isCurrent
                             ? 'bg-sky-50/70 border-duo-blue border-b-duo-blueDark'
                             : 'bg-white border-slate-200 border-b-slate-300 hover:border-duo-blue'
@@ -244,10 +253,10 @@ export default function HeroPortalModal({
 
         {/* Tab 2: Quick Kid Hero Creator */}
         {tab === 'create' && (
-          <form onSubmit={handleCreateSubmit} className="space-y-4">
+          <form onSubmit={handleCreateSubmit} className="space-y-3.5">
             <div>
-              <label className="block font-display font-bold text-sm text-duo-ink mb-1.5">
-                Como se chama o seu Herói?
+              <label className="block font-display font-bold text-sm text-duo-ink mb-1">
+                Qual é o nome do Herói?
               </label>
               <input
                 type="text"
@@ -255,15 +264,15 @@ export default function HeroPortalModal({
                 value={heroName}
                 onChange={(e) => setHeroName(e.target.value)}
                 placeholder="Ex: Pedro, Sofia, Arthur..."
-                className="w-full px-4 py-3 rounded-2xl bg-slate-50 border-2 border-slate-200 focus:border-duo-blue focus:bg-white outline-none font-display font-bold text-base text-duo-ink"
+                className="w-full px-4 py-2.5 rounded-2xl bg-slate-50 border-2 border-slate-200 focus:border-duo-blue focus:bg-white outline-none font-display font-bold text-base text-duo-ink"
               />
             </div>
 
             <div>
-              <label className="block font-display font-bold text-sm text-duo-ink mb-2">
-                Escolha seu Herói ou Companheiro da Liga:
+              <label className="block font-display font-bold text-sm text-duo-ink mb-1.5">
+                Escolha seu personagem:
               </label>
-              <div className="grid grid-cols-4 gap-2.5">
+              <div className="grid grid-cols-4 gap-2">
                 {AVATAR_CATALOG.map((item) => {
                   const selected = heroAvatar === item.key;
                   return (
@@ -275,13 +284,13 @@ export default function HeroPortalModal({
                         playPopSound();
                         setHeroAvatar(item.key);
                       }}
-                      className={`relative aspect-square rounded-2xl border-2 border-b-[5px] p-1.5 flex items-center justify-center transition-all active:translate-y-0.5 ${
+                      className={`relative aspect-square rounded-2xl border-2 border-b-[5px] p-1 flex items-center justify-center transition-all active:translate-y-0.5 ${
                         selected
                           ? 'bg-emerald-50 border-duo-green border-b-duo-greenDark'
                           : 'bg-white border-slate-200 border-b-slate-300 hover:border-sky-300'
                       }`}
                     >
-                      <AvatarGraphic avatarKey={item.key} className="w-full h-full" />
+                      <AvatarGraphic avatarKey={item.key} className="w-full h-full rounded-xl" />
                       {selected && (
                         <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-duo-green border-2 border-white text-white text-[11px] font-black flex items-center justify-center">
                           ✓
@@ -294,8 +303,8 @@ export default function HeroPortalModal({
             </div>
 
             <div>
-              <label className="block font-display font-bold text-sm text-duo-ink mb-1.5">
-                PIN Secreto (Opcional • 4 dígitos):
+              <label className="block font-display font-bold text-sm text-duo-ink mb-1">
+                PIN Secreto (Opcional • 4 números):
               </label>
               <input
                 type="password"
@@ -304,7 +313,7 @@ export default function HeroPortalModal({
                 value={heroPin}
                 onChange={(e) => setHeroPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
                 placeholder="••••"
-                className="w-full px-4 py-3 rounded-2xl bg-slate-50 border-2 border-slate-200 focus:border-duo-blue focus:bg-white outline-none text-center font-display font-extrabold text-lg tracking-[0.4em]"
+                className="w-full px-4 py-2.5 rounded-2xl bg-slate-50 border-2 border-slate-200 focus:border-duo-blue focus:bg-white outline-none text-center font-display font-extrabold text-lg tracking-[0.4em]"
               />
             </div>
 
@@ -312,20 +321,20 @@ export default function HeroPortalModal({
               type="submit"
               className="toy-btn w-full py-3.5 rounded-2xl bg-duo-green border-b-[6px] border-duo-greenDark text-white text-sm sm:text-base uppercase"
             >
-              Entrar na Liga dos Heróis! 🚀
+              Começar Aventura! 🚀
             </button>
           </form>
         )}
 
-        {/* Tab 3: Guardian Cloud Sync */}
+        {/* Tab 3: Guardian Cloud Sync (behind Parental Gate) */}
         {tab === 'guardian' && (
           <form onSubmit={handleGuardianSubmit} className="space-y-4">
             <div className="bg-purple-50 border-2 border-purple-200 rounded-2xl p-4">
               <div className="font-display font-extrabold text-sm text-purple-900">
-                Área do Guardião (Pais) & Passe VIP
+                Área dos Pais • Passe VIP
               </div>
               <p className="font-body text-xs text-purple-700 font-semibold mt-1">
-                Conecte seu e-mail para vincular o Passe VIP vitalício e preparar a sincronização na nuvem.
+                Vincule seu e-mail para registrar o Passe VIP neste aparelho.
               </p>
             </div>
 
@@ -344,14 +353,14 @@ export default function HeroPortalModal({
 
             <div>
               <label className="block font-display font-bold text-sm text-duo-ink mb-1.5">
-                Código de Acesso VIP:
+                Senha de Acesso:
               </label>
               <input
-                type="text"
+                type="password"
                 value={guardianPassword}
                 onChange={(e) => setGuardianPassword(e.target.value)}
-                placeholder="Ex: LIGA27 (enviado após a compra)"
-                className="w-full px-4 py-3 rounded-2xl bg-slate-50 border-2 border-slate-200 focus:border-duo-purple focus:bg-white outline-none font-body font-bold text-sm sm:text-base uppercase"
+                placeholder="••••••••"
+                className="w-full px-4 py-3 rounded-2xl bg-slate-50 border-2 border-slate-200 focus:border-duo-purple focus:bg-white outline-none font-body font-bold text-sm sm:text-base"
               />
             </div>
 
@@ -359,7 +368,7 @@ export default function HeroPortalModal({
               type="submit"
               className="toy-btn w-full py-3.5 rounded-2xl bg-duo-purple border-b-[6px] border-duo-purpleDark text-white text-sm uppercase"
             >
-              Ativar Acesso VIP ☁️
+              Vincular Conta VIP ☁️
             </button>
           </form>
         )}

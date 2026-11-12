@@ -1,10 +1,37 @@
 import React from 'react';
 
+export function BrandLogo({ compact = false }) {
+  return (
+    <div className="inline-flex items-center gap-2.5 select-none">
+      <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-300 via-amber-400 to-orange-500 border-2 border-amber-600 border-b-[4px] flex items-center justify-center shadow-sm shrink-0">
+        <svg viewBox="0 0 32 32" className="w-6 h-6" aria-hidden="true">
+          <path
+            d="M 9 9 L 23 23 M 23 9 L 9 23"
+            stroke="#FFFFFF"
+            strokeWidth="5"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
+      {!compact && (
+        <div className="text-left leading-none">
+          <div className="font-display font-extrabold text-[15px] tracking-tight text-duo-ink">
+            Heróis da
+          </div>
+          <div className="font-display font-extrabold text-[13px] tracking-tight text-duo-greenDark">
+            Multiplicação
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function AvatarGraphic({ avatarKey = 'leo', className = 'w-full h-full' }) {
   if (avatarKey === 'leo') {
     return (
       <img
-        src="/tabuada-assets/heroi-menino-oficial.png"
+        src="/tabuada-assets/avatar-leo.png"
         alt="Léo Herói"
         className={`${className} object-cover rounded-full`}
       />
@@ -14,8 +41,18 @@ export function AvatarGraphic({ avatarKey = 'leo', className = 'w-full h-full' }
   if (avatarKey === 'maya') {
     return (
       <img
-        src="/tabuada-assets/heroi-menina-oficial.png"
+        src="/tabuada-assets/avatar-maya.png"
         alt="Maya Heroína"
+        className={`${className} object-cover rounded-full`}
+      />
+    );
+  }
+
+  if (avatarKey === 'monstro') {
+    return (
+      <img
+        src="/tabuada-assets/avatar-monstro.png"
+        alt="Monstrinho Amigo"
         className={`${className} object-cover rounded-full`}
       />
     );
@@ -23,150 +60,197 @@ export function AvatarGraphic({ avatarKey = 'leo', className = 'w-full h-full' }
 
   if (avatarKey === 'fox') {
     return (
-      <svg viewBox="0 0 100 100" className={className} aria-label="Raposinha Calculista">
-        <polygon points="18,12 40,36 12,38" fill="#EA580C" />
-        <polygon points="22,18 36,34 16,35" fill="#FDA4AF" />
-        <polygon points="82,12 60,36 88,38" fill="#EA580C" />
-        <polygon points="78,18 64,34 84,35" fill="#FDA4AF" />
-        <ellipse cx="50" cy="56" rx="38" ry="34" fill="#FF9600" />
-        <path d="M 12 56 Q 30 72 50 78 Q 70 72 88 56 Q 86 86 50 88 Q 14 86 12 56 Z" fill="#FFFBEB" />
-        <ellipse cx="25" cy="62" rx="7" ry="4" fill="#F43F5E" opacity="0.45" />
-        <ellipse cx="75" cy="62" rx="7" ry="4" fill="#F43F5E" opacity="0.45" />
-        <circle cx="34" cy="48" r="7.5" fill="#1E293B" />
-        <circle cx="32" cy="45" r="2.8" fill="#FFFFFF" />
-        <circle cx="36" cy="51" r="1.2" fill="#FFFFFF" />
-        <circle cx="66" cy="48" r="7.5" fill="#1E293B" />
-        <circle cx="64" cy="45" r="2.8" fill="#FFFFFF" />
-        <circle cx="68" cy="51" r="1.2" fill="#FFFFFF" />
-        <polygon points="50,64 45,58 55,58" fill="#0F172A" />
-        <path d="M 45 66 Q 50 71 50 67 Q 50 71 55 66" fill="none" stroke="#0F172A" strokeWidth="2.5" strokeLinecap="round" />
-        <polygon points="38,87 46,92 46,82" fill="#2563EB" />
-        <polygon points="62,87 54,92 54,82" fill="#2563EB" />
-        <circle cx="50" cy="87" r="4" fill="#1D4ED8" />
+      <svg viewBox="0 0 100 100" className={className} aria-label="Raposinha Esperta">
+        <defs>
+          <radialGradient id="foxBg" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stopColor="#FFF7ED" />
+            <stop offset="100%" stopColor="#FED7AA" />
+          </radialGradient>
+        </defs>
+        <circle cx="50" cy="50" r="48" fill="url(#foxBg)" />
+        <polygon points="18,16 40,38 14,42" fill="#EA580C" />
+        <polygon points="22,22 36,36 18,38" fill="#FDA4AF" />
+        <polygon points="82,16 60,38 86,42" fill="#EA580C" />
+        <polygon points="78,22 64,36 82,38" fill="#FDA4AF" />
+        <ellipse cx="50" cy="58" rx="35" ry="31" fill="#F97316" />
+        <path d="M 15 58 Q 32 72 50 77 Q 68 72 85 58 Q 82 85 50 87 Q 18 85 15 58 Z" fill="#FFFBEB" />
+        <ellipse cx="26" cy="63" rx="6.5" ry="3.8" fill="#FB7185" opacity="0.45" />
+        <ellipse cx="74" cy="63" rx="6.5" ry="3.8" fill="#FB7185" opacity="0.45" />
+        <circle cx="35" cy="50" r="7" fill="#1E293B" />
+        <circle cx="33" cy="47" r="2.6" fill="#FFFFFF" />
+        <circle cx="37" cy="53" r="1.2" fill="#FFFFFF" />
+        <circle cx="65" cy="50" r="7" fill="#1E293B" />
+        <circle cx="63" cy="47" r="2.6" fill="#FFFFFF" />
+        <circle cx="67" cy="53" r="1.2" fill="#FFFFFF" />
+        <polygon points="50,65 45,59 55,59" fill="#0F172A" />
+        <path d="M 45 67 Q 50 72 50 68 Q 50 72 55 67" fill="none" stroke="#0F172A" strokeWidth="2.4" strokeLinecap="round" />
       </svg>
     );
   }
 
   if (avatarKey === 'robot') {
     return (
-      <svg viewBox="0 0 100 100" className={className} aria-label="Robô Multiplicador">
-        <line x1="50" y1="8" x2="50" y2="22" stroke="#64748B" strokeWidth="4" strokeLinecap="round" />
-        <circle cx="50" cy="8" r="6" fill="#FACC15" />
-        <rect x="8" y="44" width="8" height="18" rx="4" fill="#64748B" />
-        <rect x="84" y="44" width="8" height="18" rx="4" fill="#64748B" />
-        <rect x="14" y="22" width="72" height="62" rx="20" fill="#0284C7" />
-        <rect x="22" y="30" width="56" height="42" rx="14" fill="#0F172A" />
-        <circle cx="36" cy="46" r="6.5" fill="#4ADE80" />
-        <circle cx="38" cy="44" r="2.2" fill="#FFFFFF" />
-        <circle cx="64" cy="46" r="6.5" fill="#4ADE80" />
-        <circle cx="66" cy="44" r="2.2" fill="#FFFFFF" />
-        <path d="M 40 58 Q 50 67 60 58" fill="none" stroke="#4ADE80" strokeWidth="3.5" strokeLinecap="round" />
-        <rect x="40" y="86" width="20" height="10" rx="3" fill="#F59E0B" />
-        <text x="50" y="94" fontFamily="Fredoka, sans-serif" fontSize="10" fontWeight="900" fill="#FFFFFF" textAnchor="middle">
-          ×
-        </text>
+      <svg viewBox="0 0 100 100" className={className} aria-label="Robô X">
+        <defs>
+          <radialGradient id="botBg" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stopColor="#F0F9FF" />
+            <stop offset="100%" stopColor="#BAE6FD" />
+          </radialGradient>
+        </defs>
+        <circle cx="50" cy="50" r="48" fill="url(#botBg)" />
+        <line x1="50" y1="10" x2="50" y2="23" stroke="#475569" strokeWidth="4" strokeLinecap="round" />
+        <circle cx="50" cy="10" r="5.5" fill="#FACC15" stroke="#CA8A04" strokeWidth="1.5" />
+        <rect x="10" y="45" width="8" height="16" rx="4" fill="#64748B" />
+        <rect x="82" y="45" width="8" height="16" rx="4" fill="#64748B" />
+        <rect x="16" y="23" width="68" height="58" rx="19" fill="#0284C7" />
+        <rect x="24" y="31" width="52" height="39" rx="13" fill="#0F172A" />
+        <circle cx="37" cy="47" r="6" fill="#4ADE80" />
+        <circle cx="39" cy="45" r="2" fill="#FFFFFF" />
+        <circle cx="63" cy="47" r="6" fill="#4ADE80" />
+        <circle cx="65" cy="45" r="2" fill="#FFFFFF" />
+        <path d="M 40 58 Q 50 66 60 58" fill="none" stroke="#4ADE80" strokeWidth="3.2" strokeLinecap="round" />
+        <rect x="38" y="83" width="24" height="10" rx="4" fill="#F59E0B" />
       </svg>
     );
   }
 
   if (avatarKey === 'cat') {
     return (
-      <svg viewBox="0 0 100 100" className={className} aria-label="Gatinho Cósmico">
-        <polygon points="16,16 38,36 12,42" fill="#7C3AED" />
-        <polygon points="20,22 34,35 17,39" fill="#F472B6" />
-        <polygon points="84,16 62,36 88,42" fill="#7C3AED" />
-        <polygon points="80,22 66,35 83,39" fill="#F472B6" />
-        <circle cx="50" cy="54" r="42" fill="none" stroke="#67E8F9" strokeWidth="3.5" strokeDasharray="5,2" opacity="0.75" />
-        <ellipse cx="50" cy="56" rx="36" ry="32" fill="#A855F7" />
-        <circle cx="34" cy="50" r="7.5" fill="#1E1B4B" />
-        <circle cx="32" cy="47" r="2.6" fill="#FDE047" />
-        <circle cx="36" cy="53" r="1.2" fill="#FFFFFF" />
-        <circle cx="66" cy="50" r="7.5" fill="#1E1B4B" />
-        <circle cx="64" cy="47" r="2.6" fill="#FDE047" />
-        <circle cx="68" cy="53" r="1.2" fill="#FFFFFF" />
-        <ellipse cx="24" cy="60" rx="6" ry="3.5" fill="#F472B6" opacity="0.6" />
-        <ellipse cx="76" cy="60" rx="6" ry="3.5" fill="#F472B6" opacity="0.6" />
-        <polygon points="50,60 47,56 53,56" fill="#F472B6" />
-        <path d="M 45 63 Q 50 67 50 64 Q 50 67 55 63" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" />
-        <line x1="14" y1="56" x2="26" y2="58" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
-        <line x1="14" y1="64" x2="26" y2="62" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
-        <line x1="86" y1="56" x2="74" y2="58" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
-        <line x1="86" y1="64" x2="74" y2="62" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
-        <polygon points="50,30 52,35 57,35 53,38 55,43 50,40 45,43 47,38 43,35 48,35" fill="#FDE047" />
+      <svg viewBox="0 0 100 100" className={className} aria-label="Gatinho Estelar">
+        <defs>
+          <radialGradient id="catBg" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stopColor="#FAF5FF" />
+            <stop offset="100%" stopColor="#E9D5FF" />
+          </radialGradient>
+        </defs>
+        <circle cx="50" cy="50" r="48" fill="url(#catBg)" />
+        <polygon points="18,18 39,37 15,43" fill="#7C3AED" />
+        <polygon points="22,24 35,36 19,40" fill="#F472B6" />
+        <polygon points="82,18 61,37 85,43" fill="#7C3AED" />
+        <polygon points="78,24 65,36 81,40" fill="#F472B6" />
+        <ellipse cx="50" cy="57" rx="34" ry="30" fill="#A855F7" />
+        <circle cx="35" cy="52" r="7" fill="#1E1B4B" />
+        <circle cx="33" cy="49" r="2.5" fill="#FDE047" />
+        <circle cx="37" cy="55" r="1.2" fill="#FFFFFF" />
+        <circle cx="65" cy="52" r="7" fill="#1E1B4B" />
+        <circle cx="63" cy="49" r="2.5" fill="#FDE047" />
+        <circle cx="67" cy="55" r="1.2" fill="#FFFFFF" />
+        <ellipse cx="25" cy="61" rx="5.5" ry="3.2" fill="#F472B6" opacity="0.6" />
+        <ellipse cx="75" cy="61" rx="5.5" ry="3.2" fill="#F472B6" opacity="0.6" />
+        <polygon points="50,61 47,57 53,57" fill="#F472B6" />
+        <path d="M 45 64 Q 50 68 50 65 Q 50 68 55 64" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" />
+        <polygon points="50,33 52,37 56,37 53,40 54,44 50,41 46,44 47,40 44,37 48,37" fill="#FDE047" />
       </svg>
     );
   }
 
   if (avatarKey === 'dino') {
     return (
-      <svg viewBox="0 0 100 100" className={className} aria-label="Dino dos Números">
-        <polygon points="50,4 44,18 56,18" fill="#FACC15" />
-        <polygon points="34,10 30,22 42,22" fill="#FACC15" />
-        <polygon points="66,10 58,22 70,22" fill="#FACC15" />
-        <rect x="18" y="18" width="64" height="68" rx="28" fill="#16A34A" />
-        <circle cx="36" cy="42" r="8" fill="#0F172A" />
-        <circle cx="34" cy="39" r="3" fill="#FFFFFF" />
-        <circle cx="39" cy="45" r="1.3" fill="#FFFFFF" />
-        <circle cx="64" cy="42" r="8" fill="#0F172A" />
-        <circle cx="62" cy="39" r="3" fill="#FFFFFF" />
-        <circle cx="67" cy="45" r="1.3" fill="#FFFFFF" />
-        <ellipse cx="25" cy="54" rx="6" ry="4" fill="#F43F5E" opacity="0.45" />
-        <ellipse cx="75" cy="54" rx="6" ry="4" fill="#F43F5E" opacity="0.45" />
-        <ellipse cx="50" cy="62" rx="22" ry="14" fill="#86EFAC" />
-        <circle cx="44" cy="58" r="2" fill="#15803D" />
-        <circle cx="56" cy="58" r="2" fill="#15803D" />
-        <path d="M 40 64 Q 50 74 60 64" fill="#15803D" />
-        <polygon points="46,65 48,70 50,65" fill="#FFFFFF" />
-        <polygon points="52,65 54,70 56,65" fill="#FFFFFF" />
-      </svg>
-    );
-  }
-
-  if (avatarKey === 'owl') {
-    return (
-      <svg viewBox="0 0 100 100" className={className} aria-label="Corujinha Sábia">
-        <polygon points="20,18 36,32 16,38" fill="#B45309" />
-        <polygon points="80,18 64,32 84,38" fill="#B45309" />
-        <ellipse cx="50" cy="56" rx="38" ry="35" fill="#D97706" />
-        <ellipse cx="50" cy="68" rx="22" ry="16" fill="#FEF3C7" />
-        <circle cx="34" cy="48" r="14" fill="#FFFFFF" stroke="#0F172A" strokeWidth="3" />
-        <circle cx="66" cy="48" r="14" fill="#FFFFFF" stroke="#0F172A" strokeWidth="3" />
-        <line x1="48" y1="48" x2="52" y2="48" stroke="#0F172A" strokeWidth="3" />
-        <circle cx="34" cy="48" r="7" fill="#0F172A" />
-        <circle cx="32" cy="45" r="2.5" fill="#FFFFFF" />
-        <circle cx="66" cy="48" r="7" fill="#0F172A" />
-        <circle cx="64" cy="45" r="2.5" fill="#FFFFFF" />
-        <polygon points="50,60 46,52 54,52" fill="#EA580C" />
-        <polygon points="50,8 82,18 50,26 18,18" fill="#1E293B" />
-        <rect x="40" y="23" width="20" height="7" rx="3" fill="#0F172A" />
-        <line x1="72" y1="20" x2="76" y2="34" stroke="#FACC15" strokeWidth="2.5" />
-        <circle cx="76" cy="35" r="2.5" fill="#FACC15" />
+      <svg viewBox="0 0 100 100" className={className} aria-label="Dino Forte">
+        <defs>
+          <radialGradient id="dinoBg" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stopColor="#ECFDF5" />
+            <stop offset="100%" stopColor="#BBF7D0" />
+          </radialGradient>
+        </defs>
+        <circle cx="50" cy="50" r="48" fill="url(#dinoBg)" />
+        <polygon points="50,7 44,20 56,20" fill="#FACC15" />
+        <polygon points="35,12 31,23 43,23" fill="#FACC15" />
+        <polygon points="65,12 57,23 69,23" fill="#FACC15" />
+        <rect x="20" y="20" width="60" height="64" rx="26" fill="#16A34A" />
+        <circle cx="37" cy="43" r="7.5" fill="#0F172A" />
+        <circle cx="35" cy="40" r="2.8" fill="#FFFFFF" />
+        <circle cx="39" cy="46" r="1.2" fill="#FFFFFF" />
+        <circle cx="63" cy="43" r="7.5" fill="#0F172A" />
+        <circle cx="61" cy="40" r="2.8" fill="#FFFFFF" />
+        <circle cx="65" cy="46" r="1.2" fill="#FFFFFF" />
+        <ellipse cx="26" cy="54" rx="5.5" ry="3.5" fill="#FB7185" opacity="0.45" />
+        <ellipse cx="74" cy="54" rx="5.5" ry="3.5" fill="#FB7185" opacity="0.45" />
+        <ellipse cx="50" cy="63" rx="20" ry="13" fill="#86EFAC" />
+        <path d="M 40 65 Q 50 74 60 65" fill="#15803D" />
       </svg>
     );
   }
 
   return (
-    <svg viewBox="0 0 100 100" className={className} aria-label="Dragãozinho Dourado">
-      <path d="M 18 52 C 4 36 2 24 16 32 C 12 40 18 48 24 50 Z" fill="#0284C7" />
-      <path d="M 82 52 C 96 36 98 24 84 32 C 88 40 82 48 76 50 Z" fill="#0284C7" />
-      <path d="M 28 26 C 24 12 18 8 20 6 C 24 10 32 18 36 28 Z" fill="#F97316" />
-      <path d="M 72 26 C 76 12 82 8 80 6 C 76 10 68 18 64 28 Z" fill="#F97316" />
-      <ellipse cx="50" cy="54" rx="36" ry="32" fill="#EAB308" />
-      <polygon points="38,20 42,12 50,18 58,12 62,20" fill="#EF4444" stroke="#B91C1C" strokeWidth="1.5" />
-      <circle cx="50" cy="14" r="2" fill="#FACC15" />
-      <circle cx="35" cy="46" r="7.5" fill="#0F172A" />
-      <circle cx="33" cy="43" r="2.8" fill="#FFFFFF" />
-      <circle cx="37" cy="49" r="1.2" fill="#FFFFFF" />
-      <circle cx="65" cy="46" r="7.5" fill="#0F172A" />
-      <circle cx="63" cy="43" r="2.8" fill="#FFFFFF" />
-      <circle cx="67" cy="49" r="1.2" fill="#FFFFFF" />
-      <ellipse cx="50" cy="62" rx="18" ry="12" fill="#FEF08A" />
-      <circle cx="45" cy="59" r="2" fill="#CA8A04" />
-      <circle cx="55" cy="59" r="2" fill="#CA8A04" />
-      <path d="M 44 65 Q 50 71 56 65" fill="none" stroke="#CA8A04" strokeWidth="2.5" strokeLinecap="round" />
-      <ellipse cx="25" cy="56" rx="5.5" ry="3.5" fill="#F43F5E" opacity="0.45" />
-      <ellipse cx="75" cy="56" rx="5.5" ry="3.5" fill="#F43F5E" opacity="0.45" />
+    <svg viewBox="0 0 100 100" className={className} aria-label="Corujinha Sábia">
+      <defs>
+        <radialGradient id="owlBg" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stopColor="#FFFBEB" />
+          <stop offset="100%" stopColor="#FDE68A" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#owlBg)" />
+      <polygon points="22,20 37,33 18,39" fill="#B45309" />
+      <polygon points="78,20 63,33 82,39" fill="#B45309" />
+      <ellipse cx="50" cy="56" rx="35" ry="32" fill="#D97706" />
+      <ellipse cx="50" cy="67" rx="20" ry="15" fill="#FEF3C7" />
+      <circle cx="35" cy="49" r="13" fill="#FFFFFF" stroke="#0F172A" strokeWidth="2.8" />
+      <circle cx="65" cy="49" r="13" fill="#FFFFFF" stroke="#0F172A" strokeWidth="2.8" />
+      <line x1="48" y1="49" x2="52" y2="49" stroke="#0F172A" strokeWidth="2.8" />
+      <circle cx="35" cy="49" r="6.5" fill="#0F172A" />
+      <circle cx="33" cy="46" r="2.3" fill="#FFFFFF" />
+      <circle cx="65" cy="49" r="6.5" fill="#0F172A" />
+      <circle cx="63" cy="46" r="2.3" fill="#FFFFFF" />
+      <polygon points="50,60 46,53 54,53" fill="#EA580C" />
     </svg>
+  );
+}
+
+/** Concrete visual grouping blocks to help kids understand multiplication visually */
+export function VisualMultiplicationGroups({ groups = 2, perGroup = 3, icon = 'star' }) {
+  const safeGroups = Math.min(5, Math.max(1, groups));
+  const safePerGroup = Math.min(5, Math.max(1, perGroup));
+
+  const renderDot = (idx) => {
+    if (icon === 'gem') {
+      return (
+        <span
+          key={idx}
+          className="inline-block w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-[4px] rotate-45 bg-cyan-400 border border-cyan-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]"
+        />
+      );
+    }
+    if (icon === 'shield') {
+      return (
+        <span
+          key={idx}
+          className="inline-block w-3.5 h-4 sm:w-4 sm:h-4 rounded-t-sm rounded-b-full bg-duo-blue border border-duo-blueDark shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]"
+        />
+      );
+    }
+    if (icon === 'bolt') {
+      return (
+        <span
+          key={idx}
+          className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-amber-400 border border-amber-600 text-[9px] font-black text-amber-950"
+        >
+          ⚡
+        </span>
+      );
+    }
+    return (
+      <span
+        key={idx}
+        className="inline-block w-4 h-4 rounded-full bg-duo-gold border-2 border-amber-500 shadow-[inset_0_2px_0_rgba(255,255,255,0.7)]"
+      />
+    );
+  };
+
+  return (
+    <div
+      className="mb-4 sm:mb-5 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5"
+      aria-label={`${safeGroups} grupos com ${safePerGroup} itens cada`}
+    >
+      {Array.from({ length: safeGroups }).map((_, gIdx) => (
+        <div
+          key={gIdx}
+          className="inline-flex items-center gap-1.5 bg-white border-2 border-amber-200 border-b-[4px] rounded-2xl px-2.5 py-1.5 shadow-sm"
+        >
+          {Array.from({ length: safePerGroup }).map((__, iIdx) => renderDot(iIdx))}
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -189,21 +273,25 @@ export function KawaiiStar({ className = 'w-7 h-7' }) {
   );
 }
 
-export function KawaiiGoldStar({ className = 'w-6 h-6' }) {
+export function KawaiiGoldStar({ filled = true, className = 'w-6 h-6' }) {
   return (
     <svg viewBox="0 0 40 40" className={className} aria-hidden="true">
       <path
         d="M 20 3 L 24.5 13.5 L 36 14.5 L 27.5 22.5 L 30 34 L 20 28 L 10 34 L 12.5 22.5 L 4 14.5 L 15.5 13.5 Z"
-        fill="#FFC800"
-        stroke="#D97706"
+        fill={filled ? '#FFC800' : '#E2E8F0'}
+        stroke={filled ? '#D97706' : '#94A3B8'}
         strokeWidth="2"
         strokeLinejoin="round"
       />
-      <circle cx="17" cy="18" r="1.8" fill="#1E293B" />
-      <circle cx="16.3" cy="17.3" r="0.6" fill="#FFF" />
-      <circle cx="23" cy="18" r="1.8" fill="#1E293B" />
-      <circle cx="22.3" cy="17.3" r="0.6" fill="#FFF" />
-      <path d="M 18.5 22 Q 20 23.5 21.5 22" fill="none" stroke="#B45309" strokeWidth="1.3" strokeLinecap="round" />
+      {filled && (
+        <>
+          <circle cx="17" cy="18" r="1.8" fill="#1E293B" />
+          <circle cx="16.3" cy="17.3" r="0.6" fill="#FFF" />
+          <circle cx="23" cy="18" r="1.8" fill="#1E293B" />
+          <circle cx="22.3" cy="17.3" r="0.6" fill="#FFF" />
+          <path d="M 18.5 22 Q 20 23.5 21.5 22" fill="none" stroke="#B45309" strokeWidth="1.3" strokeLinecap="round" />
+        </>
+      )}
     </svg>
   );
 }
@@ -302,7 +390,6 @@ export function CrownIcon({ className = 'w-7 h-6' }) {
   );
 }
 
-/** Subtle themed environmental motifs (clouds, shields, crystals, stars) inside each unit track */
 export function UnitDecalBg({ type }) {
   if (type === 'clouds') {
     return (

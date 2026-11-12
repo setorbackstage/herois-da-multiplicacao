@@ -1,70 +1,18 @@
 import React from 'react';
 import { WORKBOOKS_DATA } from '../data/gameData';
 
-export default function WorkbooksView({ isVIP = false, onOpenUnlock }) {
-  if (!isVIP) {
-    return (
-      <section className="w-full pb-8">
-        <div className="mb-5">
-          <h1 className="font-display font-extrabold text-2xl sm:text-3xl text-duo-ink">
-            Biblioteca da Liga dos Heróis
-          </h1>
-          <p className="font-body text-sm sm:text-base text-duo-muted font-semibold mt-1">
-            Os 6 livros em PDF tamanho A4 ficam liberados exclusivamente para alunos do Combo Liga dos Heróis (R$ 27,00).
-          </p>
-        </div>
-
-        <div className="rounded-[24px] bg-white border-2 border-purple-200 border-b-[6px] border-b-purple-300 p-6 text-center shadow-sm">
-          <div className="text-4xl mb-2">🔒</div>
-          <h2 className="font-display font-extrabold text-xl text-duo-ink mb-2">
-            Biblioteca VIP Protegida
-          </h2>
-          <p className="font-body text-sm text-slate-600 font-semibold max-w-lg mx-auto mb-5">
-            Se você já adquiriu o Combo Liga dos Heróis, abra pelo botão da sua página de compra ou insira o código de acesso VIP abaixo.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left max-w-xl mx-auto mb-6">
-            {WORKBOOKS_DATA.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-700"
-              >
-                <span>{item.emoji}</span>
-                <span className="truncate">{item.title}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-lg mx-auto">
-            <button
-              type="button"
-              onClick={onOpenUnlock}
-              className="toy-btn flex-1 py-3 px-4 rounded-xl bg-duo-purple border-b-[5px] border-duo-purpleDark text-white text-xs sm:text-sm uppercase"
-            >
-              🔑 Já Comprei • Liberar Código VIP
-            </button>
-            <a
-              href="https://ggcheckout.app/checkout/buJIuO7Th5tjHRGQB8dIQ8?utm_source=webapp_workbooks"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="toy-btn flex-1 py-3 px-4 rounded-xl bg-duo-gold border-b-[5px] border-duo-goldDark text-amber-950 text-xs sm:text-sm uppercase text-center"
-            >
-              ⚡ Adquirir Combo (R$ 27,00)
-            </a>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
+export default function WorkbooksView() {
   return (
     <section className="w-full pb-8">
       <div className="mb-5">
+        <span className="inline-block font-display font-bold text-xs px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 mb-2">
+          Para imprimir em A4 com o papai e a mamãe
+        </span>
         <h1 className="font-display font-extrabold text-2xl sm:text-3xl text-duo-ink">
-          Biblioteca da Liga dos Heróis
+          Apostilas & Jogos para Papel
         </h1>
         <p className="font-body text-sm sm:text-base text-duo-muted font-semibold mt-1">
-          Materiais oficiais da franquia Heróis da Multiplicação prontos para imprimir em A4!
+          Atividades ilustradas da Liga dos Heróis para treinar longe das telas.
         </p>
       </div>
 

@@ -13,17 +13,17 @@ const MASCOT_IMAGES = {
   leo: {
     src: '/tabuada-assets/heroi-menino-oficial.png',
     alt: 'Léo Herói',
-    title: 'Léo Herói — O Guardião do X',
+    title: 'Léo Herói — Guardião do X',
   },
   maya: {
     src: '/tabuada-assets/heroi-menina-oficial.png',
     alt: 'Maya Heroína',
-    title: 'Maya Heroína — A Maga da Multiplicação',
+    title: 'Maya Heroína — Guardiã das Contas',
   },
   monstro: {
     src: '/tabuada-assets/monstro-oficial.png',
     alt: 'Monstrinho dos Números',
-    title: 'O Monstrinho dos Números — Chefão Final',
+    title: 'Monstrinho dos Números',
   },
 };
 
@@ -31,7 +31,10 @@ function UnitTrailTrack({
   unit,
   hero,
   shakingLevel,
+  activePopover,
   onNodeClick,
+  onClosePopover,
+  onStartLesson,
   onChestClick,
   nodeBtnRefs,
 }) {
@@ -92,7 +95,7 @@ function UnitTrailTrack({
     ro.observe(track);
     return () => ro.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hero.unlockedLevel, unit.id]);
+  }, [hero.unlockedLevel, unit.id, activePopover?.level]);
 
   useEffect(() => {
     const t = setTimeout(computePaths, 90);
@@ -101,7 +104,7 @@ function UnitTrailTrack({
     }
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hero.unlockedLevel]);
+  }, [hero.unlockedLevel, activePopover?.level]);
 
   const isChestUnlocked = hero.unlockedLevel > unit.chestAfter;
   const isChestOpened =
@@ -110,11 +113,10 @@ function UnitTrailTrack({
   return (
     <div
       ref={trackRef}
-      className="relative w-full max-w-[520px] mx-auto flex flex-col items-center gap-12 pt-8 pb-6"
+      className="relative w-full max-w-[540px] mx-auto flex flex-col items-center gap-10 sm:gap-12 pt-10 pb-6"
     >
       <UnitDecalBg type={unit.decalType} />
 
-      {/* Scoped Trail SVG — strictly inside this unit track, never crossing banners */}
       {svgSize.width > 0 && svgSize.height > 0 && (
         <svg
           width={svgSize.width}
@@ -142,12 +144,15 @@ function UnitTrailTrack({
         const isCompleted = lvl.num < hero.unlockedLevel;
         const isCurrentActive = lvl.num === hero.unlockedLevel;
         const isShaking = shakingLevel === lvl.num;
+        const isPopoverOpen = activePopover?.level === lvl.num;
+        const lessonMeta = LESSONS_DATA[lvl.num];
+        const earnedStars = hero.levelStars?.[lvl.num] || (isCompleted ? 3 : 0);
 
         const shiftClass =
           lvl.shift === 'left'
-            ? '-translate-x-10 sm:-translate-x-16'
+            ? '-translate-x-9 sm:-translate-x-16'
             : lvl.shift === 'right'
-            ? 'translate-x-10 sm:translate-x-16'
+            ? 'translate-x-9 sm:translate-x-16'
             : 'translate-x-0';
 
         const nodePaletteClass = !isUnlocked
@@ -165,111 +170,170 @@ function UnitTrailTrack({
         const mascotMeta = lvl.mascotKey ? MASCOT_IMAGES[lvl.mascotKey] : null;
 
         return (
-          <div
-            key={lvl.num}
-            className={`relative w-full flex justify-center items-center z-10 ${
-              isCurrentActive ? 'pt-7' : ''
-            }`}
-          >
-            {/* Brand Hero Mascot safely anchored inside track width, immune to node translateX */}
-            {mascotMeta && (
-              <div
-                title={mascotMeta.title}
-                className={`pointer-events-none absolute top-1/2 -translate-y-1/2 z-10 ${
-                  lvl.mascotSide === 'left'
-                    ? 'left-2 sm:left-5'
-                    : 'right-2 sm:right-5'
-                }`}
-              >
-                <div className="animate-floatSlow">
-                  <img
-                    src={mascotMeta.src}
-                    alt={mascotMeta.alt}
-                    className={`${
-                      lvl.isBoss
-                        ? 'w-20 h-20 sm:w-28 sm:h-28 drop-shadow-[0_10px_18px_rgba(147,51,234,0.38)]'
-                        : 'w-[76px] h-[88px] sm:w-24 sm:h-28 drop-shadow-[0_8px_14px_rgba(0,0,0,0.16)]'
-                    } object-contain`}
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* Stage Button Container with offset */}
-            <div className={`relative flex items-center justify-center transition-transform ${shiftClass}`}>
-              {/* Floating "COMEÇAR" Bounce Bubble */}
-              {isCurrentActive && (
-                <div className="pointer-events-none absolute -top-14 left-1/2 -translate-x-1/2 z-20">
-                  <div className="relative bg-white text-duo-greenDark font-display font-extrabold text-xs sm:text-sm px-3.5 py-1.5 rounded-2xl border-2 border-slate-200 shadow-md whitespace-nowrap animate-tagBounce">
-                    COMEÇAR
-                    <span className="absolute -bottom-[7px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-r-[7px] border-t-[7px] border-l-transparent border-r-transparent border-t-white" />
+          <div key={lvl.num} className="relative w-full flex flex-col items-center z-10">
+            <div
+              className={`relative w-full flex justify-center items-center ${
+                isCurrentActive ? 'pt-7' : ''
+              }`}
+            >
+              {mascotMeta && (
+                <div
+                  title={mascotMeta.title}
+                  className={`pointer-events-none absolute top-1/2 -translate-y-1/2 z-10 ${
+                    lvl.mascotSide === 'left'
+                      ? 'left-1 sm:left-4'
+                      : 'right-1 sm:right-4'
+                  }`}
+                >
+                  <div className="animate-floatSlow">
+                    <img
+                      src={mascotMeta.src}
+                      alt={mascotMeta.alt}
+                      className={`${
+                        lvl.isBoss
+                          ? 'w-20 h-20 sm:w-28 sm:h-28 drop-shadow-[0_10px_18px_rgba(147,51,234,0.34)]'
+                          : 'w-[74px] h-[86px] sm:w-24 sm:h-28 drop-shadow-[0_8px_14px_rgba(0,0,0,0.14)]'
+                      } object-contain`}
+                    />
                   </div>
                 </div>
               )}
 
-              {/* Animated SVG Progress Ring around Active Node */}
-              {isCurrentActive && (
-                <svg
-                  viewBox="0 0 100 100"
-                  className="pointer-events-none absolute -top-[9px] left-1/2 -translate-x-1/2 -rotate-90 w-[104px] h-[104px] z-10"
-                  aria-hidden="true"
-                >
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="44"
-                    fill="none"
-                    stroke="#FFC800"
-                    strokeWidth="6"
-                    strokeLinecap="round"
-                    strokeDasharray="280"
-                    strokeDashoffset="68"
-                  />
-                </svg>
-              )}
+              <div className={`relative flex items-center justify-center transition-transform ${shiftClass}`}>
+                {isCurrentActive && (
+                  <div className="pointer-events-none absolute -top-14 left-1/2 -translate-x-1/2 z-20">
+                    <div className="relative bg-white text-duo-greenDark font-display font-extrabold text-xs sm:text-sm px-3.5 py-1.5 rounded-2xl border-2 border-slate-200 shadow-md whitespace-nowrap animate-tagBounce">
+                      COMEÇAR
+                      <span className="absolute -bottom-[7px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-r-[7px] border-t-[7px] border-l-transparent border-r-transparent border-t-white" />
+                    </div>
+                  </div>
+                )}
 
-              <button
-                ref={(el) => {
-                  nodeBtnRefs.current[lvl.num] = el;
-                }}
-                type="button"
-                onClick={(e) => onNodeClick(lvl.num, e)}
-                aria-label={`Fase ${lvl.num}: ${LESSONS_DATA[lvl.num]?.title || ''}`}
-                className={`toy-node-gloss relative w-[86px] h-[82px] rounded-full flex items-center justify-center cursor-pointer select-none transition-all duration-100 active:translate-y-1.5 active:border-b-[3px] z-10 ${nodePaletteClass} ${
-                  isShaking ? 'animate-shakeX' : ''
-                }`}
-              >
-                {lvl.num === 10 ? (
-                  isUnlocked ? (
-                    <img
-                      src="/tabuada-assets/monstro-oficial.png"
-                      alt="Monstrinho Chefão"
-                      className="w-14 h-14 object-contain drop-shadow"
+                {isCurrentActive && (
+                  <svg
+                    viewBox="0 0 100 100"
+                    className="pointer-events-none absolute -top-[9px] left-1/2 -translate-x-1/2 -rotate-90 w-[104px] h-[104px] z-10"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="44"
+                      fill="none"
+                      stroke="#FFC800"
+                      strokeWidth="6"
+                      strokeLinecap="round"
+                      strokeDasharray="280"
+                      strokeDashoffset="68"
                     />
-                  ) : (
+                  </svg>
+                )}
+
+                <button
+                  ref={(el) => {
+                    nodeBtnRefs.current[lvl.num] = el;
+                  }}
+                  type="button"
+                  onClick={(e) => onNodeClick(lvl.num, e)}
+                  aria-expanded={isPopoverOpen}
+                  aria-label={`Fase ${lvl.num}: ${lessonMeta?.title || ''}`}
+                  className={`toy-node-gloss relative w-[86px] h-[82px] rounded-full flex items-center justify-center cursor-pointer select-none transition-all duration-100 active:translate-y-1.5 active:border-b-[3px] z-10 ${nodePaletteClass} ${
+                    isShaking ? 'animate-shakeX' : ''
+                  }`}
+                >
+                  {lvl.num === 10 ? (
+                    isUnlocked ? (
+                      <img
+                        src="/tabuada-assets/monstro-oficial.png"
+                        alt="Monstrinho"
+                        className="w-14 h-14 object-contain drop-shadow"
+                      />
+                    ) : (
+                      <KawaiiLock className="w-9 h-9" />
+                    )
+                  ) : !isUnlocked ? (
                     <KawaiiLock className="w-9 h-9" />
-                  )
-                ) : !isUnlocked ? (
-                  <KawaiiLock className="w-9 h-9" />
-                ) : isCompleted ? (
-                  <div className="flex flex-col items-center justify-center z-10 leading-none">
-                    <KawaiiStar className="w-8 h-8" />
-                    <span className="text-xs font-extrabold text-amber-950 -mt-0.5">
+                  ) : isCompleted ? (
+                    <div className="flex flex-col items-center justify-center z-10 leading-none">
+                      <KawaiiStar className="w-8 h-8" />
+                      <span className="text-xs font-extrabold text-amber-950 -mt-0.5">
+                        {lvl.num}
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="text-[28px] font-extrabold text-white drop-shadow-sm z-10">
                       {lvl.num}
                     </span>
-                  </div>
-                ) : (
-                  <span className="text-[28px] font-extrabold text-white drop-shadow-sm z-10">
-                    {lvl.num}
-                  </span>
-                )}
-              </button>
+                  )}
+                </button>
+              </div>
             </div>
+
+            {/* Inline expandable mission card — pushes trail smoothly so mascots & nodes never overlap */}
+            {isPopoverOpen && lessonMeta && (
+              <div
+                data-popover-card="true"
+                onClick={(e) => e.stopPropagation()}
+                className={`relative z-30 mt-3 w-full max-w-[296px] rounded-[22px] p-4 border-2 shadow-lg animate-popIn text-center ${
+                  !isUnlocked
+                    ? 'bg-slate-50 border-slate-300 border-b-[6px] border-b-slate-300'
+                    : 'bg-white border-slate-200 border-b-[6px] border-b-slate-300'
+                }`}
+              >
+                {!isUnlocked ? (
+                  <>
+                    <div className="font-display font-extrabold text-base text-slate-800">
+                      🔒 Fase {lvl.num} Bloqueada
+                    </div>
+                    <p className="font-body text-xs sm:text-sm text-slate-500 font-semibold mt-1 mb-3">
+                      Vença a fase {lvl.num - 1} primeiro para liberar esta missão!
+                    </p>
+                    <button
+                      type="button"
+                      onClick={onClosePopover}
+                      className="toy-btn w-full py-2.5 rounded-2xl bg-slate-200 border-b-[5px] border-slate-400 text-slate-700 text-xs sm:text-sm uppercase"
+                    >
+                      Entendi
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div className="font-display font-extrabold text-base text-duo-ink">
+                      Fase {lvl.num} • {lessonMeta.title.split('•')[0].trim()}
+                    </div>
+                    <p className="font-body text-xs sm:text-sm text-slate-500 font-semibold mt-0.5">
+                      {lessonMeta.subtitle} • {lessonMeta.questions.length} desafios
+                    </p>
+                    <div
+                      className="flex items-center justify-center gap-1.5 my-2.5"
+                      title={`${earnedStars} de 3 estrelas conquistadas`}
+                    >
+                      {[1, 2, 3].map((starIdx) => (
+                        <KawaiiGoldStar
+                          key={starIdx}
+                          filled={starIdx <= earnedStars}
+                          className="w-6 h-6"
+                        />
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onClosePopover();
+                        onStartLesson(lvl.num);
+                      }}
+                      className="toy-btn w-full py-3 rounded-2xl bg-duo-green border-b-[6px] border-duo-greenDark text-white text-sm uppercase"
+                    >
+                      {isCompleted ? 'Praticar • +5 💎' : 'Começar • +15 💎'}
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         );
       })}
 
-      {/* Intercalated Treasure Chest at end of unit */}
       {unit.chestAfter && (
         <div className="relative flex flex-col items-center z-10 pt-1">
           <button
@@ -307,32 +371,12 @@ export default function AdventureMap({
   onLockedChestToast,
   initialPopoverLevel = null,
 }) {
-  const mapRootRef = useRef(null);
   const nodeBtnRefs = useRef({});
   const [shakingLevel, setShakingLevel] = useState(null);
-  const [popover, setPopover] = useState(null); // { level, isLocked, x, y, tailLeft, flipBottom }
+  const [popover, setPopover] = useState(null); // { level }
 
   const openPopoverForLevel = (levelNum) => {
-    const btn = nodeBtnRefs.current[levelNum];
-    const mapRoot = mapRootRef.current;
-    if (!btn || !mapRoot) return;
-
     const isUnlocked = levelNum <= hero.unlockedLevel;
-    const rect = btn.getBoundingClientRect();
-    const mapRect = mapRoot.getBoundingClientRect();
-
-    const rawCenterX = rect.left - mapRect.left + rect.width / 2;
-    const cardHalfW = 134;
-    const safeX = Math.max(
-      cardHalfW + 8,
-      Math.min(mapRect.width - cardHalfW - 8, rawCenterX)
-    );
-    const tailLeft = Math.max(24, Math.min(236, 130 + (rawCenterX - safeX)));
-
-    const rawTop = rect.top - mapRect.top;
-    const flipBottom = rawTop < 185;
-    const y = flipBottom ? rect.bottom - mapRect.top + 14 : rawTop - 12;
-
     if (!isUnlocked) {
       playLockedSound();
       setShakingLevel(levelNum);
@@ -341,14 +385,7 @@ export default function AdventureMap({
       playPopSound();
     }
 
-    setPopover({
-      level: levelNum,
-      isLocked: !isUnlocked,
-      x: safeX,
-      y,
-      tailLeft,
-      flipBottom,
-    });
+    setPopover((prev) => (prev?.level === levelNum ? null : { level: levelNum }));
   };
 
   const handleNodeClick = (levelNum, event) => {
@@ -358,11 +395,10 @@ export default function AdventureMap({
 
   useEffect(() => {
     if (initialPopoverLevel) {
-      const t = setTimeout(() => openPopoverForLevel(initialPopoverLevel), 120);
+      const t = setTimeout(() => setPopover({ level: initialPopoverLevel }), 120);
       return () => clearTimeout(t);
     }
     return undefined;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialPopoverLevel]);
 
   useEffect(() => {
@@ -382,90 +418,11 @@ export default function AdventureMap({
     };
   }, [popover]);
 
-  const popoverLesson = popover ? LESSONS_DATA[popover.level] : null;
-
   return (
-    <div ref={mapRootRef} className="relative w-full flex flex-col items-center pb-8">
-      {/* Floating Duolingo Node Popover Card */}
-      {popover && popoverLesson && (
-        <div
-          data-popover-card="true"
-          style={{
-            left: `${popover.x}px`,
-            top: `${popover.y}px`,
-            transform: popover.flipBottom
-              ? 'translate(-50%, 0)'
-              : 'translate(-50%, -100%)',
-          }}
-          className={`absolute z-30 w-[268px] rounded-[22px] p-4 border-2 shadow-xl animate-popIn text-center ${
-            popover.isLocked
-              ? 'bg-slate-50 border-slate-300 border-b-[6px] border-b-slate-300'
-              : 'bg-white border-slate-200 border-b-[6px] border-b-slate-200'
-          }`}
-        >
-          {/* Directional tail */}
-          <span
-            style={{ left: `${popover.tailLeft}px` }}
-            className={`absolute -translate-x-1/2 w-0 h-0 border-l-[10px] border-r-[10px] border-l-transparent border-r-transparent ${
-              popover.flipBottom
-                ? `-top-[10px] border-b-[10px] ${
-                    popover.isLocked ? 'border-b-slate-50' : 'border-b-white'
-                  }`
-                : `-bottom-[10px] border-t-[10px] ${
-                    popover.isLocked ? 'border-t-slate-50' : 'border-t-white'
-                  }`
-            }`}
-          />
-
-          {popover.isLocked ? (
-            <>
-              <div className="font-display font-extrabold text-base text-slate-800">
-                🔒 Desafio Bloqueado
-              </div>
-              <p className="font-body text-xs sm:text-sm text-slate-500 mt-1 mb-3">
-                Complete a fase anterior para liberar este poder!
-              </p>
-              <button
-                type="button"
-                onClick={() => setPopover(null)}
-                className="toy-btn w-full py-2.5 rounded-2xl bg-slate-200 border-b-[5px] border-slate-400 text-slate-700 text-sm uppercase"
-              >
-                Fechar
-              </button>
-            </>
-          ) : (
-            <>
-              <div className="font-display font-extrabold text-base text-duo-ink">
-                Fase {popover.level} • {popoverLesson.title.split('•')[0].trim()}
-              </div>
-              <p className="font-body text-xs sm:text-sm text-slate-500 mt-1">
-                {popoverLesson.subtitle}
-              </p>
-              <div className="flex items-center justify-center gap-1 my-3">
-                <KawaiiGoldStar className="w-6 h-6" />
-                <KawaiiGoldStar className="w-6 h-6" />
-                <KawaiiGoldStar className="w-6 h-6" />
-              </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setPopover(null);
-                  onStartLesson(popover.level);
-                }}
-                className="toy-btn w-full py-3 rounded-2xl bg-duo-green border-b-[6px] border-duo-greenDark text-white text-sm uppercase"
-              >
-                COMEÇAR +10 💎
-              </button>
-            </>
-          )}
-        </div>
-      )}
-
-      {/* 4 Units Stack */}
+    <div className="relative w-full flex flex-col items-center pb-8">
       <div className="w-full flex flex-col gap-6">
         {UNITS_DATA.map((unit) => (
           <section key={unit.id} className="w-full flex flex-col items-center">
-            {/* Unit Header Banner — always above trail paths */}
             <div
               className={`relative z-20 w-full rounded-[22px] px-5 py-4 text-white flex items-center justify-between shadow-sm ${unit.themeBg} ${unit.themeBorder}`}
             >
@@ -477,7 +434,7 @@ export default function AdventureMap({
                   {unit.desc}
                 </p>
               </div>
-              <div className="hidden sm:flex items-center justify-center w-11 h-11 rounded-2xl bg-white/20 font-display font-extrabold text-lg">
+              <div className="hidden sm:flex items-center justify-center w-11 h-11 rounded-2xl bg-white/20 font-display font-extrabold text-lg shrink-0">
                 ×
               </div>
             </div>
@@ -486,7 +443,10 @@ export default function AdventureMap({
               unit={unit}
               hero={hero}
               shakingLevel={shakingLevel}
+              activePopover={popover}
               onNodeClick={handleNodeClick}
+              onClosePopover={() => setPopover(null)}
+              onStartLesson={onStartLesson}
               onChestClick={(chestNum) => {
                 if (hero.unlockedLevel <= chestNum) {
                   playLockedSound();

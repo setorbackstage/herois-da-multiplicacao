@@ -1,15 +1,23 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
-import { HERO_TIPS } from './data/gameData';
+import {
+  Award,
+  BookOpen,
+  Compass,
+  ShoppingBag,
+  Sparkles,
+  Volume2,
+  VolumeX,
+} from 'lucide-react';
+import { HERO_TIPS, SHOP_REWARDS } from './data/gameData';
 import {
   getHeroRankTitle,
+  getTotalStars,
   hasSavedSession,
-  hasVipAccessStorage,
   loadAppData,
   loadAudioPrefs,
   saveAppData,
   saveAudioPrefs,
-  setVipAccessStorage,
 } from './utils/storage';
 import {
   playChestSound,
@@ -20,7 +28,14 @@ import {
   setAudioSettings,
   speakHeroLine,
 } from './utils/heroAudio';
-import { AvatarGraphic, CrownIcon, FlameIcon, GemIcon, HeartIcon } from './components/HeroSvgs';
+import {
+  AvatarGraphic,
+  BrandLogo,
+  CrownIcon,
+  FlameIcon,
+  GemIcon,
+  HeartIcon,
+} from './components/HeroSvgs';
 import AdventureMap from './components/AdventureMap';
 import ShopView from './components/ShopView';
 import WorkbooksView from './components/WorkbooksView';
@@ -31,13 +46,14 @@ import {
   ConfirmExitModal,
   GameOverModal,
   HeroToast,
+  ParentalGateModal,
   VictoryModal,
 } from './components/GameModals';
 
 const NAV_ITEMS = [
-  { key: 'adventure', icon: '🗺️', label: 'Aventura' },
-  { key: 'shop', icon: '💎', label: 'Loja & VIP' },
-  { key: 'workbooks', icon: '📚', label: 'Apostilas A4' },
+  { key: 'adventure', label: 'Aventura', mobileLabel: 'Aventura', Icon: Compass },
+  { key: 'shop', label: 'Loja', mobileLabel: 'Loja', Icon: ShoppingBag },
+  { key: 'workbooks', label: 'Apostilas A4', mobileLabel: 'Apostilas', Icon: BookOpen },
 ];
 
 export default function App() {
@@ -53,13 +69,26 @@ export default function App() {
   const [activeLessonLevel, setActiveLessonLevel] = useState(null);
   const [confirmExitOpen, setConfirmExitOpen] = useState(false);
   const [gameOverOpen, setGameOverOpen] = useState(false);
-  const [victoryState, setVictoryState] = useState({ open: false, level: 1 });
+  const [victoryState, setVictoryState] = useState({
+    open: false,
+    level: 1,
+    stars: 3,
+    gemsEarned: 15,
+    xpEarned: 30,
+  });
+  const [parentUnlocked, setParentUnlocked] = useState(false);
+  const [parentGateState, setParentGateState] = useState({
+    open: false,
+    onPass: null,
+  });
   const [toast, setToast] = useState(null);
   const [initialPopoverLevel, setInitialPopoverLevel] = useState(null);
   const toastTimerRef = useRef(null);
 
   const hero =
     appData.profiles[appData.activeHeroId] || Object.values(appData.profiles)[0];
+
+  const equippedBadge = SHOP_REWARDS.find((r) => r.id === hero.equippedReward);
 
   const showToast = (emoji, title, subtitle = '') => {
     setToast({ emoji, title, subtitle });
@@ -76,22 +105,9 @@ export default function App() {
     saveAudioPrefs({ soundEnabled, persona: voicePersona });
   }, [soundEnabled, voicePersona]);
 
-  // Support URL query parameter deep linking & VIP unlock via post-purchase link
+  // Support URL query parameter deep linking
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const vipToken = (params.get('vip') || '').toLowerCase();
-    if (vipToken === 'liga27' || vipToken === '1' || vipToken === 'true') {
-      setVipAccessStorage(true);
-      setAppData((prev) => {
-        const nextProfiles = { ...prev.profiles };
-        Object.keys(nextProfiles).forEach((id) => {
-          nextProfiles[id] = { ...nextProfiles[id], isVIP: true };
-        });
-        return { ...prev, profiles: nextProfiles };
-      });
-      showToast('👑', 'Passe VIP ativado!', 'Os 6 cadernos A4 estão liberados na aba Apostilas.');
-    }
-
     if (params.get('portal') === 'create') {
       setPortalModal({ open: true, tab: 'create' });
     } else if (params.get('portal') === 'select') {
@@ -108,7 +124,7 @@ export default function App() {
       if (!Number.isNaN(lvl)) setInitialPopoverLevel(lvl);
     } else if (params.get('view') === 'map') {
       // Explicit map view
-    } else if (!hasSavedSession() && !vipToken) {
+    } else if (!hasSavedSession()) {
       setPortalModal({ open: true, tab: 'select' });
     }
   }, []);
@@ -128,6 +144,14 @@ export default function App() {
     });
   };
 
+  const requestParentGate = (onPassAction) => {
+    if (parentUnlocked) {
+      onPassAction?.();
+      return;
+    }
+    setParentGateState({ open: true, onPass: onPassAction });
+  };
+
   const handleToggleSound = () => {
     const next = !soundEnabled;
     setSoundEnabled(next);
@@ -145,14 +169,14 @@ export default function App() {
     if (soundEnabled) {
       speakHeroLine(
         nextPersona === 'maya'
-          ? 'Oi! Aqui é a Maya, vamos calcular juntas!'
-          : 'E aí herói! Aqui é o Léo, bora nessa missão!',
+          ? 'Oi! Aqui é a Maya, vamos praticar juntos!'
+          : 'Oi! Aqui é o Léo, vamos nessa missão!',
         { personaOverride: nextPersona }
       );
     }
     showToast(
       nextPersona === 'maya' ? '🌟' : '⚡',
-      nextPersona === 'maya' ? 'Voz ativa: Maya Heroína' : 'Voz ativa: Léo Herói',
+      nextPersona === 'maya' ? 'Guia: Maya' : 'Guia: Léo',
       'As questões serão lidas com esta voz!'
     );
   };
@@ -183,11 +207,11 @@ export default function App() {
     }));
     playChestSound();
     try {
-      confetti({ particleCount: 80, spread: 80, origin: { y: 0.6 } });
+      confetti({ particleCount: 75, spread: 75, origin: { y: 0.6 } });
     } catch {
       // ignore confetti error
     }
-    showToast('🌟', 'Baú da Liga Aberto!', 'Você encontrou +25 Gemas Mágicas 💎!');
+    showToast('🌟', 'Baú Aberto!', 'Você encontrou +25 Gemas 💎!');
   };
 
   const handleWrongAnswer = () => {
@@ -201,30 +225,50 @@ export default function App() {
     }
   };
 
-  const handleLessonComplete = (completedLevel) => {
-    updateActiveHero((curr) => ({
-      ...curr,
-      unlockedLevel:
-        completedLevel === curr.unlockedLevel && curr.unlockedLevel < 10
-          ? curr.unlockedLevel + 1
-          : curr.unlockedLevel,
-      gems: curr.gems + 15,
-      xp: curr.xp + 30,
-    }));
+  const handleLessonComplete = (completedLevel, mistakesCount = 0) => {
+    const earnedStars = mistakesCount === 0 ? 3 : mistakesCount === 1 ? 2 : 1;
+    const isFirstTime = completedLevel >= hero.unlockedLevel;
+    const gemsEarned = isFirstTime ? 15 : 5;
+    const xpEarned = isFirstTime ? 30 : 15;
+
+    updateActiveHero((curr) => {
+      const prevStars = curr.levelStars?.[completedLevel] || 0;
+      return {
+        ...curr,
+        unlockedLevel:
+          completedLevel === curr.unlockedLevel && curr.unlockedLevel < 10
+            ? curr.unlockedLevel + 1
+            : curr.unlockedLevel,
+        levelStars: {
+          ...(curr.levelStars || {}),
+          [completedLevel]: Math.max(prevStars, earnedStars),
+        },
+        gems: curr.gems + gemsEarned,
+        xp: curr.xp + xpEarned,
+      };
+    });
+
     playFanfareSound();
     try {
-      confetti({ particleCount: 120, spread: 85, origin: { y: 0.6 } });
+      confetti({ particleCount: 110, spread: 80, origin: { y: 0.6 } });
     } catch {
       // ignore confetti error
     }
     setActiveLessonLevel(null);
-    setVictoryState({ open: true, level: completedLevel });
+    setVictoryState({
+      open: true,
+      level: completedLevel,
+      stars: earnedStars,
+      gemsEarned,
+      xpEarned,
+    });
   };
 
   const handleBuyHearts = () => {
+    if (hero.hearts >= 5) return;
     if (hero.gems < 20) {
       playLockedSound();
-      showToast('💎', 'Gemas insuficientes', 'Complete fases ou abra baús para ganhar mais!');
+      showToast('💎', 'Gemas insuficientes', 'Complete fases ou abra baús para juntar 20 gemas!');
       return;
     }
     updateActiveHero((curr) => ({
@@ -233,40 +277,65 @@ export default function App() {
       hearts: 5,
     }));
     playFanfareSound();
-    showToast('❤️', '5 Vidas Recarregadas!', 'Você já pode voltar às missões!');
+    showToast('❤️', '5 Vidas Recarregadas!', 'Bom jogo!');
   };
 
-  const handleAddGems = (amount) => {
+  const handleBuyOrEquipReward = (item) => {
+    const owned = hero.ownedRewards || [];
+    if (owned.includes(item.id)) {
+      const nextEquipped = hero.equippedReward === item.id ? null : item.id;
+      updateActiveHero({ equippedReward: nextEquipped });
+      playPopSound();
+      showToast(
+        item.emoji,
+        nextEquipped ? `${item.name} equipada!` : `${item.name} guardada`,
+        nextEquipped ? 'Ela já aparece no seu cartão de herói!' : ''
+      );
+      return;
+    }
+
+    if (hero.gems < item.price) {
+      playLockedSound();
+      showToast(
+        '💎',
+        `Faltam ${item.price - hero.gems} gemas`,
+        'Vença fases e abra baús para juntar gemas!'
+      );
+      return;
+    }
+
     updateActiveHero((curr) => ({
       ...curr,
-      gems: curr.gems + amount,
+      gems: curr.gems - item.price,
+      ownedRewards: [...(curr.ownedRewards || []), item.id],
+      equippedReward: item.id,
     }));
     playFanfareSound();
     try {
-      confetti({ particleCount: 55, spread: 60, origin: { y: 0.7 } });
+      confetti({ particleCount: 60, spread: 65, origin: { y: 0.7 } });
     } catch {
       // ignore
     }
-    showToast('💎', `+${amount} Gemas adicionadas!`, 'Seu cofre de herói está brilhando!');
+    showToast(item.emoji, `${item.name} desbloqueada!`, 'Já está equipada no seu perfil!');
   };
 
   const handleRecoverTraining = () => {
     updateActiveHero((curr) => ({ ...curr, hearts: 3 }));
     setGameOverOpen(false);
     playSuccessSound();
-    showToast('⚡', 'Treino com o Léo concluído!', 'Você recuperou +3 Vidas ❤️ grátis!');
+    showToast('⚡', 'Treino concluído!', 'Você recuperou +3 Vidas ❤️ grátis!');
   };
 
   const handleRecoverGems = () => {
     if (hero.gems < 20) {
       playLockedSound();
-      showToast('💎', 'Gemas insuficientes!', 'Use o Treino Rápido gratuito com o Léo.');
+      showToast('💎', 'Gemas insuficientes!', 'Use o Treino Rápido gratuito para recuperar vidas.');
       return;
     }
     updateActiveHero((curr) => ({ ...curr, gems: curr.gems - 20, hearts: 5 }));
     setGameOverOpen(false);
     playFanfareSound();
-    showToast('❤️', 'Vidas no máximo!', 'Suas 5 vidas foram recarregadas!');
+    showToast('❤️', '5 Vidas Recarregadas!', 'Bom jogo!');
   };
 
   const handleCreateHero = ({ name, avatar, pin }) => {
@@ -282,37 +351,40 @@ export default function App() {
           pin,
           hearts: 5,
           streak: 1,
-          gems: 100,
+          gems: 20,
           xp: 0,
           unlockedLevel: 1,
           openedChests: [],
+          levelStars: {},
+          ownedRewards: [],
+          equippedReward: null,
           isVIP: false,
         },
       },
     }));
     playFanfareSound();
     try {
-      confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
+      confetti({ particleCount: 65, spread: 70, origin: { y: 0.6 } });
     } catch {
       // ignore
     }
     setPortalModal({ open: false, tab: 'select' });
-    showToast('🚀', `Bem-vindo, ${name}!`, 'Sua jornada na Liga dos Heróis começou!');
+    showToast('🚀', `Bem-vindo, ${name}!`, 'Sua aventura começou!');
   };
 
-  const isVipUnlocked = Boolean(hero?.isVIP || hasVipAccessStorage());
-
   const tipOfMoment = HERO_TIPS[(hero.unlockedLevel - 1) % HERO_TIPS.length];
-  const masteryPct = Math.min(100, Math.round(((hero.unlockedLevel - 1) / 10) * 100));
+  const completedCount = Math.max(0, hero.unlockedLevel - 1);
+  const masteryPct = Math.min(100, Math.round((completedCount / 10) * 100));
+  const totalStars = getTotalStars(hero.levelStars);
 
   return (
     <div className="min-h-screen toy-shell-bg text-duo-ink flex flex-col">
       <HeroToast toast={toast} onDismiss={() => setToast(null)} />
 
       {/* ================================================================
-          MOBILE & TABLET TOP STICKY HEADER (Hidden >= lg desktop 3-col)
+          MOBILE TOP STICKY HEADER (Strictly < md, never shown on Tablet!)
           ================================================================ */}
-      <header className="lg:hidden sticky top-0 z-30 bg-duo-cream/95 backdrop-blur-md border-b-2 border-duo-creamBorder px-3 py-2">
+      <header className="md:hidden sticky top-0 z-30 bg-duo-cream/95 backdrop-blur-md border-b-2 border-duo-creamBorder px-3 py-2">
         <div className="max-w-2xl mx-auto flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
             <button
@@ -321,11 +393,7 @@ export default function App() {
               className="hidden sm:block shrink-0"
               title="Heróis da Multiplicação"
             >
-              <img
-                src="/tabuada-assets/logo-transparente.png"
-                alt="Heróis da Multiplicação"
-                className="h-9 object-contain"
-              />
+              <BrandLogo compact />
             </button>
 
             <button
@@ -336,6 +404,7 @@ export default function App() {
               <span className="w-7 h-7 rounded-full bg-amber-100 border border-amber-400 overflow-hidden shrink-0">
                 <AvatarGraphic avatarKey={hero.avatar} className="w-full h-full" />
               </span>
+              {equippedBadge && <span className="text-xs shrink-0">{equippedBadge.emoji}</span>}
               <span className="font-display font-bold text-xs sm:text-sm truncate max-w-[74px]">
                 {hero.name}
               </span>
@@ -363,74 +432,93 @@ export default function App() {
             <button
               type="button"
               onClick={handleToggleSound}
+              aria-label={soundEnabled ? 'Desativar som' : 'Ativar som'}
               title={soundEnabled ? 'Desativar som' : 'Ativar som'}
-              className={`w-8 h-8 rounded-full bg-white border-2 border-slate-200 border-b-4 flex items-center justify-center text-sm ${
-                soundEnabled ? '' : 'opacity-50 grayscale'
+              className={`w-8 h-8 rounded-full bg-white border-2 border-slate-200 border-b-4 flex items-center justify-center ${
+                soundEnabled ? 'text-duo-blueDark' : 'text-slate-400 opacity-70'
               }`}
             >
-              {soundEnabled ? '🔊' : '🔇'}
+              {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
             </button>
           </div>
         </div>
       </header>
 
       {/* ================================================================
-          MAIN RESPONSIVE 3-COLUMN DESKTOP / CENTER MOBILE SHELL
+          MAIN RESPONSIVE SHELL:
+          - Mobile (< md): Top header + Center main + Bottom nav
+          - Tablet / Small Laptop (md..xl): Left rail w-[96px] + Center main w/ inline HUD
+          - Large Desktop (>= xl, 1280px+): 3 columns (252px left + center + 308px right)
           ================================================================ */}
-      <div className="flex-1 w-full max-w-[1320px] mx-auto px-3 sm:px-6 lg:px-8 flex items-start gap-6 lg:gap-8">
-        {/* LEFT SIDEBAR NAVIGATION (Desktop >= lg & Tablet >= md icon rail) */}
-        <aside className="hidden md:flex flex-col sticky top-0 h-screen py-6 md:w-[82px] lg:w-[248px] shrink-0 border-r-2 border-duo-creamBorder pr-3 lg:pr-5">
+      <div className="flex-1 w-full max-w-[1320px] mx-auto px-3 sm:px-6 xl:px-8 flex items-start gap-5 xl:gap-8">
+        {/* LEFT SIDEBAR NAVIGATION (Tablet >= md & Desktop >= xl) */}
+        <aside className="hidden md:flex flex-col sticky top-0 h-screen py-5 w-[96px] xl:w-[252px] shrink-0 border-r-2 border-duo-creamBorder pr-2.5 xl:pr-5">
           <button
             type="button"
             onClick={() => handleSwitchTab('adventure')}
-            className="mb-7 flex items-center justify-center lg:justify-start gap-2.5 px-1"
+            className="mb-6 flex items-center justify-center xl:justify-start px-1"
+            title="Heróis da Multiplicação"
           >
-            <img
-              src="/tabuada-assets/logo-transparente.png"
-              alt="Heróis da Multiplicação"
-              className="h-11 lg:h-12 object-contain"
-            />
+            <span className="xl:hidden">
+              <BrandLogo compact />
+            </span>
+            <span className="hidden xl:inline-flex">
+              <BrandLogo />
+            </span>
           </button>
 
-          <nav className="flex flex-col gap-2.5">
+          <nav className="flex flex-col gap-2">
             {NAV_ITEMS.map((item) => {
               const isActive = activeTab === item.key;
+              const IconComp = item.Icon;
               return (
                 <button
                   key={item.key}
                   type="button"
+                  title={item.label}
                   onClick={() => handleSwitchTab(item.key)}
-                  className={`flex items-center justify-center lg:justify-start gap-3.5 px-3 lg:px-4 py-3 rounded-2xl font-display font-extrabold text-sm uppercase tracking-wide border-2 transition-all ${
+                  className={`flex flex-col xl:flex-row items-center justify-center xl:justify-start gap-1 xl:gap-3.5 px-2 xl:px-4 py-2.5 xl:py-3 rounded-2xl font-display font-extrabold border-2 transition-all ${
                     isActive
                       ? 'bg-sky-50 border-duo-blue text-duo-blueDark shadow-sm'
                       : 'bg-transparent border-transparent text-slate-500 hover:bg-amber-50/70 hover:text-duo-ink'
                   }`}
                 >
-                  <span className="text-xl">{item.icon}</span>
-                  <span className="hidden lg:inline">{item.label}</span>
+                  <IconComp className="w-5 h-5 shrink-0" strokeWidth={2.5} />
+                  <span className="text-[10px] xl:text-sm xl:uppercase xl:tracking-wide leading-tight">
+                    {item.mobileLabel}
+                  </span>
                 </button>
               );
             })}
 
             <button
               type="button"
+              title="Meu Herói"
               onClick={() => setProfileOpen(true)}
-              className="flex items-center justify-center lg:justify-start gap-3.5 px-3 lg:px-4 py-3 rounded-2xl font-display font-extrabold text-sm uppercase tracking-wide border-2 border-transparent text-slate-500 hover:bg-amber-50/70 hover:text-duo-ink transition-all"
+              className="flex flex-col xl:flex-row items-center justify-center xl:justify-start gap-1 xl:gap-3.5 px-2 xl:px-4 py-2.5 xl:py-3 rounded-2xl font-display font-extrabold border-2 border-transparent text-slate-500 hover:bg-amber-50/70 hover:text-duo-ink transition-all"
             >
-              <span className="text-xl">🏅</span>
-              <span className="hidden lg:inline">Meu Herói</span>
+              <Award className="w-5 h-5 shrink-0" strokeWidth={2.5} />
+              <span className="text-[10px] xl:text-sm xl:uppercase xl:tracking-wide leading-tight">
+                Herói
+              </span>
             </button>
           </nav>
 
-          {/* Audio & Hero Voice Controls at bottom of sidebar */}
-          <div className="mt-auto space-y-2.5 pt-4 border-t-2 border-duo-creamBorder">
+          {/* Audio, Voice & Switcher at bottom of sidebar */}
+          <div className="mt-auto space-y-2 pt-3 border-t-2 border-duo-creamBorder">
             <button
               type="button"
               onClick={handleToggleSound}
-              className="w-full flex items-center justify-center lg:justify-start gap-2.5 px-3 py-2.5 rounded-2xl bg-white border-2 border-slate-200 border-b-4 font-display font-bold text-xs text-duo-ink hover:border-duo-blue"
+              title={soundEnabled ? 'Desativar som' : 'Ativar som'}
+              className="w-full flex flex-col xl:flex-row items-center justify-center xl:justify-start gap-0.5 xl:gap-2.5 px-2 xl:px-3 py-2 rounded-2xl bg-white border-2 border-slate-200 border-b-4 font-display font-bold text-[10px] xl:text-xs text-duo-ink hover:border-duo-blue"
             >
-              <span>{soundEnabled ? '🔊' : '🔇'}</span>
-              <span className="hidden lg:inline">
+              {soundEnabled ? (
+                <Volume2 className="w-4 h-4 text-duo-blueDark" />
+              ) : (
+                <VolumeX className="w-4 h-4 text-slate-400" />
+              )}
+              <span className="xl:hidden">{soundEnabled ? 'Som' : 'Mudo'}</span>
+              <span className="hidden xl:inline">
                 {soundEnabled ? 'Som Ativado' : 'Som Mudo'}
               </span>
             </button>
@@ -438,25 +526,32 @@ export default function App() {
             <button
               type="button"
               onClick={handleToggleVoicePersona}
-              className="w-full flex items-center justify-center lg:justify-start gap-2.5 px-3 py-2.5 rounded-2xl bg-sky-50 border-2 border-sky-200 border-b-4 font-display font-bold text-xs text-sky-800 hover:border-duo-blue"
+              title="Trocar guia e voz (Léo ou Maya)"
+              className="w-full flex flex-col xl:flex-row items-center justify-center xl:justify-start gap-0.5 xl:gap-2.5 px-2 xl:px-3 py-2 rounded-2xl bg-sky-50 border-2 border-sky-200 border-b-4 font-display font-bold text-[10px] xl:text-xs text-sky-800 hover:border-duo-blue"
             >
-              <span>{voicePersona === 'maya' ? '🌟' : '⚡'}</span>
-              <span className="hidden lg:inline">
-                Voz: {voicePersona === 'maya' ? 'Maya' : 'Léo'}
+              <Sparkles className="w-4 h-4 text-sky-600" />
+              <span className="xl:hidden">{voicePersona === 'maya' ? 'Maya' : 'Léo'}</span>
+              <span className="hidden xl:inline">
+                Guia: {voicePersona === 'maya' ? 'Maya' : 'Léo'}
               </span>
             </button>
 
             <button
               type="button"
               onClick={() => setPortalModal({ open: true, tab: 'select' })}
-              className="w-full flex items-center justify-center lg:justify-start gap-2.5 p-2 rounded-2xl bg-white border-2 border-slate-200 hover:border-duo-blue transition-colors"
+              title="Trocar perfil"
+              className="w-full flex flex-col xl:flex-row items-center justify-center xl:justify-start gap-1 xl:gap-2.5 p-2 rounded-2xl bg-white border-2 border-slate-200 hover:border-duo-blue transition-colors"
             >
               <span className="w-8 h-8 rounded-full bg-amber-100 border border-amber-400 overflow-hidden shrink-0">
                 <AvatarGraphic avatarKey={hero.avatar} className="w-full h-full" />
               </span>
-              <div className="hidden lg:block text-left min-w-0">
-                <div className="font-display font-extrabold text-xs text-duo-ink truncate">
-                  {hero.name}
+              <span className="xl:hidden font-display font-bold text-[10px] text-duo-ink truncate max-w-full">
+                {hero.name}
+              </span>
+              <div className="hidden xl:block text-left min-w-0">
+                <div className="font-display font-extrabold text-xs text-duo-ink truncate flex items-center gap-1">
+                  {equippedBadge && <span>{equippedBadge.emoji}</span>}
+                  <span>{hero.name}</span>
                 </div>
                 <div className="font-body text-[11px] font-bold text-duo-blueDark">
                   Trocar perfil
@@ -467,32 +562,47 @@ export default function App() {
         </aside>
 
         {/* CENTER MAIN CONTENT STAGE */}
-        <main className="flex-1 min-w-0 max-w-[680px] mx-auto w-full pt-4 md:pt-7 pb-28 md:pb-12">
-          {/* Compact VIP Banner visible on mobile/tablet (< lg) */}
-          <div
-            onClick={() => handleSwitchTab('shop')}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && handleSwitchTab('shop')}
-            className="lg:hidden relative overflow-hidden mb-5 rounded-[20px] bg-gradient-to-r from-purple-800 via-purple-700 to-fuchsia-600 p-3.5 text-white border-b-[6px] border-purple-950 flex items-center justify-between gap-3 cursor-pointer"
-          >
-            <div className="pointer-events-none absolute top-0 bottom-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-white/25 to-transparent animate-sheen" />
-            <div className="flex items-center gap-3 relative z-10 min-w-0">
-              <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
-                <CrownIcon className="w-6 h-5" />
+        <main className="flex-1 min-w-0 max-w-[680px] mx-auto w-full pt-4 md:pt-6 pb-28 md:pb-12">
+          {/* Tablet & Small-Laptop Inline HUD Bar (md..xl only, zero duplicate logos!) */}
+          <div className="hidden md:flex xl:hidden items-center justify-between gap-3 mb-5 bg-white rounded-[20px] border-2 border-slate-200 border-b-[5px] px-4 py-2.5">
+            <button
+              type="button"
+              onClick={() => setProfileOpen(true)}
+              className="flex items-center gap-2.5 min-w-0 hover:opacity-90"
+            >
+              <span className="w-9 h-9 rounded-full bg-amber-100 border-2 border-amber-400 overflow-hidden shrink-0">
+                <AvatarGraphic avatarKey={hero.avatar} className="w-full h-full" />
+              </span>
+              <div className="text-left min-w-0">
+                <div className="font-display font-extrabold text-sm text-duo-ink truncate flex items-center gap-1">
+                  {equippedBadge && <span>{equippedBadge.emoji}</span>}
+                  <span>{hero.name}</span>
+                </div>
+                <div className="font-body text-[11px] font-bold text-slate-500">
+                  {getHeroRankTitle(hero.unlockedLevel)} • {totalStars} ★
+                </div>
               </div>
-              <div className="min-w-0">
-                <div className="font-display font-extrabold text-xs sm:text-sm uppercase truncate">
-                  Passe VIP • Liga dos Heróis
-                </div>
-                <div className="font-body text-[11px] text-purple-100 font-semibold truncate">
-                  10 Tabuadas + 6 Apostilas A4!
-                </div>
+            </button>
+
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="flex items-center gap-1 font-display font-extrabold text-sm" title="Ofensiva">
+                <FlameIcon className="w-5 h-5" />
+                <span>{hero.streak}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleSwitchTab('shop')}
+                className="flex items-center gap-1 font-display font-extrabold text-sm hover:scale-105 transition-transform"
+                title="Ir para a Loja"
+              >
+                <GemIcon className="w-5 h-5" />
+                <span>{hero.gems}</span>
+              </button>
+              <div className="flex items-center gap-1 font-display font-extrabold text-sm" title="Vidas">
+                <HeartIcon className="w-5 h-5" />
+                <span>{hero.hearts}</span>
               </div>
             </div>
-            <span className="toy-btn relative z-10 px-3 py-1.5 rounded-xl bg-duo-gold border-b-4 border-duo-goldDark text-amber-950 text-xs uppercase shrink-0">
-              Ver ➔
-            </span>
           </div>
 
           {activeTab === 'adventure' && (
@@ -513,23 +623,20 @@ export default function App() {
 
           {activeTab === 'shop' && (
             <ShopView
-              isVIP={isVipUnlocked}
-              onOpenVipGuardian={() => setPortalModal({ open: true, tab: 'guardian' })}
+              hero={hero}
+              onOpenVipGuardian={() =>
+                requestParentGate(() => setPortalModal({ open: true, tab: 'guardian' }))
+              }
               onBuyHearts={handleBuyHearts}
-              onAddGems={handleAddGems}
+              onBuyOrEquipReward={handleBuyOrEquipReward}
             />
           )}
 
-          {activeTab === 'workbooks' && (
-            <WorkbooksView
-              isVIP={isVipUnlocked}
-              onOpenUnlock={() => setPortalModal({ open: true, tab: 'guardian' })}
-            />
-          )}
+          {activeTab === 'workbooks' && <WorkbooksView />}
         </main>
 
-        {/* RIGHT STICKY WIDGET PANEL (Desktop >= lg) */}
-        <aside className="hidden lg:flex flex-col gap-5 sticky top-0 py-7 w-[308px] shrink-0">
+        {/* RIGHT STICKY WIDGET PANEL (Large Desktop >= xl, 1280px+) */}
+        <aside className="hidden xl:flex flex-col gap-5 sticky top-0 py-6 w-[308px] shrink-0">
           {/* HUD Pills Row */}
           <div className="bg-white rounded-[22px] border-2 border-slate-200 border-b-[5px] p-3.5 flex items-center justify-around">
             <div className="flex items-center gap-1.5 font-display font-extrabold text-base" title="Ofensiva Diária">
@@ -540,12 +647,12 @@ export default function App() {
               type="button"
               onClick={() => handleSwitchTab('shop')}
               className="flex items-center gap-1.5 font-display font-extrabold text-base hover:scale-105 transition-transform"
-              title="Diamantes Mágicos"
+              title="Gemas"
             >
               <GemIcon className="w-6 h-6" />
               <span>{hero.gems}</span>
             </button>
-            <div className="flex items-center gap-1.5 font-display font-extrabold text-base" title="Vidas de Herói">
+            <div className="flex items-center gap-1.5 font-display font-extrabold text-base" title="Vidas">
               <HeartIcon className="w-6 h-6" />
               <span>{hero.hearts}</span>
             </div>
@@ -558,8 +665,9 @@ export default function App() {
                 <AvatarGraphic avatarKey={hero.avatar} className="w-full h-full" />
               </div>
               <div className="min-w-0 flex-1">
-                <div className="font-display font-extrabold text-base text-duo-ink truncate">
-                  {hero.name}
+                <div className="font-display font-extrabold text-base text-duo-ink truncate flex items-center gap-1">
+                  {equippedBadge && <span>{equippedBadge.emoji}</span>}
+                  <span>{hero.name}</span>
                 </div>
                 <div className="font-body text-xs font-bold text-slate-500">
                   {getHeroRankTitle(hero.unlockedLevel)} • {hero.xp} XP
@@ -570,11 +678,11 @@ export default function App() {
             <div className="mb-3">
               <div className="flex justify-between text-xs font-bold text-slate-500 mb-1">
                 <span>Progresso na Liga</span>
-                <span>{masteryPct}%</span>
+                <span>{masteryPct}% ({totalStars} ★)</span>
               </div>
               <div className="h-3 bg-slate-100 rounded-full overflow-hidden">
                 <div
-                  style={{ width: `${Math.max(10, masteryPct)}%` }}
+                  style={{ width: `${masteryPct}%` }}
                   className="h-full bg-duo-green rounded-full transition-all duration-300"
                 />
               </div>
@@ -585,46 +693,18 @@ export default function App() {
               onClick={() => setProfileOpen(true)}
               className="toy-btn w-full py-2.5 rounded-xl bg-white border-2 border-slate-200 border-b-4 text-duo-blueDark text-xs uppercase hover:border-duo-blue"
             >
-              Abrir Quartel do Herói
+              Meu Perfil de Herói
             </button>
           </div>
 
-          {/* Desktop Passe VIP Card */}
-          <div
-            onClick={() => handleSwitchTab('shop')}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && handleSwitchTab('shop')}
-            className="relative overflow-hidden rounded-[22px] bg-gradient-to-br from-purple-800 via-purple-700 to-fuchsia-600 p-5 text-white border-b-[6px] border-purple-950 cursor-pointer"
-          >
-            <div className="pointer-events-none absolute top-0 bottom-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-white/25 to-transparent animate-sheen" />
-            <div className="flex items-center gap-3 mb-2 relative z-10">
-              <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center">
-                <CrownIcon className="w-6 h-5" />
-              </div>
-              <div className="font-display font-extrabold text-sm uppercase">
-                Passe VIP dos Heróis
-              </div>
-            </div>
-            <p className="font-body text-xs text-purple-100 font-semibold mb-4 relative z-10">
-              Libere todas as 10 tabuadas, vidas infinitas e os 6 livros digitais para imprimir!
-            </p>
-            <button
-              type="button"
-              className="toy-btn relative z-10 w-full py-2.5 rounded-xl bg-duo-gold border-b-4 border-duo-goldDark text-amber-950 text-xs uppercase"
-            >
-              Ver Benefícios ➔
-            </button>
-          </div>
-
-          {/* Dica Mágica Card */}
+          {/* Dica Card */}
           <div className="bg-amber-50/80 rounded-[22px] border-2 border-amber-200 p-4">
             <div className="flex items-center gap-2.5 mb-1.5">
               <img
                 src={
                   tipOfMoment.hero === 'Maya'
-                    ? '/tabuada-assets/heroi-menina-oficial.png'
-                    : '/tabuada-assets/heroi-menino-oficial.png'
+                    ? '/tabuada-assets/avatar-maya.png'
+                    : '/tabuada-assets/avatar-leo.png'
                 }
                 alt={tipOfMoment.hero}
                 className="w-8 h-8 rounded-full object-cover border border-amber-400"
@@ -637,35 +717,60 @@ export default function App() {
               {tipOfMoment.text}
             </p>
           </div>
+
+          {/* Discreet Parent-Gated VIP Link */}
+          <div className="bg-purple-50 rounded-[22px] border-2 border-purple-200 p-4">
+            <div className="flex items-center gap-2.5 mb-1.5">
+              <div className="w-8 h-8 rounded-xl bg-purple-600 flex items-center justify-center shrink-0">
+                <CrownIcon className="w-5 h-4" />
+              </div>
+              <span className="font-display font-extrabold text-xs uppercase text-purple-900">
+                Área dos Pais 🔒
+              </span>
+            </div>
+            <p className="font-body text-xs font-semibold text-purple-800/80 mb-3">
+              Sincronização na nuvem e gestão do Passe VIP da família.
+            </p>
+            <button
+              type="button"
+              onClick={() =>
+                requestParentGate(() => setPortalModal({ open: true, tab: 'guardian' }))
+              }
+              className="toy-btn w-full py-2 rounded-xl bg-duo-purple border-b-4 border-duo-purpleDark text-white text-xs uppercase"
+            >
+              Acessar Área dos Pais
+            </button>
+          </div>
         </aside>
       </div>
 
       {/* ================================================================
           MOBILE FIXED BOTTOM TAB BAR (Hidden >= md where sidebar takes over)
           ================================================================ */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t-2 border-slate-200 px-2 pt-2 pb-[calc(8px+env(safe-area-inset-bottom))] flex items-center justify-around shadow-[0_-4px_14px_rgba(0,0,0,0.05)]">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t-2 border-slate-200 px-2 pt-1.5 pb-[calc(8px+env(safe-area-inset-bottom))] flex items-center justify-around shadow-[0_-4px_14px_rgba(0,0,0,0.05)]">
         {NAV_ITEMS.map((item) => {
           const isActive = activeTab === item.key;
+          const IconComp = item.Icon;
           return (
             <button
               key={item.key}
               type="button"
               onClick={() => handleSwitchTab(item.key)}
-              className={`flex-1 flex flex-col items-center gap-0.5 py-1 rounded-xl font-display font-bold text-[11px] transition-colors ${
+              className={`flex-1 flex flex-col items-center gap-0.5 py-1.5 rounded-xl font-display font-bold text-[11px] transition-colors ${
                 isActive ? 'text-duo-blueDark bg-sky-50' : 'text-slate-400'
               }`}
             >
-              <span className="text-xl leading-none">{item.icon}</span>
-              <span>{item.key === 'workbooks' ? 'Apostilas' : item.label}</span>
+              <IconComp className="w-5 h-5" strokeWidth={2.5} />
+              <span>{item.mobileLabel}</span>
             </button>
           );
         })}
         <button
           type="button"
           onClick={() => setProfileOpen(true)}
-          className="flex-1 flex flex-col items-center gap-0.5 py-1 rounded-xl font-display font-bold text-[11px] text-slate-400"
+          className="flex-1 flex flex-col items-center gap-0.5 py-1.5 rounded-xl font-display font-bold text-[11px] text-slate-400"
         >
-          <span className="text-xl leading-none">🏅</span>
+          <Award className="w-5 h-5" strokeWidth={2.5} />
           <span>Meu Herói</span>
         </button>
       </nav>
@@ -698,6 +803,8 @@ export default function App() {
         initialTab={portalModal.tab}
         profiles={appData.profiles}
         activeHeroId={appData.activeHeroId}
+        parentUnlocked={parentUnlocked}
+        onRequestParentGate={requestParentGate}
         onClose={() => setPortalModal({ open: false, tab: 'select' })}
         onSelectHero={(heroId) => {
           setAppData((prev) => ({ ...prev, activeHeroId: heroId }));
@@ -705,23 +812,15 @@ export default function App() {
           setPortalModal({ open: false, tab: 'select' });
         }}
         onCreateHero={handleCreateHero}
-        onSyncGuardian={(email, code) => {
-          const cleanCode = (code || '').trim().toUpperCase();
+        onSyncGuardian={(email) => {
           if (!email) {
             playLockedSound();
-            showToast('✉️', 'Informe o e-mail', 'Digite o e-mail usado na compra.');
+            showToast('✉️', 'Informe o e-mail', 'Digite um e-mail de responsável válido.');
             return;
           }
-          if (cleanCode !== 'LIGA27') {
-            playLockedSound();
-            showToast('🔑', 'Código VIP inválido', 'Informe o código VIP recebido após a compra (ex: LIGA27) ou abra pelo link da página de acesso.');
-            return;
-          }
-          setVipAccessStorage(true);
-          updateActiveHero((curr) => ({ ...curr, isVIP: true }));
           playFanfareSound();
           setPortalModal({ open: false, tab: 'select' });
-          showToast('👑', 'Conta VIP ativada!', `Biblioteca liberada para ${email}.`);
+          showToast('☁️', 'Conta vinculada!', `Passe VIP salvo para ${email}.`);
         }}
       />
 
@@ -735,8 +834,8 @@ export default function App() {
           if (soundEnabled) {
             speakHeroLine(
               persona === 'maya'
-                ? 'Oi herói! Agora a Maya vai te acompanhar!'
-                : 'Super-herói pronto! Aqui é o Léo no comando!',
+                ? 'Oi! Agora a Maya vai te ajudar nas missões!'
+                : 'Tudo pronto! Agora o Léo vai te ajudar nas missões!',
               { personaOverride: persona }
             );
           }
@@ -749,11 +848,22 @@ export default function App() {
         onRenameHero={(newName) => {
           updateActiveHero({ name: newName });
           playPopSound();
-          showToast('✅', 'Nome atualizado!', `Seu herói agora se chama ${newName}.`);
+          showToast('✅', 'Nome salvo!', `Seu herói agora se chama ${newName}.`);
         }}
         onSwitchHero={() => {
           setProfileOpen(false);
           setPortalModal({ open: true, tab: 'select' });
+        }}
+      />
+
+      <ParentalGateModal
+        isOpen={parentGateState.open}
+        onCancel={() => setParentGateState({ open: false, onPass: null })}
+        onPassed={() => {
+          setParentUnlocked(true);
+          const fn = parentGateState.onPass;
+          setParentGateState({ open: false, onPass: null });
+          fn?.();
         }}
       />
 
@@ -779,7 +889,18 @@ export default function App() {
       <VictoryModal
         isOpen={victoryState.open}
         completedLevel={victoryState.level}
-        onClose={() => setVictoryState({ open: false, level: 1 })}
+        earnedStars={victoryState.stars}
+        gemsEarned={victoryState.gemsEarned}
+        xpEarned={victoryState.xpEarned}
+        onClose={() =>
+          setVictoryState({
+            open: false,
+            level: 1,
+            stars: 3,
+            gemsEarned: 15,
+            xpEarned: 30,
+          })
+        }
       />
     </div>
   );

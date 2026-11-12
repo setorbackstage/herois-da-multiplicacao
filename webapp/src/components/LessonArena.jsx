@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
+import { Lightbulb, Volume2, VolumeX, X } from 'lucide-react';
 import { LESSONS_DATA } from '../data/gameData';
-import { AvatarGraphic, HeartIcon } from './HeroSvgs';
+import { AvatarGraphic, HeartIcon, VisualMultiplicationGroups } from './HeroSvgs';
 import {
   getRandomPraise,
   playErrorSound,
@@ -30,20 +31,26 @@ export default function LessonArena({
   const [isReforco, setIsReforco] = useState(false);
   const [retryPool, setRetryPool] = useState([]);
   const [selectedVal, setSelectedVal] = useState(null);
+  const [showClue, setShowClue] = useState(false);
+  const [comboCount, setComboCount] = useState(0);
+  const [mistakesCount, setMistakesCount] = useState(0);
   const [feedback, setFeedback] = useState(null); // { isCorrect, title, msg }
-  const qStartTimeRef = useRef(Date.now());
 
   const currentQuestion = queue[qIndex];
   const progressPercent = queue.length > 0 ? Math.round((qIndex / queue.length) * 100) : 0;
 
+  // Keep spoken voice, avatar portrait, and tutor name 100% consistent
+  const tutorKey = voicePersona === 'maya' ? 'maya' : 'leo';
+  const tutorName = tutorKey === 'maya' ? 'Maya' : 'Léo';
+
   useEffect(() => {
-    qStartTimeRef.current = Date.now();
+    setShowClue(false);
     if (currentQuestion) {
       const timer = setTimeout(() => {
         speakHeroLine(currentQuestion.q, {
           clipKey: `q_${levelNum}_${qIndex}`,
         });
-      }, 280);
+      }, 260);
       return () => clearTimeout(timer);
     }
     return undefined;
@@ -61,36 +68,39 @@ export default function LessonArena({
   const handleVerify = () => {
     if (selectedVal === null || !currentQuestion || feedback) return;
     const isCorrect = selectedVal === currentQuestion.correct;
-    const elapsedSec = (Date.now() - qStartTimeRef.current) / 1000;
 
     if (isCorrect) {
-      const isLightning = elapsedSec <= 5;
-      const earnedXp = isLightning ? 15 : 10;
+      const nextCombo = comboCount + 1;
+      setComboCount(nextCombo);
+      const isComboBonus = nextCombo >= 3;
+      const earnedXp = isComboBonus ? 15 : 10;
       onAwardXp(earnedXp);
 
-      if (isLightning) {
+      if (isComboBonus) {
         playLightningSound();
       } else {
         playSuccessSound();
       }
 
       try {
-        confetti({ particleCount: 55, spread: 70, origin: { y: 0.85 } });
+        confetti({ particleCount: isComboBonus ? 75 : 48, spread: 70, origin: { y: 0.85 } });
       } catch {
         // ignore confetti error
       }
 
-      const praiseLine = getRandomPraise(isLightning, voicePersona);
+      const praiseLine = getRandomPraise(isComboBonus, tutorKey);
       speakHeroLine(praiseLine);
 
       setFeedback({
         isCorrect: true,
-        title: isLightning
-          ? `⚡ RESPOSTA RELÂMPAGO! +${earnedXp} XP`
-          : `🎉 Resposta Certa! +${earnedXp} XP`,
-        msg: praiseLine,
+        title: isComboBonus
+          ? `🔥 Sequência ×${nextCombo}! +${earnedXp} XP`
+          : `🎉 Resposta certa! +${earnedXp} XP`,
+        msg: currentQuestion.explain || praiseLine,
       });
     } else {
+      setComboCount(0);
+      setMistakesCount((prev) => prev + 1);
       playErrorSound();
       onWrongAnswer();
 
@@ -99,12 +109,13 @@ export default function LessonArena({
       }
 
       const hint =
-        currentQuestion.tip || 'Todo herói aprende praticando. Vamos tentar de novo!';
+        currentQuestion.clue ||
+        'Vamos pensar juntos passo a passo. Você já já tenta essa de novo!';
       speakHeroLine(`Quase lá! ${hint}`);
 
       setFeedback({
         isCorrect: false,
-        title: 'Quase lá, herói!',
+        title: 'Quase lá!',
         msg: hint,
       });
     }
@@ -115,6 +126,7 @@ export default function LessonArena({
     const nextIdx = qIndex + 1;
     setFeedback(null);
     setSelectedVal(null);
+    setShowClue(false);
 
     if (nextIdx < queue.length) {
       setQIndex(nextIdx);
@@ -128,17 +140,16 @@ export default function LessonArena({
       setQIndex(0);
       onNotifyToast(
         '🎯',
-        'Hora do Reforço de Ouro!',
-        'Vamos revisar as questões com dúvida para conquistar 100%!'
+        'Hora da revisão!',
+        'Vamos tentar novamente as contas que ficaram em dúvida!'
       );
-      speakHeroLine('Hora do reforço de ouro! Vamos dominar todas as dúvidas!');
+      speakHeroLine('Hora da revisão! Vamos tentar novamente!');
       return;
     }
 
-    onLessonComplete(levelNum);
+    onLessonComplete(levelNum, mistakesCount);
   };
 
-  // Keyboard shortcuts: 1-4 select option, Enter verify/continue, Escape pause modal
   useEffect(() => {
     const onKeyDown = (e) => {
       if (['1', '2', '3', '4'].includes(e.key) && !feedback && currentQuestion) {
@@ -163,21 +174,19 @@ export default function LessonArena({
 
   if (!currentQuestion) return null;
 
-  const tutorName =
-    hero.avatar === 'maya' ? 'Maya' : hero.avatar === 'leo' ? 'Léo' : hero.name;
-
   return (
     <div className="fixed inset-0 z-40 bg-duo-cream overflow-y-auto">
-      <div className="max-w-2xl mx-auto min-h-full flex flex-col px-4 sm:px-6 pt-5 pb-36">
+      <div className="max-w-2xl mx-auto min-h-full flex flex-col px-4 sm:px-6 pt-3 sm:pt-5 pb-44 sm:pb-48">
         {/* Top Bar */}
-        <div className="flex items-center gap-3 sm:gap-4 mb-5">
+        <div className="flex items-center gap-2.5 sm:gap-4 mb-3.5 sm:mb-5">
           <button
             type="button"
             onClick={onRequestExit}
             title="Sair da lição"
-            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-400 hover:bg-slate-200/60 hover:text-slate-600 font-bold text-xl transition-colors"
+            aria-label="Sair da lição"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-400 hover:bg-slate-200/60 hover:text-slate-600 transition-colors shrink-0"
           >
-            ✕
+            <X className="w-5 h-5" strokeWidth={3} />
           </button>
 
           <div className="flex-1 h-4 bg-slate-200 rounded-full overflow-hidden">
@@ -189,57 +198,77 @@ export default function LessonArena({
             </div>
           </div>
 
-          {/* Voice Persona Quick Chip */}
           <button
             type="button"
             onClick={onToggleVoicePersona}
-            title="Trocar voz heroica (Léo / Maya)"
+            title="Trocar guia da lição (Léo ou Maya)"
             className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border-2 border-slate-200 border-b-4 text-xs font-extrabold text-duo-ink hover:border-duo-blue transition-colors"
           >
-            <span>{voicePersona === 'maya' ? '🌟 Voz: Maya' : '⚡ Voz: Léo'}</span>
+            <span>{tutorName}</span>
           </button>
 
-          <div className="flex items-center gap-1.5 font-display font-extrabold text-base text-duo-red bg-white px-3 py-1 rounded-full border-2 border-rose-100">
-            <HeartIcon className="w-5 h-5" />
+          <div className="flex items-center gap-1 font-display font-extrabold text-sm sm:text-base text-duo-red bg-white px-2.5 sm:px-3 py-1 rounded-full border-2 border-rose-100 shrink-0">
+            <HeartIcon className="w-4 h-4 sm:w-5 sm:h-5" />
             <span>{hero.hearts}</span>
           </div>
         </div>
 
-        {/* Stage 10 Final Boss Banner */}
+        {/* Stage 10 Final Boss Compact Banner */}
         {levelNum === 10 && (
-          <div className="flex items-center gap-3 bg-purple-50 border-2 border-purple-300 rounded-2xl px-4 py-2.5 mb-4">
+          <div className="flex items-center gap-2.5 bg-purple-50 border-2 border-purple-300 rounded-2xl px-3.5 py-2 mb-3">
             <img
               src="/tabuada-assets/monstro-oficial.png"
               alt="Monstrinho dos Números"
-              className="w-11 h-11 object-contain"
+              className="w-9 h-9 sm:w-11 sm:h-11 object-contain shrink-0"
             />
-            <span className="font-display font-extrabold text-xs sm:text-sm text-purple-800 uppercase tracking-wide">
-              Batalha Final: Derrote o Monstrinho dos Números!
+            <span className="font-display font-extrabold text-xs sm:text-sm text-purple-800">
+              Duelo Amigável: vença para o Monstrinho entrar na Liga!
             </span>
           </div>
         )}
 
-        {/* Tutor Avatar & Speech Bubble */}
-        <div className="flex items-start gap-3 sm:gap-4 mb-7">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-amber-100 border-[3px] border-amber-400 flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
-            <AvatarGraphic avatarKey={hero.avatar} className="w-full h-full" />
+        {/* Tutor Bubble (Zero Spoiler: reveals clue ONLY when child taps "Pedir pista") */}
+        <div className="flex items-start gap-3 mb-4 sm:mb-6">
+          <div className="w-13 h-13 sm:w-16 sm:h-16 w-12 h-12 rounded-full bg-amber-100 border-[3px] border-amber-400 flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
+            <AvatarGraphic avatarKey={tutorKey} className="w-full h-full" />
           </div>
 
-          <div className="relative flex-1 bg-white border-2 border-slate-200 rounded-2xl px-4 py-3 shadow-sm">
-            <span className="absolute -left-[9px] top-5 w-0 h-0 border-t-[8px] border-b-[8px] border-r-[9px] border-t-transparent border-b-transparent border-r-slate-200" />
-            <span className="absolute -left-[6px] top-[21px] w-0 h-0 border-t-[7px] border-b-[7px] border-r-[7px] border-t-transparent border-b-transparent border-r-white" />
-            <div className="font-display font-extrabold text-[11px] sm:text-xs uppercase tracking-wider text-duo-blue">
-              {isReforco ? '🎯 Reforço de Ouro' : baseLesson.title}
+          <div className="relative flex-1 bg-white border-2 border-slate-200 rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-sm">
+            <span className="absolute -left-[9px] top-4 w-0 h-0 border-t-[8px] border-b-[8px] border-r-[9px] border-t-transparent border-b-transparent border-r-slate-200" />
+            <span className="absolute -left-[6px] top-[17px] w-0 h-0 border-t-[7px] border-b-[7px] border-r-[7px] border-t-transparent border-b-transparent border-r-white" />
+
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-display font-extrabold text-[11px] sm:text-xs uppercase tracking-wider text-duo-blue">
+                {isReforco
+                  ? `🎯 Revisão com ${tutorName}`
+                  : `${tutorName} • ${baseLesson.title.split('•')[0].trim()}`}
+              </span>
+              {currentQuestion.clue && !showClue && !feedback && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    playPopSound();
+                    setShowClue(true);
+                  }}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 font-display font-bold text-[11px] hover:bg-amber-100 shrink-0"
+                >
+                  <Lightbulb className="w-3.5 h-3.5" />
+                  <span>Pista</span>
+                </button>
+              )}
             </div>
-            <p className="font-body font-bold text-sm sm:text-base text-slate-600 mt-0.5">
-              {currentQuestion.tip || `Dica de ${tutorName}: Você consegue, herói!`}
+
+            <p className="font-body font-bold text-xs sm:text-sm text-slate-600 mt-1">
+              {showClue
+                ? currentQuestion.clue
+                : `Desafio ${qIndex + 1} de ${queue.length} — calcule com calma!`}
             </p>
           </div>
         </div>
 
         {/* Question Display + Audio Replay */}
-        <div className="flex items-center justify-between gap-3 mb-7">
-          <h1 className="font-display font-extrabold text-2xl sm:text-3xl text-duo-ink leading-snug">
+        <div className="flex items-center justify-between gap-3 mb-3 sm:mb-5">
+          <h1 className="font-display font-extrabold text-xl sm:text-3xl text-duo-ink leading-snug">
             {currentQuestion.q}
           </h1>
           <button
@@ -250,30 +279,43 @@ export default function LessonArena({
               })
             }
             disabled={!soundEnabled}
-            title={soundEnabled ? 'Ouvir pergunta com voz heroica' : 'Som desativado'}
-            className={`w-12 h-12 rounded-2xl border-2 border-b-[5px] flex items-center justify-center text-xl shrink-0 transition-transform active:translate-y-1 ${
+            aria-label={soundEnabled ? 'Ouvir pergunta' : 'Som desativado'}
+            title={soundEnabled ? 'Ouvir pergunta' : 'Som desativado'}
+            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-2xl border-2 border-b-[5px] flex items-center justify-center shrink-0 transition-transform active:translate-y-1 ${
               soundEnabled
                 ? 'bg-sky-50 border-duo-blue text-duo-blueDark cursor-pointer'
                 : 'bg-slate-100 border-slate-300 text-slate-400 cursor-not-allowed'
             }`}
           >
-            {soundEnabled ? '🔊' : '🔇'}
+            {soundEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
           </button>
         </div>
 
-        {/* Mobile quick voice persona switch */}
-        <div className="flex sm:hidden items-center justify-end -mt-3 mb-4">
+        {/* Mobile quick tutor toggle */}
+        <div className="flex sm:hidden items-center justify-between -mt-1 mb-3">
+          <span className="text-[11px] font-bold text-slate-400">
+            {comboCount >= 2 ? `🔥 ${comboCount} acertos seguidos` : 'Toque no número certo'}
+          </span>
           <button
             type="button"
             onClick={onToggleVoicePersona}
-            className="text-xs font-extrabold text-slate-500 bg-white border border-slate-200 rounded-full px-3 py-1"
+            className="text-xs font-extrabold text-slate-600 bg-white border border-slate-200 rounded-full px-3 py-1"
           >
-            {voicePersona === 'maya' ? '🌟 Voz: Maya (trocar)' : '⚡ Voz: Léo (trocar)'}
+            Guia: {tutorName} (trocar)
           </button>
         </div>
 
+        {/* Concrete Visual Grouping Helper for Younger Kids */}
+        {currentQuestion.visual && (
+          <VisualMultiplicationGroups
+            groups={currentQuestion.visual.groups}
+            perGroup={currentQuestion.visual.perGroup}
+            icon={currentQuestion.visual.icon}
+          />
+        )}
+
         {/* Options 2x2 Tactile Grid */}
-        <div className="grid grid-cols-2 gap-3.5 sm:gap-4 my-auto pb-6">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 my-auto pb-4">
           {currentQuestion.options.map((opt, idx) => {
             const isSelected = selectedVal === opt;
             return (
@@ -282,7 +324,7 @@ export default function LessonArena({
                 type="button"
                 disabled={Boolean(feedback)}
                 onClick={() => handleSelectOption(opt)}
-                className={`toy-btn relative min-h-[88px] sm:min-h-[104px] rounded-[22px] border-2 px-3 py-4 font-display font-extrabold text-2xl sm:text-3xl transition-all ${
+                className={`toy-btn relative min-h-[76px] sm:min-h-[96px] rounded-[22px] border-2 px-3 py-3 font-display font-extrabold text-2xl sm:text-3xl transition-colors ${
                   isSelected
                     ? 'bg-sky-50 border-duo-blue border-b-[7px] border-b-duo-blueDark text-sky-700'
                     : 'bg-white border-slate-200 border-b-[7px] border-b-slate-300 text-duo-ink hover:border-sky-300'
@@ -299,13 +341,13 @@ export default function LessonArena({
 
         {/* Bottom Verify Bar */}
         {!feedback && (
-          <div className="fixed bottom-0 left-0 right-0 bg-duo-cream/95 backdrop-blur border-t-2 border-duo-creamBorder p-4 z-40">
+          <div className="fixed bottom-0 left-0 right-0 bg-duo-cream/95 backdrop-blur border-t-2 border-duo-creamBorder p-3.5 sm:p-4 z-40">
             <div className="max-w-2xl mx-auto">
               <button
                 type="button"
                 disabled={selectedVal === null}
                 onClick={handleVerify}
-                className={`toy-btn w-full py-4 rounded-2xl text-base sm:text-lg uppercase ${
+                className={`toy-btn w-full py-3.5 sm:py-4 rounded-2xl text-base sm:text-lg uppercase ${
                   selectedVal !== null
                     ? 'bg-duo-green border-b-[6px] border-duo-greenDark text-white'
                     : 'bg-slate-200 border-b-[6px] border-slate-300 text-slate-400 cursor-not-allowed'
@@ -320,13 +362,13 @@ export default function LessonArena({
         {/* Sliding Full-Width Answer Feedback Drawer */}
         {feedback && (
           <div
-            className={`fixed bottom-0 left-0 right-0 z-50 border-t-[3px] px-4 sm:px-6 py-5 animate-popIn ${
+            className={`fixed bottom-0 left-0 right-0 z-50 border-t-[3px] px-4 sm:px-6 py-4 sm:py-5 animate-popIn ${
               feedback.isCorrect
                 ? 'bg-[#D7FFB8] border-duo-green'
                 : 'bg-[#FFDFE0] border-duo-red'
             }`}
           >
-            <div className="max-w-2xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="max-w-2xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
               <div>
                 <div
                   className={`font-display font-extrabold text-lg sm:text-xl ${
