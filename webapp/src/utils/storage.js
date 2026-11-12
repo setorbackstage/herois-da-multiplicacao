@@ -1,5 +1,22 @@
 export const STORAGE_KEY = 'missao_tabuada_v2_data';
 const AUDIO_PREFS_KEY = 'missao_tabuada_audio_prefs';
+const VIP_FLAG_KEY = 'herois_vip_unlocked';
+
+export function hasVipAccessStorage() {
+  try {
+    return localStorage.getItem(VIP_FLAG_KEY) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+export function setVipAccessStorage(enabled = true) {
+  try {
+    localStorage.setItem(VIP_FLAG_KEY, enabled ? 'true' : 'false');
+  } catch {
+    // ignore storage quota / privacy mode errors
+  }
+}
 
 function normalizeHeroProfile(hero, fallbackId = 'hero_1') {
   return {

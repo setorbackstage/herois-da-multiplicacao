@@ -14,10 +14,12 @@ import {
   getHeroRankTitle,
   getTotalStars,
   hasSavedSession,
+  hasVipAccessStorage,
   loadAppData,
   loadAudioPrefs,
   saveAppData,
   saveAudioPrefs,
+  setVipAccessStorage,
 } from './utils/storage';
 import {
   playChestSound,
@@ -105,9 +107,31 @@ export default function App() {
     saveAudioPrefs({ soundEnabled, persona: voicePersona });
   }, [soundEnabled, voicePersona]);
 
-  // Support URL query parameter deep linking
+  // Support URL query parameter deep linking & VIP unlock
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    const vipToken = (params.get('vip') || '').trim().toLowerCase();
+    const vipGranted = ['liga27', '1', 'true'].includes(vipToken);
+
+    if (vipGranted) {
+      setVipAccessStorage(true);
+      setAppData((prev) => ({
+        ...prev,
+        profiles: Object.fromEntries(
+          Object.entries(prev.profiles).map(([id, profile]) => [
+            id,
+            { ...profile, isVIP: true },
+          ])
+        ),
+      }));
+      playFanfareSound();
+      showToast(
+        '👑',
+        'Passe VIP ativado!',
+        'Apostilas em PDF e bônus liberados neste aparelho.'
+      );
+    }
+
     if (params.get('portal') === 'create') {
       setPortalModal({ open: true, tab: 'create' });
     } else if (params.get('portal') === 'select') {
@@ -116,6 +140,8 @@ export default function App() {
       setProfileOpen(true);
     } else if (['adventure', 'shop', 'workbooks'].includes(params.get('tab'))) {
       setActiveTab(params.get('tab'));
+    } else if (vipGranted) {
+      setActiveTab('workbooks');
     } else if (params.get('lesson')) {
       const lvl = parseInt(params.get('lesson'), 10);
       if (!Number.isNaN(lvl)) setActiveLessonLevel(lvl);
@@ -358,7 +384,7 @@ export default function App() {
           levelStars: {},
           ownedRewards: [],
           equippedReward: null,
-          isVIP: false,
+          isVIP: hasVipAccessStorage(),
         },
       },
     }));
@@ -376,6 +402,7 @@ export default function App() {
   const completedCount = Math.max(0, hero.unlockedLevel - 1);
   const masteryPct = Math.min(100, Math.round((completedCount / 10) * 100));
   const totalStars = getTotalStars(hero.levelStars);
+  const isVipUnlocked = Boolean(hero?.isVIP || hasVipAccessStorage());
 
   return (
     <div className="min-h-screen toy-shell-bg text-duo-ink flex flex-col">
@@ -624,6 +651,7 @@ export default function App() {
           {activeTab === 'shop' && (
             <ShopView
               hero={hero}
+              isVIP={isVipUnlocked}
               onOpenVipGuardian={() =>
                 requestParentGate(() => setPortalModal({ open: true, tab: 'guardian' }))
               }
@@ -632,7 +660,14 @@ export default function App() {
             />
           )}
 
-          {activeTab === 'workbooks' && <WorkbooksView />}
+          {activeTab === 'workbooks' && (
+            <WorkbooksView
+              isVIP={isVipUnlocked}
+              onOpenUnlock={() =>
+                requestParentGate(() => setPortalModal({ open: true, tab: 'guardian' }))
+              }
+            />
+          )}
         </main>
 
         {/* RIGHT STICKY WIDGET PANEL (Large Desktop >= xl, 1280px+) */}
@@ -812,15 +847,35 @@ export default function App() {
           setPortalModal({ open: false, tab: 'select' });
         }}
         onCreateHero={handleCreateHero}
-        onSyncGuardian={(email) => {
-          if (!email) {
+        onSyncGuardian={(email, code) => {
+          if (!email || !email.includes('@')) {
             playLockedSound();
             showToast('✉️', 'Informe o e-mail', 'Digite um e-mail de responsável válido.');
             return;
           }
+          const cleanCode = String(code || '').trim().toUpperCase();
+          if (cleanCode !== 'LIGA27') {
+            playLockedSound();
+            showToast(
+              '🔐',
+              'Código VIP inválido',
+              'Confira o código enviado no seu e-mail de compra.'
+            );
+            return;
+          }
+          setVipAccessStorage(true);
+          setAppData((prev) => ({
+            ...prev,
+            profiles: Object.fromEntries(
+              Object.entries(prev.profiles).map(([id, profile]) => [
+                id,
+                { ...profile, isVIP: true },
+              ])
+            ),
+          }));
           playFanfareSound();
           setPortalModal({ open: false, tab: 'select' });
-          showToast('☁️', 'Conta vinculada!', `Passe VIP salvo para ${email}.`);
+          showToast('👑', 'Passe VIP ativado!', `Apostilas liberadas para ${email}.`);
         }}
       />
 

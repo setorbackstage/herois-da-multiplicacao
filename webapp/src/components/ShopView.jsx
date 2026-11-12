@@ -4,6 +4,7 @@ import { CrownIcon, HeartIcon } from './HeroSvgs';
 
 export default function ShopView({
   hero,
+  isVIP = false,
   onOpenVipGuardian,
   onBuyHearts,
   onBuyOrEquipReward,
@@ -122,9 +123,13 @@ export default function ShopView({
           <button
             type="button"
             onClick={onOpenVipGuardian}
-            className="toy-btn relative z-10 px-5 py-3 rounded-2xl bg-duo-gold border-b-[5px] border-duo-goldDark text-amber-950 text-xs sm:text-sm uppercase shrink-0"
+            className={`toy-btn relative z-10 px-5 py-3 rounded-2xl border-b-[5px] text-xs sm:text-sm uppercase shrink-0 ${
+              isVIP
+                ? 'bg-emerald-500 border-emerald-700 text-white'
+                : 'bg-duo-gold border-duo-goldDark text-amber-950'
+            }`}
           >
-            Área dos Pais 🔒
+            {isVIP ? '✓ Passe VIP Ativo' : 'Ativar VIP 🔒'}
           </button>
         </div>
       </div>

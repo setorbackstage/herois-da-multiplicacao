@@ -2,11 +2,9 @@
   "version": 2,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/oferta", "destination": "/index.html" },
-    { "source": "/obrigado", "destination": "/obrigado.html" },
-    { "source": "/app", "destination": "/app-dist/index.html" },
-    { "source": "/jogar", "destination": "/app-dist/index.html" },
+    { "source": "/oferta", "destination": "/" },
+    { "source": "/app", "destination": "/app-dist/index" },
+    { "source": "/jogar", "destination": "/app-dist/index" },
     { "source": "/download", "destination": "/Missao_Tabuada_Volume_1.pdf" },
     { "source": "/downlownd", "destination": "/Missao_Tabuada_Volume_1.pdf" }
   ],
