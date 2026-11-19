@@ -45,7 +45,6 @@
       line-height: 1.5;
     }
 
-    /* Ambient background gradient */
     .ambient-glow {
       position: fixed;
       top: 0;
@@ -58,7 +57,6 @@
       z-index: 0;
     }
 
-    /* Container */
     .container {
       max-width: 1240px;
       margin: 0 auto;
@@ -68,9 +66,8 @@
       width: 100%;
     }
 
-    /* Top Navbar */
     header {
-      background: rgba(17, 23, 38, 0.8);
+      background: rgba(17, 23, 38, 0.85);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-subtle);
       position: sticky;
@@ -183,7 +180,6 @@
       box-shadow: 0 4px 14px var(--brand-purple-glow);
     }
 
-    /* Meta Campaign Banner */
     .campaign-strip {
       background: rgba(30, 41, 59, 0.5);
       border: 1px solid var(--border-subtle);
@@ -218,7 +214,6 @@
       color: var(--text-main);
     }
 
-    /* KPI Grid */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -282,15 +277,19 @@
     }
 
     .badge-gain {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--green-neon);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
       padding: 2px 6px;
       border-radius: 4px;
       font-weight: 700;
       font-size: 11px;
     }
 
-    /* Section Headings */
+    .badge-gain.active {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--green-neon);
+    }
+
     .section-head {
       display: flex;
       align-items: center;
@@ -309,7 +308,6 @@
       gap: 8px;
     }
 
-    /* Main Grid Split */
     .dashboard-split {
       display: grid;
       grid-template-columns: 2fr 1fr;
@@ -323,12 +321,11 @@
       }
     }
 
-    /* Table Styles */
     .table-container {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 14px;
-      overflow: hidden;
+      overflow-x: auto;
     }
 
     table {
@@ -414,9 +411,9 @@
     }
 
     .badge-status.reserve {
-      background: rgba(148, 163, 184, 0.1);
-      color: var(--text-muted);
-      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(148, 163, 184, 0.08);
+      color: var(--text-dim);
+      border: 1px solid rgba(148, 163, 184, 0.15);
     }
 
     .metric-mono {
@@ -424,7 +421,6 @@
       font-weight: 600;
     }
 
-    /* Live Feed */
     .feed-container {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -433,7 +429,8 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      max-height: 460px;
+      min-height: 260px;
+      max-height: 520px;
       overflow-y: auto;
     }
 
@@ -445,67 +442,31 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      transition: background 0.2s;
     }
 
-    .feed-item:hover {
-      background: rgba(255, 255, 255, 0.04);
-    }
-
-    .feed-top {
+    .feed-empty {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-    }
-
-    .feed-price {
-      font-weight: 800;
-      color: var(--green-neon);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .feed-time {
-      font-size: 11px;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 16px;
       color: var(--text-dim);
-    }
-
-    .feed-prod {
       font-size: 13px;
-      font-weight: 600;
-      color: #fff;
     }
 
-    .feed-tags {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 2px;
+    .feed-empty .icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+      opacity: 0.7;
     }
 
-    .mini-badge {
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: 600;
+    .feed-empty .title {
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 4px;
     }
 
-    .mini-badge.pix {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--green-neon);
-    }
-
-    .mini-badge.card {
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--blue-accent);
-    }
-
-    .mini-badge.utm {
-      background: rgba(139, 92, 246, 0.15);
-      color: var(--brand-purple);
-    }
-
-    /* Modal PIN */
     .pin-overlay {
       position: fixed;
       inset: 0;
@@ -548,7 +509,6 @@
       box-shadow: 0 0 12px var(--brand-purple-glow);
     }
 
-    /* Toast */
     .toast {
       position: fixed;
       bottom: 24px;
@@ -575,7 +535,6 @@
       opacity: 1;
     }
 
-    /* Footer */
     footer {
       margin-top: auto;
       border-top: 1px solid var(--border-subtle);
@@ -590,7 +549,7 @@
 
   <div class="ambient-glow"></div>
 
-  <!-- PIN Protection Modal (if locked) -->
+  <!-- PIN Modal -->
   <div class="pin-overlay" id="pinOverlay" style="display: none;">
     <div class="pin-box">
       <div style="font-size: 32px; margin-bottom: 12px;">🛡️</div>
@@ -602,14 +561,14 @@
     </div>
   </div>
 
-  <!-- Navigation -->
+  <!-- Header -->
   <header>
     <div class="nav-inner">
       <div class="brand-wrap">
         <div class="brand-logo">✖️</div>
         <div class="brand-text">
           <h1>Heróis da Multiplicação</h1>
-          <p>Painel de Performance & Atribuição (Equipe)</p>
+          <p>Painel de Métricas Reais • Integração GGCheckout & Meta Ads</p>
         </div>
       </div>
       <div class="nav-actions">
@@ -647,7 +606,7 @@
         <span>Estratégia: <strong id="metaStrategy">Menor Custo (CBO)</strong></span>
       </div>
       <div class="tag">
-        Última sync: <span id="syncTime">Agora</span>
+        Última sincronização: <span id="syncTime">Agora</span>
       </div>
     </div>
 
@@ -655,13 +614,13 @@
     <div class="kpi-grid">
       <div class="kpi-card">
         <div class="kpi-header">
-          <span class="kpi-title">Faturamento Total</span>
+          <span class="kpi-title">Faturamento Real</span>
           <span class="kpi-icon">💰</span>
         </div>
-        <div class="kpi-value green" id="kpiRevenue">R$ 54,00</div>
+        <div class="kpi-value" id="kpiRevenue">R$ 0,00</div>
         <div class="kpi-sub">
-          <span class="badge-gain" id="kpiSalesCount">2 vendas</span>
-          <span>pagamento único</span>
+          <span class="badge-gain" id="kpiSalesCount">0 vendas</span>
+          <span>confirmadas no checkout</span>
         </div>
       </div>
 
@@ -670,9 +629,9 @@
           <span class="kpi-title">Ticket Médio</span>
           <span class="kpi-icon">🎯</span>
         </div>
-        <div class="kpi-value" id="kpiTicket">R$ 27,00</div>
+        <div class="kpi-value" id="kpiTicket">R$ 0,00</div>
         <div class="kpi-sub">
-          <span>Combo Liga dos Heróis</span>
+          <span>Combo R$ 27 / Missão R$ 10</span>
         </div>
       </div>
 
@@ -681,43 +640,43 @@
           <span class="kpi-title">Conversão PIX</span>
           <span class="kpi-icon">⚡</span>
         </div>
-        <div class="kpi-value" id="kpiPixRate">66.7%</div>
+        <div class="kpi-value" id="kpiPixRate">0.0%</div>
         <div class="kpi-sub">
-          <span id="kpiPixSub">2 pagos / 3 gerados</span>
+          <span id="kpiPixSub">0 pagos / 0 gerados</span>
         </div>
       </div>
 
       <div class="kpi-card">
         <div class="kpi-header">
-          <span class="kpi-title">ROAS Estimado</span>
+          <span class="kpi-title">ROAS Real</span>
           <span class="kpi-icon">📈</span>
         </div>
-        <div class="kpi-value green" id="kpiRoas">1.8x</div>
+        <div class="kpi-value" id="kpiRoas">0.0x</div>
         <div class="kpi-sub">
-          <span>Investimento: R$ 30/dia</span>
+          <span>Investimento: R$ 30,00/dia</span>
         </div>
       </div>
 
       <div class="kpi-card">
         <div class="kpi-header">
-          <span class="kpi-title">Conversão da LP</span>
-          <span class="kpi-icon">🛒</span>
+          <span class="kpi-title">Pedidos Pendentes</span>
+          <span class="kpi-icon">⏳</span>
         </div>
-        <div class="kpi-value" id="kpiLpRate">5.26%</div>
+        <div class="kpi-value" id="kpiPending">0</div>
         <div class="kpi-sub">
-          <span id="kpiVisits">38 acessos</span>
+          <span>Aguardando pagamento</span>
         </div>
       </div>
     </div>
 
-    <!-- Main Split: Creatives Attribution vs Live Stream -->
+    <!-- Main Split -->
     <div class="dashboard-split">
       
-      <!-- Left: Creatives Performance Table -->
+      <!-- Left: Creatives Table -->
       <div>
         <div class="section-head">
           <h2>📊 Atribuição por Criativo (UTM)</h2>
-          <span style="font-size: 12px; color: var(--text-dim);">Formato Feed 4:5</span>
+          <span style="font-size: 12px; color: var(--text-dim);">Feed 4:5 • 1080×1350</span>
         </div>
 
         <div class="table-container">
@@ -743,7 +702,7 @@
       <div>
         <div class="section-head">
           <h2>⚡ Vendas em Tempo Real</h2>
-          <span style="font-size: 12px; color: var(--green-neon);">● Live Feed</span>
+          <span style="font-size: 12px; color: var(--green-neon);">● Direto do Checkout</span>
         </div>
 
         <div class="feed-container" id="salesFeed">
@@ -756,10 +715,9 @@
   </main>
 
   <footer>
-    <p>Painel de Gestão Interna • Heróis da Multiplicação © 2026 • Atualização automática a cada 30 segundos</p>
+    <p>Painel de Gestão Interna • Heróis da Multiplicação © 2026 • Sincronização automática a cada 30 segundos</p>
   </footer>
 
-  <!-- Toast notification -->
   <div class="toast" id="toast">
     <span>✅</span>
     <span id="toastMsg">Link copiado com sucesso!</span>
@@ -769,15 +727,12 @@
     const CORRECT_PIN = '2026';
     let soundEnabled = true;
 
-    // Sintetizador de áudio nativo para som de venda (estilo Kiwify/UTMify)
     function playCashChime() {
       if (!soundEnabled) return;
       try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         if (!AudioContext) return;
         const ctx = new AudioContext();
-        
-        // Frequências clássicas de "caixa registradora"
         const notes = [587.33, 880.00, 1174.66, 1760.00];
         notes.forEach((freq, idx) => {
           const osc = ctx.createOscillator();
@@ -803,7 +758,6 @@
       if (soundEnabled) playCashChime();
     }
 
-    // Gerenciador de PIN e Acesso
     function checkAuth() {
       const urlParams = new URLSearchParams(window.location.search);
       const urlPin = urlParams.get('pin');
@@ -830,7 +784,6 @@
       }
     }
 
-    // Copiar link de compartilhamento
     function copyShareLink() {
       const shareUrl = `${window.location.origin}/painel?key=equipe`;
       navigator.clipboard.writeText(shareUrl).then(() => {
@@ -847,7 +800,8 @@
       setTimeout(() => toast.classList.remove('show'), 3500);
     }
 
-    // Carregar dados da API
+    let lastKnownSalesCount = 0;
+
     async function fetchData() {
       try {
         const res = await fetch('/api/painel-dados?key=equipe');
@@ -855,23 +809,36 @@
         const data = await res.json();
         renderDashboard(data);
       } catch (err) {
-        console.warn('Usando dados em cache local:', err);
+        console.warn('Erro ao atualizar dados:', err);
       }
     }
 
     function renderDashboard(data) {
       document.getElementById('syncTime').textContent = new Date().toLocaleTimeString('pt-BR');
 
-      // KPIs
       if (data.resumo) {
-        document.getElementById('kpiRevenue').textContent = `R$ ${data.resumo.faturamentoTotal.toFixed(2).replace('.', ',')}`;
-        document.getElementById('kpiSalesCount').textContent = `${data.resumo.vendasAprovadas} vendas`;
-        document.getElementById('kpiTicket').textContent = `R$ ${data.resumo.ticketMedio.toFixed(2).replace('.', ',')}`;
-        document.getElementById('kpiPixRate').textContent = data.resumo.taxaConversaoPix;
-        document.getElementById('kpiPixSub').textContent = `${data.resumo.pixPagos} pagos / ${data.resumo.pixGerados} gerados`;
-        document.getElementById('kpiRoas').textContent = data.resumo.roasEstimado;
-        document.getElementById('kpiLpRate').textContent = data.resumo.taxaConversaoSite;
-        document.getElementById('kpiVisits').textContent = `${data.resumo.visitasEstimadas} acessos`;
+        const r = data.resumo;
+        const revEl = document.getElementById('kpiRevenue');
+        revEl.textContent = `R$ ${r.faturamentoTotal.toFixed(2).replace('.', ',')}`;
+        if (r.faturamentoTotal > 0) revEl.classList.add('green');
+        else revEl.classList.remove('green');
+
+        const salesCountEl = document.getElementById('kpiSalesCount');
+        salesCountEl.textContent = `${r.vendasAprovadas} vendas`;
+        if (r.vendasAprovadas > 0) salesCountEl.classList.add('active');
+        else salesCountEl.classList.remove('active');
+
+        document.getElementById('kpiTicket').textContent = `R$ ${r.ticketMedio.toFixed(2).replace('.', ',')}`;
+        document.getElementById('kpiPixRate').textContent = r.taxaConversaoPix;
+        document.getElementById('kpiPixSub').textContent = `${r.pixPagos} pagos / ${r.pixGerados} gerados`;
+        document.getElementById('kpiRoas').textContent = r.roasEstimado;
+        document.getElementById('kpiPending').textContent = r.pedidosPendentes;
+
+        if (r.vendasAprovadas > lastKnownSalesCount && lastKnownSalesCount > 0) {
+          playCashChime();
+          showToast('🎉 Nova venda confirmada!');
+        }
+        lastKnownSalesCount = r.vendasAprovadas;
       }
 
       // Tabela de Criativos
@@ -913,29 +880,35 @@
 
       if (data.vendasRecentes && data.vendasRecentes.length > 0) {
         data.vendasRecentes.forEach(v => {
-          const div = document.createElement('feed-item');
+          const div = document.createElement('div');
           div.className = 'feed-item';
           div.innerHTML = `
-            <div class="feed-top">
-              <span class="feed-price">R$ ${v.valor.toFixed(2).replace('.', ',')}</span>
-              <span class="feed-time">${v.horario}</span>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-weight:800; color:var(--green-neon); font-family:'JetBrains Mono',monospace;">R$ ${v.valor.toFixed(2).replace('.', ',')}</span>
+              <span style="font-size:11px; color:var(--text-dim);">${v.horario}</span>
             </div>
-            <div class="feed-prod">${v.produto}</div>
-            <div class="feed-tags">
-              <span class="mini-badge ${v.metodo.toLowerCase().includes('pix') ? 'pix' : 'card'}">${v.metodo}</span>
-              <span class="mini-badge utm">${v.criativo}</span>
-              <span class="mini-badge" style="background: rgba(16, 185, 129, 0.1); color: var(--green-neon);">Aprovado</span>
+            <div style="font-size:13px; font-weight:600; color:#fff;">${v.produto}</div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:2px;">
+              <span style="font-size:10px; padding:2px 6px; border-radius:4px; background:rgba(16,185,129,0.15); color:var(--green-neon);">${v.metodo}</span>
+              <span style="font-size:10px; padding:2px 6px; border-radius:4px; background:rgba(139,92,246,0.15); color:var(--brand-purple);">${v.criativo}</span>
+              <span style="font-size:10px; padding:2px 6px; border-radius:4px; background:rgba(16,185,129,0.1); color:var(--green-neon);">${v.status}</span>
             </div>
           `;
           feed.appendChild(div);
         });
+      } else {
+        feed.innerHTML = `
+          <div class="feed-empty">
+            <div class="icon">⏳</div>
+            <div class="title">Nenhuma venda registrada ainda</div>
+            <p>A campanha está no ar na Meta Ads. Assim que o primeiro comprador finalizar a compra no GGCheckout, ele aparecerá aqui instantaneamente com notificação sonora!</p>
+          </div>
+        `;
       }
     }
 
-    // Inicialização
     window.addEventListener('DOMContentLoaded', () => {
       checkAuth();
-      // Auto-refresh a cada 30 segundos
       setInterval(fetchData, 30000);
     });
   </script>
