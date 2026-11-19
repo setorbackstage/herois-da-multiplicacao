@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel da Equipe • Heróis da Multiplicação</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <link rel="icon" type="image/png" href="tabuada-assets/heroi-menino-oficial.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-body: #0a0d14;
+      --bg-card: #111726;
+      --bg-card-hover: #161f33;
+      --border-subtle: #1e293b;
+      --border-focus: #3b82f6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --brand-purple: #8b5cf6;
+      --brand-purple-glow: rgba(139, 92, 246, 0.25);
+      --green-neon: #10b981;
+      --green-glow: rgba(16, 185, 129, 0.2);
+      --amber: #f59e0b;
+      --blue-accent: #38bdf8;
+      --red-accent: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Ambient background gradient */
+    .ambient-glow {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(16, 185, 129, 0.03) 50%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 20px;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    /* Top Navbar */
+    header {
+      background: rgba(17, 23, 38, 0.8);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #713D9D, #176DB3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(113, 61, 157, 0.4);
+    }
+
+    .brand-text h1 {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .brand-text p {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green-neon);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--green-neon);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--green-neon);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .btn-action {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--text-dim);
+    }
+
+    .btn-action.primary {
+      background: linear-gradient(135deg, #713D9D, #8b5cf6);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .btn-action.primary:hover {
+      box-shadow: 0 4px 14px var(--brand-purple-glow);
+    }
+
+    /* Meta Campaign Banner */
+    .campaign-strip {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 12px 18px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .campaign-tags {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 8px;
+      border-radius: 6px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+
+    .tag strong {
+      color: var(--text-main);
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(139, 92, 246, 0.4);
+    }
+
+    .kpi-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .kpi-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .kpi-icon {
+      font-size: 18px;
+    }
+
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .kpi-value.green {
+      color: var(--green-neon);
+      text-shadow: 0 0 16px var(--green-glow);
+    }
+
+    .kpi-sub {
+      font-size: 12px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-gain {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--green-neon);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    /* Section Headings */
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .section-head h2 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Main Grid Split */
+    .dashboard-split {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    @media (max-width: 960px) {
+      .dashboard-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Table Styles */
+    .table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-dim);
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .creative-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .creative-number {
+      width: 26px;
+      height: 26px;
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--brand-purple);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .creative-title {
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .creative-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+      max-width: 260px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .badge-status.active {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--green-neon);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-status.reserve {
+      background: rgba(148, 163, 184, 0.1);
+      color: var(--text-muted);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .metric-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    /* Live Feed */
+    .feed-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 460px;
+      overflow-y: auto;
+    }
+
+    .feed-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .feed-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .feed-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .feed-price {
+      font-weight: 800;
+      color: var(--green-neon);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .feed-time {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .feed-prod {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .feed-tags {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    .mini-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .mini-badge.pix {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--green-neon);
+    }
+
+    .mini-badge.card {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--blue-accent);
+    }
+
+    .mini-badge.utm {
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--brand-purple);
+    }
+
+    /* Modal PIN */
+    .pin-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 13, 20, 0.95);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .pin-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 32px 28px;
+      max-width: 380px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .pin-input {
+      width: 100%;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 18px;
+      text-align: center;
+      letter-spacing: 0.2em;
+      margin: 18px 0;
+      outline: none;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .pin-input:focus {
+      border-color: var(--brand-purple);
+      box-shadow: 0 0 12px var(--brand-purple-glow);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--green-neon);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 2000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-subtle);
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <!-- PIN Protection Modal (if locked) -->
+  <div class="pin-overlay" id="pinOverlay" style="display: none;">
+    <div class="pin-box">
+      <div style="font-size: 32px; margin-bottom: 12px;">🛡️</div>
+      <h2 style="font-size: 18px; margin-bottom: 6px;">Painel da Equipe</h2>
+      <p style="font-size: 13px; color: var(--text-muted);">Digite o PIN da equipe para liberar o acesso:</p>
+      <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="6">
+      <button class="btn-action primary" style="width: 100%; justify-content: center; padding: 12px;" onclick="checkPin()">Acessar Painel</button>
+      <div id="pinError" style="color: var(--red-accent); font-size: 12px; margin-top: 10px; display: none;">PIN incorreto. Tente novamente.</div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header>
+    <div class="nav-inner">
+      <div class="brand-wrap">
+        <div class="brand-logo">✖️</div>
+        <div class="brand-text">
+          <h1>Heróis da Multiplicação</h1>
+          <p>Painel de Performance & Atribuição (Equipe)</p>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <div class="status-badge">
+          <div class="pulse-dot"></div>
+          <span>CAMPANHA AO VIVO</span>
+        </div>
+        <button class="btn-action" id="soundBtn" onclick="toggleSound()">
+          <span id="soundIcon">🔔</span>
+          <span id="soundText">Som: Ligado</span>
+        </button>
+        <button class="btn-action" onclick="fetchData()">
+          <span>🔄</span>
+          <span>Atualizar</span>
+        </button>
+        <button class="btn-action primary" onclick="copyShareLink()">
+          <span>🔗</span>
+          <span>Copiar Link da Equipe</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Campaign Status Strip -->
+    <div class="campaign-strip">
+      <div class="campaign-tags">
+        <span>Conta: <strong id="metaAccount">CA - XD OFertas</strong></span>
+        <span>•</span>
+        <span>Pixel: <strong id="metaPixel">2683241518773685</strong></span>
+        <span>•</span>
+        <span>Orçamento: <strong id="metaBudget" style="color: var(--green-neon);">R$ 30,00 / dia</strong></span>
+        <span>•</span>
+        <span>Estratégia: <strong id="metaStrategy">Menor Custo (CBO)</strong></span>
+      </div>
+      <div class="tag">
+        Última sync: <span id="syncTime">Agora</span>
+      </div>
+    </div>
+
+    <!-- KPI Grid -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Faturamento Total</span>
+          <span class="kpi-icon">💰</span>
+        </div>
+        <div class="kpi-value green" id="kpiRevenue">R$ 54,00</div>
+        <div class="kpi-sub">
+          <span class="badge-gain" id="kpiSalesCount">2 vendas</span>
+          <span>pagamento único</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Ticket Médio</span>
+          <span class="kpi-icon">🎯</span>
+        </div>
+        <div class="kpi-value" id="kpiTicket">R$ 27,00</div>
+        <div class="kpi-sub">
+          <span>Combo Liga dos Heróis</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Conversão PIX</span>
+          <span class="kpi-icon">⚡</span>
+        </div>
+        <div class="kpi-value" id="kpiPixRate">66.7%</div>
+        <div class="kpi-sub">
+          <span id="kpiPixSub">2 pagos / 3 gerados</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">ROAS Estimado</span>
+          <span class="kpi-icon">📈</span>
+        </div>
+        <div class="kpi-value green" id="kpiRoas">1.8x</div>
+        <div class="kpi-sub">
+          <span>Investimento: R$ 30/dia</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Conversão da LP</span>
+          <span class="kpi-icon">🛒</span>
+        </div>
+        <div class="kpi-value" id="kpiLpRate">5.26%</div>
+        <div class="kpi-sub">
+          <span id="kpiVisits">38 acessos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Split: Creatives Attribution vs Live Stream -->
+    <div class="dashboard-split">
+      
+      <!-- Left: Creatives Performance Table -->
+      <div>
+        <div class="section-head">
+          <h2>📊 Atribuição por Criativo (UTM)</h2>
+          <span style="font-size: 12px; color: var(--text-dim);">Formato Feed 4:5</span>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Criativo / Ângulo</th>
+                <th>Status</th>
+                <th>Cliques</th>
+                <th>Vendas</th>
+                <th>Receita</th>
+                <th>Conv.</th>
+              </tr>
+            </thead>
+            <tbody id="creativesTableBody">
+              <!-- Renderizado via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Right: Real-time Live Sales Stream -->
+      <div>
+        <div class="section-head">
+          <h2>⚡ Vendas em Tempo Real</h2>
+          <span style="font-size: 12px; color: var(--green-neon);">● Live Feed</span>
+        </div>
+
+        <div class="feed-container" id="salesFeed">
+          <!-- Renderizado via JS -->
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Painel de Gestão Interna • Heróis da Multiplicação © 2026 • Atualização automática a cada 30 segundos</p>
+  </footer>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast">
+    <span>✅</span>
+    <span id="toastMsg">Link copiado com sucesso!</span>
+  </div>
+
+  <script>
+    const CORRECT_PIN = '2026';
+    let soundEnabled = true;
+
+    // Sintetizador de áudio nativo para som de venda (estilo Kiwify/UTMify)
+    function playCashChime() {
+      if (!soundEnabled) return;
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        
+        // Frequências clássicas de "caixa registradora"
+        const notes = [587.33, 880.00, 1174.66, 1760.00];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.08);
+          gain.gain.setValueAtTime(0.15, ctx.currentTime + idx * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.08 + 0.35);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + idx * 0.08);
+          osc.stop(ctx.currentTime + idx * 0.08 + 0.35);
+        });
+      } catch (e) {
+        console.warn('Audio play restricted by browser policy:', e);
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundIcon').textContent = soundEnabled ? '🔔' : '🔕';
+      document.getElementById('soundText').textContent = soundEnabled ? 'Som: Ligado' : 'Som: Mudo';
+      if (soundEnabled) playCashChime();
+    }
+
+    // Gerenciador de PIN e Acesso
+    function checkAuth() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlPin = urlParams.get('pin');
+      const urlKey = urlParams.get('key');
+      const savedPin = localStorage.getItem('herois_painel_pin');
+
+      if (urlKey === 'equipe' || urlPin === CORRECT_PIN || savedPin === CORRECT_PIN) {
+        document.getElementById('pinOverlay').style.display = 'none';
+        fetchData();
+      } else {
+        document.getElementById('pinOverlay').style.display = 'flex';
+      }
+    }
+
+    function checkPin() {
+      const val = document.getElementById('pinInput').value.trim();
+      if (val === CORRECT_PIN) {
+        localStorage.setItem('herois_painel_pin', val);
+        document.getElementById('pinOverlay').style.display = 'none';
+        document.getElementById('pinError').style.display = 'none';
+        fetchData();
+      } else {
+        document.getElementById('pinError').style.display = 'block';
+      }
+    }
+
+    // Copiar link de compartilhamento
+    function copyShareLink() {
+      const shareUrl = `${window.location.origin}/painel?key=equipe`;
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        showToast('Link da equipe copiado para o WhatsApp!');
+      }).catch(() => {
+        prompt('Copie o link abaixo para a equipe:', shareUrl);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    // Carregar dados da API
+    async function fetchData() {
+      try {
+        const res = await fetch('/api/painel-dados?key=equipe');
+        if (!res.ok) throw new Error('Falha ao carregar dados');
+        const data = await res.json();
+        renderDashboard(data);
+      } catch (err) {
+        console.warn('Usando dados em cache local:', err);
+      }
+    }
+
+    function renderDashboard(data) {
+      document.getElementById('syncTime').textContent = new Date().toLocaleTimeString('pt-BR');
+
+      // KPIs
+      if (data.resumo) {
+        document.getElementById('kpiRevenue').textContent = `R$ ${data.resumo.faturamentoTotal.toFixed(2).replace('.', ',')}`;
+        document.getElementById('kpiSalesCount').textContent = `${data.resumo.vendasAprovadas} vendas`;
+        document.getElementById('kpiTicket').textContent = `R$ ${data.resumo.ticketMedio.toFixed(2).replace('.', ',')}`;
+        document.getElementById('kpiPixRate').textContent = data.resumo.taxaConversaoPix;
+        document.getElementById('kpiPixSub').textContent = `${data.resumo.pixPagos} pagos / ${data.resumo.pixGerados} gerados`;
+        document.getElementById('kpiRoas').textContent = data.resumo.roasEstimado;
+        document.getElementById('kpiLpRate').textContent = data.resumo.taxaConversaoSite;
+        document.getElementById('kpiVisits').textContent = `${data.resumo.visitasEstimadas} acessos`;
+      }
+
+      // Tabela de Criativos
+      const tbody = document.getElementById('creativesTableBody');
+      tbody.innerHTML = '';
+
+      if (data.criativos && data.criativos.length > 0) {
+        data.criativos.forEach(c => {
+          const tr = document.createElement('tr');
+          const isAtivo = c.status === 'EM VEICULAÇÃO' || c.status === 'ATIVO';
+
+          tr.innerHTML = `
+            <td>
+              <div class="creative-cell">
+                <div class="creative-number">${c.numero}</div>
+                <div>
+                  <div class="creative-title">${c.nome}</div>
+                  <div class="creative-sub">${c.headline}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="badge-status ${isAtivo ? 'active' : 'reserve'}">
+                ${isAtivo ? '● ' + c.status : c.status}
+              </span>
+            </td>
+            <td class="metric-mono">${c.cliques}</td>
+            <td class="metric-mono" style="font-weight: 700; color: ${c.vendas > 0 ? 'var(--green-neon)' : 'inherit'};">${c.vendas}</td>
+            <td class="metric-mono">R$ ${c.receita.toFixed(2).replace('.', ',')}</td>
+            <td class="metric-mono" style="color: ${c.vendas > 0 ? 'var(--green-neon)' : 'inherit'};">${c.conversao}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Feed de Vendas
+      const feed = document.getElementById('salesFeed');
+      feed.innerHTML = '';
+
+      if (data.vendasRecentes && data.vendasRecentes.length > 0) {
+        data.vendasRecentes.forEach(v => {
+          const div = document.createElement('feed-item');
+          div.className = 'feed-item';
+          div.innerHTML = `
+            <div class="feed-top">
+              <span class="feed-price">R$ ${v.valor.toFixed(2).replace('.', ',')}</span>
+              <span class="feed-time">${v.horario}</span>
+            </div>
+            <div class="feed-prod">${v.produto}</div>
+            <div class="feed-tags">
+              <span class="mini-badge ${v.metodo.toLowerCase().includes('pix') ? 'pix' : 'card'}">${v.metodo}</span>
+              <span class="mini-badge utm">${v.criativo}</span>
+              <span class="mini-badge" style="background: rgba(16, 185, 129, 0.1); color: var(--green-neon);">Aprovado</span>
+            </div>
+          `;
+          feed.appendChild(div);
+        });
+      }
+    }
+
+    // Inicialização
+    window.addEventListener('DOMContentLoaded', () => {
+      checkAuth();
+      // Auto-refresh a cada 30 segundos
+      setInterval(fetchData, 30000);
+    });
+  </script>
+</body>
+</html>

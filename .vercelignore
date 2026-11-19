@@ -1,0 +1,33 @@
+# ==============================================================================
+# VERCEL DEPLOYMENT IGNORE LIST — HERÓIS DA MULTIPLICAÇÃO
+# Impede o upload e a exposição de arquivos internos, códigos legados e dados sensíveis
+# ==============================================================================
+
+# Arquivos e pastas internas de desenvolvimento e estratégia
+_internal_archive/
+operacao_v2/
+knowledge_base/
+scripts/
+checkout/
+email/
+.agents/
+10_CRIATIVOS_PARA_META_ADS/
+assets/Criativos STEAM/
+
+# Documentações, briefings de copy, auditorias e dados operacionais
+*.md
+*.csv
+*.bat
+*.bak
+*.log
+.env*
+.nojekyll
+
+# Git e ferramentas locais
+.git/
+.gitignore
+.gitattributes
+
+# Arquivos de build raiz
+node_modules/
+package-lock.json

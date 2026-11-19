@@ -14,9 +14,8 @@ midias_brutas/
 test_*.png
 *.log
 
-
 .agents/
 mcp_config.json
 midias/
 *.mp4
-
+_internal_archive/

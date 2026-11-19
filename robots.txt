@@ -1,28 +1,37 @@
 # robots.txt — Heróis da Multiplicação
-# Proteção contra indexação de entregáveis e páginas de clientes
+# Proteção contra indexação de entregáveis, painel da equipe e páginas privadas
 
 User-agent: *
+Disallow: /painel
+Disallow: /painel.html
+Disallow: /dashboard
 Disallow: /obrigado
 Disallow: /obrigado.html
 Disallow: /download
+Disallow: /downlownd
 Disallow: /api/
 Disallow: /*.pdf$
 Disallow: /Missao_Tabuada_Volume_1.pdf
+Disallow: /Cronograma_Mestre_12_Semanas.pdf
+Disallow: /Caderno_de_Atividades_Fichas_Diarias.pdf
+Disallow: /Caderno_de_Pintura_Multiplicacao.pdf
+Disallow: /Jogos_da_Tabuada_Trilha_Domino_Bingo.pdf
+Disallow: /Desafios_Semanais_Acompanhamento.pdf
 
 # Permite rastreadores de anúncios apenas na página pública de vendas
 User-agent: Googlebot
-Allow: /
-Allow: /tabuada-offer.html
+Allow: /$
+Allow: /index.html
 
 User-agent: Facebot
-Allow: /
-Allow: /tabuada-offer.html
+Allow: /$
+Allow: /index.html
 
 User-agent: facebookexternalhit
-Allow: /
-Allow: /tabuada-offer.html
+Allow: /$
+Allow: /index.html
 
-# Bloqueia bots de espionagem de anúncios conhecidos
+# Bloqueia bots de espionagem de anúncios e scrapers conhecidos
 User-agent: SemrushBot
 Disallow: /
 
@@ -33,4 +42,10 @@ User-agent: MJ12bot
 Disallow: /
 
 User-agent: DotBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: DataForSeoBot
 Disallow: /

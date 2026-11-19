@@ -1,8 +1,22 @@
 {
   "version": 2,
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/(.*)\\.(md|csv|env|bat|bak|sql|log|sh)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/(operacao_v2|scripts|knowledge_base|checkout|email|_internal_archive|10_CRIATIVOS_PARA_META_ADS)(.*)",
+      "destination": "/",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     { "source": "/oferta", "destination": "/" },
+    { "source": "/painel", "destination": "/painel.html" },
+    { "source": "/dashboard", "destination": "/painel.html" },
     { "source": "/app", "destination": "/app-dist/index" },
     { "source": "/jogar", "destination": "/app-dist/index" },
     { "source": "/download", "destination": "/Missao_Tabuada_Volume_1.pdf" },
@@ -15,14 +29,15 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "X-XSS-Protection", "value": "1; mode=block" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
       ]
     },
     {
-      "source": "/(obrigado|obrigado\\.html|download|downlownd|.*\\.pdf)",
+      "source": "/(painel|painel\\.html|dashboard|obrigado|obrigado\\.html|download|downlownd|.*\\.pdf)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
-        { "key": "Cache-Control", "value": "no-store, max-age=0" }
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet" },
+        { "key": "Cache-Control", "value": "no-store, max-age=0, must-revalidate" }
       ]
     },
     {
